@@ -1,0 +1,501 @@
+{
+  "schemaVersion": 1,
+  "runId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+  "mode": "init",
+  "phase": "generating",
+  "startedAt": "2026-09-07T20:26:28.923Z",
+  "language": "en",
+  "languageChanged": false,
+  "requiredRewritePages": [],
+  "initialPages": [],
+  "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd",
+  "actor": {
+    "producerActor": "openwiki/0.5.0",
+    "metadataModel": "z-ai/glm-5.3-flash"
+  },
+  "previousLastUpdate": null,
+  "wikiGoal": "A code wiki for this repository.",
+  "beforeContentSnapshot": "632cf2073a36a4ef01dcd33b2a7a2d55b75afc69f961e55e70fa14a5e236f881",
+  "preparedWiki": {
+    "generatedProvenance": []
+  },
+  "plan": {
+    "pages": [
+      {
+        "id": "18a74a13-ff81-4779-b851-c6c88be908a6",
+        "path": "/openwiki/architecture/legacy-and-dead-code.md",
+        "title": "Legacy Archive & Unwired Code",
+        "purpose": "Boundary map of code agents must not build on or 'fix': the archived Python/FastAPI + Docker + whisper.cpp backend, the unwired audio_v2 module, the lib_old_complex.rs monolith, and the one supported bridge into that era (legacy DB import).",
+        "seedPaths": [
+          "CLAUDE.md",
+          "backend/app/main.py",
+          "backend/docker-compose.yml",
+          "frontend/src-tauri/src/audio_v2/lib.rs",
+          "frontend/src-tauri/src/lib_old_complex.rs"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/overview.md",
+          "/openwiki/concepts/data-model.md",
+          "/openwiki/workflows/first-run-and-model-setup.md"
+        ],
+        "instructions": [
+          "Explain the supported migration bridge: DatabaseManager copies a legacy meeting_minutes.db to meeting_minutes.sqlite on first open, and database::commands exposes detect/import commands plus first-launch detection used by the DatabaseImport UI; that is the only place legacy data should flow forward.",
+          "Inventory what backend/ still contains (FastAPI app under app/, Docker files and helper scripts, whisper.cpp git submodule declared in .gitmodules, ggml download scripts) so agents can recognize it, and note it exists for migration context only.",
+          "Mark frontend/src-tauri/src/audio_v2/ and lib_old_complex.rs as not part of the compiled module tree (not declared in lib.rs); verify a module is declared/wired before investing in it, and do not re-introduce the FastAPI backend as a requirement.",
+          "State the project rule explicitly: backend/ is archived and unsupported; do not add endpoints to backend/app/main.py, do not use it for installs or issue triage, and treat its unauthenticated development-CORS behavior as obsolete legacy context, never a supported production API."
+        ],
+        "status": "skipped"
+      },
+      {
+        "id": "8e818b18-2fbe-459b-a603-348885fced74",
+        "path": "/openwiki/architecture/overview.md",
+        "title": "Architecture Overview",
+        "purpose": "One-page map of the whole system: Tauri 2.x shell, Rust core module layout, Next.js UI, llama-helper sidecar, bundled ffmpeg, SQLite storage, the managed state set, and the app startup/exit sequence in lib.rs.",
+        "seedPaths": [
+          "Cargo.toml",
+          "docs/architecture.md",
+          "frontend/src-tauri/Cargo.toml",
+          "frontend/src-tauri/src/lib.rs",
+          "frontend/src-tauri/src/state.rs"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/legacy-and-dead-code.md",
+          "/openwiki/architecture/tauri-command-surface.md",
+          "/openwiki/concepts/data-model.md",
+          "/openwiki/integrations/llama-helper-sidecar.md"
+        ],
+        "instructions": [
+          "Document the run() startup ordering: plugins (single-instance, store, updater, notification, dialog, process), managed state (ParallelProcessorState, NotificationManagerState, system audio state, ModelManagerState), blocking DB init via database::setup, spawned engine inits (whisper, parakeet, ModelManager), tray creation, templates resource dir, close-to-tray window behavior, and RunEvent::Exit cleanup (DB cleanup + force_shutdown_sidecar).",
+          "Explain the crate workspace: root Cargo.toml members are frontend/src-tauri and llama-helper; app_lib is the Tauri library crate.",
+          "Include a mermaid flowchart of components (Next.js UI <-> Tauri commands/events <-> Rust modules -> engines/DB/sidecar/ffmpeg) grounded in lib.rs and docs/architecture.md.",
+          "Note which top-level modules exist (audio, transcription under audio, whisper_engine, parakeet_engine, summary, summary_engine, database, api, notifications, analytics, tray, onboarding, ollama/openai/anthropic/groq/openrouter) and that AppState { db_manager } is the shared DB handle.",
+          "Point out that audio_v2/ and lib_old_complex.rs are not declared in lib.rs and therefore are not compiled into the app; link to legacy-and-dead-code.md."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "5ca52d57-e3d3-4b7d-b223-375b5b822b11",
+        "path": "/openwiki/architecture/tauri-command-surface.md",
+        "title": "Tauri Command & Event Surface",
+        "purpose": "The app's real public API: the ~180 registered Tauri commands grouped by domain, the events Rust emits to the UI with payload shapes, managed state, and the exact recipe for adding a new command end to end.",
+        "seedPaths": [
+          "frontend/src-tauri/src/api/api.rs",
+          "frontend/src-tauri/src/lib.rs",
+          "frontend/src/services/recordingService.ts",
+          "frontend/src/services/transcriptService.ts"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/overview.md",
+          "/openwiki/concepts/desktop-services.md",
+          "/openwiki/concepts/frontend-state.md",
+          "/openwiki/workflows/live-recording.md"
+        ],
+        "instructions": [
+          "Document Rust->frontend events and payload shapes where visible: transcript-update (text, timestamps, sequence_id, audio_start_time/end_time), transcription-error, recording-stopped (message, folder_path, meeting_name), first-launch-detected, model download progress, import/retranscription progress.",
+          "Explain that api/api.rs keeps legacy REST-style command names and a vestigial hardcoded APP_SERVER_URL (localhost:5167) but actually reads/writes local SQLite via repositories; do not assume a network server exists.",
+          "Give the 3-step recipe for adding a command: define #[tauri::command] in the owning module, register it in the tauri::generate_handler! list in lib.rs run(), call via invoke from a frontend service wrapper in src/services/.",
+          "Group the generate_handler registrations in lib.rs run() by domain: recording/audio (start/stop/pause/resume, devices, level monitoring, device events, reconnection), whisper/parakeet/parallel commands, summary + templates + builtin-ai commands, api_* meeting/profile/settings commands, database import/path commands, notifications, onboarding, import/retranscription, analytics, system audio and permissions.",
+          "Note serde conventions: settings/model configs use camelCase renames (whisperModel, apiKey, ollamaEndpoint) on the Rust side; frontend services are pure 1:1 invoke/listen wrappers without behavior changes."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "1bcce7ce-8d1d-4559-81cc-ae67f2b28b12",
+        "path": "/openwiki/concepts/audio-pipeline.md",
+        "title": "Audio Pipeline",
+        "purpose": "The dual-path audio system and its invariants: capture from mic + system devices, professional mixing for the saved recording, VAD-filtered speech for transcription, adaptive Bluetooth buffering, device discovery/monitoring, and platform capture backends.",
+        "seedPaths": [
+          "frontend/src-tauri/src/audio/devices/mod.rs",
+          "frontend/src-tauri/src/audio/ffmpeg_mixer.rs",
+          "frontend/src-tauri/src/audio/pipeline.rs",
+          "frontend/src-tauri/src/audio/recording_manager.rs",
+          "frontend/src-tauri/src/audio/vad.rs"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/overview.md",
+          "/openwiki/concepts/transcription-engines.md",
+          "/openwiki/workflows/live-recording.md"
+        ],
+        "instructions": [
+          "Cover the devices/ + capture/ split: platform implementations (macOS ScreenCaptureKit/CoreAudio with backend selection, Windows WASAPI loopback, Linux ALSA/Pulse), permissions module (microphone + screen recording on macOS), device_monitor and playback_monitor for BT disconnect/reconnect and playback warnings, and the BLUETOOTH_PLAYBACK_NOTICE playback-side caveat.",
+          "Document VAD constraints: silero_rs runs at 16kHz only; capture is resampled (rubato) from the 48kHz pipeline rate; ContinuousVadProcessor thresholds and redemption_time (live ~400ms vs batch 2000ms) exist to avoid fragmenting long utterances; speech segments become AudioChunks with recording-relative timestamps.",
+          "Explain pipeline.rs internals: AudioMixerRingBuffer windowing with zero-padding instead of last-sample-hold, overflow drop behavior on the system path and why system-audio jitter causes distortion, adaptive buffering via InputDeviceKind (wired ~20-50ms vs Bluetooth ~80-200ms, see device_detection.rs and FFmpegAudioMixer), RMS-based ducking, AudioBufferPool and AudioMetricsBatcher.",
+          "Include a mermaid flowchart of capture -> AudioPipelineManager -> (pre-mixed path to RecordingSaver/incremental checkpoints) and (VAD speech path to transcription worker).",
+          "Use the repo naming convention consistently: devices are 'microphone' and 'system' (never input/output); pipeline expects consistent 48kHz with resampling at capture time; use perf_debug!/perf_trace! for hot-path logging (zero-cost in release)."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "62d2ca95-42ca-4d57-bbfe-be2103f3a064",
+        "path": "/openwiki/concepts/data-model.md",
+        "title": "Data Model & On-Disk Layout",
+        "purpose": "All persisted state: SQLite schema and migrations (meetings, transcripts, summary_processes, transcript_chunks, settings), the per-meeting folder on disk (audio, transcripts.json, metadata.json, .checkpoints), and Tauri store files.",
+        "seedPaths": [
+          "frontend/src-tauri/migrations/20250916100000_initial_schema.sql",
+          "frontend/src-tauri/src/audio/recording_saver.rs",
+          "frontend/src-tauri/src/database/manager.rs",
+          "frontend/src-tauri/src/database/models.rs",
+          "frontend/src-tauri/src/summary/metadata.rs"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/legacy-and-dead-code.md",
+          "/openwiki/architecture/overview.md",
+          "/openwiki/workflows/live-recording.md",
+          "/openwiki/workflows/summary-generation.md"
+        ],
+        "instructions": [
+          "Document the meeting folder contract created by RecordingSaver and shared by import/retranscription: audio file, transcripts.json (versioned, atomic temp-file write, per-segment audio_start_time/audio_end_time/duration for playback sync), metadata.json (meeting metadata plus summary_language / detected_summary_language fields), and .checkpoints/ written every 30 seconds by IncrementalAudioSaver for crash recovery.",
+          "Explain manager.rs behavior: create-or-copy legacy .db, sqlx migrate! from src-tauri/migrations, defensive WAL/SHM cleanup-and-retry on corrupt/malformed errors, and cleanup() on exit.",
+          "Include a mermaid erDiagram: meetings 1-N transcripts, meetings 1-1 summary_processes (with result_backup), meetings 1-N transcript_chunks, plus settings / transcript_settings rows for provider config and API keys.",
+          "List Tauri store JSON files and their owners: onboarding-status.json (onboarding state incl. model download status), store.json (auth token and misc), notification settings via the notifications module.",
+          "Note default storage locations: DB and models under app_data_dir, recordings under the platform Music/Movies folder via recording_preferences; always use Tauri path APIs, never hardcode paths."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "e9ed48d4-9982-41d8-b8e9-07ff3e911f11",
+        "path": "/openwiki/concepts/desktop-services.md",
+        "title": "Desktop Services",
+        "purpose": "Cross-cutting desktop features around the core loop: system tray and window lifecycle, notification manager (consent, permissions, do-not-disturb), consent-gated PostHog analytics, auto-updater, and onboarding persistence.",
+        "seedPaths": [
+          "frontend/src-tauri/src/analytics/analytics.rs",
+          "frontend/src-tauri/src/notifications/manager.rs",
+          "frontend/src-tauri/src/onboarding.rs",
+          "frontend/src-tauri/src/tray.rs",
+          "frontend/src/services/updateService.ts"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/overview.md",
+          "/openwiki/architecture/tauri-command-surface.md",
+          "/openwiki/workflows/first-run-and-model-setup.md"
+        ],
+        "instructions": [
+          "Cover the updater: tauri-plugin-updater with pinned pubkey and GitHub releases latest.json endpoint, frontend updateService with 24h check interval and relaunch via plugin-process.",
+          "Describe analytics: posthog-rs based with explicit consent (init_analytics/disable_analytics, transparency events), the track_* command family for recording/summary/model events, and that it must stay consent-gated and local-first aligned.",
+          "Document the tray: RecordingState enum (Stopped/Starting/Recording/Pausing/Paused/Resuming/Stopping), menu actions (toggle/pause/resume/stop, open window, settings navigation, check updates, quit), update_tray_menu calls after start/stop, close-to-tray window behavior, and single-instance focus.",
+          "Explain notifications: NotificationManagerState managed at startup and initialized async with default consent + permission request, commands for settings/consent/DND/test notifications, and where recording started/stopped notifications are fired from lib.rs respecting user preferences.",
+          "Note onboarding persistence via tauri store (onboarding-status.json: version, completed, current_step, model_status for parakeet/summary) and that the ModelManager for BuiltInAI initializes at startup with lazy fallback."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "9cc5141f-53ec-4fa2-be03-cb1f2f3cf8d6",
+        "path": "/openwiki/concepts/frontend-state.md",
+        "title": "Frontend State & Services",
+        "purpose": "The Next.js runtime domain: contexts and their responsibilities, service wrappers over invoke/listen, key lifecycle hooks, IndexedDB buffering and recovery, and the page structure of the app.",
+        "seedPaths": [
+          "frontend/src/contexts/ConfigContext.tsx",
+          "frontend/src/contexts/RecordingStateContext.tsx",
+          "frontend/src/contexts/TranscriptContext.tsx",
+          "frontend/src/hooks/useRecordingStop.ts",
+          "frontend/src/services/recordingService.ts"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/overview.md",
+          "/openwiki/architecture/tauri-command-surface.md",
+          "/openwiki/workflows/live-recording.md"
+        ],
+        "instructions": [
+          "Describe key hooks: useRecordingStart/useRecordingStop (stop sequence: poll transcription completion ~60s at 500ms, flush buffer, save to SQLite, navigate), useTranscriptStreaming, usePaginatedTranscripts, useTranscriptRecovery, useImportAudio, useProcessingProgress, usePermissionCheck.",
+          "Explain IndexedDB usage: transcript buffering in storageService, indexedDBService cleanup of old (7+ days) and saved (24h+) meetings on startup, and the recovery dialog flow on page.tsx.",
+          "Map the contexts: ConfigContext (model + transcript configs, devices, language, API keys, beta features, notification settings, storage locations), RecordingStateContext (lifecycle status enum IDLE/STARTING/RECORDING/STOPPING/PROCESSING_TRANSCRIPTS/SAVING/COMPLETED/ERROR with backend polling), TranscriptContext (live transcript buffer, flush, meeting title), SidebarProvider (meetings list, current meeting, summary polling), OnboardingContext, ImportDialogContext, OllamaDownloadContext, RecordingPostProcessingProvider.",
+          "Sketch the page map: app/page.tsx (recording home), meeting-details (transcript + summary), notes/[id] (editor), settings; components/ groups worth knowing (RecordingControls, Sidebar, AISummary BlockNote editor, model managers, DeviceSelection, TranscriptRecovery, ImportAudio).",
+          "State the pattern: Rust command updates native state -> Rust emits event -> frontend listener updates context -> components consume; services/ are pure 1:1 invoke/listen wrappers (recordingService, transcriptService, configService, storageService, updateService) — wrap new commands there."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "aa4c569a-ba4d-4cec-a20b-94569028a1e5",
+        "path": "/openwiki/concepts/summary-engine.md",
+        "title": "Summary Engine",
+        "purpose": "How transcripts become summaries: the SummaryService pipeline, template system (built-in + custom JSON), language detection and translation passes, result caching by fingerprint, cancellation registry, and status persistence in summary_processes.",
+        "seedPaths": [
+          "frontend/src-tauri/src/summary/commands.rs",
+          "frontend/src-tauri/src/summary/processor.rs",
+          "frontend/src-tauri/src/summary/service.rs",
+          "frontend/src-tauri/src/summary/templates/mod.rs"
+        ],
+        "relatedPages": [
+          "/openwiki/concepts/data-model.md",
+          "/openwiki/concepts/transcription-engines.md",
+          "/openwiki/integrations/llm-providers.md",
+          "/openwiki/workflows/summary-generation.md"
+        ],
+        "instructions": [
+          "Document the template system: built-in JSON templates under src-tauri/templates embedded/bundled, custom templates from app data overriding by ID, to_markdown_structure/to_section_instructions feeding prompts, and template_commands for list/validate.",
+          "Explain caching and cancellation: SummaryCacheSource fingerprints (transcript, custom prompt, template + fingerprint, token threshold, provider/model/endpoint/sampling params) plus the english_cache field, and the global CANCELLATION_REGISTRY keyed by meeting with tokio_util CancellationToken; result_backup preserves the previous summary on regeneration.",
+          "Explain the language pipeline: detect_summary_language (whatlang-based), pinned vs detected language persisted in meeting metadata.json, the English normalization pass with structure-preserving rules, thinking-tag stripping, and FinalLanguageAction decision logic in processor.rs.",
+          "Include a mermaid sequenceDiagram: UI -> api_process_transcript -> SummaryService -> LLM client (provider or sidecar) -> save to summary_processes -> UI polling.",
+          "Note the 5-minute ModelMetadataCache (Ollama metadata) and where chunk/token thresholds in processor.rs control prompt construction."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "0698ef98-9fb9-4211-b9e8-5a7e03c9490c",
+        "path": "/openwiki/concepts/transcription-engines.md",
+        "title": "Transcription Engines & Models",
+        "purpose": "How speech becomes text: WhisperEngine vs ParakeetEngine, the TranscriptionEngine dispatch layer, model catalogs/storage/download lifecycle, GPU acceleration and cargo features, the serial live-transcription worker, and the parallel batch processor.",
+        "seedPaths": [
+          "frontend/src-tauri/src/audio/transcription/engine.rs",
+          "frontend/src-tauri/src/config.rs",
+          "frontend/src-tauri/src/parakeet_engine/parakeet_engine.rs",
+          "frontend/src-tauri/src/whisper_engine/parallel_processor.rs",
+          "frontend/src-tauri/src/whisper_engine/whisper_engine.rs"
+        ],
+        "relatedPages": [
+          "/openwiki/concepts/audio-pipeline.md",
+          "/openwiki/testing/validation-and-debugging.md",
+          "/openwiki/workflows/first-run-and-model-setup.md",
+          "/openwiki/workflows/live-recording.md"
+        ],
+        "instructions": [
+          "Cover GPU acceleration: acceleration.rs backend detection, per-OS whisper-rs feature defaults (metal+coreml on macOS; cuda/vulkan/hipblas/openblas opt-in on Windows/Linux) and how cargo features map to builds (see build-and-release.md).",
+          "Describe the live transcription worker design: worker.rs uses NUM_WORKERS = 1 serial mode to guarantee chronological transcript-update emission, zero-loss unbounded queues with queued/completed counters, TranscriptUpdate fields including sequence_id and audio_start_time/audio_end_time for playback sync, and the per-session speech-detected flag reset.",
+          "Document engine selection: audio/transcription/engine.rs reads the transcript config from the settings table and defaults to Parakeet (DEFAULT_PARAKEET_MODEL = parakeet-tdt-0.6b-v3-int8) when missing or unreadable; DEFAULT_WHISPER_MODEL is large-v3-turbo; WHISPER_MODEL_CATALOG in config.rs drives discovery.",
+          "Explain model storage and lifecycle: models dir resolved to app_data_dir/models via set_models_directory, ModelStatus states (Available/Missing/Downloading/Error/Corrupted), download/cancel/delete-corrupted commands for both engines, active-download de-duplication.",
+          "Explain the parallel_processor/parallel_commands path (worker pool, retry, resource constraints via system_monitor, pause/resume) as the batch-oriented alternative, and that audio/common.rs ENGINE_LIFECYCLE_LOCK serializes engine load/unload against live recording, import, and retranscription."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "b16b1deb-f2b6-4d3b-b98d-4add21d69c51",
+        "path": "/openwiki/integrations/llama-helper-sidecar.md",
+        "title": "llama-helper Sidecar",
+        "purpose": "The standalone llama-cpp sidecar crate that powers BuiltInAI summaries: its JSON stdin/stdout protocol, process lifecycle (keep-alive, health, graceful shutdown), model management, and how the binary is built and bundled.",
+        "seedPaths": [
+          "frontend/src-tauri/src/summary/summary_engine/client.rs",
+          "frontend/src-tauri/src/summary/summary_engine/model_manager.rs",
+          "frontend/src-tauri/src/summary/summary_engine/sidecar.rs",
+          "frontend/src-tauri/tauri.conf.json",
+          "llama-helper/src/main.rs"
+        ],
+        "relatedPages": [
+          "/openwiki/concepts/summary-engine.md",
+          "/openwiki/integrations/llm-providers.md",
+          "/openwiki/operations/build-and-release.md"
+        ],
+        "instructions": [
+          "Cover model management: model_manager.rs mirrors the whisper engine patterns (ModelStatus incl. Corrupted, DownloadProgress in MB with speed, available/recommended model helpers, models catalog in models.rs).",
+          "Describe the client layer: global SIDECAR_MANAGER, model path cache, request/response framing in summary_engine/client.rs, and how summary commands expose builtin_ai_* operations (list/info/download/cancel/delete/ready/recommended).",
+          "Document the wire protocol from llama-helper/src/main.rs: serde-tagged Request messages (generate with prompt/max_tokens/context_size/model_path/sampling params/stop_tokens, ping, shutdown) and Response messages (response, pong, goodbye, error) over stdin/stdout.",
+          "Explain SidecarManager lifecycle: spawn of the resolved helper binary, stdin writer/stdout reader pairing, last-activity tracking, is_healthy flag, idle timeout via env var, RAII RequestGuard counting active requests, and force_shutdown_sidecar called from RunEvent::Exit in lib.rs.",
+          "Explain packaging: llama-helper builds with llama-cpp-2 features (metal/cuda/vulkan) mirroring the main app, build scripts copy the binary into src-tauri/binaries with the target triple, and tauri.conf.json declares it via externalBin alongside ffmpeg."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "d0765cd7-aec9-47f4-9c15-385f7da0416c",
+        "path": "/openwiki/integrations/llm-providers.md",
+        "title": "LLM Provider Integrations",
+        "purpose": "Every summary-model backend and its plumbing: Ollama, Claude, Groq, OpenAI, OpenRouter, custom OpenAI-compatible endpoints, and BuiltInAI — request shapes, API key storage, model discovery, timeouts, and CSP boundaries.",
+        "seedPaths": [
+          "frontend/src-tauri/src/anthropic/anthropic.rs",
+          "frontend/src-tauri/src/groq/groq.rs",
+          "frontend/src-tauri/src/ollama/ollama.rs",
+          "frontend/src-tauri/src/openrouter/openrouter.rs",
+          "frontend/src-tauri/src/summary/llm_client.rs"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/tauri-command-surface.md",
+          "/openwiki/concepts/data-model.md",
+          "/openwiki/concepts/summary-engine.md",
+          "/openwiki/integrations/llama-helper-sidecar.md"
+        ],
+        "instructions": [
+          "Cover key storage and endpoints: per-provider API key columns in the settings table, api_get_api_key, custom OpenAI config JSON (api_save/get_custom_openai_config, api_test_custom_openai_connection), Ollama endpoint override column, and CSP connect-src allowlist in tauri.conf.json (localhost:11434 for Ollama).",
+          "Describe per-provider model discovery commands: get_ollama_models (+ pull/delete/context), get_openai_models, get_anthropic_models, get_groq_models, get_openrouter_models, and the Ollama metadata cache with 5-minute TTL used by the summary service.",
+          "Document LLMProvider parsing (OpenAI, Claude, Groq, Ollama, OpenRouter, BuiltInAI, CustomOpenAI) including accepted aliases like 'builtin-ai'/'local-llama' and 'custom-openai', and where provider choice is stored (settings row via api_get/save_model_config).",
+          "Explain request shapes: generic OpenAI-compatible ChatRequest/ChatResponse vs the Claude-specific request (system + max_tokens + content blocks); 300s request timeout; CancellationToken-aware generation in summary/llm_client and processor.",
+          "Note that BuiltInAI is not an HTTP provider: it routes to the llama-helper sidecar via summary_engine (link to llama-helper-sidecar.md) and keeps everything local."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "db95d2da-96ec-4619-a225-40a094937fdb",
+        "path": "/openwiki/operations/build-and-release.md",
+        "title": "Build, Bundling & Release",
+        "purpose": "How the app is built and shipped: GPU feature selection and auto-detection, sidecar and ffmpeg bundling, per-OS build scripts and Tauri config, GitHub Actions workflows, and the updater artifact pipeline.",
+        "seedPaths": [
+          ".github/workflows/WORKFLOWS_OVERVIEW.md",
+          "frontend/package.json",
+          "frontend/scripts/auto-detect-gpu.js",
+          "frontend/src-tauri/build.rs",
+          "frontend/src-tauri/build/ffmpeg.rs"
+        ],
+        "relatedPages": [
+          "/openwiki/concepts/transcription-engines.md",
+          "/openwiki/integrations/llama-helper-sidecar.md",
+          "/openwiki/quickstart.md"
+        ],
+        "instructions": [
+          "Document tauri.conf.json bundle facts: externalBin for llama-helper and ffmpeg, templates/*.json resources, updater pubkey + GitHub latest.json endpoint, macOS entitlements/hardened runtime, Windows PowerShell signCommand, and the CSP allowlist.",
+          "Explain the build orchestration: build-gpu.sh/dev-gpu.sh (and .bat/.ps1) run scripts/auto-detect-gpu.js (nvidia-smi/rocm-smi/vulkaninfo/BLAS detection priority), build the llama-helper sidecar, copy it to src-tauri/binaries with the target triple, then invoke tauri via scripts/tauri-auto.js with the feature flag; build.rs reports GPU guidance and runs build/ffmpeg.rs to download the ffmpeg binary at build time.",
+          "Include branch strategy from CONTRIBUTING.md (main stable, devtest development, feature branches from devtest) and the .env.example signing vars (TAURI_SIGNING_PRIVATE_KEY*) used for updater artifacts.",
+          "Map the GPU feature matrix: default platform-default enables Metal (+optional coreml) on macOS; cuda/vulkan/hipblas/openblas are opt-in on Windows/Linux; whisper-rs deps are declared per target OS in Cargo.toml; cargo feature flags map to pnpm tauri:dev:* / tauri:build:* scripts.",
+          "Summarize CI: all build workflows are manual-dispatch (build.yml, build-devtest.yml, per-OS macos/windows/linux, release.yml) per WORKFLOWS_OVERVIEW.md; release uses scripts/generate-update-manifest-github.js to produce latest.json; pr-main-check.yml and build-test.yml are the PR-time signals."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "bfab5e7a-7018-4a1d-b2f7-7be86e4911ac",
+        "path": "/openwiki/testing/validation-and-debugging.md",
+        "title": "Testing & Debugging",
+        "purpose": "How to verify and diagnose changes: inline Rust unit tests by subsystem, frontend lib tests, the transcript-seeding script, logging controls and hot-path macros, audio metrics, and the quiet-validation expectations for this repo.",
+        "seedPaths": [
+          ".github/workflows/build-test.yml",
+          "frontend/src-tauri/src/audio/vad.rs",
+          "frontend/src-tauri/src/summary/service.rs",
+          "frontend/tests/lib",
+          "scripts/inject_transcript.py"
+        ],
+        "relatedPages": [
+          "/openwiki/concepts/audio-pipeline.md",
+          "/openwiki/quickstart.md",
+          "/openwiki/workflows/live-recording.md"
+        ],
+        "instructions": [
+          "Describe frontend tests under frontend/tests/lib (blocknote-markdown, onboarding-summary-model, summary-language-preferences) as standalone files — there is no npm test script, so run them directly with node/tsx as appropriate.",
+          "Document scripts/inject_transcript.py: seeds the platform-specific Meetily SQLite DB from a CSV to exercise meeting/summary flows without recording; use it for DB-level validation.",
+          "Explain debugging controls: RUST_LOG levels (main.rs forces info; use RUST_LOG=app_lib::audio=debug etc.), perf_debug!/perf_trace! macros compiled out of release builds, async_logger, the in-app console toggle, and audio pipeline metrics (buffer sizes, mixing windows, VAD detection rate, dropped chunks).",
+          "Include known behavioral caveats worth checking after audio changes: Bluetooth playback distortion is a playback-side resampling issue (see BLUETOOTH_PLAYBACK_NOTICE.md), and system-audio buffer overflow causes distortion in recordings.",
+          "Locate inline #[cfg(test)] mod tests across the Rust core (e.g., audio/{vad,decoder,ffmpeg_mixer,device_detection,incremental_saver,import,retranscription,permissions,system_*}, summary/{service,processor,language_detection,metadata,templates}, whisper_engine/acceleration + system_monitor, ollama/metadata, onboarding); run with cargo test from the workspace.",
+          "State the repo's validation norm: prefer the narrowest quiet validation that proves the changed behavior, and preserve complete failure output."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "48134098-9521-4fc3-bf01-8dc299df0326",
+        "path": "/openwiki/workflows/audio-import-retranscription.md",
+        "title": "Workflow: Audio Import & Retranscription",
+        "purpose": "The batch audio paths: importing external audio files as new meetings and re-transcribing stored recordings with a different model or language, including decode, VAD, progress/cancel events, and engine handoff rules.",
+        "seedPaths": [
+          "frontend/src-tauri/src/audio/decoder.rs",
+          "frontend/src-tauri/src/audio/import.rs",
+          "frontend/src-tauri/src/audio/retranscription.rs",
+          "frontend/src/hooks/useImportAudio.ts"
+        ],
+        "relatedPages": [
+          "/openwiki/concepts/audio-pipeline.md",
+          "/openwiki/concepts/data-model.md",
+          "/openwiki/concepts/transcription-engines.md"
+        ],
+        "instructions": [
+          "Contrast the two flows: import creates a new meeting (uses recording preferences folder, uuid meeting id) while retranscription replaces transcripts of an existing meeting; both reuse audio/common.rs helpers and honor the engine lifecycle lock (unload skipped while live recording is active).",
+          "Document the shared batch flow: select/validate file -> decode via symphonia-backed decoder (20GB max) -> whole-file VAD with 2000ms redemption -> engine transcription -> create_transcript_segments -> write transcripts.json + insert into SQLite -> unload engine.",
+          "Explain the RAII flags: IMPORT_IN_PROGRESS/RETRANSCRIPTION_IN_PROGRESS with acquire guards that clear on drop (panic-safe), matching cancellation flags, and the 'already in progress' error the UI surfaces.",
+          "List progress events (stages: decoding/transcribing/saving with percentage and message) and the cancel/is-in-progress commands registered in lib.rs.",
+          "Point to the ImportAudio UI components and useImportAudio hook for the frontend side, and note validated formats/extensions via AUDIO_EXTENSIONS constants."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "4d7a10c6-c362-4937-aff5-a820cc6d88d5",
+        "path": "/openwiki/workflows/first-run-and-model-setup.md",
+        "title": "Workflow: First Run & Model Setup",
+        "purpose": "What happens before the first recording: first-launch detection and deferred DB init, legacy database import, the onboarding flow, and downloading Whisper/Parakeet/BuiltIn summary models.",
+        "seedPaths": [
+          "frontend/src-tauri/src/database/commands.rs",
+          "frontend/src-tauri/src/database/setup.rs",
+          "frontend/src-tauri/src/onboarding.rs",
+          "frontend/src/components/DatabaseImport",
+          "frontend/src/components/onboarding"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/legacy-and-dead-code.md",
+          "/openwiki/concepts/data-model.md",
+          "/openwiki/concepts/desktop-services.md",
+          "/openwiki/concepts/transcription-engines.md"
+        ],
+        "instructions": [
+          "Describe the onboarding flow: OnboardingStatus in the tauri store (current_step, model_status for parakeet and summary), OnboardingContext + components/onboarding driving downloads, and reset/complete commands.",
+          "Document legacy DB import UX: check_first_launch, detect_legacy_database / check_default_legacy_database / check_homebrew_database, select_legacy_database_path dialog, import_and_initialize_database vs initialize_fresh_database, and the .db -> .sqlite copy semantics in manager.rs.",
+          "Explain model download lifecycles per engine: whisper_* and parakeet_* download/progress/cancel/corrupted commands, download progress events consumed by ModelDownloadProgress/WhisperModelManager/ParakeetModelManager, and builtin_ai_* commands backed by summary_engine ModelManager (link to transcription-engines.md and llama-helper-sidecar.md).",
+          "Explain the startup branch in database/setup.rs: is_first_launch delays AppState creation and emits first-launch-detected after 500ms so React listeners are ready; otherwise DatabaseManager is created immediately and managed.",
+          "Note validation interplay: recording start re-validates the selected STT model and surfaces actionable errors when a model is missing, connecting this workflow to live-recording.md."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "cfa67531-5223-4a63-a6df-b1819c0b3aef",
+        "path": "/openwiki/workflows/live-recording.md",
+        "title": "Workflow: Live Recording",
+        "purpose": "The flagship end-to-end flow: start -> capture/mix/VAD -> transcript events -> stop -> transcription drain -> SQLite save -> navigate to meeting details, including pause/resume, device disconnect handling, notifications, and crash recovery.",
+        "seedPaths": [
+          "frontend/src-tauri/src/audio/incremental_saver.rs",
+          "frontend/src-tauri/src/audio/recording_commands.rs",
+          "frontend/src/contexts/RecordingStateContext.tsx",
+          "frontend/src/hooks/useRecordingStart.ts",
+          "frontend/src/hooks/useRecordingStop.ts"
+        ],
+        "relatedPages": [
+          "/openwiki/concepts/audio-pipeline.md",
+          "/openwiki/concepts/data-model.md",
+          "/openwiki/concepts/frontend-state.md",
+          "/openwiki/concepts/transcription-engines.md"
+        ],
+        "instructions": [
+          "Cover pause/resume commands and get_recording_state polling in RecordingStateContext, device monitoring commands (poll_audio_device_events, get_reconnection_status, attempt_device_reconnect) and the Bluetooth playback warning surface.",
+          "Describe crash recovery: IncrementalAudioSaver 30-second checkpoints into .checkpoints/, has_audio_checkpoints/recover_audio_from_checkpoints/cleanup_checkpoints commands, TranscriptRecovery UI + useTranscriptRecovery, and IndexedDB-based transcript recovery on the home page.",
+          "Document ordering and guards: engine lifecycle lock acquired before start, model validation before recording begins (actionable transcription-error event), IS_RECORDING flag and RECORDING_MANAGER static keeping the session alive, TRANSCRIPT_LISTENER_ID cleanup so the mic does not stay active.",
+          "Explain the stop sequence in useRecordingStop: recording-stopped payload (folder_path, meeting_name) stored in sessionStorage, transcription completion polling (60s max, 500ms interval), buffer flush, meeting save, analytics events, navigation with auto-summary kick-off on the details page.",
+          "Include a mermaid sequenceDiagram spanning UI hook -> start command -> RecordingManager (streams + pipeline) -> transcription worker -> transcript-update events -> stop command -> recording-stopped event -> save_transcript/api_save_transcript -> navigation."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "2b9c6ef9-4f4f-431e-a2a6-6f3f93458b58",
+        "path": "/openwiki/workflows/summary-generation.md",
+        "title": "Workflow: Summary Generation",
+        "purpose": "From saved transcript to stored, rendered summary: auto-summary gating on the meeting details page, the summary process lifecycle (status states, polling, cancel), LLM invocation, caching, backup-on-regeneration, and language handling.",
+        "seedPaths": [
+          "frontend/src-tauri/src/database/repositories/summary.rs",
+          "frontend/src-tauri/src/summary/commands.rs",
+          "frontend/src/app/meeting-details/page.tsx",
+          "frontend/src/components/AISummary/index.tsx"
+        ],
+        "relatedPages": [
+          "/openwiki/concepts/data-model.md",
+          "/openwiki/concepts/frontend-state.md",
+          "/openwiki/concepts/summary-engine.md",
+          "/openwiki/integrations/llm-providers.md"
+        ],
+        "instructions": [
+          "Document save semantics: api_save_meeting_summary expects { markdown, summary_json (BlockNote blocks) }, repositories update the result plus backup fields; regeneration creates result_backup with timestamp.",
+          "Explain language preference persistence: api_get/save_meeting_summary_language and detected-language commands backed by metadata.json fields, and how the English normalization/translation pass integrates (link to summary-engine.md).",
+          "Explain the auto-summary decision on meeting-details: only when navigated with source=recording, gated by isAutoSummary from ConfigContext and provider/model availability checks, then navigation or polling picks up results.",
+          "Include a mermaid stateDiagram for summary_processes.status (idle/processing/completed/error transitions driven by api_process_transcript, api_get_summary polling, api_cancel_summary, errors).",
+          "Note cancellation UX: CancellationToken registry keyed by meeting, cancel command, and error propagation to toasts in the UI; caching fingerprints may short-circuit regeneration when inputs and model config are unchanged."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "bb28bee7-7d24-4dcf-b38a-a6420d1a79ff",
+        "path": "/openwiki/quickstart.md",
+        "title": "Quickstart",
+        "purpose": "Set up a dev environment, run the supported Tauri app, and route every common task (audio, STT, summary, schema, commands, builds) to the right wiki page. Establishes the critical repo split: supported app lives in frontend/, backend/ is an archived legacy tier.",
+        "seedPaths": [
+          "CLAUDE.md",
+          "README.md",
+          "docs/BUILDING.md",
+          "frontend/package.json",
+          "frontend/src-tauri/tauri.conf.json"
+        ],
+        "relatedPages": [
+          "/openwiki/architecture/overview.md",
+          "/openwiki/operations/build-and-release.md",
+          "/openwiki/testing/validation-and-debugging.md",
+          "/openwiki/workflows/live-recording.md"
+        ],
+        "instructions": [
+          "Cover prerequisites (pnpm, Rust toolchain, platform audio deps), install, and dev entry points: clean_run.sh / clean_run_windows.bat, pnpm run tauri:dev, dev-gpu.sh; note the Next.js dev server runs on port 3118.",
+          "Keep it a routing page: setup + orientation only, with links into the hierarchy; deep behavior lives on the specialized pages.",
+          "Provide a task-routing map: audio changes -> concepts/audio-pipeline.md; STT/model changes -> concepts/transcription-engines.md; summary/LLM changes -> concepts/summary-engine.md and integrations/llm-providers.md; schema/persistence -> concepts/data-model.md; new Tauri commands -> architecture/tauri-command-surface.md; shipping -> operations/build-and-release.md.",
+          "Source code and tests are authoritative; treat docs (including this wiki) as orientation, not requirements.",
+          "State clearly that current development happens in the Tauri app under frontend/ (Rust core in frontend/src-tauri); backend/ is archive-only legacy context, not a supported tier."
+        ],
+        "status": "pending"
+      }
+    ],
+    "deletePages": []
+  }
+}

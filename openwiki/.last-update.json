@@ -1,0 +1,7 @@
+{
+  "updatedAt": "2026-09-07T22:03:44.115Z",
+  "command": "init",
+  "model": "z-ai/glm-5.3-flash",
+  "status": "interrupted",
+  "language": "en"
+}
