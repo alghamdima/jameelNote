@@ -83,7 +83,15 @@ export const BlockNoteSummaryView = forwardRef<BlockNoteSummaryViewRef, BlockNot
 
   // Create BlockNote editor for markdown parsing
   const editor = useCreateBlockNote({
-    initialContent: undefined
+    initialContent: undefined,
+    // Let every block resolve its own direction from its first strong character,
+    // so an Arabic block renders RTL and a Latin one stays LTR in the same
+    // summary. .bn-block-content is a flex container whose ::before holds the
+    // list marker, so the resolved direction also moves bullets to the correct
+    // side. See the padding-inline-end companion rule in globals.css.
+    domAttributes: {
+      blockContent: { dir: 'auto' }
+    }
   });
 
   // Parse markdown to blocks when format is markdown

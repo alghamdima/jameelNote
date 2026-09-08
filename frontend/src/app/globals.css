@@ -213,15 +213,30 @@
   }
 
   /* Bidirectional text in the summary editor.
-     `unicode-bidi: plaintext` makes each block resolve its own base direction
-     from its first strong character (the UAX#9 heuristic, same rule as
-     dir="auto"), so an Arabic block renders RTL while a Latin block stays LTR
-     in the same document. `text-align: start` is the CSS initial value of
-     text-align, so it cannot change how LTR text is rendered -- it only lets
-     alignment follow the direction each block resolved to. */
+     Blocks carry dir="auto" via the editor's domAttributes, which resolves each
+     block's direction from its first strong character (UAX#9). These rules are
+     the CSS half of that: `text-align: start` is text-align's initial value, so
+     it cannot change LTR rendering -- it only lets alignment follow whatever
+     direction the block resolved to. `unicode-bidi: plaintext` on the inline
+     content keeps the same per-paragraph resolution if a block ever renders
+     without the attribute. */
   .bn-block-content,
   .bn-inline-content {
-    unicode-bidi: plaintext;
     text-align: start;
+  }
+
+  .bn-inline-content {
+    unicode-bidi: plaintext;
+  }
+
+  /* BlockNote spaces the list marker with a physical `padding-right: 4px`,
+     which lands on the wrong side once a block resolves to RTL. Bullets and
+     numbers are ::before pseudo-elements; the checklist checkbox is a real
+     nested div instead. */
+  .bn-block-content[data-content-type="bulletListItem"]:before,
+  .bn-block-content[data-content-type="numberedListItem"]:before,
+  .bn-block-content[data-content-type="checkListItem"] > div > div {
+    padding-right: 0;
+    padding-inline-end: 4px;
   }
 }
