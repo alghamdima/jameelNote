@@ -1,0 +1,488 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:68dabc7fe0e631bbd125c55e0a6c29797565395548acfb2d539a8f9305123f12",
+  "claims": [
+    {
+      "id": "claim_76291917d01840abb7b0e42000ee0a55",
+      "statement": "The repository's stated validation norm is to prefer the narrowest quiet validation that proves the changed behavior and to preserve complete failure output.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L7-L8",
+          "version": "repo-lines-v1:sha256:8ca5bb1072a6d0f45c86d7adab2737c384361844ab3eb6dddde54fbac71c7547:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmNiM2Q0YTQ2NjliZGM3YTQwZDk4MDc3MzVkZjYwOGJmZTMxZDM4NjA2N2M5OTliNzUwYWFjNjMyYzFiNmQzMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmNiMzA1ZGNiMTRkY2I0MTUzZTFhM2YyNTk0NjVjZWFkYWRjOWIwNDRhNzkzZGE0MjdkMmM0M2QzYTA5ZDQ5MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTA1MTY5OTI5YTliMjNhOWIwMDJiYjE5MDNhYTA3ZWMxZGE0ODA1ZjY3ZTEyNTBmYzZjOTQ4MDlmMzJlMGM3ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjU1MjQ4YjYyZjU1MmY2Y2I2ZjcxMTA5YzgzY2E0OWZlOTU1MmU5NjYyYTBhZmNjZTdjNjY5YTJiYmEwZWMwYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2fec1eeb08f14cc99cf5f075cf88d7c0",
+      "statement": "GitHub Actions performs builds and signing only: build-test.yml (manual dispatch) drives a four-platform build matrix through build.yml with pnpm install but no cargo test or frontend test step, and pr-main-check.yml only validates the tauri.conf.json version format — so every test suite in the repo is run locally.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/build-test.yml#L1-L35",
+          "version": "repo-lines-v1:sha256:1b298675c31c1ceb2a61aa900069d1a8cb3fb74d829c5e1d6a157cbfb1c97bf9:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjljMjdkY2RiOGU4YzEyOTVmN2EzNTA1MzJlNzAwNDhhMTgwOGM4NTdkNDBjMzhmOTVhNjQzYWE5NDZhODU4NTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5ZDVkZDNlOGEyNGQ1Y2VlMjhlYTIzZjdiNTRlYWY1MjQ2OGZmMWVkY2FhNWVmNTg5NzBmMWQ5NWYxMjRmNWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/build.yml#L431-L435",
+          "version": "repo-lines-v1:sha256:732c1c8aac479b5c76a7147162d0ea17b2270ce47d1e899be766477af9c2553c:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2Q5NmE2NWNjMDdiZmRkMWM3MjQwNjU0NmIxOTNlMzhlMzc0YjUyOTM1NzEyYTAwODI1N2Q2YmIxYjFlYmZjNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzRjNGNkNzZiN2QwOTU4OThmMjI3M2FlNjRlMTA0ZjU5ZDE3ZDJjMWRjZmFhOGMzZDFkODBhZmQ3N2ZiYThmOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzA5ODVkOTcxZGJlNjVkZGYyYTA2YTcwMmRhMzI3MWVhMjlmZjAyMGQwNTYyNWE0NGUzM2MzMjhlMzFiM2RhMSJ9"
+        },
+        {
+          "resource": "repo://.github/workflows/pr-main-check.yml#L41-L51",
+          "version": "repo-lines-v1:sha256:f563c13265b4fa25b730b4be6662b5196fafb827c18683df9ba5b25ca6c0e365:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyM2QwNDRhNmJiNjEyYjBlM2ViZDhmZTliOGU0NzdlYmViNTE5ZTAzNjYzODBkZmI5MzUxOTk3MDk4MmE2YTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmNTU5NzljZTczMDIwMzNlNmIyZmQ3ZDg4ZjUzN2EzYjhlMDkxZWEzMDVjODExZmZhMTI3NGJmNTc2NGVhNWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlZjVmMTA0MjczOGIwMDVmZTczYTVhMmM3ZDI2ZWFiODQ5YTE4Y2NmOTIyOGM5Y2VjNzRkOGMzMDQ1MDJkMzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM5MzJiOWY0MzlmYjUzZWNiYzdmYjVmMWZmMTFjMjAxZTE3ODUyZGI0ZmJkYzQ0ZGE3OGFmYmI3NTI4YTc1ZWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8b03a6fc80e9463bb0cda800ba021d07",
+      "statement": "Rust unit tests are inline #[cfg(test)] modules inside the app crate (frontend/src-tauri, package `meetily`, the only workspace member with tests — llama-helper has none) and are run with cargo test from the repository root; they span audio/, summary/ (including summary_engine and templates), whisper_engine/, ollama/metadata.rs, onboarding.rs and analytics/.",
+      "evidence": [
+        {
+          "resource": "repo://Cargo.toml#L1-L18",
+          "version": "repo-lines-v1:sha256:44d8271333dffae036464e77c88e81a0073c35a64f7533a5131173e87095e4dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzNGUxMDJjODYxZjk5NGQyYWFjZTkxMTRkMzkyZGJjMTYyMTkwZTAwYmU4ZmUzNTdkNDcyMTUwY2E0Mzk2MTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhYjhiMGQ5MGUzYjUwNjgzZTVmM2M3MDQwMmMxNjY2NTlkZTU3NzlkYTQ4NWJkNjMzZDJjMzFiNTE1NTU5YjUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/vad.rs#L411-L412",
+          "version": "repo-lines-v1:sha256:03c5b4b27fb001def5489d5e0264e20f2538b8214c3df8ceda3354aaee53c2c8:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjVjZjVmYzIzZjJhNmQyM2MzZWE1MWU3MmY1ZTg5NmM3NTU1ZmJhYTA1Y2Q1YjFlYTE4MmJmOTYxOGE4ZTgxYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWUwYWYzZmQ0YTRjM2ExZDQ3YzdmNDcwZWQwZDg2ZDkwZDlkZTIxMGE1ZWIxNDU1ZmJkOTQ0ODJhNDc2NWI3MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmE0OWEyZjNiN2QzMzBhNjVlZTk0ZWUyNjFjMThjYmZjODU4N2EwM2VkOGZmZmJkOTg2N2VlMjhjYjhjNmM3NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGVlODBmMDJlMzhiZTQyZDQ3YTgwNjJiMzczZGQwYmZhN2QxZDg5ZjU2NWZkZjRmZjAyOGQzMmVhMjAzM2FhOSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/onboarding.rs#L224-L225",
+          "version": "repo-lines-v1:sha256:03c5b4b27fb001def5489d5e0264e20f2538b8214c3df8ceda3354aaee53c2c8:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjVjZjVmYzIzZjJhNmQyM2MzZWE1MWU3MmY1ZTg5NmM3NTU1ZmJhYTA1Y2Q1YjFlYTE4MmJmOTYxOGE4ZTgxYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWUwYWYzZmQ0YTRjM2ExZDQ3YzdmNDcwZWQwZDg2ZDkwZDlkZTIxMGE1ZWIxNDU1ZmJkOTQ0ODJhNDc2NWI3MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzVmNmY0NjZlNTljZmMzMDcwM2M0NWY3MmFmNjVkZTU0YWMzNjNkMzU0Y2MxYTMzMzAzNTBhY2Q0NTI0MzRjNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGJlOTk2NWNlNGEzMmY5N2Y5ZjMzYzU1MzhjZWY5ZDE0Njc4YjE0NGQ4ODg1ZDY2Mjk4YTZkZTJjODg3NTZlMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_96f53ba506514a5f9e37b78daded9a9f",
+      "statement": "The vad.rs suite pins: chunked and single-pass segmentation agree within ±1 segment; files larger than 960,000 samples (about 60 s at 16 kHz) process in 10-second chunks with monotonically increasing progress that must reach 100% and support callback cancellation (error mentions cancellation); ContinuousVadProcessor state persists across 10-second chunk boundaries; and 2000 ms redemption yields no more segments than 400 ms with segment durations staying at least 250 ms.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/vad.rs#L347-L349",
+          "version": "repo-lines-v1:sha256:dbaa12d69b319a49ec80ed9aa26fc9c3c74045652ed55be4854e574195fc54e5:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGM5ZGM5ZjFlZDgzMTk0ZDhmNDNmMzYyOWMxZjE0MmUzZmFjYzVjZWJiNjdlZWVmNzQxYjU1OTJhNTUxMmZhYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODYyODRlYTVjNDQ1YzM3NWUwNDY3ZjRlNjk1ZGNmM2IyYWZhNGU1ODcxMTA4MzQ3NTFhZDllODYzOGRiODEwMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjljOTJlNzRiZmQ1MzhjMGVjMzI5NDI3NjI5ZjAxNTUwYWQxZWYzZmQzYThmZWZhNzg5NGJiMzZiODI5YzYzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjdlMGYzNzJmNmE5OWNhYzhhZDM5NzYxOTdmNDRmMzdjZWM4NzkxYzQzYTM3MjU0YzkyZGE2OTczMTYxNDIwNSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/vad.rs#L449-L593",
+          "version": "repo-lines-v1:sha256:998695e28c4ed3aba7a567798b25d17acd7d05d5aef2f813639c88a17e787032:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQ1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5MmI1ZWRmNTk0OWNmZWE2NzgyMmNmNjkxMTMyMzYzZDY4ZDZmMWUxNjlmNWUwZDRmN2MxNGU1ZmExZTZkNGU1IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIxMTA0OGIxYzA3YjUwMTJlMDZhZDM0MzkzNTAwY2ZiMmNmMDBkZTRjZDgzMGUwOTk4N2FjNDc2ZDE1MGFjNTE2IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MiwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI5MzhkZTc0YmU5N2JmM2FiYTc4NzJhNjFiYTBlNDIwODQwMDhjODFlOGEyMDJhNjEyMTM0Yzc1NWFhZjdmYTA2In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_4060d719145d45678b0f8365d9db77a1",
+      "statement": "Batch VAD paths (audio import and retranscription) use VAD_REDEMPTION_TIME_MS = 2000 because whole-file processing would otherwise fragment speech at sentence gaps, while the live pipeline passes 400 ms on all platforms (both branches of the cfg! in pipeline.rs); a retranscription test asserts the 2000 ms constant.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L54-L58",
+          "version": "repo-lines-v1:sha256:df5310d5d4f96130b54519c7aa7e3b26619fe4ce9ab4c43677eca970c664c0c6:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzRkODI0ODBmMGIzMTljN2E2YTQ4NmUwMTUzNmQ0YWQwM2MxNWNhM2NkMTQ1ZWZiNWVjY2JhMjlmYTBmZmU4ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmQ4ZjE0MjMwMWM4NWQwNWU0MWUxMjA5NWU1ZDM0MmRjZmRhY2U2NjE4NjA3N2U2OTZhZDZkZGYxNTczNzM2OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTllNzYzNTVjZjExOTk0ODBjM2Y5OTgzNmIxNDg2Yzg0MWQ4OTFmYWFkOTA0YzYwOGUwOTMwMjJkMzc1N2FlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjRjNzA0ZTE5YTM4MTM1YjY4M2U1MzdhYzhkM2E2YTI1ZDI5OTIyMzYyOWY0YzEwMTMyYTEyNjk5NTBlMTc2YiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/pipeline.rs#L722-L729",
+          "version": "repo-lines-v1:sha256:a7241c7286890110090b9b5d04f223cbc9bac423584368c91f733581ad49321f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTJlYWRiMjEwZTAzOGVjZDI1NmI3NTlmNWY2OGYxNDI3NmU0YzM1ZTNiMTcwNDE3ZGFkZDk3OGQwNzEzYjQxZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzJkNTRlMDU4MjQxZGFhZDFlYTExODg5NzQxNjAzZTliZGMzOGQzMmJkYjIwODU0OWM2MDBkNDhhMmZkYzUyMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTkxNjc5MmQ1YmExYjc5YTQ0ODc4MDAxYzIyNWNhYmYzNWVkN2I3NmE5NWFhMTAwYWQzM2EzNGVhNmEyOTk5MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2JiM2M1ZTRiZjMwMmQ0ZTViMTNjZWQ3N2M2MDE0NzlkYWI1NzUwYWNjYjcyYTk1M2I0NWY4YzE3Zjk0ZWQyYSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L931-L935",
+          "version": "repo-lines-v1:sha256:41f2c11e19a5c55b3bb55f2399f48679cebe7cc274c04e8d637fa2b6057e603c:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTJiNWVkZjU5NDljZmVhNjc4MjJjZjY5MTEzMjM2M2Q2OGQ2ZjFlMTY5ZjVlMGQ0ZjdjMTRlNWZhMWU2ZDRlNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmI0YTE3NzhhY2E1YmY3OTAwYzVlOWUyNDZmMzBiNGZmYzk4ZGZmZGQyMzMyOWE3NWUxMWViZTdmZWRmZTc0NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGMyYjM4OTgwMzg5MDU3NjhkMGUxNDgxMDM2NTM0MWE0YjIzMjUyOGI0ZGZiMDBkYzFjNmNkYTllNzkzMzZkOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c57fe352535640efbdd245f596e15952",
+      "statement": "The device_detection.rs tests pin InputDeviceKind classification (AirPods → Bluetooth, built-in names → Unknown, 3840 frames at 48 kHz → Bluetooth vs 512 frames → Wired, BlackHole → Wired), the adaptive timeout ranges (Wired 20–50 ms, Bluetooth 80–200 ms), and calculate_buffer_timeout clamping (80 ms base × 2 headroom ⇒ 160 ms).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/device_detection.rs#L435-L508",
+          "version": "repo-lines-v1:sha256:848d68ce4b1956fd49236470e67d847da34ec0f6ac1d11f241f8acdc003d0f17:eyJzZWxlY3RlZExpbmVDb3VudCI6NzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyYjVlZGY1OTQ5Y2ZlYTY3ODIyY2Y2OTExMzIzNjNkNjhkNmYxZTE2OWY1ZTBkNGY3YzE0ZTVmYTFlNmQ0ZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5ZWMzYjNmYzljZWRmMDgyMDRiY2M0YWUwYTVmMTMwYzhkODEzYjgxNTQ0ZWQ0NGVhYWJjYTA4ODEzOTg2MzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f3ef4cbe500f4d58bbb0b3aed0acfd5b",
+      "statement": "The incremental_saver.rs tests pin the 30-second checkpoint contract: 60 seconds of 48 kHz audio produces exactly 2 checkpoints, finalize() merges checkpoints into one file and deletes .checkpoints/, and finalizing a recording with no checkpoints errors with \"No audio checkpoints\".",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/incremental_saver.rs#L17-L21",
+          "version": "repo-lines-v1:sha256:90c1729ed45082ece99ddf76e5406af4b2f5a6e03401683a591252e3c43e3589:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDQ0M2U3ZDQ1ZTMxNzA1MmFiYmU0Y2NmYzEzMmUyOWI5MzFhOTNmZWJlY2YzOWFkNzM1ZGVmN2I4ZWQ0ODZjNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDc4ZjdkNGYzNWMyMjRjNWNlMzU4ZDc1Mzg1OWYyYjE2NGRiOGU1ZDNhYmZkNjllNmUxYzkxZTgyMmI5ZDIzYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzY5NTM2ZTAxOGYyNjk1MDQ4MjgwMjEwMDNmOWJhZDhhMzJkODUxZWVlNGNkZWFhNjFjYTRlYTE1MGNlMzc4OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDY1NzBhZGUwOWUzZWE4N2RkZTM0NTlmMTFkZTA5Y2Q1NzZhN2UxMTg3ZDAxM2E1MDViOTczZDNiMTk1MTRkOCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/incremental_saver.rs#L422-L474",
+          "version": "repo-lines-v1:sha256:5bbcec4234d7151a1a09260a9008edf7e802600baf6eaa68027e89c90f86c1f6:eyJzZWxlY3RlZExpbmVDb3VudCI6NTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxY2M0MDY4N2QyNDRlOWRhZjkxY2VkNDY1MjMyNjU2OWE0ZmI2ZGZjODFkMDNmYmU3MjNhNWVhM2NjYmU5ZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZlMGViMDAxYzYyNzU1ZTdiM2JkNDI4MjE3ZDhhNDM2NDc2MDkxMjUzYzAwNGVkNDg2ZGY4MWZmNmM2YmQyYjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/incremental_saver.rs#L44-L44",
+          "version": "repo-lines-v1:sha256:3f6f118ad0bd7e49118ff6471bce771ea5c98dd6fa0bbdcdba166b4cf0fe4ba7:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2Y2ZjExOGFkMGJkN2U0OTExOGZmNjQ3MWJjZTc3MWVhNWM5OGRkNmZhMGJiZGNkYmExNjZiNGNmMGZlNGJhNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2Y2ZjExOGFkMGJkN2U0OTExOGZmNjQ3MWJjZTc3MWVhNWM5OGRkNmZhMGJiZGNkYmExNjZiNGNmMGZlNGJhNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjczM2M2MGI5YzY2Y2RiNjNkYjI1NjRmMDMzNDg3OTkzMzJhZDU4ZjQ0YzFkMzc5YTdmNGQwMDEzMjk2OWVhZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjg5Y2NmODdmNTA2NTQ0ODJkM2U0NzEzYmQ3ZjNhM2ZiZDhkZDc1ZjlkYWZjYzI0MTlkNzJkNjQ0NTY0MjAwZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ddbfe199bc3844d6adf1fa79082e89d2",
+      "statement": "The summary/service.rs tests pin the title-stripping asymmetry (strip_title_if_present strips only a leading H1 — mid-document H1s, `#NoSpace`, and already-stripped input are preserved — while strip_leading_title returns an empty string when no `#` exists) and the English-cache extraction rules (a legacy `english_markdown` field is a cache miss; a matching source with a changed translation target reuses the cache; same-language regeneration and changed summary inputs reject it).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L667-L703",
+          "version": "repo-lines-v1:sha256:82bf2aec3d64c06fe1580c681a7d55319198a798453f5a95bec3cef9f1dc7d63:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyYjVlZGY1OTQ5Y2ZlYTY3ODIyY2Y2OTExMzIzNjNkNjhkNmYxZTE2OWY1ZTBkNGY3YzE0ZTVmYTFlNmQ0ZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkMjA5Mjg1YzU1Y2RjOWMyYmQ1ODgyM2QzNjc4MWEwZTg4ODdiMGY1ZmY4NWFlMTk5ODAzYmM3NTc2ZWU0YzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIwZDMwYWE2Mjg2NDQwZGUwYWIzMGE5MDIxNDM4NjJmZjQzMjliY2YzMDBjOGUwMDE0MmEzOGQzZDRhZDQ3ZjQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L737-L830",
+          "version": "repo-lines-v1:sha256:e0690f5db381375c9afa8ae3ea10b9d4c7fe5d3a829eb1259cfce6eb85fc0516:eyJzZWxlY3RlZExpbmVDb3VudCI6OTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyYjVlZGY1OTQ5Y2ZlYTY3ODIyY2Y2OTExMzIzNjNkNjhkNmYxZTE2OWY1ZTBkNGY3YzE0ZTVmYTFlNmQ0ZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE3NmMyZmQwMTVmYzNlNmQ2YWZhODZlMzEyMjVmZmU4MzhmZGRkYjUzMmU5N2EwNjEwYzg1MmE1MDM4MTg5ODkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdkNjJiMDY0YThhMjIwMzFlNWUzN2E3YWNiZGIxOTNhNmU5MTdjMzlhZGUzMjhkY2ZlYmU3MTc4MzM3YzQ0M2YifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8d45e55445f848bcad0540c6ba303377",
+      "statement": "The summary/processor.rs tests pin the final-language action matrix (English target with non-English or unknown transcript normalizes to English; non-English target translates; failed normalization falls back to original markdown while cancellation is not swallowed) and the cached-English matrix; language_detection.rs tests pin weighted dominant-language detection with tie → None/Tie, short or unsupported text → None, and a guarantee that every mapped summary code has a language name.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/language_detection.rs#L164-L218",
+          "version": "repo-lines-v1:sha256:f0d576d32d152988698a72eb5d9f6dd14bd3654a2d2ce575d3456911647dbd3e:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyYjVlZGY1OTQ5Y2ZlYTY3ODIyY2Y2OTExMzIzNjNkNjhkNmYxZTE2OWY1ZTBkNGY3YzE0ZTVmYTFlNmQ0ZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY1NzM1MTE1MWVhMTZiZmRiN2ZjY2YyNjE4ODVlZTg1MDhlOWJjMzlmYmQ1N2I5NWU5NWFjNTIyNzkxMWE1OGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/processor.rs#L712-L826",
+          "version": "repo-lines-v1:sha256:1fe054cb4d9e9db3b8f2eceefcc5399ab6bb6b9aa04d9395d63a9934f64ed82b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5MmI1ZWRmNTk0OWNmZWE2NzgyMmNmNjkxMTMyMzYzZDY4ZDZmMWUxNjlmNWUwZDRmN2MxNGU1ZmExZTZkNGU1IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI4ZmM0MDUwZDM1NDEyODk3NThlZTE0NzNlMTgwM2JkYjk5ZDRkOWQ3ZTY3ZGY2NzNjYzZkMTUyMjFjZDcyZGEyIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI0OWVjM2IzZmM5Y2VkZjA4MjA0YmNjNGFlMGE1ZjEzMGM4ZDgxM2I4MTU0NGVkNDRlYWFiY2EwODgxMzk4NjM2IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI3OTAzOWU2NzljNTg5MjRjMDBjMjUwNDQwNWI1NTZjMWE0MGZlZjU2MmI5NzgyY2U2MGQxNTQxMTI3NzBmY2IyIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_75f08b58f999466da88b3680ea7b8cb4",
+      "statement": "Environment-dependent Rust tests are kept out of the default run: hardware tests are marked #[ignore] (Core Audio capture, system audio detector — run manually with --ignored) and platform smoke tests around permissions/system-audio commands print-and-continue when audio hardware is absent, so `cargo test` stays green on headless machines.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/capture/core_audio.rs#L424-L427",
+          "version": "repo-lines-v1:sha256:59cc8debaf8cba03d6ae75b1708117effa4c5e22676613a76d423764c4d31b58:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTFjYzQwNjg3ZDI0NGU5ZGFmOTFjZWQ0NjUyMzI2NTY5YTRmYjZkZmM4MWQwM2ZiZTcyM2E1ZWEzY2NiZTlkZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTUxZTg4YmIwMDYyZjY0NDMwMjdjNDhlMDExY2MzNjlmMDMzMWJkYzJkYmNiZWJlNWY5Y2E4YTEyMjdiODJhZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDllYzNiM2ZjOWNlZGYwODIwNGJjYzRhZTBhNWYxMzBjOGQ4MTNiODE1NDRlZDQ0ZWFhYmNhMDg4MTM5ODYzNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjQyNTQ3YzUzZWJiYzFkMzFhOWRkZDg0NWY4ODAxNDY0Mjk0YmNkYjQ5NmQ5ZmM0MDdiMjA0MmNhYWQzZGI5MyJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/system_audio_commands.rs#L117-L138",
+          "version": "repo-lines-v1:sha256:76410f379e05808efa19dee35419b3eb16506e3d4f543a3cb9a86be9713083d7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxY2M0MDY4N2QyNDRlOWRhZjkxY2VkNDY1MjMyNjU2OWE0ZmI2ZGZjODFkMDNmYmU3MjNhNWVhM2NjYmU5ZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5ZWMzYjNmYzljZWRmMDgyMDRiY2M0YWUwYTVmMTMwYzhkODEzYjgxNTQ0ZWQ0NGVhYWJjYTA4ODEzOTg2MzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/system_detector.rs#L425-L427",
+          "version": "repo-lines-v1:sha256:84ff8879d0c678010f0f32dd705894cfa23eb5ace3e0befb204751d73acb3643:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTFjYzQwNjg3ZDI0NGU5ZGFmOTFjZWQ0NjUyMzI2NTY5YTRmYjZkZmM4MWQwM2ZiZTcyM2E1ZWEzY2NiZTlkZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTAxZTNiMTYzYjU0OTIwYjUzNjdkNmYxNWE0ODAwYThlYzA3ZWY0YjY4OGU1ZjdhZjg2MTQ5MDNhNzNiNWYxNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDllYzNiM2ZjOWNlZGYwODIwNGJjYzRhZTBhNWYxMzBjOGQ4MTNiODE1NDRlZDQ0ZWFhYmNhMDg4MTM5ODYzNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmU1YmUyZGU1ZjQ0ODNkNzA4ZGZjY2NmNGRkNTA0MTg1YWM5NzU3NWFhYjEzZDQyNDYyYmZjYWExN2M1YTYxNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_983a7ad7ad5f47e7a6c1a4b36a6823c5",
+      "statement": "There is no `test` script in frontend/package.json and no JS test-runner configuration; the frontend tests are three standalone files under frontend/tests/lib run directly — the two bun:test files (blocknote-markdown.test.ts, summary-language-preferences.test.js) with bun, and onboarding-summary-model.test.mjs with plain node — and bun itself is not a declared repo dependency.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/package.json#L6-L28",
+          "version": "repo-lines-v1:sha256:201315424088abd97f20b29eb78f55247860710eb0a45fef621d32d115b97248:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUwOGYxYjMxODg3Y2U0ZWE2NmU0ODI3MjdiMTY5MWUxMDRmMjVmZTEzYWZiYjVjZDczYjI0NjExMjRkMzkzZTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkYmJmNGRlMjg4NjcwNWQxZjM1ZTIwYjYzYmQxYWY5OWNmNjdjNjM2YWI3MzNiNmI3ZmMzYWZiMmYwYWU3MmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhhYzAxMTU0MmQzMGFiOTAyNzlkNjJhOTkyM2E5NTBiNjFiMDdlMWVhMmY2ZmZhNTYzM2UwNzRhMzIyNzZmNjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZjNzQyNjUyMTMwOGU0MjU4M2ViZDYxMzVkYjY3MmViYzRlZDVmMjg1MjQyMWFhNTg5NzRhYjMyNjg1YjEzM2QifQ"
+        },
+        {
+          "resource": "repo://frontend/tests/lib/blocknote-markdown.test.ts#L1-L2",
+          "version": "repo-lines-v1:sha256:d986f286d644515226859517e9a5fa5f9e9ff1bac9ae5cf5c4381792a7602848:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDE0NTZjNTM0YThkZDk5ZTViOGUwNTM3OTliZjQwNjQ1ZmU4MDk0MGM3YzhiNTg2ODE1MTAyN2NjZjk4MGMyMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmZkZWEzMDg0MjhmMmQ2MWE3NzBjMzZmYWU2NjZiNzYxZTkyOTNjZTY1ZDA5ODkxNTA3YzYxM2Q1ODJjNWQ3NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2UyODI4YjRmZTkyNWZlNjZiY2UzYzcyOTUxMDRhMjc5YjU1OGM3NzI5OGQ0ZmQxMWM4NTdhN2NlMGY2ODVmMSJ9"
+        },
+        {
+          "resource": "repo://frontend/tests/lib/onboarding-summary-model.test.mjs#L1-L8",
+          "version": "repo-lines-v1:sha256:8a5eff730f4b91fd03de172f8b03cb6460ffe0bca76e82bcf263d0849a29ae3f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzA2NjJmYmNjMGQ0ZDhjMTE5NjgzZGExOTQ3YjEyMDQ2ODAzZDQ4YjQ0Nzk4ODE5N2VjMzA5MmZmZTVhOGI0YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDBkOGU5MTNkZjk5MDZlNjIxNmFkOGUwN2NhYTY1Zjg1NTJkNzkwMzM1MzZlNDRmMjlhZGMzYjkyZDUzYzg4MSJ9"
+        },
+        {
+          "resource": "repo://frontend/tests/lib/summary-language-preferences.test.js#L1-L8",
+          "version": "repo-lines-v1:sha256:77a429d5558f995c99bcb50f04192ac6e1a99468b05824ad7b0dced49e16cd8d:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWMwNGFhMGUxMjM2Yjg4ZGRlNzgzNzUwYzIyZjY5OGQxMDEyMjAxZDhkYTliYTM4MTA3OTVmMDY2MTI1MDlkMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzZjODAyYTBjZWZkMjcyNzIyMjA5MTYxZDEzNWQwOTAxMjQzMzc0NjI2NjczZWZiOTU0NTAyZmU0NTNlMDY5ZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_92966feaf71c42c8a8d3bdf72d1fa766",
+      "statement": "blocknote-markdown.test.ts pins blocksToMarkdownSafely: successful conversion returns { markdown, ok: true } and calls blocksToMarkdownLossy once; a thrown conversion returns the provided fallbackMarkdown with ok: false and logs console.error(\"Failed to convert BlockNote blocks to markdown\", { source, blocksCount, error }); without a fallback, markdown is undefined.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/lib/blocknote-markdown.ts#L17-L39",
+          "version": "repo-lines-v1:sha256:129aa9cfb9813018e0aabde0af9a56a3bd233b3273a0f6ed86413b3845432890:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4ODNkYjBmYjhlMTU4YjM0NDZkMjVhN2NkMzZiYTlmZWNlYzdlZmQzNjI5NTY5NDdjZTNmNzEzMjVhOGU0NjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkNDRjNzc4NjYzOGJjZWNjNDU1OGJjNGFkNzYyYWVhMmQzMWVjOWJjNmIxYzk2YTg4N2JiNmNlNzcwZjIwZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/tests/lib/blocknote-markdown.test.ts#L9-L71",
+          "version": "repo-lines-v1:sha256:aec41f5f719b9a138a9480ee89783308c6a7445894cabd1c41c87b2b25d03bd7:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhMjcwMzI3OTU4MGZjYjQ4ZDNlODE4NTEyZDdiYjYzZjA1M2M3MzhjZWM1MTg5ZTAxYzBhNmRkNzQyZmJmYjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNhMmIxZWZhNWMxMzA3ZDViNTViMTQwMWJjMzliYTQyM2E0ZWRjMWEzNWJkYjIyNDlkMzRmYTk5ZmM1NDhlNzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_dc298811bbee43009fb678367b12e771",
+      "statement": "summary-language-preferences.test.js mocks @tauri-apps/api/core and stubs window.localStorage to pin the folderless-meeting fallback contract: when the backend answers storage \"local_fallback\", the language persists under summaryLanguageFallback:<meetingId>, saving Auto (null) clears that key, detected languages cache under detectedSummaryLanguageFallback:<meetingId>, and a failing localStorage write rejects with \"Failed to save summary language on this device\".",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/lib/summary-language-preferences.ts#L131-L139",
+          "version": "repo-lines-v1:sha256:aa1ea449e38aa3ccf8fc12fddae1ac0d4f3f56bd19f37caa44d1a7bf5e90ca2d:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTk4OTkxYzFmYTMwZGFmMDJmYjIyZTcxMmEwMTY5ZDk3OGI3MzRhN2I0ZGM0ZmExNDkxZmNkZWVhYjQwMWY1NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjhiOTQ1NDAxMGIxNjZhM2IyZDBhN2JlZjQ0MzZhYzg5OTIyOWVkYWVlZTBhNzI1ODEwMjMzMzg3MTIzNjk5NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTZmYjg2Mzc4MTA5ZjY0MzQ1NTQ0NWZlOTQxMWEyOWY1NjViOWVlNmMzMjg0ZWVkODY4YWMyZDdjM2ZjZmVhYSJ9"
+        },
+        {
+          "resource": "repo://frontend/tests/lib/summary-language-preferences.test.js#L49-L129",
+          "version": "repo-lines-v1:sha256:98f649cce9e966bafdbe0f2962f8eebed8335cf70494beeb0793fdeadb1d36ca:eyJzZWxlY3RlZExpbmVDb3VudCI6ODEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFmMGJlYjEwOGUxNTRkMGFlYWVlZDIwY2EyZjM4OWVmYTBmYTczYzNhMzZmNWMxMTBlOGNlNDhkOTViZTU1OGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkMGYyZDNhM2FhZGEyNzU4NjQ1NzhkMGE0MzkxNTYzOGQ1NDNmZWNhMmM5NDg1OGRiOTQxMjExZTg2Y2VmMmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f5fc6359870543b494f196472e8d3e17",
+      "statement": "onboarding-summary-model.test.mjs transpiles src/lib/onboarding-summary-model.ts with the typescript package and executes it in a node:vm context, asserting: an explicitly selected model wins over the recommendation; the recommended model becomes selected when nothing is selected; summaryModelDownloaded is true only when the selected model is ready (legacy Gemma availability must not make an undownloaded Qwen model ready); the size table (qwen3.5:2b = 1221 MB, qwen3.5:4b = 2614 MB, gemma3:1b = 1019 MB, unknown = 0) with ~GiB labels; and getDownloadTotalMb prefers a real total over the per-model estimate. Because it uses bare asserts, silence means pass.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/lib/onboarding-summary-model.ts#L19-L38",
+          "version": "repo-lines-v1:sha256:1987fc3e6be7c2f5937fc1a0df103f1771a271cf1abc237dc5cea5c40393496e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ0NjZlNmQzZGIxM2IxOGE1NGI1YTgxODlmOWZhNmM1YmFkMzU0NDY1ZmRkN2U5NGE4YmI0MThjMTEyMmI0YzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM3NjU2ZTM2NzQ5OGFjOGQ5MzNhNTE1NWZmOWZjYzEyZjk1M2ZmMmU3MzQwNTczYzJiOTQ2MDVhZWFkMzJkOGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MDRmOTc1YTVmNDJhOTY4OGFhZDhlMmY4MzViYWQ4ZGY3NjBmMjRiZDNjYmM0NWYzNmE4YmY4NzZlZmNiMGQifQ"
+        },
+        {
+          "resource": "repo://frontend/tests/lib/onboarding-summary-model.test.mjs#L19-L94",
+          "version": "repo-lines-v1:sha256:75f27082d730aae7b4cdd9385dcd2aa31de02a6952005d031ad9cf2c47f6e307:eyJzZWxlY3RlZExpbmVDb3VudCI6NzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgxMGExZmQ4ZDFiMzkyMTUyZmJhY2U2OTY5MWZkNmVlYWVlNWM1MzM3OTBlM2I5NGRiMzg4OGNhZTRhMTBjY2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRiMDBkNjdiMGYzNGYwZmMxNWIyZjQ0MDg4MWU5NzVjNTIxOThjYzQ3ZWY3ZWI3MjJjYTgyMzk1NmRlMTYwYmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyZTljMGFjZjE0NDc2NTUzNDhkYjJlZTFiZDM5YTQyOGQ5MWY1YmIyZGRkMGI0MWI3ZWI1NDUxOWNiYTYwZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2b4a50fdcd244726b115f43b3ea01ec6",
+      "statement": "The frontend local_fallback contract mirrors the Rust side: api_get_meeting_summary_language and api_save_meeting_summary_language return storage \"local_fallback\" (with language None) exactly when resolve_meeting_folder finds no non-empty folder_path for the meeting; otherwise the value is stored in the meeting folder's metadata.json and returned with storage \"metadata\".",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/commands.rs#L110-L128",
+          "version": "repo-lines-v1:sha256:9eeb622865aa4cb242b617c62d43b2f8cd8c542b1bf6c0c75154f23bc84f1e61:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3YTY4ZDk5MWJjM2QxZjE0Yjk5ZTA1YThmMDQ1N2Y4YTQ3NGEwZTBjNzJjNTY0ZTU3OGUxOTk1ZDJmZWYxM2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3N2UwMzkzN2IzMGQwN2RmYzcyOGUyOGY5MzY4Njg1MmIyZGI2ODkxYjYzZjkyM2JlNTRiMTRhMjNhZGQ2MjEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/commands.rs#L210-L224",
+          "version": "repo-lines-v1:sha256:7d0d920eea493c6c73b260b68ca77e812cbd2d011529e19e3548ca88b465e944:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1NjE4ZmZhYWY5YWZjMDUyZDk5MTFhZWY0Zjk3MjAwY2M5Mjc0MDRjMTBjMzJlMTY1NjA0NTc3Njc4NjZmYzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc3YmYwZTBkMWQ1MzQwZTk0ZGY0M2VmMjg3YTEyYzgyOGE3ZDFlODEzZDQwOGU2ZTJlYWQ5ODA5NzA0M2I3MmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUxNmI3OGE1OTg3MWIyNzdlOWU0Y2ExNmFjYzJiN2NiM2I0MTUyZmE2Zjg1OGI3MjU0OTQ3OGE1NzlhZWNlYTQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/commands.rs#L59-L65",
+          "version": "repo-lines-v1:sha256:231092f55ef8f59e19b3d36758c2092a414cb1d8e854cccd53bce3c4887802aa:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ2ODkxNjk0MjhiMDQzMDA2Zjg2NGYwODFiM2ExYTkzOTg3MDRkNTQ2NmRjN2FkYjEyYTAyZjQ1ODFlYTdjNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk5YmRlZmVlYWNhNjM0MGUwMjkwZGM4NmU4ODljODlkNWUxODlhYTViYTQ0YjU4NWIzYjcwNzM0ZjRhNjJkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWZkZDU5MGVlN2M4MmVmOWMxZmZmMWYyYWUwYzc0MzQ5ODFjNWY5NGJjMzgwM2RjMDMzOTU2OTU1ODMyZmI4OSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c77d4568bc2b4c1bb8cb4e5c7c8e5f1e",
+      "statement": "scripts/inject_transcript.py seeds the platform-specific Meetily SQLite database from a CSV, creating meeting entries identical to those from normal recordings, so meeting/summary flows can be exercised without recording; it is the tool for DB-level validation and reports that the injected meeting should appear in the Meetily sidebar.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/inject_transcript.py#L1-L16",
+          "version": "repo-lines-v1:sha256:3c53fd57bae9c4f7c186614348a8101d0407c294646d839d9922e963b70db2c3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2ODJjYmRiNGM4YjA3NTE4YmY0ODZjNTg5OTBmYzM5MTc4M2FhMjBhOTE2YmZiMjdhZDIxMWViMWQ1YzM2NDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzMDNlY2RkNGE0ZDEwZjE5YzczZmQ0MmZkMTI0MzdmZDMzNTRhODI2ODE2MDVkYTUyNTVhOTdhMzkwNjhkYmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIyNzkyMWZjZWY4OTk1YzkzN2VkOTlhZTFkMWRjNzYyZWZmNWU3ZDBiNTE1NGNmZjE2MDU3NzViYmY3N2UyZDkifQ"
+        },
+        {
+          "resource": "repo://scripts/inject_transcript.py#L117-L179",
+          "version": "repo-lines-v1:sha256:c51a9095544450158fb3b58087e00a32d69971d7935f505e34e333dfe4f88ac2:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyNjBmMTVhYjQ2OTQyOGUzYjc2ZTEzNzU1ZGNhNDlhODRiNDg3NzQ2ZGM5MTZlYjI2ZTQ5NjI5ZGQ5NDUyOTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4Njk2OGRiZDJiNmQ2NDM4MzVkYjlmYjIzYTUzNTE4MmJhNjQzNzQ0YTBlOWNkMmU0ZWVjMGZlNzc4YTY1YTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc0NGU4ZGI0MTBhOWIxNTY0M2RiNjViNDI1ZGEyNWIyMGU5MzliOTMyOTU2MThlMTI5ZDQ2MWRkZTEyYzM2ZWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg4NjEyM2JjNzdlZmI3ODIxN2Q4MTAyODM2YWI1ZjE1NjY0YTcxY2VkNWI1NmU5MzAwMDgwMzI0MmJmNzdmOTYifQ"
+        },
+        {
+          "resource": "repo://scripts/inject_transcript.py#L347-L347",
+          "version": "repo-lines-v1:sha256:ec7bf216da7e5d0a5a13b17edd12e13febc675fb4366281910dd78d69fb669ae:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWM3YmYyMTZkYTdlNWQwYTVhMTNiMTdlZGQxMmUxM2ZlYmM2NzVmYjQzNjYyODE5MTBkZDc4ZDY5ZmI2NjlhZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWM3YmYyMTZkYTdlNWQwYTVhMTNiMTdlZGQxMmUxM2ZlYmM2NzVmYjQzNjYyODE5MTBkZDc4ZDY5ZmI2NjlhZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWYyN2JjOTAwNjk2YmM1OWEzNzUwYmUyY2FhNGIwYjYyOTQ1ZTY4NjZmMmViNjViZGQxMGY1ZDljOGE4MmMyOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2Q0MTM0MGNjMjM5YTE1OWNlOWI2MDIyZTlmNjMyMjgzMmUyZWFkNzZjYWU5ZTQ3NTRkMjEwZWI4ZmI2ZDVlOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_7f1492c19be443ff81cde42a11f252d5",
+      "statement": "inject_transcript.py requires a CSV with a `text` column (one segment per non-empty value; missing column or zero segments is an error), estimates duration at 0.4 s per word with a 0.5 s minimum, assigns seg-<uuid4> ids and cumulative audio_start_time/audio_end_time, and inserts one `meetings` row (id `meeting-<uuid4>`, optional folder_path) plus one `transcripts` row per segment inside a single transaction that rolls back and exits non-zero on failure; afterwards it re-queries the meeting, segment count, and MAX(audio_end_time) and prints a verification summary.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/inject_transcript.py#L143-L179",
+          "version": "repo-lines-v1:sha256:45d0204cb0d904568421e3c3a2c84725640ee27294c0044d46001af0ad96a600:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkYTVjNjZlMTdiMTQ1Mzk3ODM0YjhjODU0ZGM0MTkzZTIxMjUxODBhODk5NmExNGMzMTg4MzMyNmIyZWZiY2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4Njk2OGRiZDJiNmQ2NDM4MzVkYjlmYjIzYTUzNTE4MmJhNjQzNzQ0YTBlOWNkMmU0ZWVjMGZlNzc4YTY1YTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI1ZTc0ZjNjZjNhZDk4YWU3NmI5MzA5MDllMDg2MDc3NGI5ZGQ3MTRiMWJiY2M2ZWU4YTA0ODAxMDhhNWYwODUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg4NjEyM2JjNzdlZmI3ODIxN2Q4MTAyODM2YWI1ZjE1NjY0YTcxY2VkNWI1NmU5MzAwMDgwMzI0MmJmNzdmOTYifQ"
+        },
+        {
+          "resource": "repo://scripts/inject_transcript.py#L182-L225",
+          "version": "repo-lines-v1:sha256:c844869f7687e634df632fc018096d65fcae1fce8ae5beb71265809572b14663:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4NjA5NDQ1YzMzZDFiYjRjZjE4ZmY0N2E3ZjY0ZjhhZDk5MmFkNjFhMTU0NjIwNDBiOGVmYzhhYjE0MTRhMDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZGQ0ZjQzOGVhMTU2MTg5YWE2Y2VlYjQ3YzY2ODZjNzY0ZGNhZmI0NDBmMDhjZTk0MGFjMDYwZjk1YWJiNWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg2YjA0YzRiYTFmMjNjOTM3ZTA2OTI1MmQxZmM3ODNhMDRkMmZlODEzODcyODE1ZTA1ZmUxNGVmNjA1YjRkMjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg5M2JkNjZlMmJiNzFmM2I4YTkyNDA2NGJiZjdiMDdjNTkwM2E3NzNmYTRmOGMzNTQ2MDYwMzg2NjcxZDNhNzMifQ"
+        },
+        {
+          "resource": "repo://scripts/inject_transcript.py#L47-L57",
+          "version": "repo-lines-v1:sha256:70a1b31ca0dbd49375d1f89e3b170f60679f7d5ddd43249d818e6f612294b6a1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ4NGY3NTQwODE4MGM4NmJmYjVjODhlOGJkNWVmZDU3YzBhY2UzMDAyOWI3YTgxNjg4NDY5NzkxMGQ5ZjIxMjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiMzhmYzgwYjNkM2JiNTNmYTdmZTY1NzcwYTVkN2M0YzZkMGE4YzhiNWU0ZmRkNWUyM2Y5YzM0OWRmODkzYjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY5NGY4MjY0NDM4MmFiYjQ5OGZiNTAxNjAzNzgwMDAwMWUwYTViNjNlZjNiNWM3MzljOGRhOGZlMWUzNTM5ZWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxNDU5MjRiYzIyZjdjY2ZmZTQ3MDg5N2FlZGZkNzkzYjYzODNiYTMwOTMyNDYxYWQ2OWE3MDMxMGRhMTE1NDQifQ"
+        },
+        {
+          "resource": "repo://scripts/inject_transcript.py#L82-L114",
+          "version": "repo-lines-v1:sha256:f433150e671180649244db9f04f6c1b63c60322147d179aa4d8929fd578983da:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZjMzQ2ZjYxNTk3ZGNkMzRkMWQzMWY0ZjUxODNjZTUyNWI3NjQ5YmJkN2ZiNTc2MWY2NjA1MDg1YzE3Yjk4NDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBmNjAzZDcyMzNlOTViZTVlMjQxZTIwYTc4ZDFjZjEwYmU4Y2Y2MjAzNzI1YWFlM2MwM2NmN2UxMTg5YjdkZjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFmYzQzN2I5MGM4ZmJjZWUwYWNhYjM3MTUzNzcwN2ZjMjljOGExNTkyMDY5YTExYmQ0ZDM4MDZjNjBmN2ZlZmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwODYyMDFhMTczOGY2ZDcxNjJmYzgwZDY0YWYzODhlNmUxMWVjNzBiYTc3NjFhY2FlMGY1ZjRiZDU5N2U2ZWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_448d7ad02df54354833006debfa0e7ec",
+      "statement": "inject_transcript.py resolves the database per platform (~/Library/Application Support/Meetily on macOS, %APPDATA%\\Meetily on Windows with a Roaming fallback, ~/.config/Meetily on Linux), refuses to run if the file does not exist (\"Make sure Meetily has been run at least once\"), and accepts --db — pass a copy for scratch validation. The columns it writes (meetings.folder_path; transcripts.audio_start_time/audio_end_time/duration) are exactly those added by migration 20251006000000_add_audio_sync_fields.sql, so injected meetings support audio-transcript playback sync but contain no audio unless --folder-path points at a real folder.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/migrations/20251006000000_add_audio_sync_fields.sql#L6-L17",
+          "version": "repo-lines-v1:sha256:82180d546d37c0c7feb61e7a297b341d1d8e8c405f7fc62ba0e6da8d485dd081:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhNzc4NDU2NGU2ZjBlN2FkNWMwNDk5MzMxZGYwZTliNTY5M2VlMzMwOTRjZmEwNDEzNDA4ODM1OTNlMjdkYmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3NjNhMTE3ZDgzN2U0Y2FhNDEyNTgzNzdkNDRiZTg5MjZhOWI1NmViNGI2OGQ3OTk3YTFmZjBiODUwODg0MDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkwZjExN2Y4ZDhjYmZkNGNhOTgzNmU1MzEzZDllMDJlNTAyMTU3NjdiNmM5NGJhYjBiNTBmMzhhNzExYjIzMDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://scripts/inject_transcript.py#L282-L285",
+          "version": "repo-lines-v1:sha256:dec95b321e8c6487e3fdd04267ff0d92665f9875065d0a52adde65a3f75aa79e:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWI1ZDRmMTc4ZWRhZDFjMTc0ODI4Zjc5MWNkNzNhMzNjZTM2NTQxZTMzMjJhNTdhM2M0Mjg5ZGQzNzM3NGIwOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmZhMjA4NThhZjY0MjQ3YWE0N2YzMWQxZTAwNDRmNzEwNzU2YmQyNzRjZjUyZjA4OTdmODE1NTdjNTUyNWJmNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTAwODQwM2VjMzk5MDRkYmQ2ODkxZTgxZDNkNzU2YWMxZDg2MThiNDcyNWRjODVlMzJmMjQ2M2ViMmM5MDExMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTNkNmIzYzMwMmYwMDBhZTUyYTljOWI5ZTQxMjNiYWU3MTMwNTM1MzY2YzZkMWFkMDMyMzg2MDk2N2EwMzBiOCJ9"
+        },
+        {
+          "resource": "repo://scripts/inject_transcript.py#L29-L44",
+          "version": "repo-lines-v1:sha256:75032a7a86e1135c61fc11fc437334f9a5f79cb99d7b09504f35b4af664731c2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ1ZWQ4ZTU3OTg4MzUzNjk4MjNiNDUyODAzMTJhMzc4MzljM2I2Zjk3OTY0OGZmN2Q5YjQ2NDUxNzA5ZDRiN2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2OWU3Y2E0NTdkYzY4ODY4YzllODBjMDM1NzY0MWUxYThlNjFmNzVkYzViMWNkZjdhNmQ2YTM4MjNiZDZiMDQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE5MWJmM2Q5NmYxYjExOTY4OGRlZWE5YTAwNGIyYjNmZWJiMTgwYmI4ZmIyMzQ0NjI1NjE0YWRjODU5NTYzYWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc0NmIxMmRlZTc5NzEyNjM0YmQ0OTAyMGI4ZjkyYTVmNjM4Y2M3MDUwM2MxN2I0MWU0Y2UwZGE3Y2U0YmYzMmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_720789e367ba4a58b03a595b832ac0b8",
+      "statement": "main.rs unconditionally sets RUST_LOG=info before env_logger::init, so a shell-exported RUST_LOG (including the info|debug|trace selection exported by ./clean_run.sh) is overwritten before the logger reads it in the current code; the documented per-module recipe for debugging audio is RUST_LOG=app_lib::audio=debug, and console_utils::show_console likewise sets RUST_LOG=info when allocating a fresh Windows console.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L280-L287",
+          "version": "repo-lines-v1:sha256:5bea4f0b3a0bb5dee353f84d055586e296909b422820ef5c1a3cef27dab68b9b:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTI2ZWNmNDgyMGVjOGFhMThlOTc2NzNkYTJmZDBlNDk5YTI2OWFlYjA3M2QyYTdjNGJlZWFhNDlkZTA4Y2E5YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDdjMDZjNTYxZDVjMzI3MzQzNjg1MjY4YTQ2YjMzOTFmMzk5OGVlZTg5MGQyYmU1MWYwZDIxY2M0YTUzYWU2ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjJhMDYxNTYxMjNhNzdjZDU2YjQzZWM0ZGEyMDdjZWQ4ODA5MWY3MmNlZjE2MDlkMjlkN2M0MjBlYTRmNWEwOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTBjZDlmZWY3YmQ0MzMxNjM0YThhYTIzODI2MDAyNTY5NGM5ZTMwYThhYmY5MGM3YTY2ZjJlMmE5OTFiZTU5OCJ9"
+        },
+        {
+          "resource": "repo://frontend/clean_run.sh#L6-L17",
+          "version": "repo-lines-v1:sha256:3613dd45fdcdda0710302f8c978effdd69e721bd2fb1133a04eed0e920dc00a5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhNWU2ZmQwNWJmYjU4YzBlY2FmNmFkNDMxZmY5YWFlN2I2NzY4ZDI0YjgwYWZmY2FlMGFiNTZmMmU4ZGE1YzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0YTJiZWNmZjhhZmIzNGRiMjYwZGFiYzk2OTE1ZmZlY2ZkZTg0ODkyOTU0MWM2MTkzZGU2ZDE2NGMyMWU4ZGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk1YTFlNjVkZDI3MjFiZDczZWFlNzI5MWYzYjVmZTI2MWQ1NDllZmZmNGRiNTRmZWE3ZWYzYmVjYTY4Y2E5YjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgyYjI2MzUyY2Y1MmQ3MjQ2NjkwYzI3YWY4NDliZWU0MjgwZWVlZTcyMzUzZjMzNjhjNWJjY2I3N2ZjOTY3YjUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/main.rs#L9-L15",
+          "version": "repo-lines-v1:sha256:424960445c5b37980e28010c9b6e0845569b3b709bdb7f58223e0ac49a1643b5:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDBiOWVlZTkxYmMwYjFhNzdiNWYyMjRmZDY5NDVmM2RlYzIzNGU1NTk2Yjk0NzVjOTBjNWFlYzllNmFlMjBiNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGQ2NjRmZGQ4MzZkZTYwNzdjZjcxOTk2ZWM5MDVkMzMwYmZmYjgwYjc4ZGY0MGEzNjBjNGE5NDcxN2I1ODcwYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzJkZmYxMjExOTgxMmFiOGNkMjRjMDc3YWRmNTIxMzg5YzlkMGJlYWY2MTUyMTQ4ZWM5ZjY1MzU1NmU4YjJiMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9d242803daca45b8882396b6d3ea66ba",
+      "statement": "perf_debug! and perf_trace! are defined in lib.rs to expand to log::debug!/log::trace! under #[cfg(debug_assertions)] and to nothing in release builds, and are re-exported crate-wide; the audio pipeline uses perf_debug! for its periodic summary gated to every 200 chunks or 60 seconds, and whisper_engine routes significant transcription-completion logging through perf_debug! and per-segment text through perf_trace! (only for audio longer than 30 s). Release builds therefore contain none of these lines, and plain log::debug! calls added directly are not eliminated.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/pipeline.rs#L808-L815",
+          "version": "repo-lines-v1:sha256:42b22d7f5bde43325ef758dbe1e84759a5f4d2296bdfc70f0255c5ce1bba6259:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzM1NmU0N2ZjOWQ5MGZiNGM4NzNmMGJhNDJhNDBiNGIwOWEyM2FlYmM3NDI4YWJlMWJmNTRkMTE0Mjk5OTdlMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGRiMzM5YzE3ZDRjYzU0ZTcwYzRmY2ZlY2I2MTFiYjllN2QzNjNmMjViMThlMDkyM2ExZDMwNmNjOTU5MjRlNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDA4YzgxNTgwNjYzMTYwYWU4ZDNhNmY2M2Q1ZjU4ZjBmMTRkMDA0M2VhOTExMzM5MzI3ZTZlM2M0MzRmZDliOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDg1MzA5MzI2MzQ0YjkwODU4MjYyYmUxMTgzMTVlOGM3MGNlNjYwY2ZjZjA3ODhiZTJmMGViNWQzYjg2YTE5NyJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L6-L33",
+          "version": "repo-lines-v1:sha256:f82255be2d11fe6698cc29fd7f1549a3220b0afc72a7fdfb18e58c72f305b4e6:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0NzRiOGViZmViMWRiNDA2NGJkMmU1YmUzOWY0N2E0MzhlZDcwZDIzZDA0ZjI1ODEzOGZiMTg1NDc5OThkMGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmYzQ3ZGQyMmVmOWE3YTg0YmZiNjgyNGRjZmU2MmYyZmY5YTY1NDQyYjEyMDM2YzNhM2ZkMDk5Y2MzNDI3YTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE4NzJiYzM1ZmFhMWE2NDU3M2U4OGMwZjNhMzc3ZTAzYTlmZjZjMjc0OTA3MGFkNmQ1MWU3NTMxMTU5OTA5Y2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxZDgwMGRhM2E5MDY2YmViMDQ0M2ZhN2ZmMTEwZDVkZjA1ODUyMTI1ZTUwNDNlNTM1NDY1NGZhMTE3NTY5NGMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/whisper_engine/whisper_engine.rs#L746-L767",
+          "version": "repo-lines-v1:sha256:25bfccf2cd8acdae5f5e856e2c722f9c9544a9b064d62131e83229fa551edf94:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZkZjBlZWFmZGM3ZGVkNDk4ZDE5Mjk5YjBkYTkyZjJmY2Y5NjBhYjA1NTQ1ZmZkZDFiMDE1Y2MyNDAyYjExNGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhMzMyMTlkOTdiNmYwNDg2NWIyZWZjNjBmZjdmNDI2M2U4NjhhYTFhNGVmZWNmYWU5MzczMWQ3MzFlYTA3MDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVmYTY3MDA1M2RhMzE2YzYzNTk4YWE0NmQ3MTEyNGE2MGVkYjdkNGNmMzg4ODFlZmM5Y2Y4M2YyY2QyZDYyMzAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8796f95d56c4429cbde830871c0ab275",
+      "statement": "audio/async_logger.rs provides a non-blocking AsyncLogger over an unbounded tokio mpsc channel with a 1000-message buffer flushed when full or every 100 ms and drop-tolerant sends so audio threads never block on log I/O; the async_debug!/async_info!/async_warn! macros lazily initialize a global logger only inside a tokio runtime context (main.rs notes it initializes lazily after the Tauri runtime starts). No module currently calls it, so it is ready-made infrastructure for new hot paths rather than an active log channel.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/async_logger.rs#L103-L131",
+          "version": "repo-lines-v1:sha256:1652942420f1f9974222a6bbfd0f80227e79a01832fc7bd2ed22ba9c9536827d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUzODM0MzhhNzgzYThkMjU1NDBiOGU5MTE3NjdhMGQ5OTdhZWIzMDI2YzIwNjc4MGRiYzkzYjlkMGI3MTg1ZmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI3MzQzNDEyNzZjMzY5NjYwZWQzNzU3ZjQ0YjM1MzMyODIzMjU0YzdhMjFkOTQzMTc2ZTY2ZjIwZWUzZGU3NDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/async_logger.rs#L22-L100",
+          "version": "repo-lines-v1:sha256:a9df7658e39123d811988d23196e9a3449e4ae0b92c2a4c9cdc01019f04a3902:eyJzZWxlY3RlZExpbmVDb3VudCI6NzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhNjY0MGQwZGQ5YjQ5NTA5ZTI1ZTU4NGYyZTI4MTIwYTI3MzdmYTYwYWVhY2Q3YTkxN2UzNmEzNDI4NGY2NzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmNzU2ZTcxOGUwZjQyNTQwMDIzMGM4YTBjOTg1OTA2NGM5ZTRmODMzMGFmOGYxNWE1YzE5NmRjNmEyYmNlODQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlNGU3ODEwZWExOWUwMDA2OGZjOGM5MWNjMGJhZDc1NTg2YWNjMWNhMmRmNTFiNWU3NWU4MzRiYjM3OTE5MWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdhZjUwOTA1YzA5OTRhZjA1OTM1MjI2Y2ZiMTlmNjk1NzViOTM1ZmM3OWQ0NDlkNTAxYTIxOGE3MmU4MzdmYjAifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/main.rs#L13-L13",
+          "version": "repo-lines-v1:sha256:9306d3ef4ba38998e6e24dd98cf42aa05d427fe4afba231a8e78aca579acb18f:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTMwNmQzZWY0YmEzODk5OGU2ZTI0ZGQ5OGNmNDJhYTA1ZDQyN2ZlNGFmYmEyMzFhOGU3OGFjYTU3OWFjYjE4ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTMwNmQzZWY0YmEzODk5OGU2ZTI0ZGQ5OGNmNDJhYTA1ZDQyN2ZlNGFmYmEyMzFhOGU3OGFjYTU3OWFjYjE4ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTVlMDgxYzgyMDVkYmQxZTdkZGEzZDYwMjI2MjdiNmY5NjhlYTgyMjY3ZjMwYTgzMTQ0MzViN2Q5MTIyYzYyZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjdlYjk4Nzc0ZThmNzE2NzBhOWEzNTM2NDMwZDVmOTcwMWRmNjMyYjA2MzA3ODk5NjdiYWQwMTA2MGMyNWYxNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1c2199a475234e6a8f559df940fd92db",
+      "statement": "Instead of per-chunk logging, AudioPipeline::run feeds an AudioMetric (chunk id, sample count, duration ms, average level) into an AudioMetricsBatcher via the batch_audio_metric! macro; the batcher aggregates every 50 chunks or 5 seconds into an AudioMetricsSummary (total_chunks, total_samples, total_duration_ms, average_level, timespan, chunks_per_second) retrievable programmatically via get_summaries().",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/batch_processor.rs#L108-L193",
+          "version": "repo-lines-v1:sha256:c671a117271612a0609e6a532b69a1a6920c62f18d25c02a5d7a80f2c2cfef73:eyJzZWxlY3RlZExpbmVDb3VudCI6ODYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkNzMxOTE5ODhiMTkwYThmYmRlMWE4NDUzMTFkZjA3OTIwZmRiMTMwYTQ3YWVjNzE2MDRkMGRkOTlkYjE0NDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNhZDNlOWRlMGExZTlkY2UzNDcwYjJkNjRmYTcwMGU4YjQ5YTc0YzM2MTIzZWNlOWYxYWI2YmRhNjRiMDI0ZGIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/batch_processor.rs#L201-L216",
+          "version": "repo-lines-v1:sha256:dbfe33523d0c8b36e5865d56374fbd8c692aefece1bc8af465a2d6ab1f490e31:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhMTdkYmQ3MWZmMTc3NDA0ZTk5OWVlZDVlOWQ4NDg3YmI1ZmZmODczZTc3NDEzNWEzZTZiYWEyNWNlZjRjMDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/pipeline.rs#L790-L806",
+          "version": "repo-lines-v1:sha256:712a178ca588263287330fe8bd34e1649801b9c4c52970508141c83050ff2959:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3MDBjZDA3MjU0OGQ5MTFlNzVhYTBmN2Q1ZmIzOGFiZTg0ZWY1NjdmZDQyNGE0MTY3MTZmMmNmZWYzMzRhN2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhkYjMzOWMxN2Q0Y2M1NGU3MGM0ZmNmZWNiNjExYmI5ZTdkMzYzZjI1YjE4ZTA5MjNhMWQzMDZjYzk1OTI0ZTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyMGM0ZmRjYWUyMTRlNDA2ZWNhNTA1NjM0ZWQ1ZDZkODAyMWJlYmU1ZjdkNDAwZGI4YTU3OWEzYzIzMWZkOTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ1NWQ5MGRmMzZjYmM5OTA4YTEzOGMzODBmMWZkMWJlYmM3M2NiZWM3MzgyNDBhOGFmNWMzNWQzMzY5YWRiMDMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_023ebe67540f4d25b93b27de94d0f606",
+      "statement": "whisper_engine sets GGML_METAL_LOG_LEVEL=1 and WHISPER_LOG_LEVEL=1 at engine creation to suppress whisper.cpp/Metal C-library logs that bypass the Rust logging stack and would otherwise clutter output.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/whisper_engine/whisper_engine.rs#L85-L91",
+          "version": "repo-lines-v1:sha256:46522d1c7b1600aae93a8f7dabbfa1ed6fa35315d8ee8f9f56fff4f7072a93a8:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTUyNzYzMzk1M2VlZTkyYjRlOTQyMmQzMzdiNWUyMzBiNmRhZGZiMmI5ZDBlYTU5MDdjMTAyNDY3NWQ4ZmNhNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmJiNzI2MjJiY2NhNjQ5MmYxOGMwNmRkOGEwODVjNDI2ZjM5YzQxNDA5YzUzMDM5YjQ3NWRiNTU5YTk2Y2Y5MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWY3ZDA3YWZlZjk0MTc0OTA0ZDVlNjc5NmFmNDZhMjIxZTQwOTg2ODEyZDYyY2JlM2IwODUyYTQwOGQxMDlhYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a62834b485f245b080991519f1b6b8eb",
+      "statement": "The in-app developer console is exposed as the show_console/hide_console/toggle_console Tauri commands — on Windows show_console allocates a console window and re-initializes env_logger at info, on macOS it opens Terminal running `log stream --process meetily --level info` (toggle detects that window via AppleScript) — and the ConsoleToggle React component drives them, hiding itself on non-Windows/macOS user agents.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/console_utils/console_utils.rs#L109-L158",
+          "version": "repo-lines-v1:sha256:aa2e91b241dcf2a503e69671b207c50aaf3655c4818c5f4fccbced31254777dc:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMWVlMzNlZTk1ZmFlZTFjMTBlOWViZjNkM2RlNDFiYjE5MjUxNWNhZDc3Y2RhMjA1ZTU0NmRhMTcwMDFhNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/console_utils/console_utils.rs#L23-L66",
+          "version": "repo-lines-v1:sha256:63e51fdc2758787a81b26abd4ef32ef133d79c2b57e96993c5be2996e4392599:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMWVlMzNlZTk1ZmFlZTFjMTBlOWViZjNkM2RlNDFiYjE5MjUxNWNhZDc3Y2RhMjA1ZTU0NmRhMTcwMDFhNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU1MzZlNmE2ZGVkYTgzYThkMWQ2YjE1ZjhkNTYzZWMyMzA3YjQzYjgzZjI0ZDczNjNlMjRjMDlhY2YzMGYzNGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM0MDRmZjZjZTVkMWFkYTM3MDUzMjVmN2M4NWE2MTE0MzdlYmViYjFkZWUyYTA3ZWNiYjhlNGNmMGVmMWMxZjEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L623-L625",
+          "version": "repo-lines-v1:sha256:566f8ae7de6df811aa3be37f6e7de8b580023ae69e50ad1bc319c805ca7d0847:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzQ2ODEwZWNmOGU4ZmE1MGI1MmFlMDU0OTNlOGU3Zjc2YjljMjA5ZWExNDc2MzgxODYwYmMxNmE3NmJlYTFlZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWY5ZGI0M2JkMzA2OTFiMTVhMzZjY2I3NGQ0NmU4NDg2MmUwZjJkNzk4MzdkNmM3N2Q0OTE1ZjhmMTlkZmJlYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjEwMjU5M2Q2YzI3OWMxZTQxY2VjZGMwNjk2OGNjMjFkODlkMjI1Y2RkZmJmNGY0OTA4YmE2OTk3Yjg1NzM4MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTc2ZWEzMmMxNjQ0NDMwY2E1ZDhhOWFhYjk3MmM1NGRjZWE5NzFlYjk0ZWRiNDNhZDhmM2ViNjNlMTA2MTM5MSJ9"
+        },
+        {
+          "resource": "repo://frontend/src/components/ConsoleToggle.tsx#L11-L56",
+          "version": "repo-lines-v1:sha256:7ff3bb9a40b3064db7136abfe28a342e5099fcd2289c56e3c1bb7c40ed55a5e0:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiNmJhYzJkMTQxZjU2N2JlZDFhMmE5ZmVlYzAyODQxNzQxMWM1NTY4YjA5OTlhMjFhNmNmMjRlZGU2Mjk0OTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI2YjZjMmJhNTRjN2I5NTgxMDQyZDI3NDBkNmFjZWZhNjQwNDFmMDc4ODM1MTJhNmViZDZiMmE3NmNjMzMwNzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY2MjYzMWJlZTYxNjk5ZTlkYTE5MDEwZmEwN2M3NDJiM2M1ODNkNTUxZTZhYjVlZTQzZDk3MDk3ZTg1ZTlkYTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_fb23178a76d64de9a298a324f71cae75",
+      "statement": "AudioMixerRingBuffer mixes in fixed 600 ms windows (28,800 samples at 48 kHz; the adjacent \"50 ms\" comment is stale) with a per-side cap of 8× the window, logs a debug ring-buffer status every 200 add_samples calls, and on overflow drops the oldest samples after logging — a warn for the microphone side and an error for the system side (\"SYSTEM AUDIO BUFFER OVERFLOW … THIS CAUSES DISTORTION!\"); residual system-side overflow manifests as audible distortion in the saved recording rather than a crash, so these log lines are the definitive signal that the mixing stage lost audio.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/pipeline.rs#L26-L39",
+          "version": "repo-lines-v1:sha256:6f437b077fb3b45d7b08658da40f84d82fdf6c5bf8b7ce5ba64b349ec4badc8f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmNjBhMTYwMjQ3MmUwOGE1NjIzZDVlZmQzNjE4ZjllNzhlYTFhYjIyOWM2MDk1Y2MwOGZiZWZmMzIwMzFkMDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1MzViYWU5NGRjMzRlMGJmZGVkODg1N2E3ZmNiMTllNTMxNmEzMzYzZjBhMzE0YTkxNGY0NmFlMTI4MTA3NTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNkMTdlZTE2MTc2NjYyMjJlODUwMmZlMmUyOWViOGMxNjdiNmY2ZjE4MjRiYWY3NThmYzM5YTA0ZDIzZjBjMzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRkZGQzMjJmMDg2YTk5Mjc2NzlmYzc0MDZmNzRkNzQ0YzYwZThhYjQ5OGUxNjcyNWUyMDQyYWFkOTVjMGE5NmYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/pipeline.rs#L49-L85",
+          "version": "repo-lines-v1:sha256:c8e04a2da0d319b71edc0211d8b479884276a47895fd5e7429634b4f407f0e9a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyMGVhNzU4NzQ2YjA0YzZjNjQ4ODJiM2Y5NGIzNWM2OTFhNTgyYzg5MWUwNjgxODFlNTdiOTE0MWZhNDM4ZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlhYTA5OTVmMDQzMDVhYzljYWJlYjczOGI3MTM4YzI4MWIxYzQwYjk3MjAyOGJhZjhlOWM4YWNmYjExYmZhZjIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bca1dd841fb6457aab88e0132232fa0f",
+      "statement": "Per-segment VAD observability: each accepted speech segment logs \"📤 Sending VAD segment\" at info while segments under 800 samples (50 ms at 16 kHz) log \"⏭️ Dropping short VAD segment\" at debug; batch import additionally logs \"VAD detected N speech segments (redemption_time=2000ms)\" plus average/min/max segment-duration statistics and the first 10 segments for inspection.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L456-L483",
+          "version": "repo-lines-v1:sha256:5134c1e92d5b5504a6c5ae13881867250be6320361cbe0d9f04cf1f01aae1e22:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlZGQ5ZDQ3MmE1NmUxYWEzMDYxN2FlM2M5NTUwNWMzMDI1OWI3MWNiNmQyZDc3NWMwY2RhY2RiZmIyZWUwM2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwZjIzODNmZTZlNjdjZWRjZTA2OTQ0ZDE0ZDM0NjRmOWU4YmU4MjdhNWFlMDY4MGFjYzMwNThmMmFkMTU1ZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY3Y2MxM2I4NWM3NTg4ZDBhMWE0NzRjMDliOTc0YTEyN2VhZThkZDVmOTI2ZmE0MDZhYzE1Mjg5YTU1NGU4ZTkifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/pipeline.rs#L834-L861",
+          "version": "repo-lines-v1:sha256:f3a7ced1afb7a14d9b74f7450b30966e1d28867f8815eaa5383cc3e944c85ee4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlNWY0MmJmY2QzZTNjODZmZDM1OTdhMjI0N2JlYmYxOGJmZjNkZTI4NWNhMzE1MzcwNDljNzYxY2IzYWRhNzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFlYzAxY2FjMTBmNTNiMzc4MDM3NDRlMzgxYThjZGMzZjgwZTljMmE1NTg3NDJlZDYwYTUwZWM5ZWVmOWIxNWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY4ZmViNGJkNjQzMjNlYWE3NjQ0N2M0ZTgxMGU4ZDI2MDg3YjFmM2MyMDY5N2U1MWIzN2U4NzE2MDRlZjBlMjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBjYzNmYTMzMTI3ODBhMzEzZTY5ODE0ZGU4ODVkYzBmOTEwNjA1MTJjM2JjYzlhMjVhOWMxZjk1MmYxZjM0MWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_09eff806ce794c9da3f44f5a7957b31f",
+      "statement": "audio/diagnostics.rs exports log_device_capabilities, log_detection_summary, log_buffer_health (warns above 80% buffer utilization and flags Bluetooth-specific connection risk), log_mixer_status, and log_performance_summary as instrumentation helpers for debugging device detection, buffer health, and session performance.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/diagnostics.rs#L201-L245",
+          "version": "repo-lines-v1:sha256:8f761371259e6a3574977bef8e53bb2570add5aca79b97cdb164cf75b4f3140e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhNDlkZTI2NTNjYTdlNGE4MGY1YzhhMDVhYmU2MmJhYTMxYzE2MDVlZWFkNDM0MTVmOTg4ODM0N2ZmM2UyZTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhZjZlYmY3ZDE1ODgwZjY5NjY5NDUzMmFjNzU0MjI1MjVhMTZhN2JkNmEwMDdiZWUyZGI1NTU3MTZmZTBhODkifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/diagnostics.rs#L261-L285",
+          "version": "repo-lines-v1:sha256:488333af9ad8fd97c10a69f5f861a995bc95c658b7afff601ae35176f7aa3fce:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiNDJiZjZkYzRhMTM5MTExZDEyMWY1MmYyNTY5ZDBjMzY0MjE5MzllNTllODRjYzRhMjRkMTJhMWRkNjViNDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1ZmIwNDdmZWUwMTg0NDQ5NDFiODJhYTkyZGU1YjE0ZDQ2OTlmM2ZlMGZlYTRiMDVjN2I2NGViNDZlYzk5YzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdiYzk4ZDZiMGRjNDkyYzUwMTZkZjEwODA1YTNhNTRlYjljMTg0YTVhNjEzN2U3ZjRiZWNmYTBjMjIwNTUwZDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_72f3dd9d7fda4f6999663d80d4a9dccf",
+      "statement": "Shutdown has a built-in chunk-loss verification loop: the transcription task counts queued and completed chunks with atomic counters and, after workers finish, retries the comparison up to 10 times (100 ms apart) before emitting the transcript-chunk-loss-detected event with the counts; stop_recording awaits the task with a 10-minute cap while emitting recording-shutdown-progress stages, then emits recording-stopped carrying folder_path and meeting_name — a queued/completed mismatch in the logs means chunks were lost between the pipeline and the workers.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L557-L611",
+          "version": "repo-lines-v1:sha256:1494b64409c29fe38754cd8102aa149a0c39058640264524744f2fcb349c06ef:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmYmNmYWI2MTJjOWZiMDM1OTY2OWYxYjI5MzE4N2RmOWNhNWU1NmI0OWE0NWVkYjU5YTk5ZTg0Y2RjNmU0ZGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImExMjE5MTZhNTlhNTUwYjlmNzM5MDA4YmE2NjUxNTBjN2M0Y2IwZDEzYTAxOWZmOTcxYThhYzAzMTQxODZlNDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1NjU1OWRhMzk3NjM1NmVmMWI1OTdjODQ4NmEzZDUxODYwYWJiMWVlNmMyMWNlOTYzOGVlMTJmMjg2Y2RjZjcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L871-L897",
+          "version": "repo-lines-v1:sha256:8b06323a0e785607bea053263273a233c7244e2f9d11f405a53ff8749ad70649:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ0MWFjZDA4MjdhY2E4OWM3MzhiY2YyZjNiMjY3NjFmZWJjNDhlMTk4ZGYyZThlMzA3OWQ1OTg2YTAwNmQ3MzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4M2ZmOGQ1YTNlN2VmOTZkMTBjOGUxZGJhMzg0NDIyNmZlMTQyZmU3ODYwMjZlODZiNjljYzRmYjNlM2Q4MTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlZGJlZjdmNWY4MjYyMDUxMWUwNDU3YTI3YTQ0YTI4ZDU1MGIwOGZjMDY0MmZkZjE1YWM2MDY1NTM3OTM2OGIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/transcription/worker.rs#L361-L400",
+          "version": "repo-lines-v1:sha256:ff212a249c5ee715959abbc632050300aea23b85c07979a824a9c6ae58339875:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2MmFjNGNhZjg0YWI2Y2FmMDM4YjViN2YyZWZlZjUwZDdhZDJlNDM4NzhjYjI4MjhmYTE5NTBjODhhMzkzMzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhOWY4NmQyOGU3ODRmOWZkMzFmYjcyZDE1ZjYwY2JjZWFhZmRkNjY5Y2JkNWI2ZGE3ODg4YTAyMzMyMWViYjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgwYTM3MTQyNDUyMTNkMzEyOTNjNjc2YWQyMWYwZjcxYmIwMWNmMWM4MzVhNjRmZGU1YzAyZDU1MGY5MjA2NmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ffafdd8ea8c84361906a9b5c08df8195",
+      "statement": "Bluetooth playback distortion is a playback-side issue, not a recording bug: per BLUETOOTH_PLAYBACK_NOTICE.md, recordings are correct 48 kHz mono AAC files and macOS resampling to a headset's negotiated rate (8–44.1 kHz depending on profile/codec) shifts speed and pitch; verify with ffprobe (expect sample_rate=48000, channels=1, codec_name=aac) and re-test through speakers or wired headphones rather than changing the recording pipeline. playback_monitor::get_active_audio_output (per-platform name heuristics) feeds the BluetoothPlaybackWarning component, which polls every 5 seconds on playback screens and recommends wired playback.",
+      "evidence": [
+        {
+          "resource": "repo://BLUETOOTH_PLAYBACK_NOTICE.md#L19-L45",
+          "version": "repo-lines-v1:sha256:ba568b4707573f2835bfc65fb74c724b286169d1811cda037d4bf1b788f16091:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMxMGM1MTRhMDgyZjgyYjc0MDYzOWU5YTRiZmFjYTZkNWQyNzYxOWQzMmU2NjU3YWFkZjZhZmEyOTMwMGVlNTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MzcyMmE3ZTFkZDIzZGE0OTY3MDI0MTJhYjk1YTZmZmZkODM4Y2RlYTA4NjViZTU0MzEwNGM0NWRmMjU3NjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUwY2JjODk0ZWJiMjEyOTQyYjlkMWQ1MTJiZmMxYTBkZGZkOGU5MWJiYzYyNDFlZGE2NDc4OWU2ZmRhODc0MzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg0YmM1MDk0YjBiMDE0MWI3ZTU1ODkyODc0MmQxMWM4NDMxODZiMzJjNDAzMmJmZmM5MDY2MzcyM2I2NDkzODQifQ"
+        },
+        {
+          "resource": "repo://BLUETOOTH_PLAYBACK_NOTICE.md#L77-L98",
+          "version": "repo-lines-v1:sha256:3c9bd4e06c2ed268fbac2460af46dd3a199119b495c42a67235db0a97598b12c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NjBlOGVmNGQ0ODE1ZmZlZDU1N2MzMGMwOGRkOTg2OGRlM2YwODYwMjgxYjYyNTdjMjUyYzIyY2E2ZjU3ODkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzMGE2MGM2ZWVlNGZiMDY2MmM2M2JjOTQwM2U5NmMzZGFhYTBhMzlkNjcwYjg2NzE5M2E1YzQzMmQwYTdlODEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ0N2I1ZjY3YmMyZDI2YjI4MjhmY2MyMTMzNzAyOWY3MDQzNTgxZTEyOTM4NjEwOWIyZjQyYzk0MTQ5Mzk5ZDMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/playback_monitor.rs#L17-L79",
+          "version": "repo-lines-v1:sha256:3e8c0bfdff084f115ed64eac34194990545b1a35ff965f91cbfc122d561e8d1e:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUxZGMxYTRmODk0MmMzZjQwOGE0YTRhNWZiNzM0MDQ2NWIzNzZhZjEzZTE2ZmRmNDAzYWFlNzY2YWIxZThlNmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBjNmZjNDU0OTJkMzEyODJlYzQxYjYyZTIzY2NmMDhmZmUzMjJiMmVkMGM1NDRhNTlmZTI4MGJiNDM3MGJlYmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzNDM4OGRhNGVkNDQ4MGFhNGI2NzA1YTAyMDE2ZWY1MGNhOTJjMTEzY2Q2ZGE5NzMxOTVmMjgzMjAxZDYzOTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/BluetoothPlaybackWarning.tsx#L30-L63",
+          "version": "repo-lines-v1:sha256:d564b463485e8ff89710cc89122f090084a633591a874c418f2099d2ea7e934e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NjZmYmZhODg5OThkYTc0NjU2YzUwMTk0OTU2YzI1ZjA4NDk0NTc2NjBjMDA5ZmU2M2QxZTlmYTlkYzkzMWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjYjM2ZWFlNWVmMDdkNzExNjViMjcxNjJiNmM4ZmMyOTcwNmIwMDdiNjlhMGE2MmUwMDU3ZmQ2Y2UzMTU4ZjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4YjEzYzcwYmQ4ZWIwZjQ3NjRmODU3ZjY0YzYzYjI2M2ExMmZiYjIwNDQ5OWYxNmRlOWVhYjExM2IyNDhiYWIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-07T20:26:28.923Z"
+  }
+}

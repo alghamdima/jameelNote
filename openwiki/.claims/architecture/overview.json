@@ -1,0 +1,486 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:1b1dfaf268698d99ab16b6e1c90c53d9933d0e4a0952cdfc6ca11f2fd2b5e21f",
+  "claims": [
+    {
+      "id": "claim_3244e73ff6064d6984543942f2739d62",
+      "statement": "The repository root Cargo.toml defines a Cargo workspace with exactly two members: `frontend/src-tauri` (the Tauri app crate whose library is named `app_lib` with crate-types staticlib/cdylib/rlib, and whose thin `main.rs` only initializes env_logger and calls `app_lib::run()`) and `llama-helper` (a standalone binary crate wrapping llama-cpp-2 that is never linked into the app).",
+      "evidence": [
+        {
+          "resource": "repo://Cargo.toml#L1-L10",
+          "version": "repo-lines-v1:sha256:8667f478be337c589a0505709056a782b2636c5eadbb34f1cd1e631b4350feb6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzNGUxMDJjODYxZjk5NGQyYWFjZTkxMTRkMzkyZGJjMTYyMTkwZTAwYmU4ZmUzNTdkNDcyMTUwY2E0Mzk2MTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxYTIyNjM0YmJmZmVjNjI4MjJmYWEyMDhiMzUyZDMwMmMxOWMyZjcwZTI5ZTU3NjEzYjlkZjE4ZDdjMmZjMzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzZTQ5ZmEyNmVjNmU4ZGEyYTY3MDdjMmUzMjc0NDE0N2Y0MDVlMmRjMDc0ZDI3ODk0Y2NhMzI4ZWIzMWQ2YjIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/Cargo.toml#L13-L15",
+          "version": "repo-lines-v1:sha256:74e9aafc6ccb06650d2e7e5c51b770380742e24161640c1873a0fff1b74304b9:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzg0MzVlZjU5NGYzMzcwNzMwN2MxZmU1OWIwMTdmMjExZTllZThhMTVjODJkZDVlYWIxOWI3NjdhNmY3NGJlOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGNiM2U3NWQ3MmNkNjM2MGRhNWY5ZDc2NzhlNTdkNmE4N2E2Zjk3Yjc5YzcyMDkxMmE4MjhlZDU0OGFkYjQ2MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzc4MTEzYmU1NmM5MWY1ODRmZWYyYTEyNThjZTMzMmI1ZTMxZTA0YTQzZTE5NmJiOTkyYmEzZDQ5MDdmZmUxOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTI2ZDFjY2JkZWNkN2UzZDQ0N2M5ZGU4MWI5Yjk5MWUwMmRmN2Y4MjgxYzI1MmEzMzU1NzczZGQwNzRlMGNjNSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/main.rs#L9-L16",
+          "version": "repo-lines-v1:sha256:9a3b849732348260f9d82d83615da23099bf646952d1f976e23cde3ed2b31b7c:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDBiOWVlZTkxYmMwYjFhNzdiNWYyMjRmZDY5NDVmM2RlYzIzNGU1NTk2Yjk0NzVjOTBjNWFlYzllNmFlMjBiNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzJkZmYxMjExOTgxMmFiOGNkMjRjMDc3YWRmNTIxMzg5YzlkMGJlYWY2MTUyMTQ4ZWM5ZjY1MzU1NmU4YjJiMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://llama-helper/Cargo.toml#L1-L18",
+          "version": "repo-lines-v1:sha256:2d41739d1f75eb962914868305b81273a0e5b84d55cb7533c5b81314f419be40:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhM2NkNWE4MWIzZjlhNjIxYWE0OTNkOTBjNDVmNDJhYjU3MWQ0ZTQyYjhhZTVhZmYzNTFjYjBhMDJkMDZkODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEwNjkxOTE5N2M4OWFkNGJmYjkzZjEwYjM0Y2NmNzFiODA3MTM4ODNjMjg1MjgwOTM3YjZkOWE2MmExMmI4Y2YifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a9ec184a1c47480ca25b05617e40a8eb",
+      "statement": "The Meetily architecture is a Tauri 2.x shell: a static-exported Next.js 14 UI (output: 'export', frontendDist ../out, dev on port 3118) communicates with the Rust core only via `invoke` commands and Tauri events (wrapped by thin service modules in frontend/src/services), while the Rust core owns the audio pipeline, transcription engines, summary generation, and SQLite persistence.",
+      "evidence": [
+        {
+          "resource": "repo://docs/architecture.md#L7-L26",
+          "version": "repo-lines-v1:sha256:1a77f4ea858f92a50f40ff8698da7d0730b2cca5d20237be600f89cd44a3b0e9:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjMzdkMjVlM2FiMDEzMDNhMDhjOTExNzJjYjQ1YjcxMjA0OWEyZmRhZDcxNjcyZDMzMWIyODUyOTIwMTE5OGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiZGNiZjIwZTRlNWJjNGMyZDE1ZGRjY2Y2MDE4NzE4Yzc3MDIzNjI1OGY5NDU0YmY3MmZhNTQwNTcxOTljY2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxNzY2MjNjNWU5YmZmMGE4ZGFjN2IzYmFiY2M5MGMzZTIyMGVlMGJhOGY0NDRiMmM3YWI2ODI1YmRhZWJiZmQifQ"
+        },
+        {
+          "resource": "repo://frontend/next.config.js#L7-L17",
+          "version": "repo-lines-v1:sha256:467d7d9d5dc2bd4904fc523f0d35dfe7804e80401aac46cbf0a779f6128ebbe5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4YTk2MDY3Mzg2ZjA4MDAwYzZhNGQ2MGU1ZmZkNDNjM2Y2OTY1ZTcwOWFjMTgyNTQwNzgyMzM5ZjRmMmYwYmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0NjNjOGI2ZWEzY2RlYTZhY2EzYjcxYmY4Y2U2ODJhMjMxMDJlYmQ2YmU2NzQzZjBkMWMwNDc4MDIzNTgyNzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxNTIzMjgyM2RmN2QwMmM3N2I3NjhhMDFiNjAyY2JiYTcwNDk5YTcwNTQ2ZmUyMTdlYjU5ZjE2NzFlNDI2NWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJkMDY5Y2I1NWE5ZDMzYzE2NmVjNThiZTk4ZWFlMTJhMDhkNzYwZGYxNTJjMGY3NTc5YWU5ZGE3YWI5YzhkOTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L6-L11",
+          "version": "repo-lines-v1:sha256:927e93b89b96503ad69a8bb3bfdea906302855470dedc3274bd4bad6c94c7e47:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWVjZWU5OWY3YTFlNWUwY2RjOWU4M2JhNmU1YTgwZTAzYWI0NDdlZmI2NGRiZDhlOTRhYjBhOTQ5ODlhMDJhOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWYwY2RiOTcyYTdiZmI3ZWQyNDZmOWZmNjcyMzg1ZTU1ZjQ5NjhmYzExMDQzZGM1YjY4NGQ1MWRmYTMxZGJjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDE2NGNmNTVhYzcyYzAxZDYyNWI2M2Y1NjVkODg1MzI0MDE4YWE0OTdlOTU0ZTY3MWRjODIyNjBhYmZkZTQxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzQxZDY5NThkY2ZhNjVmMzAyMDgxNzZhNmM2MzYyODYxZjE5NjZhOGEyZTAzYTI5ODdiYzdkZWY5YzI2YzBlMSJ9"
+        },
+        {
+          "resource": "repo://frontend/src/services/transcriptService.ts#L37-L60",
+          "version": "repo-lines-v1:sha256:93a3de57e6f4a6b7c86160ba857febaf4f6a3f92519f58afcef338a0b292416d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmMWU0NTc5YmZhMjZiN2RmZmY1N2FlODM2YjU2ZWI4MmZjMThlYjFhOWI5NTEwMzVlMDZkNDhmYTI4NDBmZTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQyZTgzY2FlMmY2NmE1NDg4NmM4ZmNjYTQ2M2JjOGM1MjE1NjlkYmI0ZjYxODhhODg4ODg4NDc3OTRiMjcwZTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmZjA2OWJmYjZkNDk0ODlhOTI5YTZiMDIxNjlhY2QyZDZkM2I2MDUyMzI1YTAzMDI1YzY4MGM4ZDRlMzVkNGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e621937df4b4486a83adec800fd098bf",
+      "statement": "The top-level modules of the compiled app are exactly those declared in lib.rs: analytics, api, audio (with the audio/transcription subtree), config, console_utils, database, notifications, ollama, onboarding, openai, anthropic, groq, openrouter, parakeet_engine, state, summary (with summary_engine), tray, utils, and whisper_engine.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L37-L56",
+          "version": "repo-lines-v1:sha256:c2c5d5e062369966217c526f60ea4557aaaa8fcc7edd43b29dac9129aebfd043:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1ZGE3YmQ4ODU3NzlhYmI4YjNjZjdjMzA5YmQ1YWE1NGU5MGQyOTBmMjM5YjRmMmU3ZTE2OTFiM2I3YjFjNmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhkMjU4ZjIwM2ViNjU2MjZlZjNhNWM3NTY3MTRhMjBjNjY1M2ZmNjFmYTRjMWJkYmI4ODUyNzE2MmE0NDg5NzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQxZDgwMGRhM2E5MDY2YmViMDQ0M2ZhN2ZmMTEwZDVkZjA1ODUyMTI1ZTUwNDNlNTM1NDY1NGZhMTE3NTY5NGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1NjJhODQ0ZDQ3NmYzZTMyZTViMTE0ZWQ3NDBlOTNiNzdjMzFmZGQwZjk0YzFhYWEyNzgzMGU2ZDNiYzRiYWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_972a50bf00ea4acea292a25f589e9f9f",
+      "statement": "src/audio_v2/ (an unfinished modern-audio rewrite) and src/lib_old_complex.rs (the previous ~2,400-line lib.rs) are not declared as modules in lib.rs and therefore are not compiled into the application binary; they are legacy/dead code.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/CLEANUP_PLAN.md#L8-L15",
+          "version": "repo-lines-v1:sha256:db9d27d781a7243ee21df5c0d047d2e56136570344f4471a5d93dc3514693049:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDExMzg3NmE5Mjk0NDVmNWZiOWVhMDQ3MGJkZjZhMTc3ZDIwOTExZWE5MmQxODFhZDYzNjZjZmQ5MzMzOGRhNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODNmNjkxY2UzZjhkZmVhMWUwOWY2MzcyOWJhMzRiNjRmMmUxYmU0ZDE5NjRlY2MxMGEyZTU1ZDg3Nzc2NzAxZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGZmMTdjMjY0ZWQ4NWVkYTZlZmNjYTVlNTQwODk3NTQ0NTVhYzdkOWE1NWIzNGJiODZiNTllZWY1OGZiMDk3ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWIwNWY3ZjFiMDRjYmNlOWZiMTM2OTE0OTQ0ZmUxYWE2N2VmZmJmMTdlMTdiZTcyMDMyNWVlODI0ZmUzOTk2MCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio_v2/lib.rs#L1-L14",
+          "version": "repo-lines-v1:sha256:9205dfd99af4ff01a405caf0c2919c437e4e36bbd3ec0edbcca45c2f2af230a6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhmNmRiNmI3YWU3YjUzMDIxNWYyZDdlNmE5NmJkNjIyYTZlZTM5MThlYTg2YzAxNTdlODM2MDAzNGVhM2U2YzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZiYjQ5MGQyYTJmNDM0YTRiNjIyNDBkOGYyYjc3ZGVkOWJjM2Y4MTQzZmVhNWUyMGEyY2IwOGQwMTUxOGFhMTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L37-L56",
+          "version": "repo-lines-v1:sha256:c2c5d5e062369966217c526f60ea4557aaaa8fcc7edd43b29dac9129aebfd043:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1ZGE3YmQ4ODU3NzlhYmI4YjNjZjdjMzA5YmQ1YWE1NGU5MGQyOTBmMjM5YjRmMmU3ZTE2OTFiM2I3YjFjNmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhkMjU4ZjIwM2ViNjU2MjZlZjNhNWM3NTY3MTRhMjBjNjY1M2ZmNjFmYTRjMWJkYmI4ODUyNzE2MmE0NDg5NzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQxZDgwMGRhM2E5MDY2YmViMDQ0M2ZhN2ZmMTEwZDVkZjA1ODUyMTI1ZTUwNDNlNTM1NDY1NGZhMTE3NTY5NGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1NjJhODQ0ZDQ3NmYzZTMyZTViMTE0ZWQ3NDBlOTNiNzdjMzFmZGQwZjk0YzFhYWEyNzgzMGU2ZDNiYzRiYWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7ecde9f7dbbd41b687d01a2a9473dbd2",
+      "statement": "Four managed states are registered before setup: whisper_engine::parallel_commands::ParallelProcessorState (optional ParallelProcessor plus shared SystemMonitor; worker initialization caps requested workers at 4 and at the resource-safe count), NotificationManagerState (Arc<RwLock<Option<NotificationManager<Wry>>>> populated asynchronously during setup), audio::init_system_audio_state (optional SystemAudioDetector), and summary::summary_engine::ModelManagerState (Arc<Mutex<Option<Arc<ModelManager>>>>, lazily initialized on first use if startup init fails).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L414-L419",
+          "version": "repo-lines-v1:sha256:47ed859ec1cb9a94f4758129986346a63a5a4edf0fdac7d19ed4d64cb9648c22:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmRiNmMyYmY5MmRjN2RmNjAyM2NhOGIyZmRiZmUzMTEwNGNjOTM5ZWI3MDVhMTk1Yjg5NDI1MGE3NWYxNTMzOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjUzYWRhZTc1ODQwZWQ3MDIwZGZlMDI5MzY1MmMxODNkYjIwZDgwMDIxNjJjMDhmMDhmNGUxZjJmZDZkOTliZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGZjZmNkM2ZlYmYxMTViN2E1MDkzY2NjNGQ1MDA3ZjUwZWI1OGQ2MDg2ZWIwYWVhZTZhMzhiMWNkZWNmMmMxMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTEwMGIwNDE0MWY1ODY1M2MxMjc1NTJiZjdmZWRjMDZmYTM3MjAxZWNkOTk0NzVlY2Y3MDZmNzQxYzEwNzYwYiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/commands.rs#L49-L64",
+          "version": "repo-lines-v1:sha256:c224efdc5bac6c76f4fa7107f320a69437a51f79e6d3a2e5dbe84ad41d2a054d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjZjI2ZDVhOTQyNjVkMzMwNmRjOTYyN2U1ZjIxODJlYTJlZTUzYzAzZjJiYWE2MjJiMDgwNjQxNjJhODNhYTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjllZTM0NWVlOGQxZTE3Nzk3NmE3NWY0NWYzY2M4NjdlOWM0YzM5NDQ3MGZjZTg5ZjRkNDlhZDdlMTkyYWM2MTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ0MTI4MWQ4YTA3MmYyZjM0MjEwM2YwY2EyOWJhNmNlYzY0Y2Q2ZDc3MjU1N2UyMzQ0NDk4ZmYxN2Y1OGE3NTMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/whisper_engine/parallel_commands.rs#L12-L59",
+          "version": "repo-lines-v1:sha256:16ce478956a1ab02e6f454901f49b72852a74daa8d5adcb3c20d3b3338b747ac:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVlZjFkOGQ5MWM3MjFiN2RiOTJmODhjZTRjMzdlOWUwZmI1YmJmZjhkNTIyMjQ4ZjI0NzdkNjlhNzg1NDVkMDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVhMzI5NzZlM2NkMTc2ODE5NGJiYTM0ZjI3NGE0YTVhZDQ0MDZlYTAwZWUzMTdlOTAwMjY0MGI4MmIzMjZiOWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc4NmM2NzdmMTNkZDEzMGZiM2E5MjI1OGI0NDQ5Yzk4YjM3M2VlMjRjOTJlNmRlOGJlZTI3NzFiZDYwNjVkZTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_55899de46bfd42459bf1a2b437963858",
+      "statement": "AppState { db_manager: DatabaseManager } is the shared SQLite handle added during setup or by the onboarding database commands; DatabaseManager wraps a sqlx SqlitePool and commands across api, summary, audio import/retranscription, and onboarding obtain it via state.db_manager.pool().",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/api/api.rs#L321-L331",
+          "version": "repo-lines-v1:sha256:934d4ba3c9c916c38f49f361e81a59275a6a98291cc842753cc2e3ac3f96643c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMWVlMzNlZTk1ZmFlZTFjMTBlOWViZjNkM2RlNDFiYjE5MjUxNWNhZDc3Y2RhMjA1ZTU0NmRhMTcwMDFhNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4MmQ1YTE2ZDAxNzRhNmExOTliOGNmMTQ5NzM1NmJiNTA1ODRmZDYwZTQxZWI4MzUxZDRmYjM3MDViNGQ4MDMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI2OGMxNGUxZmY4NGJkYTNmZTZiODk0MDY3MTYzNWNmODQ5YTg0NDgzYjMwNGE0YWU3Yzc5ZmQ5MGNkOWY5NDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYwMWVlOGY2NzllZDllYmU0NGYyMDZhNjRjZGEzZjM1NTIxMDMyZDBlM2NlYmU1MTViM2IyZjhmYmJhNThjZGEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/database/manager.rs#L6-L38",
+          "version": "repo-lines-v1:sha256:611f53a9e937e1fd89d13af0638a0f76a5bc1d6ffcd57632d7f6e8e5c34fdde0:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI5MDZjYWZiZDM3ODM1NmQ2ZTI1NWJiMGE4NWNjYWMyMzMzMDZmMjQwNmViN2QwMzM1MjRhNDc5OGM5MDM0YzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyYzRmMWMyZDg0YmZlODQyMWVjYzlhMzgxZDU0NDgyZGI5ZmU0YzQ3MjMyOGY1NWFmYmQ2ZjI1NGVhNmMyODAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRkYWE4MTYzMDExMmYyYjBiNjAwYTYyZjRkY2M5MDI3M2U0NjJmMzc1MWJhMDk2M2ZjMDFkZWViMmU3MjBjNTcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/state.rs#L1-L5",
+          "version": "repo-lines-v1:sha256:bb2067339b75659e7958cf57803dda4f0a1ab444282d3db44b85794b3957de29:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWJjYzA4MTBlNTQwMTU1Mzc2ZDE2ZjU3NDQ5MWUzZDA1MDgwZWVhYjA5ZjNiYmM4NjdjODRjN2JiMjA5OTFkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/commands.rs#L76-L89",
+          "version": "repo-lines-v1:sha256:c08cd55bf771f9a6e1f7120e5af1fb59181a8b2d8609288b674ce288f7d7ed88:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2ZDU2MDFiNDY4Y2U4OTY5MWQ2ZmM5ODFmNmY2YTdjZmU2Y2QwNTY2ODg0ZTRhMjllYTk1YjZjYjdlOTkwYzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4YmZjNGQ3MjBlMWI1YzkyOTQ1YjcyZjdjMGIxOGYxMWNkNzlkNWZmOTQxZmQ2ODIxMzQ2MjYxNTE1MjI0MTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2ZTM2NGRkM2JkYzE0NTg1NWU4YzJmYjc4YmRlN2I2MWNlYzQwN2RkOGQxNjdkMWFiN2UwNTc1ZGU5ZGNjNzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFjYmRiZjVmZDE1MWI2MmQ1Y2ZjMWJlNmQ1Y2FmMmI5MmJlNjc4NDQ4ODQ0OThhNzliZWRlZmNiZDAxZWRlMTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bcedf0eaaf8545da8ce2596c6647a6f6",
+      "statement": "The lib.rs startup sequence registers plugins first (single-instance — desktop-only, where a second launch just focuses the main window — then notification, store, dialog, updater, and process), then manages state, and in .setup() creates the system tray, spawns notification manager initialization, sets Whisper/Parakeet model directories and spawns whisper_init and parakeet_init in the background, spawns built-in AI ModelManager init with lazy fallback, sets the bundled templates dir to resource_dir()/templates, and blocks on database::setup::initialize_database_on_startup.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L390-L513",
+          "version": "repo-lines-v1:sha256:c75fdb2d6487abf047a808788943d392634d6fb34a12896737f846914d79875d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5OWE0NzAwZDMxMjJhN2RiMmYyMTBlZWY0ZTkzMTZkMmQ1ZmZkMDQ5MzI4ZWU5ZTA2MjE5OGUyYzk5MTc4MjU3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJmOWIxOTgyZThkZDc0ODExODE0NmIzOWEyZDAwNjJmNDA4MWUzNDc3OWI4Njc1YzIzNGM0ZmIxMjRkYzM5MzkwIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIxNjRlMzZlMTM2OTNhYmE4NjgwNjM2NzNjMDViZTc5Y2Y5Y2JiZTUzMTYzYzhkNjFhNGQ5N2NkMTE5N2Y0MDAzIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJhOWVlOWMxMjRiNjJiMDllMWZlMTFkMTllYWNjZGZiYzZkNTg3NGMwMmVkNzczYzZiNTNiNTVlNzA5YTJhYzQ3In0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L395-L406",
+          "version": "repo-lines-v1:sha256:9ada349b4d6e4b90e773a8883b7f70384ff19327f9eaff228ccd6986e8da31af:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBmY2RjZTgxMjEwYzg2YzAzZTk3NDY3MWFhMTlmYWQ4ZDliY2YwOTMwMGI1NmRmYWE3ZjFlNzNmYmFiNzQzYTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4ZTUyNmQwMGRhYzRiZTEyYWQ3MzBiZGEyOWQyYjQ5NWIzYTZkYTM2NWU4NWIxNGMzNTE5YWUyZTg1MmExNTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxMTE1NWU3OTQ2ODg3MzQ5NjhiOTJhNTA5MWJiZWJmMTcyZWEyODIwZTI5MzZiZjhlMWYwMzdmOWEwMTU4ZDkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7dc9552da71444318fca8e167f5f524b",
+      "statement": "database::setup::initialize_database_on_startup is the only blocking init step (run via tauri::async_runtime::block_on inside .setup()). On a normal launch it constructs the DatabaseManager and manages AppState; on first launch (no meeting_minutes.sqlite) it instead emits a delayed first-launch-detected event, and AppState is created later by the onboarding commands import_and_initialize_database or initialize_fresh_database, which also emit database-initialized for the UI.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/database/commands.rs#L144-L223",
+          "version": "repo-lines-v1:sha256:447695cd8638c2a5aff1136c6021aa21f7b2a1290f2398b40f0451d760a01e5f:eyJzZWxlY3RlZExpbmVDb3VudCI6ODAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg3NWY5YmIzOGI4MGU4ZDQ2MTlhYzlmODU2YzY0MGY2NzdiODdkMDE0NjBkZWZiZDNiZWM5ZjE2NDE5MjhkN2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJhZjk1ZGU3MjE3OWJhZTBiMWUzZGNmYjg3ZTFjY2MxOTQ1ODI4Mjg2ZjNjNDM5Njc0MTBlMzBkMDRiNWEwMmMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/database/setup.rs#L9-L38",
+          "version": "repo-lines-v1:sha256:e9d77a3e910a17867d88d9b869c30a575009ca0845f4ac417660a1bd2e8dc1a1:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU0ZDlhMmFmMTg2NzY2OTJlOTg1NDk1ZTU2Y2Y5NGZiMWRhNjkzNDI4YzcyMDU1OTAwMDI3MTBjZGE0ZTRlYmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxZmE3YzNkNGQwMTczYjIxOGVjMzkwM2MyNWYyNzM2OWJjNmNlZTE4OTQ2ODdlMjk4ZmIzZTZhY2Y0MGZhZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L496-L500",
+          "version": "repo-lines-v1:sha256:98266a712a9d8e66e710bb1d1e606d73884c047a5d4a804e57fb8c2e00dc3457:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTNhOGYyMmU2NDA1MWM5ZGQ2ZDE4MjBhMGNiN2JjNTlhMjk1MjY3YjgwZTc4NTZlMzYyZWU1MTcyZTQ0OGI0MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDI5MzEzM2M0NzhiNzVlYTU4MjNkMmMzYzJiODI0MGU0NWQ2YTgwYWVmOTgyNTExODFmOTNkMmFjMjg3YjJlNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDhhMmM3ZjU4Y2JjNDI3YmIyMGI0YmJiNWZhNDFlY2JhZTZhNjRhNjkzYzVhNDVhYjA5NzY2MzlmZTcyMmFkYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzVmNGZjNWJmMGQzMmVkYTUxOTVlMDY0ODlhZTkwZTg4ZjhjMDRiYTA4Y2VmM2JmMzQyNGE2MzllZWQwMjNjYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b3e14d3bf28c49a8ae9f1634b9498dab",
+      "statement": "The main window implements close-to-tray behavior: the on_window_event handler intercepts CloseRequested for the 'main' window, prevents the close, and hides the window so the app keeps running in the tray.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L514-L525",
+          "version": "repo-lines-v1:sha256:f698bea799e20fd3e74c1da8b1dcd7fbbde85f72e35bbfcc4e5cac0e1538d499:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFlYTQ1YmE1ZjRlM2NkYzVlNGRkZmJkODkyNjUyMGQ0ZDQxZmFmNDdiYmUyZjNiYmQ5MjZjZmNkODRjNWIzYjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5YjE5ODJlOGRkNzQ4MTE4MTQ2YjM5YTJkMDA2MmY0MDgxZTM0Nzc5Yjg2NzVjMjM0YzRmYjEyNGRjMzkzOTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYzNzc1MWI0MTg1MDQzZmFjZWVkMTEyMWEyMzJlOGJlYTVhYWRmNGQ0OWM2MjZmNjRhYTcyNGQ4ZjBlOWQ0M2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVhZjBkMDEzNmM5MGE2NDQ4NTFlNmZhNDExYzc2Nzk1ODVhMTIzNmJlYmExZTYzYTMxYWY2ZmMyYjZkY2I5YTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6b3b0137024b40569364bc4fdeb91c12",
+      "statement": "On RunEvent::Exit the app blocks on two cleanup steps: AppState.db_manager.cleanup() which runs PRAGMA wal_checkpoint(TRUNCATE) and closes the connection pool (skipped with a warning if AppState is absent on first launch), and summary::summary_engine::force_shutdown_sidecar() which sends the sidecar shutdown command and force-kills after 3 seconds.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/database/manager.rs#L184-L207",
+          "version": "repo-lines-v1:sha256:be2644485c7bebb2f43974054d9e761c839fce2d188ceb77e797c1ce77be1350:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhY2I5YTAyYjVmMTk5NDRhMzcyNWJiZWM1MzVjZmUwMDMyNmQ1NzNmNzlhZjI5NTBkMzhiYzBjZWU0NmVhMmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L760-L782",
+          "version": "repo-lines-v1:sha256:b3c3a849993b2b66a6b8ec7052585b6a3281c353743c6b01c68d02746bd507af:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0MzEyM2IwZDhiZWZkNDBiNWM1ZDI2ZDhlNzRmZmFkZTUwYTY5MDFiOTdjMzM1ZjUxMjQ5MmMyY2E1ODQzZTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNjQ3OWNjMjMwNDQwZmQ0MWU4MjI0MjE4Njc5Njk4NTU5ZDI4OTNiZDY3YjQzODBhZmFiODExYjM4YTU1YWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM2MjAyMDY0YWY2YmIxMTU5MDVlNTQ2ZWFkZjhkNjk5NDEzNDYyY2M4NTM2MWZhYmI4MDZiMjQ3YjExYjA4NzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI3ZjhkMTIzZjg5ZjA1NjM5NWEwYWVhYjRmN2JkYmMzYThkNzY0Y2RjYmNmYzcxYTRkNTc0ZWE3NmJlZjg2N2UifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/client.rs#L270-L286",
+          "version": "repo-lines-v1:sha256:297bd2c9aa5fc61c5ca6bc941a7ce04439e42bc7ab9d55232716d9a613842f33:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc0YWIzZmNkMTI3YTdlYjcyMWY5ZDM0ZTAwZWI3NmViMjNkNmYyMzM2NjFiZjkyZGIwZThhM2E1YzQyZWNhMWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ZjZmNDY2ZTU5Y2ZjMzA3MDNjNDVmNzJhZjY1ZGU1NGFjMzYzZDM1NGNjMWEzMzMwMzUwYWNkNDUyNDM0YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmYWMwMTk1MDQxZWZlNDgwMzUwMTRlZmVlNGQyMmRlYTQzZDAyY2E5ZGQxOTQ3ZDA0OTgzYmVlOGMwYjc1NTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f91716f8a1da420f8e3d1727a964ca4b",
+      "statement": "SQLite storage lives at app_data_dir/meeting_minutes.sqlite. If only the legacy meeting_minutes.db exists it is copied over and migrated; sqlx::migrate! runs the embedded migrations on every open. If opening fails with a malformed/corrupt error, orphaned -wal/-shm files are deleted and the connection is retried once.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/database/manager.rs#L44-L117",
+          "version": "repo-lines-v1:sha256:c43879f780f44d5ec563a693b6d63c325e023ce94de790b1bb97def6d89f0720:eyJzZWxlY3RlZExpbmVDb3VudCI6NzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUxNTI1MTNiMDg1Njg5ZGY4MDQ1MWM3OWVkYTY5ZGFhZWQyNTJhZGM2YjlhZTRiOGNjMDBjMmViMjk1OTJkOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImExZTFmMWM3NDA4MzVlZGQzMDI2YjcyOTk2OWI4M2Q3OWU2ODcxZmQxYzBlZjQ0MTA0OTAyZWQ3MzFiNWYxYjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFhOGViM2QyZWQ3ZDUwZDFmNzI5YmYyNDBhZDM3YjI4NTg0ZDk2MTU5YTk1YjMxZjk0NzkxYThlNDdmNDY0OTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3e9cb05090284067a333c5ffc8e1e057",
+      "statement": "The initial database schema creates meetings, transcripts, summary_processes, transcript_chunks, settings, and transcript_settings tables, all referencing meetings with ON DELETE CASCADE; later migrations add OpenRouter/Gemini keys, licensing, speaker fields, and meeting notes.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/migrations/20250916100000_initial_schema.sql#L1-L72",
+          "version": "repo-lines-v1:sha256:1eed8720bfbec937b7f5032f61db6ec78411ae7cd9c37e5f2e158cfe83fe2b65:eyJzZWxlY3RlZExpbmVDb3VudCI6NzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUxYmRlZjliYmYxNjZhYjFmMTQ5NTUxOWE1YWJkNjJkZmZkMDhiYzhlOTFhNWE0MDY1YzhiODFkNjQ5YmYzMmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5OTY3ZWMxZWQzODM2ZjhlYjE3YWZmMTcyYjViZmVmN2RlNjA0ODVhNDM5YzZjYTExYzU5MWUxNzU1NzM5YWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/database/models.rs#L6-L99",
+          "version": "repo-lines-v1:sha256:ae34bbf150ab80f873872545ee319566c631309fc24b82e7d9f861e0a218df56:eyJzZWxlY3RlZExpbmVDb3VudCI6OTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5NTdiZjAwZDBmYTIzMThkNmJjNmRmYTlkZmY5ZjE5NzVjN2M2Y2U2YzJkZjU0N2U0MmY0YmI4OTUyYWIwMDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU3NTc3ZTc0YzE1YTFkMmNlNDFjMmQ0NTJjZGM2OTNjMzMwMTMwNjI3NTU1Nzg0MmY4NWYwYWMyNTg1YTIzOWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU2ZWZhZWY1ODJjZTk3NTM5M2IxNTg0MzYyYzgyYzQ3ODM3ZDNiZDVlMDNmYmI4NjA4NDlkMjM4Y2Q3MWJlOTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1cfd055436fd4ba39bf16c70510db0b0",
+      "statement": "llama-helper is a JSON-lines process: it reads generate/ping/shutdown requests from stdin and writes response/pong/goodbye/error lines to stdout, exiting on stdin EOF or after an idle timeout (LLAMA_IDLE_TIMEOUT, default 300 s) that both the helper and the app's SidecarManager honor. It is bundled via tauri.conf.json externalBin binaries/llama-helper, resolved from MEETILY_LLAMA_HELPER, then next to the executable with a target-triple suffix (with a fuzzy llama-helper* match), then RESOURCE_DIR, then dev workspace paths; it is spawned with piped stdio and lowered priority (nice -n 10 on Unix, BELOW_NORMAL_PRIORITY_CLASS with no window on Windows), and SidecarManager::ensure_running restarts it when the requested model path changes.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/models.rs#L324-L325",
+          "version": "repo-lines-v1:sha256:6d83d36f5cc2362ca5c10e79c9caf5d65676973a709ce7ba74b6c1ac0c0b04c2:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjkyYWUzOTIzMWViNzJiZGUxZjQ1OGYxM2Q1MjQyNTNmY2I0YzM2ODc4ZTA0YzA2ZmI2ZjgyYjRkNzYxMTdjNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDI4MGExMDM4M2U1ODUxMDFmNmZmZTRmOGI4ZGMyNjM0NzE4Y2ZkNTQ5OTY3MzBiMDJhNTdhYzFhOTM5YzRmOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGRmN2MxM2RhNGQ4OWNiNWFkYjg5NGVmMmJhYmEzM2ZiMzdhYzFkMmUzMmQ1ZGJkOTY4NmE1Y2EyNDg3NTRjNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2UwYTc2MjkxYzIzMWFjN2ZjMTA5NjJjZjUzNTgxYTViMzgwOTY1ZWE3MGMyY2Y0Y2Q0Mzg5MDNmY2EwMDkwYyJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs#L108-L176",
+          "version": "repo-lines-v1:sha256:bf7061c3be96ee4828142555a609c23c209867b803d8071d00000a5ea52cba61:eyJzZWxlY3RlZExpbmVDb3VudCI6NjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1OTMwMDBlOTQzZGFjM2QwZjk5ODFhNmNhYTM3ZTYzYTdlMTVmNjE0NjU3YjVmZDlhOWI4NzM0YmUyZjRkYWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjViOWQwM2EwMmE2ZjUwYjA0YWQwNTlhOGJlMjFiMjNhMGM3OTFmYTgwM2VhOGQxMmI1YjA1OTQ3ZmM2YWU2N2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRjMWMyZWVhMWViOWY5ZjljMTZiMGFmNmI5MWZjNTE2Njg4ODNhYTM1NjRiODE1ODU1MTRmMTcxYmFmZWUzOTkifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs#L262-L311",
+          "version": "repo-lines-v1:sha256:b59428714cc8af115530f85bb87b820a581bf6ed410b12af7760221851da07cb:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3MTA5NjhlMzU1NWJiOWZiMzE4NTFhY2NmMTkzZDFhZGZlNDE1M2ZmNmU0OGE5ZDM3Mzc3YTI5MmY3OWU2OGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2ODUxZTZiNWU5ZjlkMDlhOTE1ZDlkMzBiMzI1ZTFmNGNkYzM3MjMyOTQxNDU5OGEzM2E0ODY4YmUyYjlkNTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxNDBiZDFjODI0ZjllZDM2Nzk1M2I4OWIzNjYzMWU1Yjc1NDAzZTI3YTI4MmUzODg2NGQwMTdkYmRjYWFhMmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgzOWVhNDA3MjVhZWM5ODJkNjI2NzhkN2FkMjg0ZmUwNjY0NzRhODhiN2IxYTE0NzFlZTkyYmU0ZDcwMDdmMDUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs#L78-L105",
+          "version": "repo-lines-v1:sha256:6ed5bea9056ffeac0900802ac8bf92ce8fb432978197c4f2179958d7bbfe8330:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4ODU3MTMwM2EzMzRlNjliM2MyN2QxZjRmZjYwODY5ODI2YTk5Mjg5ODc0ZDA4NmI3MzFhYjViYTJlOTdlMWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0ZTJjYzg4MmQ2NjgyNzY1YTMwZmY1ZmYxZGRjNTY3NjQ1ODY2ZjU5ZGFiNzllOTJjYmMxMGMwYTgwMDI3NzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNiYjBjMTljN2JmMjM2MGE1ZTlkYjg1YzU1NjM1NGFhZDgyN2U1NjdjMjdhYjZlY2M1NTUzYWFjYTUzODE5ZDcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L100-L103",
+          "version": "repo-lines-v1:sha256:5100676791e7629d0f5887cdbf4a438cd03f17a48997a835b2032f0a31551d29:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTNmNThkMGJlZmQ5N2Q1YWE5MjZlOTVhMDNlNDIyZjQ3MTU1ZDBkZGMyNWIyMzZjNzk0Zjg3MzIxNWY4M2Q4MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGIzOWUxNmRjYjVhMDI4OWYxNDQwYmIwY2Y4ZDUyZGJlNTgxZDJhYjY3YjM2YjM0NDBlZGZmNGYxZGY4YWU1MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjdiN2JlNzNjYjA2NGViNTZhZmQzMjQyOWIwNWNhNzY2ODU5NjYxMzcwZTc4ZDU3OWQ2ZGIzYTlhNzRmYzQyZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzIyNzZhYWRjMTU0OGQzNjQ1YjM5MzViZjlhNmVhYjNmNTJlMzUwM2M4MjBmNGZhODAwZWVlODc5MWYyYjlmMyJ9"
+        },
+        {
+          "resource": "repo://llama-helper/src/main.rs#L22-L51",
+          "version": "repo-lines-v1:sha256:48d2f66dc85b72cc1fffcaf02d9bee2b71c146cbc6c65c9b52fad5e65d1828a7:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1MzJjNjJkNWY0YjZmMzVmZGY5NWM1ZjI0MWFjYTg3OGY3ZjZjZGVjNmM3ZjJmOTlhYTRiMGVmNTEyNTYzYjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVhYzM4OWMzMzAwMmRiZTE1ZmNmZTMwMTNmOWRmYmVlOGEzZDkzODU2ZTc3NzQ0NDM5NDk1YmY1ZDY0NDQzOGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1NDU5MzM0NTc1NDBiZWU4YzQ2MmMzM2MzZGZkMDkyNmUxOTFlODkzYmU4MGFmMzEwNGY3NzYyOTI5MzNiMTMifQ"
+        },
+        {
+          "resource": "repo://llama-helper/src/main.rs#L548-L572",
+          "version": "repo-lines-v1:sha256:1de115493bdbe86eea0ed9f236d4d4a11b04dc03a7403c7046d82743e12be8c8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjZDRkNjlkMTEwNDNjNmNkOTNjNGJjNmE5YWQ1YjRlODExZDgyNzdkOTI0NTVlZTZkMWU2NjY0MGU5ZWI1M2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ZjZmNDY2ZTU5Y2ZjMzA3MDNjNDVmNzJhZjY1ZGU1NGFjMzYzZDM1NGNjMWEzMzMwMzUwYWNkNDUyNDM0YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc5YWMwNDEzYjkyNzVmZDdhODc5N2NkNzYwZGJhOWVjYWIxZjFlMDdhODcxZDhmMjRkOWE4MzRmMGU4YzNkNzcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e0202f8cf1d749dc9087e6e6f97507a6",
+      "statement": "The built-in AI flow is: ModelManager downloads GGUF models (Qwen 3.5 / Gemma 3 catalog) into app_data_dir/models/summary and exposes status via builtin_ai_* commands; generate_with_builtin resolves a cached model path, formats the prompt with the model's chat template, applies sanitized per-model sampling presets, races generation against a CancellationToken (cancellation shuts the sidecar down), while shutdown_sidecar_gracefully drains active requests and force_shutdown_sidecar is reserved for app exit.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/client.rs#L133-L200",
+          "version": "repo-lines-v1:sha256:4fc6ce919acb6729b64ce02966bcdbf1a101e4c968a464b0c3970f02469e2547:eyJzZWxlY3RlZExpbmVDb3VudCI6NjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmNmMwNzNmZmQzOGJmY2VkYjRlZmE4Yzg0N2NiNDIyMGNmZGI2MDY1MTA2ZWYxMGY3NTVhZDlkY2E4ZjcwYTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2YTJmNjlhOTA2ODYzMDBiNTNmNDZiMTI5ZTFhMzRkNmEyYWJjOGRiZDBhODFkYzBmZThlMzIyMzY3OGJlN2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQwNmNmZDQ1MDg0ZTY2YTMyNjNkMzA1ZTBmMGQ1OTcxMTlmMmZjZWQ0MWM0ZTg2OTM1ZTg0NmQ1YzdlZGQ5NGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVjMWI0M2UwZTk0ZmFmY2FiYmRhZWUzOWU1YjIyMDhiYzg4NTJjYWJkNmZkN2UzZWE3YWYzMDFkMDIzMTA1MjUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/client.rs#L206-L246",
+          "version": "repo-lines-v1:sha256:5363ac7296462b1b65b1420af940a4d800e8d6426af06ef9b5c50aafe8abc581:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4NjAxNDA3YTg1ODI0NjNkZGM2NTlkMDg1YjVhNzM0NThhY2RmNjMwOWZmOTQxNWZmZDJhOWJlNjhkNjYyNzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJhMzI0ZGFhZWFkYzQzYTY2Njc5ZTQyYThkMTM2NTA3OTE2OTU1OWNiNWI2ZmViMzkxYTg2ZmQ4NjE3NTc1ODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY2ZDJjN2VjZGMzMmE1MmM0YjY4MzBjNjIxZmNiYzE5NTczNWFlNjMxOGI5NThhNzhkZGEyMDNhMDQ0MDZjYmYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/client.rs#L248-L295",
+          "version": "repo-lines-v1:sha256:511610125b40efd37e5bde811a375543c056d129d5175325f0382267eaf8497a:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkzNzk5NzMxODc3ODBmOTAzZGJjYjk2MDRiMzk5ZTNmYTIzMDIwZmU3YmMzY2IyMmQxYmNmZGJlN2Y3MDEzZWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdjYTA4NmQ4MWU4ZDljOWYyNjMxMGFkMmFkOGIwMGNlOTFiM2UxMDVmZDhmOThiNzI5Zjg2NjZlYmU2ZDI3MDgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/model_manager.rs#L1-L17",
+          "version": "repo-lines-v1:sha256:8937041669072bcaf0e73ca5d32f359292b7bdb18f67adc519c080199366e0fe:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlYTdhMDEzYTNmMTNmMzZlODQyYWE1ZjgyNGQzNTRiZjNlODU0NTJlZTZhNTEyOTZhOTU3NDdiNzM4NjVjM2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE3M2UyOGY3NDI5YzBhNDJlN2NjZTE4ODQzZWJiYzgwZWFhYmY0ZWYzYTdmYzY4ZDk2NDc3Y2JjNDg0NTBhOTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIyNzY3OTM4NTFmN2M5MjcyZWJiNmZiODQ1ZjA1MTlmMDc0Y2IxODhkMDJjZTM1NzgwOTIwMzI4ZjE0NGQ4MjYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9876dc66372849b08a6ac04029228bb7",
+      "statement": "ffmpeg is bundled three ways: build.rs calls build/ffmpeg.rs ensure_ffmpeg_binary() which verifies a cached per-target binary in frontend/src-tauri/binaries/ or downloads one from the Zackriya-Solutions/ffmpeg-binaries GitHub release (failing the build otherwise); tauri.conf.json bundles binaries/ffmpeg as externalBin; and audio::ffmpeg::find_ffmpeg_path() resolves it at runtime next to the executable, then PATH, ~/.local/bin (macOS), the working directory, and Tauri resource/lib folders with an ffmpeg-sidecar auto-install fallback — consumed by encode.rs, incremental_saver.rs, and decoder.rs (converting formats Symphonia cannot demux, e.g. mkv/webm/wma, to WAV).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/build.rs#L18-L21",
+          "version": "repo-lines-v1:sha256:953d03e26016095e14bc6c643528523d2a68a9119c858b5aa9986c60e9f9fabc:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjk5NmVmNzI3YzU5YzU3ZjQxNmNhNjgzNzY4MWFlNjhiNjMzM2FkYWEzMTliYTU4YjdlMTEyMmI3YzcwNDY5MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjQzZjY5OGY5MWRkN2YwNzEyMTIyYWI1Zjc3ZWNjMTQ2Y2MxNmYwYTNiMjVhZWExNWFmNThhMjI3YzJhZWJiMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmZlOWQ3ZDZiZDAzNTIwODg0MjNjYjUxZjJlYmRmNGIxZTg4ZTExNDQ0OTgzYTg0MzJmNTEwMzUxZmQ3NDg4ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2UzZWFiNGI4NWU2OTAyOTdjNTAzMjk0NmIyZTllODJmYzZmZDNkMjg2MDBhOWQ3NmJiODdiNTFiMDQ1MzZhMiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/build/ffmpeg.rs#L8-L59",
+          "version": "repo-lines-v1:sha256:be4ef1c24a91008e5b8eae21f848844f97fa12465d5a9df02010808728b5c044:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhY2Q0ODQ1ZThiMTZjNTE0YTJiN2JhZjhhMmU4NGE4Nzc0OTY3ZDUyNjQyMmJiZTg2ZmRmM2YxODNjODE1MzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyNzhjMDkwYzE2MmViOTU1ZGUxZDNhNGIzZTU3MmVjNGQwZjVmYjE5NGJmMzA5ZWVlMmI2ZTNkMDM2ODkyOWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwNGVhODAwMGEwMjMwZTU2NjNkMGJiZjBjYzU5N2JiNWVlZDc2ZjE4MWJhYzA5YzI2YmI1ODllYjUzODg4OWUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/decoder.rs#L264-L278",
+          "version": "repo-lines-v1:sha256:66b1585854374c6e7c70c19bcc6ad81241287b3e75cbb65b463b5348b7806ebe:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhMjNhMWUzNTliN2RhZTg2YWVjNWE2OGJiYTVlYzdiOTg4NzkyYTUwMzg4OWI4MGVjZDY0ODNhZWZmYTQzMjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5MzQ3NTk4OTkyNGU3ZDYxYjNjZGE3YmU4NGJhOWI3MDZiNmYzNzQ4ZTMxZmQ4OGM0ODk4NWI5NWI3ZGUyZGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNmNDdhMGVlNjc2M2RhOWU3MWUyNGFiYWMyYWI4MzJiYzE2YmE5NjMwM2FmMmE2MDUxNTkzYjY5YjBhZjNiNjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBlNjdiMTI1NDZjNDc2OThhOWM3NTk5YTUwNGU4NzExZmM2ZTFjMGU0ZWI3YmJhMTBhN2UxOThhMzg1NWQ3ZGYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/encode.rs#L30-L36",
+          "version": "repo-lines-v1:sha256:1a3eadd7edd399e717570b315b12ab9f37ac619bc7cbe3907f678baac88fc674:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWVlNTBlMmY2NjBkMWYyMmMyN2M5NzdhOWRhOWU1MzgwNWFkNjJiZmM0MjU0NzUyMDE5NjBlNTUwNTk3ZGQwMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTk0MjNhNGM4ZjkyNDIxODQ3MjE2ZjNlYmQ2YjcyMGFjMzlmMjU1ZDE4YWMyNzZiMThkYzk4NjMzZTBlYjU1NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2I1ODMyNTQzZjBiYjczMThiMWQ5YWU0M2EwNWU3OTNlOTk2M2E5N2RlM2Q3NTZiNDMxM2FlYzBhZTUwYmQ1MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGE0NDlmMDc4M2E4Yjk4MjRlNGI5OGZlMjUyNTJkYTk4MGQ4ODU5MjZkZDQyNjA4OWU0OWJkZGRiNTVjNDE0YiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/ffmpeg.rs#L24-L49",
+          "version": "repo-lines-v1:sha256:0148071cd2dd866882c5298eca553f8a074b2c81d016bf1edf1eed1daa9a4715:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjljMjM4ZjY2Yjg4MTMwMmI4NDQ2MmNmNDVjNGVmYjg3ODFlYThlZWRhMTRmYjMwMzlhYTk5MmI1NDJlNWM3NjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1OWY5NDEwMzBjYjk2MDk0YWQ3MDAxMDA1M2RhZGJjMDRjMzE1MmNhOTE5Mjg1NjJmZDkzZjMzM2EwM2NjYmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjViZjlkMGQxZjA3OWFlOWNjNzQ0YWU1NmZjYzdjMGYzN2U0YmU4ZDE4OWNlNjkwMjgzNTM1ZTgyYWMxMzYzZWQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/incremental_saver.rs#L172-L179",
+          "version": "repo-lines-v1:sha256:098d33c1394a924223d062fd680c75c0896aee2f5c1c136578e00b0247a293b6:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTdlYjM1ODY0OTNmNDRjOGJmY2YyNDljZjc5Yzc1MDAyY2Q3NDVlNjE4OGQ0N2Q0ZDM1MjU4YmNlYWU3NjRiOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWZmZGZiODBlZjdkZDM1OTM4MzYyZGY0N2MwOGE2OTcyNzg5MGI1Y2Y4YjgxYzk3YjA4NDc3YjgyMjQ3NmY5NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDUxYjM3NTg3OGExYTE4ZmEzMmU1ZWEwNmE0NmIxYjdhZjI5Mjc5YzZmYmEyODVhYWM3ZjlkNmE5ZjY4OGJhMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDI0MmJkMWIzNzA2NDIxYzMxOTRiOWJiMDI3MTkyNmRlZjViNTEzZDRmNGMzMDk1ZmUxNzcxZWU4YTBlMTUzOSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L100-L103",
+          "version": "repo-lines-v1:sha256:5100676791e7629d0f5887cdbf4a438cd03f17a48997a835b2032f0a31551d29:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTNmNThkMGJlZmQ5N2Q1YWE5MjZlOTVhMDNlNDIyZjQ3MTU1ZDBkZGMyNWIyMzZjNzk0Zjg3MzIxNWY4M2Q4MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGIzOWUxNmRjYjVhMDI4OWYxNDQwYmIwY2Y4ZDUyZGJlNTgxZDJhYjY3YjM2YjM0NDBlZGZmNGYxZGY4YWU1MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjdiN2JlNzNjYjA2NGViNTZhZmQzMjQyOWIwNWNhNzY2ODU5NjYxMzcwZTc4ZDU3OWQ2ZGIzYTlhNzRmYzQyZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzIyNzZhYWRjMTU0OGQzNjQ1YjM5MzViZjlhNmVhYjNmNTJlMzUwM2M4MjBmNGZhODAwZWVlODc5MWYyYjlmMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_40338ea0c1e94ecebed9d4f8193509a9",
+      "statement": "Live recording flow: start_recording* commands validate the configured transcription model (defaulting to Parakeet parakeet-tdt-0.6b-v3-int8 when no config exists), then delegate to audio::recording_commands which owns a global RecordingManager; the manager starts AudioStreamManager (raw mic plus optional system streams), AudioPipelineManager (48 kHz adaptive mixing, then Silero VAD which internally resamples to 16 kHz and emits speech segments), and RecordingSaver (incremental audio checkpoints). A single serial worker consumes segments so transcript-update events are emitted in chronological order, and the Rust side also listens to its own transcript-update events to persist transcript history for reload sync.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/pipeline.rs#L106-L126",
+          "version": "repo-lines-v1:sha256:be58d5273374e8851e8fce5a7f80b6cda0ec5743c56dfff071e4142f36910167:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM3YWJlZDVkZmRjODVhYzkwNTRjZDk1MmZlZmNkZmI3NzY3OWI5NTRjNDBiNzZjMzViMTc4N2U5ODQwMmFmOWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ5Mjc2N2E2NWI2MWEwMmQzMDQzZWNlMTQzMWZkMzM5ZGFkYTdmZDcyMWQyZGQ2YjViMzkzN2I1NDIxMmVkZGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkZjljNTczZTdmNTg3ZGM3NjRmOTlmNGMwMDUwZjc1MGU4YWExMDY4Y2EwNGE3MzQzMDkwOTc1ZjhmMDU4YmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRhNjI1NzM1NTRkZmJlODQ1MDlmMjg1ZTAxNDU0YTc3NWQxMzhlMWFkMjkyYzlkYzc4YzU5NTk4YjY3ZWRiY2EifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L106-L258",
+          "version": "repo-lines-v1:sha256:19400d531c50d4984cda6388350c86a03622b03e8b9ae6af5751dd426ad008a7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5NWMzNGNlNGU3NDZjODEzNDczMDQ0NzIzMzFlMWQ1Nzk3MzZiMWQ0OGMzYzllNDU0M2M0NWQ0YzdjODk4MDRjIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJhMDZkZDQ1MDI4N2JhMzFkNjE5YmQzZDE1NTQ0MzFjZDViYWFiYzRlMWY3OWI1OTI5ZjM5NjU1YTBhMjFmODIyIn0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L260-L291",
+          "version": "repo-lines-v1:sha256:7d9827e5459dd8aa9cc03126acb0dde38c28a9160b4f4607bb05942a28a3c338:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjOTYwYTZhOWRlZDZlOWE3YWNjMjg4ZjdiMDM2M2ExOGIyNGVhYzFhODI4N2QyNWMwZDc5YjIyY2I3OGVjZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU5YzY4ODBiZTRhNWJjZWJlZDY0ZGI4NGQwMjM2NWVhY2U3MDliNmY1ZmFlOGZiZDQ4NDEzYzQ1ZDAxZDhmN2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY0NDZiYTQyZTUwNjI1MjZhMWY5YmQyNWI0NjhkOWI1MjI2Mzc5NGE1ZjU5NTM4ODQ3ZTQ5MmRjYmRmZDdhODcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L42-L46",
+          "version": "repo-lines-v1:sha256:fe0d6334aed8798f17b4385f58885509518d3dc920f1f76029139b2fc38a3ec7:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGY4MzQ3MWEyMTNkNWJjYTYwYjU1MTkzZjAwYWFjODk3YmE5NTJhMzEwYTRjZWVlNjA1ZTMyOGM5YmExMjFiNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDZhMDk1ZmFkZmMwN2JiNDZmYmQ4MmEzNjRlMjIxODY5NWQyNjgyZGQ0MjQ5YzdhZWYyYjM5YWU4MGI3NzE5NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmFiNGFkMDgyOTA1M2IxYjhiMGI0OGI1Y2RiMzhjNWMwYTFkOWZiZmMyNWIyMzcxMzYxOGQ2YWIyNjU5MmFmMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWJhM2QwYWJhMGI3ODU2NDkyZTFlOWMzZmJiMjZmNmI4YjIwZmMxODE4ZmZhNDJjNjBiZDkyYjZmMTkxZGFjNyJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/transcription/worker.rs#L212-L226",
+          "version": "repo-lines-v1:sha256:d844c25243f679f314802e75cff5cddfd6c04a0b310b02b2324dbf4a3097d3da:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwMjYxOGY3NzdkYWE2ZjBlZDk3Zjc2OGJlMzVjOGYxYzdhZTNjNmNhNTZiOTlkMTVjNWFjNWI5ZjJmYTZhYzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3NDc3NGRkMDcwYzZiYmM1ZGMzNjY5YjNmNzZkMGU4NTEwNmUzZGI3M2I3YTQ2NzM0YjQyMDQyMzlmOWI2ZjUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgyNWExODgxZDU2YWUwNWI0NTU1OGU1YzkxYzdmMmU3OWNiY2M2YTAwZGI1NTY5OThmMjdhOWZkNTAwZjdkNTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhZmVkYWQ4MTFiZTliOGEwMGM1Y2NjYmQ1YTU1OTdiZjBkZDhkNjViZDljMDdiMzZkNTM0M2EyNTM5NDgyMzUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/transcription/worker.rs#L44-L76",
+          "version": "repo-lines-v1:sha256:e7a30563affa95718216e3e25bbe6a95ad314d40d4bde62133991a94848a8b94:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2YzFlZDdlNmM0ODg3NDU0ZmIzNTg4OGQ1ZTA3MTUwY2I0MWE3MjcwMzAwMmU1NzYxM2RhY2YyYzYyOTA2MzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1Y2JlODUwNTAzYzY4NDJmNWZjNGY2NGQ1OTc1ZWYxNWFiY2RmNjllNmU0NTk0MDY2Y2Y4ZmI5YWZjOTViYWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZlMjQwMDIyZDVjMGJhM2JjNTRlMThiZGU5ZWRkZDViNmY3NWRiZDU3NDM3ZWFjYTkxNmU3ZThiYzhjMGU2YzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFhYjExOGY2OTFmYTZhNTNmM2MwMjg5Njg4ZDA4YjUyODVlYTY1MDI1N2EwNGYyOWRhYmU5NzU0ZmEwYjNiNWYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/vad.rs#L31-L68",
+          "version": "repo-lines-v1:sha256:c76861095eb7fa2d83a379c3e1609fb8fc87a8042f19bfbff810f58331df2299:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVmOWJhZDBmYmFiYzhjZWJjZDQwNGJmNjdjZmM5YTgxNDcyOGMzNTAyYjdkNjFmMWY2NmZhNmE2OTNlMmIxMjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2N2MzMzY1M2Y1ZmJkMDc3ZmRlNTE5OGMxMTc0ZTE0ZDMxY2U4MjRkMGZmYjczOTk5NzQ2MDgzNjc1MmRkZWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM5YTQ5OWI3YjM4OTA1NzM3NDU3MmM1MjRlOGQwMTA1NTBjYmQzNDNiZmZmYWM1YWMyYWZlMTJhNDRmYTMzYjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhZDQ5NmI0NTMxZDUzNjkxNzNmZDBjOTZjOTBmODU1MDVlNDYxOTA2OWRkODI0N2EzNjQ5MTEyNWYxMjBkNzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a400ef7ef171409d9b3220c8d6d19044",
+      "statement": "On stop_recording the pipeline is force-flushed and the app waits for all queued transcription chunks with a 10-minute cap before unloading the configured Whisper or Parakeet model, emitting recording-shutdown-progress stages so the UI can show progress.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L496-L611",
+          "version": "repo-lines-v1:sha256:7afc7b6514dab5e1cce3264222565e3579ed0e69986f91eeb8b8b0f64096abff:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlY2IwZTcwNjc4ZjA0YzdmZDhjNjI2MTY1Mjc2YmM3YjczOTdhNTlkMjE0MGQ3YTJiMzc0YjYwZmFkODMwMzNiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI4NTY1NTlkYTM5NzYzNTZlZjFiNTk3Yzg0ODZhM2Q1MTg2MGFiYjFlZTZjMjFjZTk2MzhlZTEyZjI4NmNkY2Y3In0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L613-L699",
+          "version": "repo-lines-v1:sha256:ef9fc458252b467dd46a4f1cdbbc6aca8a0ee1d519041c9c3ef524b8e3f630ba:eyJzZWxlY3RlZExpbmVDb3VudCI6ODcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1OWQwZTBjNGZjOTdiYjkyMzZhOGJhMTFkZjQ4NzQwMjlmOTcyN2ViZGQ2N2RjMDViYzEyNjNjNTY4ODAyZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZkYjlmNTcwZGVhZTkwOGQ2YzE2MWI3MzFhZjYxMWMxOTI2OGMxYTE0YTg2MDc5MTE3MzNmOTAzOWRhMTU1MWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMyYjYzNzcxMjRjZGZiNTFhNTY3YjgzNjJlYjNiZGJlMzQ3NWY0YWE1YmJmMWVkODE2NmVkYzYyYzIxMWRiZGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5609de472ab74825a2349a481a298a8c",
+      "statement": "Summary generation is asynchronous: api_process_transcript persists the transcript chunk record, spawns SummaryService::process_transcript_background in the background, and returns a process id immediately; the frontend reads progress and results from summary_processes via api_get_summary, and api_save_meeting_summary writes the summary JSON through SummaryProcessesRepository.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/database/repositories/summary.rs#L21-L61",
+          "version": "repo-lines-v1:sha256:0f896be350f57952bd6d57454fae207e580f5ee5df0d5683c91e4559a1cfae6a:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2YzVmYmVmMjA4OTBhMTUzZDk1MWZkZmE1MGU3ZTZmZjg5YmUzNTQwMDc3N2RmNjZjMzZjZmUyYjRmZTU3MGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1Yzg5Mzk4MGVkNzAyNzhiM2Q4MDkzMmRhNjM5MTJiMjM1MDA2YjBiNzc0MmVjYzRhYTc3ZWU2M2ViN2M1YjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZiMjBlNzhiOGRlMmI1ZDBlYzRlNDgwN2I0ZTNhODFmYzIyYjczMTQ4Mzg2ZWVmNzM1ZjZjYzFlMTIyYjRkZWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZjMjBiMjg4MzRiMmRhZjNlYzg1MDYxMjE2ZTI2NDRlMzdjNDQ1Mjc1ZDVmYWU2M2UzZTYyMmY4ODJhNDc2ZTMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/commands.rs#L231-L320",
+          "version": "repo-lines-v1:sha256:a24572384b680bf91c4ce71bfa55af085a59c86fe6cdcf22216fe71a603ef1c5:eyJzZWxlY3RlZExpbmVDb3VudCI6OTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU3MDI5NzExYzI5ZTg3ZDY2ZjRmM2U3ODQxMTg4ZmMzNjg4ZmYxNmY2NDQ1ZDY3ODgyMTM3MDI5MjJhMjkzY2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg2ZTYwMDY1N2NkNjE0YzJiMDg0NjczZjZiZGI5YTk5ZTcxM2VkNjc5ZDU2M2I3M2FjZjZiZjJiMmEyMTlmZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJjOWFlNDc2NDQ4ZjRmM2M2YmQ1ZjM1MDA1NmEzYWY4YTgyNjY3ODU5NTY0ZjkwNmZlMjE3ODY0ZjAwYmNiZTEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/commands.rs#L322-L407",
+          "version": "repo-lines-v1:sha256:5393f79ca4c6786d19c18c1fba6be3bd80693ee9dfb1b70df08888ee212f31af:eyJzZWxlY3RlZExpbmVDb3VudCI6ODYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlYTMxY2ZkZGJiNWFjYjAzZjcyMjBiY2YyMGRmMDM4MmQ2YWY0ZjM5M2UzMGQzMjg0MDJmNzAyZjNmNTMwNjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVlODI4NTQwZWFlMTIxNmFiMDg2M2IwNzk3MWI4Y2Y3MzRmMzY4NDE2Y2U0ZjQ3ODljZDhmNmMyMmFlNzM0ZTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5a64d5f473754317b16a3e651ade94c8",
+      "statement": "Summary templates are JSON files resolved with a fallback strategy: user custom templates from the OS data directory (e.g. ~/Library/Application Support/Meetily/templates/) override bundled templates from resource_dir()/templates (set at startup), which override templates embedded in the binary; tauri.conf.json ships templates/*.json as bundle resources.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L502-L510",
+          "version": "repo-lines-v1:sha256:ecaedfb4d2a71780528e451cfa6289ed79e232e39f51b82bb70b13319a797fc6:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjFkNzM4ZjY5MzlhZjk5MjdlZGQ0MzhjOTk5ZmNlY2M3MTI2ZWI5YTUxMTgxODUwMDUwN2RhNjI3OTRkZTM1MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTUyMmM0MmNkMTljNmQwM2Q4MDhjNDUyNzIwNTUyODI1YjdlYTFjNWI0OTFiMjE4NTExY2FjNzQxNWNmOWQ5YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGVjOTlkNjZhYmEzNTQ4N2RiYmU2OGQyMDQ5YmNjYmI0NjNlMzM2ZDc3NGQwNWU2M2I0MjliY2RhMzk0NDI2OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjM3NzUxYjQxODUwNDNmYWNlZWQxMTIxYTIzMmU4YmVhNWFhZGY0ZDQ5YzYyNmY2NGFhNzI0ZDhmMGU5ZDQzYyJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/templates/loader.rs#L8-L30",
+          "version": "repo-lines-v1:sha256:f7321e6ad9e0dfb78dcea65a76913422215ebca24b62f49f6cd7ed70175aeb8e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImViYTYzOTQyMDU3ZWY1ZjRiNGU5ZDllMTcxOWVjZjVhZmY4NGI2Y2UxMjdmOWE2YTAzZTM0ZDEzMjZjYmZlNzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJjMDIxYzAxMzU5NTI5MzQ2OTFlMjI1ODNiNWI5Y2ZkOGRkMWQzZjg0ZGVmNDMxMGYwOGYzMDE5ODA4NGRlMmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxNzYzZjZlN2M3YzlkNTM2NjRlMDlkYTM5YzNmMGViZjlmZjFhYWJlYjM4NzA1MDQxMjlhZTdkYzdmOThiYTkifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/templates/loader.rs#L82-L100",
+          "version": "repo-lines-v1:sha256:41a6f25012733423b708bdccc7cd009db830d182a07e9e7ed00585deea7c15a0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkZjAxOGZmNjQ2YThkMzUwZDAwMzE4NzJkMjViYjA0YWFiNjFkYzdjY2I0ZTY5OTlkMDc3NmY5NTkxOGUzMjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkYzBkN2ViYjFmNzc0NzkwOWZjMjAyMzIxMWE1ZGRiNjkzNDJkOTE0ZmVkZmI3NDdkMDgxODY2NDEwNTlkMTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZlYmE1YjM5NDAzZGQ1ZmZjYjllOGU1ZWU1MDQzMjU1ZmM0OTcyMzM1N2QxNzdmYzlmNmY1NGRmNjEyMDYwMGQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/templates/mod.rs#L7-L11",
+          "version": "repo-lines-v1:sha256:1a1534e896c87e734790fe49f0601b3c947aa9c43edb73a8692fd288bb900dd3:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzU3ZDQ4NjMzNDYwOGMzZGE0MjliYzdkODIzNWQyN2E0Yjg3YjgzNzI1ODA3NDUxNjA5Yzk2NmEyMjU5NTI3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmM5ZDAwNmVjMTU3NDViZDliOWE3MjE1NjU0MmRiMTI0YmM3MDA0YTQ5NzVhZWVlMzMyYjI4ZjQ2ZjczNDE4MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWZkNWEyNzE1NzU3NzY0ODY4MzNhOWZlY2E1YTRjODQ3YjU4ZjVlZDEyN2FmYTIyYjAxNjkzMzljODZjNzI4YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWVkNDk2MTE4YWRmZGZlZWVjNDc3OTQzNWI1MmM3ZGI3MGE2MGM2MjRkMTAxNGYyZjUwNmExNTI5NmJjYThhOCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L97-L99",
+          "version": "repo-lines-v1:sha256:27b7be73cb064eb56afd32429b05ca766859661370e78d579d6db3a9a74fc42f:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjFhYjRlODgwMTk2NzU4MmEwOTNkNzliNjg3YjgzZWYyNWQxYmNiMDk0Nzc0M2UzYmU2YTg0MTNkNDliMjFjYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGIzOWUxNmRjYjVhMDI4OWYxNDQwYmIwY2Y4ZDUyZGJlNTgxZDJhYjY3YjM2YjM0NDBlZGZmNGYxZGY4YWU1MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmE5YWRjMTExOTdjMzM4NjIxOWYwNTY4NDU3NzQ5ZmE3YTEyNzAzN2E1OWVhNDRhMzM1MmE3MGM5OWRmZGRkOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDcxMTAxYzljMGUzMWRjM2VkYWE0MjAxZWJlNTNjOTNmNTdkODMzOGQ1ZTVkYzhiNTIzMTQzOWUzZGFkNTQ1MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_64340b0e80c8409caab7a10e76937a4e",
+      "statement": "Analytics are PostHog-based (posthog-rs) with AnalyticsConfig defaulting to enabled: false; sanitize_analytics_properties strips sensitive keys (meeting titles, file/folder paths, device names, user agent) before events are sent, and all tracking is exposed as opt-out commands registered in lib.rs.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/analytics/analytics.rs#L9-L52",
+          "version": "repo-lines-v1:sha256:8b3d17e39468c764eb8ce35c37b3377efa66ca08895cc17f300610bae27d43f2:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3ZmNlYTMxOTlmNDFmZmMxOGU5MWI0MGFiNGM0ODA1YjMxZjI0Nzg3YzcyMzQyZjkzYWY1M2QxMDQyYjE5ZmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE1Nzk1YTAxM2UxYjMzYjFjYzc1NzY2NmU3ZmVkYzJlZDc0NjgxMGRiYTkzYTA3YzNlYzM4MmI4YTBjM2ZlZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVmNTdlNjliZjYzZTNiNDVjMjZmOTI5YzVkODc3OWRiOWJkOWIzOGFkYzBjNDU3MTRkYmQzMTlmNmM4OTc2MTEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L533-L557",
+          "version": "repo-lines-v1:sha256:67c57d4294b94949914d03f1c8f0637a839eff93e7e337ad73447ee7b33a5052:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM3NjZkZjBhNzYxYjljYzU3ZThjMWVjNmFiYmRiYWY3MzEzMTlkYjcwNmM2YWE1MjM5NDZkMGQ4OWNlYmRiY2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImViYWRjYWQ4NTU0ODNlZjBjNzUxMzczYjE4ZWViMzM1MzE5OTUxOTQzNWJjMDYzY2NlMmRjMmJkNDQwYjY3MmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgyNjZiMDk0NmQ5ZmY4NzdiYjRhYTEyOTZmNGFjNzRjYzBmZjhkNzVlYWY0MWVmMzNhZGZmNGMxZTM3YjhlZjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliZTYxNTNjMzEzM2IzNjRjZGQxMzBmMmE0MGJjYjRjNGUzMWM3MWEwNWJkN2IzMmE5YmEyMzg1YTQzNDIxMmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b73b3ef3ab7e4476b0e9aaf3b0e5d926",
+      "statement": "The tray is created during setup with id main-tray, reflects recording state (Stopped/Starting/Recording/Pausing/Paused/Resuming/Stopping), and its handlers drive recording start/stop (emitting recording-stop-complete for frontend post-processing), window focus, settings navigation, update checks, and quit.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L423-L426",
+          "version": "repo-lines-v1:sha256:dc697b4e878f7c9498490693a6adc9d5c00432641647f4c20d247fde87fe95ea:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGI1NjA2MzM5Njc3M2E5NzQ4N2VjOGRhNTVhOTczNTVjNTlkZjU3MmJhMDI1NDVkYjczNDczYjhhZTY1Y2MyZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTUyMmM0MmNkMTljNmQwM2Q4MDhjNDUyNzIwNTUyODI1YjdlYTFjNWI0OTFiMjE4NTExY2FjNzQxNWNmOWQ5YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTEwMGIwNDE0MWY1ODY1M2MxMjc1NTJiZjdmZWRjMDZmYTM3MjAxZWNkOTk0NzVlY2Y3MDZmNzQxYzEwNzYwYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzhkYjM5MzM2ZTJjZjBjZmUzY2U5YTY4NzU4N2RhYjg4YTQwYTBmZTdmMjc1NGM3NjhhZTZjYmEwZmZiZDA0NCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L183-L199",
+          "version": "repo-lines-v1:sha256:e9d534020c9d03f182737d0ded6c13af2d0f79133fdd5c84a200af65e8c41e38:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjZWRiMWQ5NTE0Nzk1NjI1YjBjYjUyODRkNjJkNTYzMmZhOWM3NzAyMGY0NjQyMDVmYThmMGU1MmQzMTYyNTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUyNDBjZTc4OWI0MDMzYzMwMWE3NzczNTgxODZmZGEyMDExMTZmMWM1MDFiYjlhODQyYWMzYzQyNzliNjc3N2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRmYWI3MTBkZGY3ODU5ZTU3NTc2NGE5MTNhMDAyYzc0NTg1ZmZhNzAwMTUxMGNiODgxMWRhODNkMmNmNzRiMzQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L19-L54",
+          "version": "repo-lines-v1:sha256:9bed0f4b57649a8018c00d6402791bf3473169b341fd047f2b0322c17f778d81:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4NjY4ODQ4NGZjMmU2NDMxODg0Nzk5NGQ5NWVkMzgwMDU1ZTQ2MzM2YWI4MjBiMTBiYmRkYWQ4NjFiODc2YjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY4MDQ3ZWM4YTRiZGJiMmFkYmI0ZWU3ZWU2ZjU1NTE4NWE3ZjE5YmJiNTQxYmZkYjU1ZDA4MGJhYWNlMTEyZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg0ZDhkYzA0ZTU3YTI3MmRmZTQ2YTI1Njk2Mzc1Y2NhNzk2Yjk0MTNmMzU1MDkyNzAwMWIwZWY3MWE4NTg1YTgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L9-L17",
+          "version": "repo-lines-v1:sha256:3459f629969a517521a304662f251c8addd311da9cf0442f6d775ffdf7f96fff:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzM5ZDI4N2UwYjMwYjQ4OGNiNjY4ZTI5OWJhMjM3ODQ3MTk4MzlmOTUzMzZhN2JlMzZlMzliMGQxMjFhMTFkYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjYyMGZkNWIyYTI5NjVlN2NhOTc1OTc2NjlkYzgxOTc0YmY5MGJkZjljZmQ1MjMxODE0YmJhY2RlNDA4YjBhNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTBmODYyODdjNjcwMDNhNzliNTNiZmNhZjRmOThmYmM5NjE4Y2EzNjEyM2Y0MTY4ODE2NmU0NmNhNTcwNDIzYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_baa365d84032492f84cd975804f9478a",
+      "statement": "Onboarding status (completed flag, current step, model download status) is persisted in the Tauri store as onboarding-status.json; completing onboarding writes the builtin-ai summary model config and the parakeet transcript config to SQLite before marking onboarding complete, and the tray's can-record check treats completed onboarding as a green light.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/onboarding.rs#L170-L218",
+          "version": "repo-lines-v1:sha256:270bbd39481b65ad131c39008f8a5c1d82bfac843143d1b740867ec0bdbce12e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMWVlMzNlZTk1ZmFlZTFjMTBlOWViZjNkM2RlNDFiYjE5MjUxNWNhZDc3Y2RhMjA1ZTU0NmRhMTcwMDFhNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1M2U5Mzg3YTlkYzJkNDAyMTgwOTYxNGZiYWJmNzkzYjhhMTlkMTNlMTcyMDc5MDdjZTRkZmUyMThlNzJjMGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5ZWJlZTc1Y2ViZDc5NmQ0NWQ0NjBhZGI1OGI4NDBmYWQyM2ZjNmQ2ZGVlMjcyNGY5MTU4NjFkZjAyNTA0M2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA3ODcxNDU3MTMwZmQ2NDNlMTg3M2YwYTgxMjkyYTRlMjdkNTg2NmJhOWM4MWQxYmVjNzIzNWFmM2U5ZmNiMjgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/onboarding.rs#L45-L77",
+          "version": "repo-lines-v1:sha256:2d8286991043cff34507d5b5f63326a1c7015abf75bb27444ae818ebae8ff184:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAwMzhhNDRiNzEzZWI1ZjZiMGRhNjkzYzkzYjMwNzVhMDlmOWUxYzljZWJlMmEwNTIxNGM2ZjZhOWUyZWE2YmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5ZjkzMDgzYzE5NzEyMWI5ODI3MDBiYThhZmFiZDE3MjJjZjFkM2U3NDA0NTA5ZTgwZWZhMjcyNDdmNjJmMDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk0NzM5Y2MyY2Y5NjAwYTRjOTEwMzQ3MzY2YWM5MDk0MWEwZDNkODIxYjA5MDQ1NTZhZDRkMGFiZjg0MGRlMDUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L263-L280",
+          "version": "repo-lines-v1:sha256:ba2d30f61bc386f5475ffe39c87ea518790a152be91c48088d8265aa9c3371cb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyMWYzMjk2ZjU3YjRkODVhOTVkYmYzNzE2Mzc1NmZhY2I2ZDU1MmE1MGQ1YjAyNjYzZmZlOGZjMTZiY2VhOGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU4OTAwMDY2ZTZhMzI2YjE5ZTE5NGZkNWJjMmVhZTQ4ZTcwMjNmNTY3MWQ4M2M1NzA1YzA1YjRlZWU1OTdlN2MiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUyZDBlYjI0OTVjM2ZlNTMxZWIwZTkyYzIzNTI4MmNmMGZlNGQ2MjU3MzYxMDE4YjQ4YjRmYjI3ZjM3MmNjZGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1589b483f42740b0ac2b915780c8c9a0",
+      "statement": "The api module serves meeting, transcript, profile, model-config, and custom-OpenAI CRUD natively from AppState's SQLite pool; a legacy Python backend URL (http://localhost:5167) remains hardcoded as APP_SERVER_URL for connection-test and licensing helper commands, while the main data commands no longer call it.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/api/api.rs#L1271-L1314",
+          "version": "repo-lines-v1:sha256:ce9e95219a72eeb93fd6adb1d6290fc4cf30a97263cabb377176a831aae40c96:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0YTMwNzk4OGFkMzIzM2U5ZDg1ODZiZTZkOThjY2U3ODYxM2FjYzIxODcwNTgzOTZjY2UxZGI4MzExNTA3MDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhZDY5YzNhYjQ3MWRhMjEyNWNkODZiY2ViYjE4ZGY0NDNiOGQ5NDQ4MmMwNDRiZGJjZGJlMTQ3Nzk1MWJmYWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU4YzY2MjJiNTk2YzA5NmQ0MzNkYjU0OTU1ZmNiNmUxZjQ0MGMwODE5YTYxZDM1NmIxYjE3ODJiMGQyNDE3ODEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/api/api.rs#L19-L20",
+          "version": "repo-lines-v1:sha256:d744d47b07a60d986fb144d7f483fafd10f478ff5f75d10b8b098ca07fb6d287:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODU3YTllZmU5YzhlZWVjYTdiNWZkNGQwMzM4YTI0ZWRmMDdmMDhmYzUzOTJjNDJiYWUwNjY0M2E2ZDVhMmRlZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDk3N2UzMWY5MmM3NWVkZTczYWNhMmE3NWYzOGQzMGIwM2EwY2YzODM0OTYwNDYwYjQyYjViODc5N2Y5Zjk5OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2Q1OTkxMDA1MThmNWQ4YzBjZTBiNWE5MTE3YjcwM2Y3MDhmMjIzNWQ2MGMyMWFkNzIyMWQ4NmZiMzc3MzE4NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGQ4OTEwYjNlY2Q1MWU3ZGIwY2E2YmZkYWZiYmVkMDQ2MTJjMmNhNDM1MTA0MzA0MDZmNjY0MWYyNTkyODU2NiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/api/api.rs#L239-L270",
+          "version": "repo-lines-v1:sha256:d8e8c30ef15968483a3fc3c6593ae8f4811cb05dc95e2a3ca1d339a1a3d400c8:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmNGVlMjM5M2QwYjI1ZTQ3ZmYzMGI4NWNiN2RmMjVlNjg2ZjRiZjAzOGU3NmQwOTYxYjAwYTg0MjA2Y2VkODkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlODRjMjY1MjM2ZWI2Zjc2ZGI1NWE0MzMxNDIyZWM0YzE1Y2UzZDFjMjM5ZGE5Y2MzODA5MTZjNjIyNWFiNWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRiMDIzMWE5YzE0NTMxYzJjNTU0MzM3Y2VlZDFhOWEzNGU0ODNmZTNiYzcyODY0ZTQxZjgxMzIyNzlkODkzMjgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/api/api.rs#L321-L353",
+          "version": "repo-lines-v1:sha256:d42119f691c5a93ddef09032b83716248e3109cc335ae3d1493e54f8bcfd7893:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMWVlMzNlZTk1ZmFlZTFjMTBlOWViZjNkM2RlNDFiYjE5MjUxNWNhZDc3Y2RhMjA1ZTU0NmRhMTcwMDFhNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI2OGMxNGUxZmY4NGJkYTNmZTZiODk0MDY3MTYzNWNmODQ5YTg0NDgzYjMwNGE0YWU3Yzc5ZmQ5MGNkOWY5NDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE0NmU4Y2QzMGMzNWRlOWRjMzIzY2FjMTkwMTkxNGRiYTg0OWEyNmUwZThlNGE3ZDFjNGFlNTVmZjA3NjNkMTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_752acb2cf9e845dbb1c31386314601e7",
+      "statement": "Central configuration constants live in config.rs: DEFAULT_WHISPER_MODEL large-v3-turbo, DEFAULT_PARAKEET_MODEL parakeet-tdt-0.6b-v3-int8, and the WHISPER_MODEL_CATALOG used by model discovery; GPU acceleration is a compile-time cargo-feature choice on the app crate (metal auto-enabled on macOS, cuda/vulkan/hipblas/openblas/coreml for other platforms) resolved at runtime by WhisperCompiledBackend::current(), with pnpm scripts forwarding these features to tauri build/dev.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/package.json#L11-L28",
+          "version": "repo-lines-v1:sha256:e2f02c9edf925aabe1334957116b3798a347f861f2da4d1a2805bbfa5ce178dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjZjAxM2E0OTQwMWQ2NzIwODY2Y2VmY2Q0MmY2MzUxODEwYTBiYzYwMDZiMzU0YzFlNmUxN2VjZTFmNWRmOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkYmJmNGRlMjg4NjcwNWQxZjM1ZTIwYjYzYmQxYWY5OWNmNjdjNjM2YWI3MzNiNmI3ZmMzYWZiMmYwYWU3MmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ3NjUzOWVmN2UwN2ViNTQzMWU1YTUxNjIzZmM3ZDY2NzliZDU4ZmJkOTg0OGMyNDMxYzc5NTdlODE2MWZkMjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZjNzQyNjUyMTMwOGU0MjU4M2ViZDYxMzVkYjY3MmViYzRlZDVmMjg1MjQyMWFhNTg5NzRhYjMyNjg1YjEzM2QifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/Cargo.toml#L38-L53",
+          "version": "repo-lines-v1:sha256:8a4a687753b90ca81c23b1cfcc50de2c56ac9f34d29229e4a96ddbef1851be86:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2ZjZjMWM3M2U0Njg1YjZmNTU3OTJhZTUzOTI1NTNmZjc5ZDNjYzA2N2IwYjc0ZTA2ODY5OGY2YjJjNzZiODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc0M2I1NmE1ZTg1NTIwYjllYmJkY2M2M2Y3ZDUyN2VjOTA3ZWFjOTBmNzBjNGIzOTM4NDIwYmYwMzRjOTUxMjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2NmM5YmNkNGUwY2UzMzQ3MTA1NzJmODliNjI4ZDc2YzQ3OTUxMWIzMjk1Y2ZhNzUzZDYwMzE2ODA0ZDIyNTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI1MzJlODI0OTQ3ZjJiM2M4ZDQzMzJiZDM4YTFkODYyY2ZkZmU3YWU0YTg4N2YzMGM1ZWRmZDE2ZTQzYWJhYjYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/config.rs#L6-L36",
+          "version": "repo-lines-v1:sha256:196083ba22d46ff4a0abefedaf89b4975b7179985a0e05d96f044ce924ed2a2b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiZjk2OTMyZGMzMGNiNmRhODIxMzgyZWFjNGU5NDlhNTJiZmFhMGFhNmNmYjFlODhiNGEzNjY1MjViM2JiNDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwMmQyYzBkNmRjNWU3NGQ5MmZhMTRiOTFkYmVhMjY0MDkwYmViMzVmZGI5MTg4ZDliMzQxMTgxZGNlOWY0Y2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNkZDEzMDVmZmE5MTE5ZDc3NzRhZTA3ODMyNTNjYmQzMzc2MDZkYjg5MWZmY2YwNTY2NzJhM2U2MjUzNDUwZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/whisper_engine/acceleration.rs#L3-L25",
+          "version": "repo-lines-v1:sha256:4a7ee422e8178656fd51c3cf472a3d0c9494491ec1d9c49519b0baea2765aa94:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU3MTZhZjcwOWZlZDM0OWNiNzdjYjRkYTYyZjk2ZjI3NTEyMmE4MzEzMTRlNGM1NmNkZjdlOGI4ZmZhNDFjZTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRiZjk5MGU3M2Q1Zjk1M2ZhM2Y1YjFhZDRkMTU4ZWI0MTk3NjhlYzJjNDNjZmQ0MmUzNTE0M2FjMmE1Y2VhYTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE0NWZjODQ3YzZlMDdiMzY0M2RlZWQ1OGU2ZWNjYjMwNjk4MTk3OTlhYmFlNjFiMDVjMzQxM2RmZDRkZTFkMDkifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-07T20:26:28.923Z"
+  }
+}

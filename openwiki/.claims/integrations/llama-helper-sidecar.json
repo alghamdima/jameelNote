@@ -1,0 +1,416 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:4ac1cc1cd7bd1b649b18d3e9779ea0c745240528f934fd6469ca25cf8085f8de",
+  "claims": [
+    {
+      "id": "claim_41e48c5b0f2442ae8f61844209ff4250",
+      "statement": "The llama-helper sidecar speaks a line-delimited JSON protocol over stdin/stdout with serde-tagged messages: requests are generate (prompt, max_tokens, context_size, model_path, temperature, top_k, top_p, presence_penalty, frequency_penalty, repeat_penalty, penalty_last_n, stop_tokens), ping, and shutdown; responses are response {text, error}, pong, goodbye, and error {message}. Diagnostics go to stderr, which the parent inherits. The Rust client mirrors only the Generate variant of Request in client.rs, while SidecarManager emits ping/shutdown as ad-hoc json! objects.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/client.rs#L23-L48",
+          "version": "repo-lines-v1:sha256:9beeceaa7545f23aa78b3578e9f14867b80a7a3a8fe351a143660865a3811c53:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVmYTFjYWY2M2EzZWFlYTU4ODRlYzYzNjY0NjQ1OTYyZjUwZTBiOGIxMzA5MDBlYzk4NDc1YzhkNTIwYmY4YWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdkZDU4NjdjMThkYmUxMmI3MzM1YmQ2ODZhY2I2YjM0ZmE1YzYwMmY2YmQ0N2QyMzdiZmQ1YmQ4YjI3ZTI2MzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwMTg4MGRhNDM2Yzc0MDAyYjcwZWEwNmM3MWQzMzgzYzJhN2I3OWE5NDNhMjg2NTc5ZWNmYjQ2YmYxY2I0NzEifQ"
+        },
+        {
+          "resource": "repo://llama-helper/src/main.rs#L22-L51",
+          "version": "repo-lines-v1:sha256:48d2f66dc85b72cc1fffcaf02d9bee2b71c146cbc6c65c9b52fad5e65d1828a7:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1MzJjNjJkNWY0YjZmMzVmZGY5NWM1ZjI0MWFjYTg3OGY3ZjZjZGVjNmM3ZjJmOTlhYTRiMGVmNTEyNTYzYjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVhYzM4OWMzMzAwMmRiZTE1ZmNmZTMwMTNmOWRmYmVlOGEzZDkzODU2ZTc3NzQ0NDM5NDk1YmY1ZDY0NDQzOGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1NDU5MzM0NTc1NDBiZWU4YzQ2MmMzM2MzZGZkMDkyNmUxOTFlODkzYmU4MGFmMzEwNGY3NzYyOTI5MzNiMTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5c995bc390684bb8b20cec694f8a7576",
+      "statement": "In llama-helper, model-load failures and generation failures are reported as a response message with the error field set (the loop continues), while only an unparseable request line produces the error variant. max_tokens defaults to 512 and context_size to 2048 when omitted, and stop tokens are stripped from the accumulated output before returning. Sampling defaults in SamplingConfig::from_request are defensive: non-finite/negative temperature becomes 0.0 (greedy), top_k defaults to 64 with floor 1, top_p defaults to 0.95 forced to 1.0 unless in (0,1], penalties floored at 0/non-negative, repeat_penalty 1.0 and forced positive, penalty_last_n default 0; a penalty sampler stage is prepended only when penalty_last_n > 0 and at least one penalty deviates from neutral.",
+      "evidence": [
+        {
+          "resource": "repo://llama-helper/src/main.rs#L589-L663",
+          "version": "repo-lines-v1:sha256:1f619b320cedf38309960eefbcccb7e5047c905afff4fc5335aeacd5fd037167:eyJzZWxlY3RlZExpbmVDb3VudCI6NzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyMzQwMjA2MWY4OTI1OTAwYzZkNjAwMGU0NTdjNDNjZTQ3ZTU4ZDcyNzdkMWNkNzY0Nzc3ZDgyODUwNDZhMGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNjQ3OWNjMjMwNDQwZmQ0MWU4MjI0MjE4Njc5Njk4NTU5ZDI4OTNiZDY3YjQzODBhZmFiODExYjM4YTU1YWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjExMTY0MmE3MGQwZmMwODYzZDFmMzIyMjAyZWU4NjJjYmI3ODNiN2UzNmUxMDNlNTEyODRjNWI3ZWRmNWY3NDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRiNTQxNzY1YjFhYjdhMWZlMzE2MmQ1YmU1NmJkODMzYTA0M2MxZTBjNTI1OTU4NzhmOTE2NWJkNmE5MjY5MTcifQ"
+        },
+        {
+          "resource": "repo://llama-helper/src/main.rs#L676-L750",
+          "version": "repo-lines-v1:sha256:f6795f814b04e09a7d44aeeb5a2c976d5b2720731435698915dcc38fd4453921:eyJzZWxlY3RlZExpbmVDb3VudCI6NzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1Y2Y1ZmMyM2YyYTZkMjNjM2VhNTFlNzJmNWU4OTZjNzU1NWZiYWEwNWNkNWIxZWExODJiZjk2MThhOGU4MWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ZjZmNDY2ZTU5Y2ZjMzA3MDNjNDVmNzJhZjY1ZGU1NGFjMzYzZDM1NGNjMWEzMzMwMzUwYWNkNDUyNDM0YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f6edb57d43d84b72af82ad52d884a7e0",
+      "statement": "Both sides of the sidecar pipe honor the LLAMA_IDLE_TIMEOUT environment variable (seconds, default 300). The helper checks idle time before each stdin read and emits goodbye then exits on expiry or on a shutdown request; stdin EOF also terminates it. The app passes its configured timeout to the spawned process.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs#L296-L299",
+          "version": "repo-lines-v1:sha256:05ff9a189cad3d2c369421f334aa152ccd437b3eb1aaee912bba3ade19304411:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTMyM2Q1NDRlZmY2NzkxM2VhNGVjOTU4NmRhZTZhNmMwNTgxYjMzMmFlMDRkODlkNTIwOTQyNjliZmI5YTM5ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGJmZWM3ZDQ0MDQyMDI4ZTk2ZGRmMmQzY2Q0OTgwZGVmODEyODM3ZDdmMDk1YmI0MjFhYzA5ZmQxNWYyNWI5OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmVmOTI0ZTZiN2FlYjFmZDRiYjZiNTM5YjEwMzVhNTQ0OWY1NDg5YzQ0NjFkOTg2YjYwYzkyMmI0ZjQ4ZDhkYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODMwNGFlNDc2NjJkZGUwYmQ1NTQ2OTRiNjUyNDQyYWNlNTg0ZmViYWRkNmM1MTdhYWRkYzI5ZTE5NWE1ZjBhMSJ9"
+        },
+        {
+          "resource": "repo://llama-helper/src/main.rs#L548-L580",
+          "version": "repo-lines-v1:sha256:7d06d86faacaa766f5130ea6a39906557abd57f5ed59c1071b9a390b22c01afa:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjZDRkNjlkMTEwNDNjNmNkOTNjNGJjNmE5YWQ1YjRlODExZDgyNzdkOTI0NTVlZTZkMWU2NjY0MGU5ZWI1M2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5YmZlNzg4MzkxNGUwZGEyOWU5MmZlMWNhMWUwZTRiMTAxN2QzZjJjZmQ3NzYxMTI4NzYxNjBlMDQ4ODJhMTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ZjZmNDY2ZTU5Y2ZjMzA3MDNjNDVmNzJhZjY1ZGU1NGFjMzYzZDM1NGNjMWEzMzMwMzUwYWNkNDUyNDM0YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNkNDU2Mzk1MTk3ZmM3NTU2ZjRkZGMwMzFhNDJlYmFlZDAxNzkzODA3MzE5NjAwMzI1ZjAyMDRkOWYzYzFlOGEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ee795b3f7de74f8e926658ffcdbebf25",
+      "statement": "llama-helper computes GPU layer offload from detected VRAM (Metal via sysctl hw.memsize assuming ~60% of system memory, CUDA via nvidia-smi free memory, else conservative 4 GB), estimating model layers from file size (>2.5 GB means 33, else 28) and budgeting per-layer weights plus KV cache (0.25 GB per 1k context for large models, 0.12 GB otherwise) against VRAM minus a 0.5 GB safety margin; unreadable model file size forces CPU-only. Inference threads are max(1, cores/2 + 2) to avoid starving the UI; context and batch size both use context_size; the prompt is tokenized with AddBos::Always; sampling is greedy for temperature <= 0 else penalties/top_k/top_p/temp/dist seeded from wall-clock ms; token pieces are incrementally UTF-8 decoded with a buffer-retry on InsufficientBufferSpace, stopping on max_tokens, an end-of-generation token, or a stop-token match.",
+      "evidence": [
+        {
+          "resource": "repo://llama-helper/src/main.rs#L131-L275",
+          "version": "repo-lines-v1:sha256:37086a00cd191949d178acea93c1143640950d3337f6cf065d8e2d06cb5c4da3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQ1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI3YzI4MWUwMmZlMTM3NDJkNDI1NmNmZGQ1ZDRlN2NjNzA3M2RlMGRiYThmYzNkYmExODcyYTAwN2QxODIzMjFmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI3ZTdlODZmNWYxMDM1NzZlMzFlM2IyYmY0MzUxMjMyYzE5MWJkYmJjZjE0MWRmZTc3MGFmOTRmOTEzNjk2YTAyIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI2YjUwNzYzMWYzNTdlNWZjN2E0MzNkMDMzNGE2MzI0YTY4YWEzNzUyZGU2MjlmNDU4MDM5ZjEzZTAzMjVjYWFlIn0"
+        },
+        {
+          "resource": "repo://llama-helper/src/main.rs#L358-L397",
+          "version": "repo-lines-v1:sha256:7bea4a7f9ecfe9230841af03ae1c7abef349a148c1459d9723338360fbf22519:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVkZWVkMDU0YWRjOTVhMjJlNzllNGYxNjcwNzg1Yjc2NzU5NjFiNzdiZTFkMWFkMmU1NWUzMTY3YzM5NzZmNjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmMDVmMThiYjhjNTFiMWVhOWMwMDgxYzkzNmFjMTYzYTI5ZGFmNjAxZGVkNTVkY2MxYTQ2MzNlMWRjY2JlZWYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMzZTA2MWVhY2Y1YzE4ZDE2Y2I1YzJjZWE5MzhlNmE2ZTZjMTEzZDVjNTliZWViNzFlYTI4MDFiMWQ3YTJhYmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVjY2Q3ZTY2NDI0MGNkY2ExNTI0YWQxMzU3OTY0NjY0MTIyMzYxYjdkNDM3M2QzOTAyOGUxZGU3NWU1YTBhOWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1ede5e6a3f3041bfbfcd2a8230ec1f0e",
+      "statement": "SidecarManager::resolve_helper_binary resolves the helper binary in a fixed order: the MEETILY_LLAMA_HELPER env var if it exists, then next to the current executable (exact llama-helper-<target triple>[.exe] then a fuzzy match on any file starting with llama-helper not ending in .d), then RESOURCE_DIR with the same matching, then dev workspace target/release|debug paths from CARGO_MANIFEST_DIR; failing all, it errors with build instructions. The target triple comes from the TARGET env var or per-platform cfg. The fuzzy fallback exists because Tauri externalBin bundling renames the binary to llama-helper-<triple> beside the executable, which tauri.conf.json declares under bundle.externalBin as binaries/llama-helper.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs#L107-L260",
+          "version": "repo-lines-v1:sha256:74593eb26cda451160877aae921046acd320f66a6a4dc1a48117fd39ef23d016:eyJzZWxlY3RlZExpbmVDb3VudCI6MTU0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjYjA4MGNiODZlOWM1MzM0MzY5M2EzMDhlM2I0ZjUyNTlkZmE4YTg2MDc3YzFhZTEyYjNhNjkzMWYwODRjODRhIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlYjlhMDhiYzI5ZjZlYmViZTlhNWYwMTkwM2Q5ODQ1ZGJjYjU4NDJhNDU1ZjA3ZDVmNDAwMmRhYzMyYTVjNjA1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiM2ZiZTliNzZkNzVhY2IwNWIyYzI2YzFmMzhhMjg0OGY1ZDI0MjhlOTUyOGUwNWM0ODk4MTdiMjI1MTZhYzZkIn0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L100-L103",
+          "version": "repo-lines-v1:sha256:5100676791e7629d0f5887cdbf4a438cd03f17a48997a835b2032f0a31551d29:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTNmNThkMGJlZmQ5N2Q1YWE5MjZlOTVhMDNlNDIyZjQ3MTU1ZDBkZGMyNWIyMzZjNzk0Zjg3MzIxNWY4M2Q4MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGIzOWUxNmRjYjVhMDI4OWYxNDQwYmIwY2Y4ZDUyZGJlNTgxZDJhYjY3YjM2YjM0NDBlZGZmNGYxZGY4YWU1MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjdiN2JlNzNjYjA2NGViNTZhZmQzMjQyOWIwNWNhNzY2ODU5NjYxMzcwZTc4ZDU3OWQ2ZGIzYTlhNzRmYzQyZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzIyNzZhYWRjMTU0OGQzNjQ1YjM5MzViZjlhNmVhYjNmNTJlMzUwM2M4MjBmNGZhODAwZWVlODc5MWYyYjlmMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d234905956ef41a3b409facdadcf44dd",
+      "statement": "SidecarManager::spawn shuts down any existing process first, then spawns the helper with piped stdin/stdout, inherited stderr, and LLAMA_IDLE_TIMEOUT set from its configured timeout. On Unix it launches through nice -n 10; on Windows it sets CREATE_NO_WINDOW | BELOW_NORMAL_PRIORITY_CLASS. After storing handles it marks is_healthy, resets should_shutdown, records current_model_path, and starts the health-check and idle-check loops.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs#L278-L349",
+          "version": "repo-lines-v1:sha256:fee931749f7d04db18e5ecb3135dfca9cded05ee8a6956bb2fcdb836c29a9b5d:eyJzZWxlY3RlZExpbmVDb3VudCI6NzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2NWZjMDE2YjcyNzhhNzFjMTJlY2M0YWVhNjNkNTFhNGQ3NmIxODVkYjliNTBhN2EzNmQxYTliZTNmNGUxOTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVmMTYyZWFmM2FlMDdlMWVjMzY2YWUzMDgzYzM0NTQ3NGY0NWU1MjViYzg2OWZhZTA1MTZhYjA1OWJlOGIxNDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJhOThjNzRlZGM4YTNlZWQyOWNlNmMzNDVkNjAxYTQ4ODg0ZDM4YzM2ZGM4ZjJkYzYyMGRjMTgyZjM4NDEyZTgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs#L301-L307",
+          "version": "repo-lines-v1:sha256:5a1f9a4ebeb5f8d12e8faa2fc92fa5161d01a2f99a83db97fd1fdf13f62535c4:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzY0MTkwYzUyN2VhNWI1NWRiNDhmMzEwY2M3MWRlOWE3NWIzMjllMDEwOWYxZGU4ZGVjODBhMDA0OTQ1MWQxZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDgyODk5YzVjOTNmMDc1YWMxNzdiOTE5Zjk0ZDcyNjMyMDQxM2QyNGY2N2FhYTNlOGI2MjliYTdlOWU3ZGU5NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTIxY2QxZTA4NzQ0ZTM3NjQ5ZWJkNDhmODlkMzc1NTM2ZTQ1YmI5NDhjYmZjZmMyY2I4OGJkYmYyNWYyMjc3NCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_0854c201b207480987365052bb1152a2",
+      "statement": "Two spawned background loops supervise the sidecar and both exit when should_shutdown is set. The health check runs every 30 s, skips when unhealthy or when active requests exist, and on a failed ping (5 s timeout) clears is_healthy; it deliberately bypasses send_request so health pings never inflate active_request_count. The idle check runs every 60 s; while requests are active it refreshes last_activity instead of timing out, otherwise it shuts the sidecar down once idle time exceeds the timeout.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs#L556-L658",
+          "version": "repo-lines-v1:sha256:f45c74757e723282113c445c3b93b53e44a2dd6c67b87ad686f9f712463f20fa:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI0ZGY5OGQyYzBmMzljNWQxZGI5M2JmZWZjZjRhMTg2Zjk5ODU4NjA3YTIyYjVhNGNiMGE3MmU4YmYwNDkxNjhiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJiN2RiMTNmMzg4ZDczNWM4NmNmNDdhYjJkZDJhNWE4NDI5ODM5NTFhYTJkMzViZmFmODE1MmE5OTgxZmI2OTFlIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiMTEzZTI0MmFiZWVkOTE4NDc1ZDk1ZjVkZjYyZmI0MGY2NTZkMGE2ZTFhNTdlOTc2NTc0YWY3YjkzNDIzNjUyIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_fc61d7f2bb054407bea022a26aed0493",
+      "statement": "send_request wraps each call in a RequestGuard that RAII-increments/decrements active_request_count, writes the JSON line plus newline and flushes, then awaits one stdout line under tokio::time::timeout; an empty line read means the sidecar's stdout closed (crash/exit) and errors. On timeout the manager shuts the sidecar down entirely - the protocol has no cancel message, so process termination is the only way to stop a running generation. ensure_running short-circuits only when current_model_path matches and the process is healthy; anything else triggers a full shutdown and respawn.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs#L351-L410",
+          "version": "repo-lines-v1:sha256:67aef089376edd5e6816aef03b634e02ffbb97aacc316fcb89e0257e46decc25:eyJzZWxlY3RlZExpbmVDb3VudCI6NjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgzN2ViY2Y3YzYzZGI5YmJmYzc2ZTFmMDg4YThkMjRmNTdmYjExYWZlYmI3MzAzZjI5ZTM5NTJiZjgyYWJlYWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2MmVlNTdlNDFhOGMyMGFlMDE2NGRmMjYxNDM5ZGNjNDk5ZDM1MjA4MzQxNTE1MTZkMDQ3ZThkZWFlOGE0NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzOGEwNzMwZDE1NDExZjE1ZWQzZjdiMzY1ZmQ1M2UyMzI4OWI0YmE5ZTZhMzk0NzJlNmM1NWUzZTUzZGJmZTYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs#L57-L74",
+          "version": "repo-lines-v1:sha256:4297992216940e0a1e18b5c7aeeb355c012dcd1e64712bba77e5cb7a6e6b9266:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFjMGNlYTNlZGYxODIzYTEwODU0MjNhODdhNzM3MjhiYjM2MDllYWNjMzhhMGFlYWMzMzI2OWEwNzQzNjI5MjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBiZDAzN2QzNjliY2I3ODI0MmM1Y2QwYjI4NmM4MjY3ODg0M2VjM2U0ZTkxMDk3MzI2YmQzMjE0YTdjMmMzYjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM0ZTJjYzg4MmQ2NjgyNzY1YTMwZmY1ZmYxZGRjNTY3NjQ1ODY2ZjU5ZGFiNzllOTJjYmMxMGMwYTgwMDI3NzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a524104a5025487cbdbbd7919e9f7841",
+      "statement": "Sidecar shutdown has three paths: shutdown_gracefully sets should_shutdown and polls active_request_count every 500 ms for up to 10 minutes before calling shutdown; shutdown sends the shutdown line if healthy (errors ignored), waits up to 3 s for exit, then kills and clears all handles/model path/health; the Drop impl only sets should_shutdown since async cleanup cannot run in Drop.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs#L443-L537",
+          "version": "repo-lines-v1:sha256:5d96dbdc1d213d42903d78316ae2410060cb5c87dd398de514e7b3cefbf133cc:eyJzZWxlY3RlZExpbmVDb3VudCI6OTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVmOGZhNjNkMDVjNzc1YTFjMzNlMjgyOTYwMmI0ODE1YzhmYzdmM2Y0NjY1Y2I2MjQ5YjMwZjJkNzUyYmQwOTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMwNTJkMWY5NDdkZDkwMzQ1YjQzZDBlMTZhNzg5Mjg5ZmZmZDg1YTJhOGVjYmRmZWU4ZjMzMmI3YjZmOTgxYzYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs#L661-L670",
+          "version": "repo-lines-v1:sha256:1d2ecc6a4265366ab930c903425e77e6014e6103981d2d407cfbd63cbf885241:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNkNTM0N2M4OTE0YjY1MDlkYWQ0YmEzMGM0ODcxMWUyZWE3YWVkMWZkMTZkMDE0OTJhNWFkMDA3NDNjNTM1YjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7b319aa2c5654113829bae0747fbde91",
+      "statement": "At the client layer, shutdown_sidecar_gracefully detaches the manager from the SIDECAR_MANAGER global and drains active requests in a spawned background task; it is called when the user saves a model configuration (api/api.rs) so a provider/model switch retires the old sidecar without blocking the UI. force_shutdown_sidecar detaches and calls shutdown() directly and is invoked from RunEvent::Exit in lib.rs so the helper never outlives the app.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/api/api.rs#L560-L565",
+          "version": "repo-lines-v1:sha256:f54ef90d2d6fd7e4b9c38d3467759a1c6359ce908100418db3e2c38e5a5c40f5:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODI1NmZlNzQ0ODI2ZDM2NmRkNmIzOTJmNzc3MTE1MGNiYWU0MWU3Mzc3ZjEyNjA4OWE5ZDM5ZTcyMDZhMjA5MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk5YmRlZmVlYWNhNjM0MGUwMjkwZGM4NmU4ODljODlkNWUxODlhYTViYTQ0YjU4NWIzYjcwNzM0ZjRhNjJkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDcxMTgyNDRmMjNjYmQzOTQ5ODE5YjNjNzk4NjliYzk3MDY5YjFlMjJjYmRhOWQzYTMwYWVmMmI1MWRlMmE5ZiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L775-L780",
+          "version": "repo-lines-v1:sha256:4a635201fd88891b253da36a72d74f86a91d7b6f7c73e2c77bb85f7d00dbcc93:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWY5MWIwNjdkOTFiNWFmZGRhMDQ1M2M0MDAwYjA5YTBiMGJkNThjOTZiYTM0NmRiNWEwOGQyZDFhZTFhYjA1ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWRlZWI0Nzc5M2QwMTg0MjJjM2QyZTM1MDk0MDU5MTZmZmZiZTZiMWVmMDFkN2FjZTIwNzc5NDkxMmJkNjUyZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmYzMTQ2MzFkOWI4NDYzNjA2YTgwMDNiY2Y3ZTQxYzRiMDY4Y2VlMjg3MzkwNDJkZTA4NjA0MjA4OGFmNjIwNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjkwZjEyODBiMTNlZjI4ZWE2YjllZTFmZWUwZjYwNDFhMTM0NzY0ZWNjMTkxMjEyYzk2YzE4ZTEyNzA2Nzc4ZiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/client.rs#L248-L286",
+          "version": "repo-lines-v1:sha256:5b89a654f2e94d3e340a174b4a21450cfb7a3a6c9d53d9e1307db9d38447099f:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkzNzk5NzMxODc3ODBmOTAzZGJjYjk2MDRiMzk5ZTNmYTIzMDIwZmU3YmMzY2IyMmQxYmNmZGJlN2Y3MDEzZWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmYWMwMTk1MDQxZWZlNDgwMzUwMTRlZmVlNGQyMmRlYTQzZDAyY2E5ZGQxOTQ3ZDA0OTgzYmVlOGMwYjc1NTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_098f25e656d24cec814fa8fef31e6e38",
+      "statement": "client.rs holds the sidecar behind a lazy_static global SIDECAR_MANAGER (Arc<Mutex<Option<Arc<SidecarManager>>>>); generate_with_builtin lazily creates and installs a manager on first use, and init_sidecar_manager/is_sidecar_healthy operate on the same global. A MODEL_PATH_CACHE Lazy<RwLock<HashMap>> read-through cache over models::get_model_path re-validates that the file still exists on hits (a deleted model invalidates the entry), double-checks after acquiring the write lock, and errors if the resolved GGUF is absent.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/client.rs#L54-L116",
+          "version": "repo-lines-v1:sha256:852789927a501c42b6482b1b14720a0e0421448911a6bcbee8d4a24798228e72:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI4ZmE5Y2Y1YzkyYmJhZGVjYWU3MzYyNjYwOTZhNjU0ZWMwMjZkZmUyMzdiNTQwNjE4NjY2NTJmMDI2ZTFlMWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQxMmQzNTkyOGNmOTcwNWRkNTZiMzA2NjUwMGQ0ZTZhY2QwMjhlNWQ4ZDIwZTVjNTg5ZjAwYTM2MGI1YjAxODQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNjOWZjMDU2OTBlNGI0NTc3ODVkNmNjNWJkNzEyMWU3ZDYxMzNkNmNjY2ZjOWI0MzU2YjczYjhmZmE1OGJiMzEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f0191d40024c407d94eec8dd3e7a6581",
+      "statement": "generate_with_builtin is the single BuiltInAI generation entry point: it looks up the ModelDef, resolves the cached model path, formats the prompt via the model's chat template, sanitizes the model's sampling preset, and sends a generate request with DEFAULT_MAX_TOKENS = 4096 and the model's context_size under GENERATION_TIMEOUT_SECS = 900. An optional CancellationToken is checked before start, after sidecar startup, and before parsing, and is raced against the request via tokio::select! - mid-generation cancellation shuts the sidecar down to stop token generation.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/client.rs#L133-L246",
+          "version": "repo-lines-v1:sha256:af1ee10fe22e06b34382fbddceba8b5663f761def8f3cd18de2cd5e03d4027b8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIxZjZjMDczZmZkMzhiZmNlZGI0ZWZhOGM4NDdjYjQyMjBjZmRiNjA2NTEwNmVmMTBmNzU1YWQ5ZGNhOGY3MGE1IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI0MDZjZmQ0NTA4NGU2NmEzMjYzZDMwNWUwZjBkNTk3MTE5ZjJmY2VkNDFjNGU4NjkzNWU4NDZkNWM3ZWRkOTRmIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI2NmQyYzdlY2RjMzJhNTJjNGI2ODMwYzYyMWZjYmMxOTU3MzVhZTYzMThiOTU4YTc4ZGRhMjAzYTA0NDA2Y2JmIn0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/models.rs#L321-L328",
+          "version": "repo-lines-v1:sha256:e724e7e9aedd7cca2f0811910bbd37658d6b7e2deda185f5fd708c15cd8d4cbb:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQwOGQxNDFmZTUzMWRiNjEwYjNmMWRkMzBkN2Q2MTkwNzY5NjA4MTY5ZWMwY2FiMzE3MTYxZjdjNDUwNWQ2ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmUxYTA0NGNkZTVhN2QwZjFjY2UzMmNhZjUzNDEyNDFmYmVkNGRjODc0YTcxNjVkZWQ1ZjhmMmY2ZTExMTAyNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjg2YmJkZmY3OWVmMThhZjBkMWFmNmQ1YzhmMmM1ZjY2NTY5ZTZhOGYzODQxYmU0ZmRkNGI1ZDQzZWU1YTA0YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2JjOThkNmIwZGM0OTJjNTAxNmRmMTA4MDVhM2E1NGViOWMxODRhNWE2MTM3ZTdmNGJlY2ZhMGMyMjA1NTBkMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_7ff2c14bc6f54d5e800cc8c505fdee04",
+      "statement": "summary/llm_client.rs routes the BuiltInAI provider (parsed from \"builtin-ai\", \"local-llama\", or \"localllama\") to generate_with_builtin before the HTTP provider path, requiring an app_data_dir for model resolution; all other providers go through HTTP chat-completion APIs.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/llm_client.rs#L78-L149",
+          "version": "repo-lines-v1:sha256:dc4513d1272fd5c27e39df6879fcef55bea0f742eb0472cd578ed6c53e902f01:eyJzZWxlY3RlZExpbmVDb3VudCI6NzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiOGJiZTUxMGU3MjYzYWMyNGU3NzgwOGY1MDliMDZkNDkwMDU4Y2E0NWNlN2E5OGJiZTk1N2ZkNTJlODQ1MzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEzYWNhODIwMWYzMWViMTllZGYzYzFjOGE5Yzk1YjdlN2NiOGJiMzhiYzJlOTJlNWMzMzQyODA3NGQ1MTUxYTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwZDkwYmM4MDQ1YjIwZDBjYjk3M2EyNTNkY2JjZDAzODAyOTUyMzYxYWM0NTY5NmUwN2FhOGY0NmFlYjQ0NTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_47c5d2502858496f8f287e4573b783f6",
+      "statement": "summary_engine's ModelManager deliberately mirrors the whisper/parakeet engine patterns: it reuses the same ModelStatus shape (with NotDownloaded where those engines use Missing, including the Corrupted {file_size, expected_min_size} variant) and the same MB-based DownloadProgress struct (downloaded_mb, total_mb, speed_mbps, percent). Models live in app_data_dir/models/summary and status is a serde-tagged enum surfaced to the frontend.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/parakeet_engine/parakeet_engine.rs#L27-L69",
+          "version": "repo-lines-v1:sha256:539362fb443b674d483492f197394a957f40df7671ab0abbd09e814a887dd83b:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjljZDhjZDQ3M2EwZThhNTI5MjUxNmJlMGE4Y2NmY2JkZWM0ZGNkNWRlZmU0NmI3ZTgzMTBmMjUxMjliNzUyMTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ2NjRiZTFiM2RmYTMwYzU1N2UwYTYwMDAwOTY3M2JkZmNiYTcxMDE4MTk0NWExMWM4NDA0NWJkMTIwMmRlNDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxMWRkY2E2MzliMTIxNWE4NWFlY2IwODJjMTAwMjQ2NTA5MmVjODVhNmViYTQ4MWQ1NTgwMjI4MzJiMDJmYTIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/model_manager.rs#L1-L122",
+          "version": "repo-lines-v1:sha256:ea74219771cfee2dad2e3283b9a1e9461715131dab943a88d496c91a2796de07:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIxZWE3YTAxM2EzZjEzZjM2ZTg0MmFhNWY4MjRkMzU0YmYzZTg1NDUyZWU2YTUxMjk2YTk1NzQ3YjczODY1YzNmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIyMGIwZjNlYzRmZDllZGJiYzM5YzYwYWJhYjUyNzhlYjBjMzJmMTc3YmUxNTc5NDZmOWRkZGZiM2FkMjQxY2Y3In0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/whisper_engine/whisper_engine.rs#L16-L23",
+          "version": "repo-lines-v1:sha256:349c9ed4048386462d205a9c2ec58b7bd8c2605f411a444302aa0e50d60fb83c:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWNkOGNkNDczYTBlOGE1MjkyNTE2YmUwYThjY2ZjYmRlYzRkY2Q1ZGVmZTQ2YjdlODMxMGYyNTEyOWI3NTIxNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmEzZGUxNWNjY2QxNTI5ZWU1NzU4YjBhYjMxMmY1Y2UzYmEzN2JjN2UwNGY2YjBhMzcwYThiZTMzMWZlNmE3NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGMzZGNiYTY4MTNkOTBjMTZjMzJmZThmMzNmZmY1YzNkNTVjZmM2MjBkNDc1MTY2ZjYyNDEwM2M3ZTFlYmM3ZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8d0d8feb0e9e4d89af2fe838c1001db5",
+      "statement": "get_available_models() in models.rs is the extension point for adding local models; the catalog is qwen3.5:2b (Qwen3.5-2B-Q4_K_M.gguf, 1221 MB, 24 layers), qwen3.5:4b (2614 MB, 32 layers), gemma3:4b (gemma-3-4b-it-Q4_K_M.gguf, 2374 MB, 35 layers), and gemma3:1b (gemma-3-1b-it-Q8_0.gguf, 1019 MB, 26 layers), all with context_size 32768, downloaded from Hugging Face (unsloth for Qwen, bartowski for Gemma), with qwen35_summary sampling and stop token <|im_end|> for Qwen and gemma3_instruct with <end_of_turn> for Gemma. Each ModelDef also names its prompt template and its name is persisted in the database as the model field when provider=\"builtin-ai\".",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/models.rs#L164-L248",
+          "version": "repo-lines-v1:sha256:6b6a69b9819c9875a807ef286825b874d52638a74f05d22fa5a5cae460a928bb:eyJzZWxlY3RlZExpbmVDb3VudCI6ODUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyZDE1ZmMwYTk3MjA4NmU0M2U2N2JkZWNiOTdkZjM2NTRjYjg5ZDExMjI0M2YyYTZhNTI3N2FlZjRhNTBjNjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyYTI4NmRhNTBmYmEzYjBiOTUyZjc1NmM4YWY2ZGFlNDNkMWYxNTFiMWU3MTgzY2U2YjM4ZDdmMjMyODViMGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZjNWYyMzYxYTNiYTY4ZThlZDk0YmIyMTRjODVhMDk2ZDk4NGEwOGNlOWE3ZWRjZmMwNjgyOWM0ZTY3OWExYmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_61b57e0d82914d2f945e55e3d6343212",
+      "statement": "SamplingParams::sanitize_for_llama_helper normalizes presets before they cross the wire (NaN/negative temperature becomes 0.0, out-of-range top_p becomes 1.0, negative penalties become 0, non-positive repeat_penalty becomes 1.0, negative penalty_last_n becomes 0, top_k floored at 0). Prompt templates are static strings: the qwen3.5_nonthinking template opens the assistant turn with an empty think block for direct-response summaries, and format_prompt escapes user-supplied control markers (<|im_start|>, <|im_end|>, <start_of_turn>, <end_of_turn>, <think>, </think>) in the user prompt so transcript content cannot break the template.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/models.rs#L255-L315",
+          "version": "repo-lines-v1:sha256:75d7ec212189135cc95ae9233912787ab45d1e397d33d093420eff560259ff93:eyJzZWxlY3RlZExpbmVDb3VudCI6NjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkODdmYWNhZWVlY2FjNGQ2ZGJkZDE4NDk2NDVmY2VhMzZlMGUwZDVjNmZiMDEzZmFiMWNjMWZmMjJkMWNhN2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlmNDZlYzI0NTcyMmU2MTAxYjBkMzJlNjY3M2U2NWE2MTI0ZGNkODQ5Y2QxZGZmNTExY2JhYWU5YzAwMGFiMDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0NTU0ZjIyNGRkMTZkMTk2OTdkOTY4MzJmMzM4MTcyZWVlMDNhYTdjZDFkNjE2MDM5MTdjM2E0YjBiYzU2ZDUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/models.rs#L40-L123",
+          "version": "repo-lines-v1:sha256:d9f4cb027a2ccfab047d1093643962c49eda653bc12f8b6e2be64251af9a7ea3:eyJzZWxlY3RlZExpbmVDb3VudCI6ODQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE3N2U0NGFhOTVjZjYzZDdhZDlhZjYyMWMwODdjMjAwODg2OTU5NjRlZjc5MWE1ZjMzODNiNzZjMTA3OGY5OGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ2MDQwMWM1NTE0NTUwNjU5NGMxMGExYzUwYmJkN2QwYWUwMGY4MWM0Njk4YWMxNmEyYzQ1MWFlNjQ2NTk3MmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlkYzA5MDNmYzAzNGI5YmQzMmM5ZTUyYmUzNmUyMjNlYmMyNTk4YWU5NzMxYmFkYzE5MGUxMDhmN2EwYmFmZDMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f4ebee7e9d5b4d22a586260cb1e85b33",
+      "statement": "download_model_detailed enforces one active download per model and handles existing files by size: within a 10 percent window of expected it short-circuits to Available; larger than expected it deletes and re-downloads; smaller it resumes via an HTTP Range request, appending on 206 Partial Content or restarting fresh otherwise. The reqwest client uses tcp_nodelay, a 1 h overall timeout, and a 30 s connect timeout, writing through an 8 MB BufWriter; progress reports on percent change or every 500 ms with speed from bytes since the last report.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/model_manager.rs#L390-L530",
+          "version": "repo-lines-v1:sha256:db4d2412f45e7a8f42e607ddd8949ad53b7e55a6465eb19f062c7fd47d392c88:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI2ZWEwNzc3MTQ2Y2NlYjE2M2MwMmU1Mzg1YTZmZGE5Mjk2NjNlMGIxYTQxNzI5MThkMjg0Y2MxZjBmMmI5OTNkIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIzZDBjYjU4NTg4ODQ1YjFlODE4NDcxMjA0NjMxZGJkNTA1YTU4YzNmYjk0M2ZlOWIzYWNkMGRjOTQwNTE3NzY2In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_0fdca5592a6a4951953e7500b98c112e",
+      "statement": "During download, a 30-second per-chunk timeout detects stalled connections and stream errors are categorized (timeout/connect/body) into user-facing messages; both set ModelStatus::Error so the UI can offer retry. User cancellation is a per-model flag checked per chunk: the partial file is flushed and kept for resume, the model returns to NotDownloaded, and the error carries a CANCELLED: prefix so the command layer can distinguish it from real failures. After completion the file is validated by GGUF magic number (GGUF plus legacy ggjt/ggla/ggml); an invalid file is deleted and the model lands in Error.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/model_manager.rs#L559-L648",
+          "version": "repo-lines-v1:sha256:57e18a0d88faf97058c9f038a9ba1ccda8e76e8f6191b6f7cf6dcdbf8a4afc28:eyJzZWxlY3RlZExpbmVDb3VudCI6OTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3YTU1ZmZmYmVkNTRjNzhmOThkYTE0Y2Q3Y2I2NzZjYjBjZDBmMzY4Nzk4ZGY2Njk0ZTEwNTY4MjZkMzdmNGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhYzJiYzc1YjdhMWI4N2QwZjFlMjJjMGMyNDVmYmM5MzZiNmVkYzAyYzI2NjQ4OWMxMzliYWMxNjJhMjIwNzciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdkMDg3YjA5NTZiNzk2MmE1YTc3M2U0MjNjMWNjNWU4MjI1MDE2Y2I4ZWNjOTIyNDE4NjU4MTU2YzI4MmJjZDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2OTI2MDhlYjJjNDVlZWI4MzJhNGJmYzRmMDQ1ZWQ5YmNkZTY3YzkxNjQ5NzQ2OWZmOWFiNjU3ZWM2MGY3YjcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/model_manager.rs#L733-L752",
+          "version": "repo-lines-v1:sha256:aa5b352ae9987dcc01becfb2a5d47567d36e32f00684523aa10dc84fa8b43290:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg5NTM1ODVmMWViYjdlODM4ZjA2YWNkNTkxN2ZmMDU2NTQxZjAwMzFhYjAzYjgwNDY5YzU1ZjkyYzYxMzQyMDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5ZDhjZTRhYjIzODNkYzk5ZGIxYjQzY2YwMzQwMjlhMmIzZWJhYmUxODZlYzMzNmM0YjEyYmE4MzQ1MjE0ZWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRhNDAzMWY5YjRkYzcwMTY4ZTJmYjBhYTIxODM0NjcyMDA4YmIzOTE2MDgxNDdmMTM0NDZiNDYxOWI5OTRmYmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8b0a1169256a4bd0b8ee74f1975d8bf0",
+      "statement": "scan_models (run at init and refreshable) classifies each catalog entry's file by size against the expected window: within the window it is Available, outside it is Corrupted {file_size, expected_min_size}, unreadable metadata becomes Error, and missing files are NotDownloaded; an actively-downloading model keeps its in-memory Downloading status instead of being rescanned. is_model_ready(name, refresh) optionally rescans before answering. delete_model removes the GGUF file and resets status to NotDownloaded.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/model_manager.rs#L182-L334",
+          "version": "repo-lines-v1:sha256:13f946cdfb4395268f7e82a695c08f696e34995729db3cc0a5ae56682b3f3ab3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjYTY5YjIxNWQxMWM3M2JhMzJkOGMyM2IwMDNiZGIwNTkxNDlhYTVhYTk3NGU2OWM5N2Q4NjM3ZWI3ZTY0NmRkIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJhYTZkMTM3ZGExMzBlNjA1NDlkMjgyNTJjMjI5MGMwMTdlMDgzZDgzMzEzM2U0MDhiYjc3MDk2OTZiY2Y3NzMxIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiZDkzOGIxMTVhY2Y1MDY0ODkwYjQ5ODMzOGEyZTQ5OGVkMzBlYWFjYzk2ZGIwZjI5MjE2ZTU0MTdlMWU1ZmY3In0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/model_manager.rs#L796-L850",
+          "version": "repo-lines-v1:sha256:3507c569f9337ae20b50b09c372168f3a68919a6755233b91fcb75a24dfd0293:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYyZjFhYThkYWY2MTFjMDg0NGJhNzgzOTJlYjIxOTUzZjc2YmJjMTE5YTMyYzBjMTNjY2QwY2UzYWYwYTNjMDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ3ZjU4N2UzOWFlZWVkZmE1ZmRlMWUxOWI5YjE2YjVmYmE1ODBmZWQxZmEwNDQyZWM2NjRiNjFiMWY3NjUwYWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3f70782cd6e644679195bd5223d05b4d",
+      "statement": "builtin_ai_download_model streams progress through the builtin-ai-download-progress Tauri event (model, progress, downloaded_mb, total_mb, speed_mbps). The progress callback always emits status \"downloading\"; the completed event with status \"completed\" is emitted by the command only after the download task fully finishes including validation; real errors emit status \"error\" with the message; cancellations emit nothing from this path because the cancel command already emitted a \"cancelled\" event. The frontend listens in BuiltInModelManager.tsx, OnboardingContext, and the onboarding/toast components.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/commands.rs#L130-L246",
+          "version": "repo-lines-v1:sha256:add2873aa9b50f9d13217461f423e7cd01add779df59a46e0336ddd6faa62506:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5ZTFlZTMzZWU5NWZhZWUxYzEwZTllYmYzZDNkZTQxYmIxOTI1MTVjYWQ3N2NkYTIwNWU1NDZkYTE3MDAxYTY0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwMDg4ZTQ2MTkzOGI5M2JhYWU1YzhkMGNhMDE2N2Y4YjIwMGI2ZTI5ZTY0N2E1NGIxYWQ0NzZkODAyMmFhMjBiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJhM2Q3OTY4YjU1YzE3YjA4ODU5YjQzMjIzODRkNDRmY2Q5YmVmODJkZDhkNDBjZWU0Y2IzYzdkM2ZlMmM0Nzg3In0"
+        },
+        {
+          "resource": "repo://frontend/src/components/BuiltInModelManager.tsx#L81-L81",
+          "version": "repo-lines-v1:sha256:24292c115a313ad03c93940908e99413b90b3c0b66269aa017fab37bbac24f3b:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjQyOTJjMTE1YTMxM2FkMDNjOTM5NDA5MDhlOTk0MTNiOTBiM2MwYjY2MjY5YWEwMTdmYWIzN2JiYWMyNGYzYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjQyOTJjMTE1YTMxM2FkMDNjOTM5NDA5MDhlOTk0MTNiOTBiM2MwYjY2MjY5YWEwMTdmYWIzN2JiYWMyNGYzYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGNkM2E2YThhMWYyZTRhNmE1NzVlNGNkMWMyNTQ1MWU5ZDBkOTA0OTBiOGYxNzgxMDc1MTAzOGZkNDI4OWQ2NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzQzNGY0OTc1ZDFmYzhmMWYwZTM2Zjc3ODllMDRiZjUwZTdiZWE5NzlmOGNkZTc3MmNlYmUzNjkzMmE3ZGEwYyJ9"
+        },
+        {
+          "resource": "repo://frontend/src/contexts/OnboardingContext.tsx#L301-L301",
+          "version": "repo-lines-v1:sha256:b780210e8f88e9e0755c00099cb38d2dc3475eda6bd0a53491f273933af1de6f:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjc4MDIxMGU4Zjg4ZTllMDc1NWMwMDA5OWNiMzhkMmRjMzQ3NWVkYTZiZDBhNTM0OTFmMjczOTMzYWYxZGU2ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjc4MDIxMGU4Zjg4ZTllMDc1NWMwMDA5OWNiMzhkMmRjMzQ3NWVkYTZiZDBhNTM0OTFmMjczOTMzYWYxZGU2ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTAwYmI2ZjgwYTBhYWQyNWYxNDUxYTM2YzQ4YjAyZmFiMzA0ZDZmNGVlNDU4NDMyYmMyODQwNjU0NjkyOTA4ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTc1YmUxZDg0NzlmZTMzOGYzOTZhNjllNGUwOWFjYjUxOGUzODkyMDI1YWU0NTFhZTBiNGQ3NjU1ZmQxYjc2YiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_48ccc7173347413eb75eee3ba1e9a24d",
+      "statement": "builtin_ai_get_available_summary_model forces a fresh scan and returns the Available model with the highest priority, ordered qwen3.5:4b > qwen3.5:2b > gemma3:4b > gemma3:1b. builtin_ai_get_recommended_model returns qwen3.5:4b when system RAM is at least 14 GB, else qwen3.5:2b, regardless of platform - pinned by tests at the 13/14 GB boundary. The command's doc comment still describes an older 8 GB / macOS-specific rule that the implementation no longer follows.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/commands.rs#L11-L42",
+          "version": "repo-lines-v1:sha256:a713467d0f04c0558074dff7f374dedc13d06a203a802b16eaadb2369b461508:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0YjIyNGVmYzk5ZGU4NzM2OGRhZDE2NmIyMzRhZWU4M2ViMGMzMjMyNTk5YjY3NmQ3Y2M1NGNkNTBhZDAxZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE4MWZhOGZiZjQ3OTM5MWFlYmM2YTNkYzVjYjkwZTQwNmY2ZWE5MzRjZjA2MDhhYmRiMzYxYWRkMWQ4NjRkZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgxZTA3YjA3Nzk3MmI2ZjQwMWFiNjY3NmI1YTQ5NGMzN2VhYTk2M2IyNmIxMDJlZDExYTlmMGZkODQ3MzA0MTQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/commands.rs#L310-L352",
+          "version": "repo-lines-v1:sha256:e7181b5b96617f54d46d72d7cf4e6930e8a62c18cbd5389174e943e4a0ff5fb9:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMWVlMzNlZTk1ZmFlZTFjMTBlOWViZjNkM2RlNDFiYjE5MjUxNWNhZDc3Y2RhMjA1ZTU0NmRhMTcwMDFhNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhNjhhYzE3YzVjY2FjZjJmOWQ1Yzc5ZmViY2I4ZjE4MjQ2Y2QzOGE3ZGVhOWQyMDc5YmY3YWQwMTkyNDRhMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdhYWFiZmYyYTY5ZTM0OTMzYjliMGEzZTZhMWNkM2JiZjA3MzIyNDhkZWI0OGRkNzZjMGVkNDMxZDQ5MzBhMTAifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/commands.rs#L410-L432",
+          "version": "repo-lines-v1:sha256:e2a3c95787ebbb5d52b7cf333da8c9c96ea19dcc8528214f59a4086392973f37:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1Y2Y1ZmMyM2YyYTZkMjNjM2VhNTFlNzJmNWU4OTZjNzU1NWZiYWEwNWNkNWIxZWExODJiZjk2MThhOGU4MWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNlZDM0NjFmMDYwNzkwMGYwM2Q4ZTljYzk1ZjNhNzg1MjI4OGM2ODdhZDZmZTMxMmFmNDI0ZDdlNTZmODIzOTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_daca7747af3644cf89675edf668993a4",
+      "statement": "lib.rs manages ModelManagerState (an Arc<Mutex<Option<Arc<ModelManager>>>>) and registers the eight builtin_ai_* commands: list_models, get_model_info, download_model, cancel_download, delete_model, is_model_ready, get_available_summary_model, and get_recommended_model. init_model_manager_at_startup runs in a spawned task during setup using app_data_dir/models/summary; if it fails, each command lazily initializes the manager on demand.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L419-L419",
+          "version": "repo-lines-v1:sha256:253adae75840ed7020dfe0293652c183db20d8002162c08f08f4e1f2fd6d99be:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjUzYWRhZTc1ODQwZWQ3MDIwZGZlMDI5MzY1MmMxODNkYjIwZDgwMDIxNjJjMDhmMDhmNGUxZjJmZDZkOTliZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjUzYWRhZTc1ODQwZWQ3MDIwZGZlMDI5MzY1MmMxODNkYjIwZDgwMDIxNjJjMDhmMDhmNGUxZjJmZDZkOTliZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjU0ZTdmNTVhZmJlNzVkNTZhZDg1ZmY0ZjM1ODdmZjhjODU5ZmM1YmE2NDMyMDRhM2ZjYzgwMmI0ZjQ5NmI1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTEwMGIwNDE0MWY1ODY1M2MxMjc1NTJiZjdmZWRjMDZmYTM3MjAxZWNkOTk0NzVlY2Y3MDZmNzQxYzEwNzYwYiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L474-L484",
+          "version": "repo-lines-v1:sha256:79fe2671bbc519f643914b47705332bbb538baed750f81ba3df5ecb7a3e67af2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlNjRiOGZjZDNlODZkNjE1ZjdjYzkxMmY1NGFiNWQzMGVlNTI1YzY0ZDA3ZDg1N2I0ZDU5OTVhYjM4YTg3NjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlNDYyYmQ4NWVhMzUyMjgyMmE5YWQzZWIyNDA5OWIwMzJhMWI2MjdiZWNmZDdjNTgzMWU5OTI3ZDRiYWM0MGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRmZTY0Y2I0ZDE1NzA1OTViMjk2YTUyMDRlOTI5OTQwMGFjZWU2MDQwMjcyMDA0MmQyOGI4ZmQzYzI0MGY3YjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYyOWZmNmJkNGYwNDkwZTY3YjQ5MDg3MDQzOTM4MDY1Y2MxYTZhM2IyMWVhYWExZDU2NTk2YTFjMGQ1MTZlNTkifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L674-L682",
+          "version": "repo-lines-v1:sha256:dc73ba5292407ae7f8f606763062c54aaa93720c5ae8c1808c1d28128b68edd9:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTI3YzI3NjgwNmVlNzA1OGIyODkzYTViZWYyM2IzYWI1MWYwYWU1MzBhYmMzMzI5N2M1ZGY3MWM1NDQ3NTA4OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzU5MjcyNzJmYTAxMDIxNTgzMGE4MGQ1NmE3YzU3Y2JiMjBmYjFhZDcwNmI2OTNlM2YxMzVlYTFkMjhlMzU1NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDdmNzRhMGU1MzNhOTkxNWU5OTkxZWE5OWJjMWRhMmVmN2E3OTkxNzc4OTllZWVmYjA0NTY3YWQwNTE4MzM2OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmE0MDQ4NTZlODIzZjMzOWVkZDcxMmI0NWE1YzQ4NzAwNjkzY2RmOTFlMzYzODczYmFkMDFjNjZjNDM0ZWVhOSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/commands.rs#L48-L64",
+          "version": "repo-lines-v1:sha256:513518dff70534ff937d0f2293e3373d18b5ab574e62885b247d06daf28f7bdc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwNGVhZTU5MTdlNDljZjVjNzgxM2QwZWRmNTY3NzZiNTgyMzBiYzVlODRhZjQ0YjIxMjgyMGJmMWI1MjQyYWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJlOWQ2ODdmNGE1MDg5OGI3OTAyMDI4OGI0ZTVkODljYTQwYmI1NzkzMWFjMTZlMGQxMjE1NzE1MTNlY2IwZmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ0MTI4MWQ4YTA3MmYyZjM0MjEwM2YwY2EyOWJhNmNlYzY0Y2Q2ZDc3MjU1N2UyMzQ0NDk4ZmYxN2Y1OGE3NTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_25f5e08944344cd4b04223d7e8e78c4d",
+      "statement": "The TypeScript wrapper BuiltInAIAPI.getModelsDirectory() invokes builtin_ai_get_models_directory, but no such Tauri command exists in the Rust backend (commands.rs defines only the eight builtin_ai_* commands) and it is not registered in lib.rs, so that wrapper call cannot succeed.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L674-L682",
+          "version": "repo-lines-v1:sha256:dc73ba5292407ae7f8f606763062c54aaa93720c5ae8c1808c1d28128b68edd9:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTI3YzI3NjgwNmVlNzA1OGIyODkzYTViZWYyM2IzYWI1MWYwYWU1MzBhYmMzMzI5N2M1ZGY3MWM1NDQ3NTA4OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzU5MjcyNzJmYTAxMDIxNTgzMGE4MGQ1NmE3YzU3Y2JiMjBmYjFhZDcwNmI2OTNlM2YxMzVlYTFkMjhlMzU1NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDdmNzRhMGU1MzNhOTkxNWU5OTkxZWE5OWJjMWRhMmVmN2E3OTkxNzc4OTllZWVmYjA0NTY3YWQwNTE4MzM2OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmE0MDQ4NTZlODIzZjMzOWVkZDcxMmI0NWE1YzQ4NzAwNjkzY2RmOTFlMzYzODczYmFkMDFjNjZjNDM0ZWVhOSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/commands.rs#L71-L395",
+          "version": "repo-lines-v1:sha256:c1c988e40168a0c43ae38884b1242eacfdd99d7b7790e4b746d5320a09c9101f:eyJzZWxlY3RlZExpbmVDb3VudCI6MzI1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5ZTFlZTMzZWU5NWZhZWUxYzEwZTllYmYzZDNkZTQxYmIxOTI1MTVjYWQ3N2NkYTIwNWU1NDZkYTE3MDAxYTY0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjN2I0MDhhODc1YzcyMTMyNzkzMTVlNjYwZTE2MGQ2MjU4N2ZhZTUyZjgxYmE4OWRjMWRhZmEzN2E5M2M5M2I3IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJmMzEyZTVjMmRmYTIxMzQ0NDNjYjQ5MTkxMmJjZDZlNzMzNmM2ZmVjYmIzZGIyOWM1NTZmMThjMGYxMWYwYWFhIn0"
+        },
+        {
+          "resource": "repo://frontend/src/lib/builtin-ai.ts#L95-L98",
+          "version": "repo-lines-v1:sha256:4a4a1bea28da2c74af961eaf0473adb9ef5159fa4d6923eaf28def63bc815150:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjU4MWIyMjM3MGVmYmUzNjlkMDE5OGNlZjJkODg2Njc0ODEyZWU5YmU4NjIzYTQxNDBjMWJhNTE3Yzg4MDg1NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTk3MWY0YzBhM2VjOTc2OWFiNjMwMmRmNjMzNDY1YmJmM2M4MmUzNjllYjIxZjM4OGI4ZTNiMzlkNTk5ZDViYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_43ab3779285f4f0a81614f388899c8d3",
+      "statement": "llama-helper is a workspace member pinning llama-cpp-2 = \"=0.1.146\" with metal/cuda/vulkan features that forward to the llama-cpp-2 backend (no coreml; the GPU build script maps a detected coreml to metal). Its release profile optimizes for size (codegen-units = 1, lto = true, opt-level = \"s\") to keep startup fast and the bundle small.",
+      "evidence": [
+        {
+          "resource": "repo://Cargo.toml#L1-L6",
+          "version": "repo-lines-v1:sha256:0e773a6611186bceadab901270906584906b6d46b5ca1ffb7835c27975afcadb:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDM0ZTEwMmM4NjFmOTk0ZDJhYWNlOTExNGQzOTJkYmMxNjIxOTBlMDBiZThmZTM1N2Q0NzIxNTBjYTQzOTYxNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjk0MTZlMDlmNzhiYTMxNmMwMzI1NjgyMTNiODU1ZWU3NTZlNDE1NjVkOTE4ZjA5NTE5YzgxZmQ2MjBmNDA2MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDgyNTEzZjYzMDljOWY0N2Y2ZmUxNjg4MDMxNzFmY2MzZThlNGYwZTBlODdlMTY1ZTA1Mzc0OTc2MjA2NWZjMSJ9"
+        },
+        {
+          "resource": "repo://llama-helper/Cargo.toml#L1-L22",
+          "version": "repo-lines-v1:sha256:c1a38b3831eecbbf04e41fd997ba340503382d9e7ebc4091527cac67850d0648:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhM2NkNWE4MWIzZjlhNjIxYWE0OTNkOTBjNDVmNDJhYjU3MWQ0ZTQyYjhhZTVhZmYzNTFjYjBhMDJkMDZkODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjM2M1YTAxYTg0MjBhNGE3ZTg1YWQxMzZmMDM3NGNlZTM3ZjNlNDRkMjY4ZjlhMTEzNDYyMGM4MjcyYWRmOTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e0a50fce9f00441582194c411e679297",
+      "statement": "Every build path builds the helper separately before tauri build and copies the binary to frontend/src-tauri/binaries/llama-helper-<target triple>[.exe]. build-gpu.sh builds with the detected GPU feature, detects the triple via rustc -vV, removes stale llama-helper* binaries, and copies from target/release. CI (build.yml) builds macOS with --features metal and Windows/Linux release builds CPU-only (the Windows release path cites a CMake race in llama-cpp-sys-2 Vulkan builds while the app itself still uses Vulkan for Whisper); build-macos.yml uses metal, build-linux.yml and build-windows.yml are CPU-only, and build-devtest.yml builds vulkan on Windows.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/build-linux.yml#L189-L198",
+          "version": "repo-lines-v1:sha256:8695744a2f3fa8fe670205229c4ffcb18fd46d6d03dffab1ff16cac343863c2d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3MjgxYjU4Nzg4ZTIwMWU3YzcxNTUxMmMxOGU0NWE3YzYxNGFhOWRjMmRlZDE3ZWU0NzY2MTEzOTYwNThhZmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhMDlhYjA3YjViODQyYTY3YWI4YmNiYjAyZjg0NWQxYzVhZWFlNzY4NTg3ODg4YjcwNGUyZWYzOTYyYWI0MmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEzMGEyOTZhMTNjM2FjZGI4OWI1OWRmYjhkMGFjNmM0YzY0YjQ5ZDNkN2YyZmI4ZmIyZGM0NmE1NmYwYjdhMzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU4OGVmNDE4NDY0ZWFiMTIxNGY0MTI0NDFiY2VlNjRmOGYyYjQzNDY0NzY4OWE0YjEwM2MyOGM4Yzg1ZjA0NDAifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/build-macos.yml#L138-L147",
+          "version": "repo-lines-v1:sha256:7c92e6e5f0cfc7b1f7f1210f0b19a6334c950fedf92160ef01132c18e7defc18:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3MjgxYjU4Nzg4ZTIwMWU3YzcxNTUxMmMxOGU0NWE3YzYxNGFhOWRjMmRlZDE3ZWU0NzY2MTEzOTYwNThhZmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhMDlhYjA3YjViODQyYTY3YWI4YmNiYjAyZjg0NWQxYzVhZWFlNzY4NTg3ODg4YjcwNGUyZWYzOTYyYWI0MmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkNTFiOGYwODcyYWQ0MjhhYWMzMGRjODdkMjBjODdhYWI1ZGUzOWE1OWJmYzRiZmQzMmZjMWM5ZmJlYmQyMjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEzYjJmYTYyYWYyMTE5ZTYwZjE0YjUxODlmNzIxNzM5YzhmYzhmMzNmZTk4NTBjNjVkYjE5ZGE4MTQ1N2JlZmQifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/build-windows.yml#L640-L660",
+          "version": "repo-lines-v1:sha256:aa1c3c1bcc7d550971d6fb6bbe720451fd66d216cf965b8adadf55c30c02d5dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3MjgxYjU4Nzg4ZTIwMWU3YzcxNTUxMmMxOGU0NWE3YzYxNGFhOWRjMmRlZDE3ZWU0NzY2MTEzOTYwNThhZmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2YzQ3MzBlYWMyMWUyMGYyYzI1M2E1NDEyY2RiODNiZjA4MzM2MzM5ZmVmYWJiM2JjMjdmZjAwNGNhMjZlNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEzMGEyOTZhMTNjM2FjZGI4OWI1OWRmYjhkMGFjNmM0YzY0YjQ5ZDNkN2YyZmI4ZmIyZGM0NmE1NmYwYjdhMzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI5YTQ2NjU4MmY2ODkxNmZhMDc5ODIxMWQ5ZjFjOTVkMWMzYjYyNmRmMzM0NmU2OTVkZGVmYWIzZDU4ODQwNmYifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/build.yml#L508-L561",
+          "version": "repo-lines-v1:sha256:3be00189c292beaaad8e6e5f778f2d993dd2e60e931b52cf3304c63fcca6e50e:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlYjlhNmMwMzQyOGQyYWZiZDZhNzlmNTEzOGE0NDc2YjZiOGIyZTJjOGJiYTRjNzQ4ZGViZmRkZmRjMTBjNDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0YTgzMzMxYTM4NDg5MDYwMmJhMzYwODQ0NzRmYzY0OTY1ZDlhZDFkOTZhOTljOWM4MjVmZDc3MmRmYTdjNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxODZlNjM4ZDAyYzBlM2U2YmNkZTQ1MWVlYmYyYmRjOGFkYzM3YjA0NWNmYTExNzUwMjUwMTI3ZGJiZGFkNDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU3ZjUwZjA0OWFiOGMxZWNjM2JkOTNkOTEyYWFhOTIzYzBmMjYxMmNiNmE0ZjJlYjJlZjViYjc3ZDgyYzNkNTQifQ"
+        },
+        {
+          "resource": "repo://frontend/build-gpu.sh#L91-L171",
+          "version": "repo-lines-v1:sha256:d229252e4a6d15210c592bd24520863f5d34feb880b694795ab4edd1d5a6c7d7:eyJzZWxlY3RlZExpbmVDb3VudCI6ODEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwMTI1M2E4OTEzNzk3MmQxNjQ2NGU2YzNiNTk5NDRlYmRjNDZkYzFjYTQ4NmYzMjI3ZmIwNWIzZTM2NTM0ZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3NjlkMjM3Y2Q0MjBiOWQzOGI5ODFhMGE0ZjY3NzAxOTBhNGE4M2RjYTFmZTU2YzRmNWJhMWUyY2JjMGVmNzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc4MzcxYjU5YzYyNDRhNTU4NDhmMDA5N2JlM2EwOTFmZTY1YmZiZmJiNDY1ZWQ2MzdhMTg2YTZkNTI0ODA0MzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAzNTk3ZjBmMTQ0MWU1Yzg0MTFjZDExMmIyMzE5YmQ1NThlMjJjMzliZWQ5OWI2YThkNmI1MjZlYzA5MWY1NzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5af8eef0e5cc4445be4f465be3c354ee",
+      "statement": "tauri.conf.json declares the sidecar under bundle.externalBin as binaries/llama-helper alongside binaries/ffmpeg; Tauri appends the target triple when bundling, which is exactly the filename resolve_helper_binary searches for next to the installed executable.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs#L120-L175",
+          "version": "repo-lines-v1:sha256:71a13e9aba8c835c2052feed1f6b0652717c6fac9e3cab689f987049d8758636:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlMDg2ZDFiZDUyODQ2ZjgyMzJiOGZkN2RmNzA4ODFhODQzNDExMGI4ZDg1Yjc4NDZkMDcxYzI4YjUyYzUwOGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhOWY4NmQyOGU3ODRmOWZkMzFmYjcyZDE1ZjYwY2JjZWFhZmRkNjY5Y2JkNWI2ZGE3ODg4YTAyMzMyMWViYjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliOTM5ZDIyZjIzNmIyOWJjNDM2NDc2YWQ3Yjg2NDVmOGY0NmU3MWM4MjU1NDdiODY2MzlkZTgyMmE4N2E1MmUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L97-L103",
+          "version": "repo-lines-v1:sha256:fc1bd3483d4789fe6f3a1fc8fcd802b01df7c3f7f9309a06836b1d1d61632176:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjFhYjRlODgwMTk2NzU4MmEwOTNkNzliNjg3YjgzZWYyNWQxYmNiMDk0Nzc0M2UzYmU2YTg0MTNkNDliMjFjYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGIzOWUxNmRjYjVhMDI4OWYxNDQwYmIwY2Y4ZDUyZGJlNTgxZDJhYjY3YjM2YjM0NDBlZGZmNGYxZGY4YWU1MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmE5YWRjMTExOTdjMzM4NjIxOWYwNTY4NDU3NzQ5ZmE3YTEyNzAzN2E1OWVhNDRhMzM1MmE3MGM5OWRmZGRkOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzIyNzZhYWRjMTU0OGQzNjQ1YjM5MzViZjlhNmVhYjNmNTJlMzUwM2M4MjBmNGZhODAwZWVlODc5MWYyYjlmMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_93acd041236847ed8e490771b0e20a31",
+      "statement": "Focused tests cover the protocol and policy surfaces: llama-helper tests assert that omitted penalty fields default to neutral (disabling the penalty chain) and that a full Qwen-style penalty set deserializes and activates uses_penalties; client.rs tests assert request serialization emits \"type\":\"generate\" with all sampling fields and that response/error messages deserialize; models.rs tests pin catalog metadata for all four models, template formatting including the Qwen empty think block, control-marker escaping, and sanitize_for_llama_helper clamping; commands.rs tests pin the 14 GB recommendation boundary and summary_model_priority ordering.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/client.rs#L301-L359",
+          "version": "repo-lines-v1:sha256:f7a4e71692efdd31d225ee37ebf44cf3647f521452c39af9eb38506e3beb3032:eyJzZWxlY3RlZExpbmVDb3VudCI6NTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1Y2Y1ZmMyM2YyYTZkMjNjM2VhNTFlNzJmNWU4OTZjNzU1NWZiYWEwNWNkNWIxZWExODJiZjk2MThhOGU4MWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM1YWRhYWYxZWVlOGM0ODYwODBlMzRiNzUzMGY3MWU0OTRjNGYyYTM1ODVmMWI0MTNjMjg5ZTUzYjUyYmRlNTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/commands.rs#L410-L432",
+          "version": "repo-lines-v1:sha256:e2a3c95787ebbb5d52b7cf333da8c9c96ea19dcc8528214f59a4086392973f37:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1Y2Y1ZmMyM2YyYTZkMjNjM2VhNTFlNzJmNWU4OTZjNzU1NWZiYWEwNWNkNWIxZWExODJiZjk2MThhOGU4MWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNlZDM0NjFmMDYwNzkwMGYwM2Q4ZTljYzk1ZjNhNzg1MjI4OGM2ODdhZDZmZTMxMmFmNDI0ZDdlNTZmODIzOTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/models.rs#L330-L493",
+          "version": "repo-lines-v1:sha256:75c4a0f7d42f23af8599c4e7a21414ba741745db0be04a0cdcf70f10feab5320:eyJzZWxlY3RlZExpbmVDb3VudCI6MTY0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIyNWNmNWZjMjNmMmE2ZDIzYzNlYTUxZTcyZjVlODk2Yzc1NTVmYmFhMDVjZDViMWVhMTgyYmY5NjE4YThlODFiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5YWM2NTYzMjU0OTYwNjYxM2RmN2E4Mjc3MDM4MDc0OGVkMGM2NDU2NmNmMmY3ZDMzYmQzYWUzYmI4ZGY5MTFmIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        },
+        {
+          "resource": "repo://llama-helper/src/main.rs#L676-L750",
+          "version": "repo-lines-v1:sha256:f6795f814b04e09a7d44aeeb5a2c976d5b2720731435698915dcc38fd4453921:eyJzZWxlY3RlZExpbmVDb3VudCI6NzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1Y2Y1ZmMyM2YyYTZkMjNjM2VhNTFlNzJmNWU4OTZjNzU1NWZiYWEwNWNkNWIxZWExODJiZjk2MThhOGU4MWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ZjZmNDY2ZTU5Y2ZjMzA3MDNjNDVmNzJhZjY1ZGU1NGFjMzYzZDM1NGNjMWEzMzMwMzUwYWNkNDUyNDM0YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-07T20:26:28.923Z"
+  }
+}

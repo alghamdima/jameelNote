@@ -1,0 +1,562 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:f957bbebcb850d9a7ceba965faad4d9fc3b534683828908d3497116a17012512",
+  "claims": [
+    {
+      "id": "claim_4aabd4f5b24140609a405ae364f69ee1",
+      "statement": "The system tray menu is stateless between rebuilds: create_tray builds a tray with id \"main-tray\" and immediately calls update_tray_menu, and every subsequent menu refresh (update_tray_menu_async) reconstructs the whole menu from the current recording state and can_record rather than mutating items in place.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L19-L35",
+          "version": "repo-lines-v1:sha256:78dac886fa2c8b9242aba42959df541752810c68121f1e994bab61dd3ac7b939:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4NjY4ODQ4NGZjMmU2NDMxODg0Nzk5NGQ5NWVkMzgwMDU1ZTQ2MzM2YWI4MjBiMTBiYmRkYWQ4NjFiODc2YjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY4MDQ3ZWM4YTRiZGJiMmFkYmI0ZWU3ZWU2ZjU1NTE4NWE3ZjE5YmJiNTQxYmZkYjU1ZDA4MGJhYWNlMTEyZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE5OWM1NTBlOGNmNzBkMTE4ODc4ZjhmMzJlNWM0OTEwMTE2NTY5MjA1ZDQwNGJiYzRlYzdiM2I3NTE3OTVlNDIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L212-L220",
+          "version": "repo-lines-v1:sha256:63809bf31668d380f6f82d3c89826e5ddd18e9ce8e089e6455420c0dae66227e:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM2M2VlYTJhYTQwMjBlMTdlYTBjMDMxNGE2MTAyOWI5ZDgwNzE5NjJhMWY1NGNkOWRmZDJiMTk0MmUwNTBkNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTllNzYzNTVjZjExOTk0ODBjM2Y5OTgzNmIxNDg2Yzg0MWQ4OTFmYWFkOTA0YzYwOGUwOTMwMjJkMzc1N2FlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzVjZDQ4NjAwNjZiYzViNjE2OWFhZTVmN2E3ZmZlODExZDBlYWRkZWZmMjk5MWQ1NTdkOTg5ZWIxM2Q2NDQwMCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L293-L314",
+          "version": "repo-lines-v1:sha256:970ed0acf0dd325a238f4d7424c55c4f145a96cf9b41cee782f2a295cbb0350b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1ODNjMGViZDM4ZTJjYjM4MzllZjAxMjNlOGFjZWIzYWU3MGJjYzIwNmQ0OTkzYzAzMGVlMzM3ZGM1ZDZlY2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFjM2E5ZTNiNjU3ZjAwZmU3ZDlhZTU2YmQyZDM3NWMwMzUxODgwM2M2Mjk0MzVkYTM3ODg4MDI1OGQ1ODNmYjgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_59820ae9c03d44de9b7443e9fb6f5eed",
+      "statement": "RecordingState has seven variants (Stopped, Starting, Recording, Pausing, Paused, Resuming, Stopping); Starting/Pausing/Resuming/Stopping are transient optimistic states set synchronously via set_tray_state (assuming can_record=true), while the authoritative state recomputed by update_tray_menu_async can only be Stopped, Recording, or Paused since it is derived from is_recording/is_recording_paused.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L222-L235",
+          "version": "repo-lines-v1:sha256:509e67158cc37bdbdb02f804a88e21c42d3f38fc395a6f8cedb4c93993071604:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjNTk5MWZjZWUyY2RkMDQ4MmQ0ZjU5MmUzN2ViNDQ2OTczYTlmNjk0M2M5ODc4YzZjYTA4MjdlNWUyMThiNGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRmYWI3MTBkZGY3ODU5ZTU3NTc2NGE5MTNhMDAyYzc0NTg1ZmZhNzAwMTUxMGNiODgxMWRhODNkMmNmNzRiMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEwYjQyZTdjNzM0YzYwYzZhNTE2NmYwNzYwNGExMjg5YWM3YTg1MDkxOTNlNmZiOTRmZmYwMTBlNjVmNzNlZTkifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L237-L261",
+          "version": "repo-lines-v1:sha256:2ee3b7c010d72d243c6eb4ed2db88dc982c09144a08eff25a8eb37f6906cbdb1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjZTJiZGE3ZWVmMzA1NmRmZDE5ZTBjNzIzNWI1MTJmZWI1ZTZkNDMxOTAxZjZhZDRjNjljZTliMzkzY2MzNjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI3YzhjY2MzOWNkZDAzMzA5MTJhZTFkNGY3NGEwMTNmY2YyMTJkMmI1YWIxNDdhM2FmMWJkNTAyNjUxMDZlNmEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L8-L17",
+          "version": "repo-lines-v1:sha256:13ee7bb3f99b82e736023d2cad0dcf1db0a6be7701f580c709a4c4515b16f3dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYwN2RlNzNjMjY2MmNjZjJhZTU0NmE3N2Y3ZjIyNDk2ZTcwYmUzYjkzNTI5ZDY0NWYzNzI2YzIzNTE1MmYzNWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ2Njg3NTFhZGY5YTA1YmY1ZTcwMDYyZGQ2YzBlMzYzMmQ3MWU5ZjM5NWY4MGM2MTdlZGUxNzIxOTg4MGQ5ZGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUwZjg2Mjg3YzY3MDAzYTc5YjUzYmZjYWY0Zjk4ZmJjOTYxOGNhMzYxMjNmNDE2ODgxNjZlNDZjYTU3MDQyM2IifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ba9a3bceefd44df5806a565467e57ee1",
+      "statement": "update_tray_menu is a sync wrapper that spawns a task, sleeps 100ms, then recomputes the menu; it is called after every recording state transition — from lib.rs start_recording/stop_recording, from recording_commands.rs after start/stop/pause/resume succeed, and from the Parakeet engine after a model download completes (which can flip can_record).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L300-L301",
+          "version": "repo-lines-v1:sha256:90163c5fcb31023092b28bc30a37724c3a92eb096ca825f27fa78da9e8dde6bb:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjAwOTU1ZDY3NTQ0MDNmM2UxNjgyZjA5ZjdjNmE4YmNmNThiNWY5MzM4YWQ4NWNmNTM4MjFmNmQ0OGI5MmE3NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWVlOWRmOGJiOWRmYzJhMTA3Yzc0NzBjYzY5ZmI2ZjQ1ZmJmNGY5MjdmYTQyOWI3MTgwMzUyZTA0NTk0MWYxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzQ5MDQ5ZDk0NjQ1N2Q2NTVlNGJiMGFhZGFjYjRmNzFiNDI5OWE5OTEyNzE5ZDQzZmYzNGZiMTM1MjMxOGVmZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmZlY2ExNjQ0YmY0YjE0MmM2MWY5N2NhY2RlZjRhOTBjNGIyMDlhOGE1MmI1MzBlYjAxMGZjZTAyNGFjOTdhZiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L936-L938",
+          "version": "repo-lines-v1:sha256:eff49b0e35c052b69e333017709fe89613bc73fa31ce20df266a2f48a1b71cf3:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjg5ZDU2MGM5OWVjNWJjMjBhN2U0ZGQ5M2NiYTU2OWZjZDI1NjZkOGJlZTRlODZmZjNmMTlmMTM0ZmNjNmQ2MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDM3NTY3M2Q0NmE5ZTgwODRmZDI2MDU2OWQzZWVmYzRmYjk1MTk0YWQ4YzdhZjUzMDUyYjcxZmI5MjkzMGMyYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzViYjliMTE4ODBlNjViODcyZTQ1YTkyMjFmMTExZmI4ODBhMGZmOWQ1ZmZkNzRhNTI3MWY1ZDk4NWNmYjU1OCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L113-L113",
+          "version": "repo-lines-v1:sha256:e12ff9b678974847289de769eba6a16fe91db86a9b58d809a377c633306ef7ba:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTEyZmY5YjY3ODk3NDg0NzI4OWRlNzY5ZWJhNmExNmZlOTFkYjg2YTliNThkODA5YTM3N2M2MzMzMDZlZjdiYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTEyZmY5YjY3ODk3NDg0NzI4OWRlNzY5ZWJhNmExNmZlOTFkYjg2YTliNThkODA5YTM3N2M2MzMzMDZlZjdiYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDI3NDYyMWQ4NTEzMTE5YzczMmFmYWY2MjJjNTI1YWFkNTE1MTk2YWY2MTJmZjRhMDBjN2Y4MWQyNWM3Y2VlZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTZiZmUxYjE4N2RhYzkzMmM1ODUyNjE4NjYyMWYzNDdlYjRiY2NhMTMxM2Y0Mjk3ODliNDc1OTQwZTdhNTI5MCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L165-L165",
+          "version": "repo-lines-v1:sha256:e12ff9b678974847289de769eba6a16fe91db86a9b58d809a377c633306ef7ba:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTEyZmY5YjY3ODk3NDg0NzI4OWRlNzY5ZWJhNmExNmZlOTFkYjg2YTliNThkODA5YTM3N2M2MzMzMDZlZjdiYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTEyZmY5YjY3ODk3NDg0NzI4OWRlNzY5ZWJhNmExNmZlOTFkYjg2YTliNThkODA5YTM3N2M2MzMzMDZlZjdiYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjk4ZjdjOGQ0OTI0YjIyMTE4ZDBmZDhmZDRhYjU4YjUyYmJiODJhZWQ1Mjk3M2U0Zjc4NTM4ZDVhMDA1NmIyOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODZlNjU3NjE4NjE1MzBhMTI4YTFkOWQ5ZmI3ZGEzYzkxYmNhZmQzY2Y5ZGJjZTc5NDczN2RkZjMwZDZjODg1MiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/parakeet_engine/commands.rs#L441-L443",
+          "version": "repo-lines-v1:sha256:6cbea527d68bac65e48fb3e2cd83fc58cc7a47ae28c746b61cb4d86317021c63:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2FkYjhjYjk0NDkyNTE5NjIzM2ZiZDZjNmM3NThjN2RiOWM3YzdhY2EzODI2OWUyNGZjMzUyMzY4YzYwZGI3NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjBjZTFjOGZjYmJiMWNhZTQ1MzM5NTYxZTM1M2ZmZDJlYzExNjgyZmJmNGJjNzMyY2Y1NDdiYjZjYzcxYTIxNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODk4ZTllODBlMjQ5Y2U3MTE4MDFmODBhNjc3NjdiYWVlMzYxMmRmNWQ0ZjZiNTE1OTBhY2IyNTA5MjU3YWJjNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjNiYjRlZDc3NjY2YzcyNWFjYWVmN2FjYzY0NDIxZjA4MzUxNWI3ODMzZGFjNWQ5MDQ2ZTliMTBkYzdkMDEwNSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L212-L220",
+          "version": "repo-lines-v1:sha256:63809bf31668d380f6f82d3c89826e5ddd18e9ce8e089e6455420c0dae66227e:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM2M2VlYTJhYTQwMjBlMTdlYTBjMDMxNGE2MTAyOWI5ZDgwNzE5NjJhMWY1NGNkOWRmZDJiMTk0MmUwNTBkNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTllNzYzNTVjZjExOTk0ODBjM2Y5OTgzNmIxNDg2Yzg0MWQ4OTFmYWFkOTA0YzYwOGUwOTMwMjJkMzc1N2FlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzVjZDQ4NjAwNjZiYzViNjE2OWFhZTVmN2E3ZmZlODExZDBlYWRkZWZmMjk5MWQ1NTdkOTg5ZWIxM2Q2NDQwMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_eb1abd8c51474ee99630fa08574ee036",
+      "statement": "The tray's check_can_record gates recording on onboarding: if the onboarding status says completed, recording is always allowed (user may use Whisper or another provider); otherwise it requires parakeet_has_available_models. Load failures default in opposite directions — unreadable onboarding status is assumed complete, a failed model check is assumed not ready.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L263-L291",
+          "version": "repo-lines-v1:sha256:5242727c58727d6e43781aacd1b77faca17d1c4f49046290475c4cafb67b99ba:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyMWYzMjk2ZjU3YjRkODVhOTVkYmYzNzE2Mzc1NmZhY2I2ZDU1MmE1MGQ1YjAyNjYzZmZlOGZjMTZiY2VhOGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2NzRkYWEzNGMwODUyNWNmN2Q2Mjc0MzQ2ZTY4YjRjMDhlNDVlMTZhZDA3N2NkMTI5ZTIyZDdiNDVhYzhhZWYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d74055b3e0594f6f96d17dbec2b21358",
+      "statement": "Tray stop (stop_recording_handler and the stop branch of toggle_recording_handler) computes a save path recording-<timestamp>.wav under app_data_dir mirroring RecordingControls.tsx, calls audio::recording_commands::stop_recording directly, and on success emits the recording-stop-complete event so RecordingPostProcessingProvider runs post-processing (SQLite save, navigation, analytics) from any page; failures revert the tray menu via update_tray_menu_async.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L152-L201",
+          "version": "repo-lines-v1:sha256:e5552cc628cb47ba515ee4c3e0046a329c22d5469bc7793988b0456c987161f7:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhZWEzYzY5Mzk3ZDExMGJkOWY0ODJiMTIxOGMzNjVjYzM5ODRlNWRmYWFiZTBiZmQ0YjEyOGY0M2EyZGZhMWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRmYWI3MTBkZGY3ODU5ZTU3NTc2NGE5MTNhMDAyYzc0NTg1ZmZhNzAwMTUxMGNiODgxMWRhODNkMmNmNzRiMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRiN2Q1MTkyOTk1MjM0MTJjNGVhMDk4NWYyNjhmODk4MThlOTI4ZjRmZjRmNTk0ZDdkNWUxM2NlYzI4OTc5YTcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L55-L115",
+          "version": "repo-lines-v1:sha256:5fbd80087386230abed1f548075e3035cff59c89d32785e012314e8a1f65da69:eyJzZWxlY3RlZExpbmVDb3VudCI6NjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkNjhlMjA0N2I2NDFlNDI2MGVjYTU4OTBlYTU4YjNhNTdjMTE2MDRmM2RhMmM3ZmUzZTMwMzNjZTZjY2UzOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJjNTE3NTQxOTBkM2U1MzMzMGU4ODQ2NjU5ZjdkYmY1NGM1OTZhMzAzY2ZhZWY0NTNlYmUyMjljZWRiNzViMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3MzA4OGRjNjNlZGRlZWI4OTcwMWI3OGVhZDcwMzBlY2ZiM2Q2MmZiZTdmYjY5NDY3NjViZWE0YmNiNTk5MmEifQ"
+        },
+        {
+          "resource": "repo://frontend/src/contexts/RecordingPostProcessingProvider.tsx#L30-L58",
+          "version": "repo-lines-v1:sha256:25cbee1b4c1ae0d37737ae35ad2bd361ca1a687a7d26949434de5b08635f9ddb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NjZmYmZhODg5OThkYTc0NjU2YzUwMTk0OTU2YzI1ZjA4NDk0NTc2NjBjMDA5ZmU2M2QxZTlmYTlkYzkzMWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhOTZiYmU4MjFhMmY0ODZmZGQ5ODE5YjgwNTRmOTFlZWQxMjU4NWZhNjJhOWU3NDdlNWJiN2MxMGZlZGEyMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBmMDY1NTc0MTRhMGQyY2UyNjE4Yzg4MjJjMDk4YjA4NmYzNzBkZTc3NjRjZTUzZDI1NWVjNjYxZmQ3ZjhjZTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxYTAwZjdmNzEzMzEzMTAwZDNkOWMyZjk3MjhlM2Q3NmQxM2QwMGQ0ODkwZWZlZDMxYTA2ZmM0NDI1OTdjYzAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_dce496314fcc46c9b7d1f37ca9f4d10d",
+      "statement": "Tray start does not invoke the backend directly: it sets sessionStorage.autoStartRecording='true' and navigates the main webview to '/' with window.location.assign, and useRecordingStart consumes the flag on mount to auto-start recording after re-checking Parakeet readiness.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L104-L113",
+          "version": "repo-lines-v1:sha256:aa96cc69058ce8db3f2f677838cf418735be590c71b7328ff9338ae7561a5a1b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2OTgyNTE3OTI0ZmU4ZDNlMTU2NjcxMTViMWY1YTIwMThlMGQ1NWNlNWEwMDFiMWUyZDVlMzFiOGIyNDEyMmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY4N2U1MzNhMzM2MGRlY2E1ZTk0ODJjMzg5ZDVhZTNjNTA5YTE3MmI4NTQ5MTE2ZjRhZWEyMDM0ZTQ4YWQ3N2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRmYWI3MTBkZGY3ODU5ZTU3NTc2NGE5MTNhMDAyYzc0NTg1ZmZhNzAwMTUxMGNiODgxMWRhODNkMmNmNzRiMzQifQ"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStart.ts#L146-L177",
+          "version": "repo-lines-v1:sha256:f133e3cf264e19e722c54824603f6443968e4390b63b7060ef319fe4c23455ca:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5MjljZDM4NTRlODUwNWNjMzJiYTdlMmZhMjljNWY1YThlZDBkMmZkN2ZkY2IzYzkzYWU2ZTE4ZTZjMTZmNTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4MDA1ZDU3MTA2YTM2MmViMDAwZGFmM2RhNDY3NGM4MmI1MThmZjVhMmUyZjY3ZWU4ZTc1N2EzMzNjMmFmNjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVhYTdlNzg1MTBiMDRmMTRhMGJhMDE4YWYwZTlhNjkwYmZmZGM2MjU1MTE0YWY4MGUyNjg4NDlmMDE2MDczYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjllMGIzZmFhNzlkYTc4NjA1ZTFjYjQzMTljNDdkZTZhM2Q4YTI2ZTM5YzJjMTU4YzY2Njk3ZGYxNjk0ODIyMzQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6607e73615104f2391e160c197593eb7",
+      "statement": "The tray menu always appends Open Main Window, Settings, Check for Updates, and Quit; the first three run focus_main_window (unminimize, show, set_focus, window.focus()), Settings additionally navigates the webview to /settings, Check for Updates dispatches the check-updates-from-tray DOM event that UpdateCheckProvider handles by forcing a check and opening the dialog, and Quit is the only item that exits the app via app.exit(0).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L37-L54",
+          "version": "repo-lines-v1:sha256:cd96f311c1c03af5161905dfaabba7fd4abedafe343310206e144686372dd193:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2ZDQzMzUyOTk2Yzg0MTczYzM4NGRmYzE1NmY4N2UzMjU3MWJhYjVhZmE3NDRjMzkzOGQ0ZjljYTVhNTQ0ZTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ZjZmNDY2ZTU5Y2ZjMzA3MDNjNDVmNzJhZjY1ZGU1NGFjMzYzZDM1NGNjMWEzMzMwMzUwYWNkNDUyNDM0YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg0ZDhkYzA0ZTU3YTI3MmRmZTQ2YTI1Njk2Mzc1Y2NhNzk2Yjk0MTNmMzU1MDkyNzAwMWIwZWY3MWE4NTg1YTgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L394-L414",
+          "version": "repo-lines-v1:sha256:41dc7ae0f8834f4cdd6a9be865e5fad0a779208b2feffb17f84a0d27c0fc562b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2YTY0ZTg2YzBjZTJkMjQ4ZjEyOGY2MjAwYTJhOWQ4Y2Y0ZWE1YTJmMzAwNmY2ZTkwY2Q0ZTAyOTEyOTQ1ODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhlYTU3YzljMzE5MzM0YTYzZWQzNTYxMzg3OTAxZTE3Y2RhZjhhNTI1NThmYzVjZmU3NzBmM2ZlZTEyYzgzOTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/UpdateCheckProvider.tsx#L43-L51",
+          "version": "repo-lines-v1:sha256:3772b01d1999a85a9f2e00a09569b1b12d2c879da00cbadae97cbbc865977af4:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTk2NmZiZmE4ODk5OGRhNzQ2NTZjNTAxOTQ5NTZjMjVmMDg0OTQ1NzY2MGMwMDlmZTYzZDFlOWZhOWRjOTMxYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTg5OTZkOGE2MDkzYjAyODMwZTAzYTc3NDZhMjRjZWRiYzFkN2IyZWQyZGQ4NjEzZWQyMjA1MzU5N2Y3ZjhjYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzViMzAwZDEwYTM5YjMzOWM3YWFhNjRmYTU5OTMzNGZkMjU5ZDQxODE4NzJhZWNjYjc1MGRlZGI5MmZhYjlmZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2E3NzgzMWVjMmQxOWZlMzdiMjdkZmVkZmYwZDdmMDQ5YzJlMjcxYWQ0YWVkZjk0ZDZmZWFiOWQyYTI2M2M4MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_bb9e6397e29342edb0c9bae0e2eff6cd",
+      "statement": "Closing the main window does not quit the app: lib.rs intercepts CloseRequested for the main window, calls prevent_close, and hides it to tray, making the tray's Quit the sole exit path; a second app launch is focused into the existing window by tauri-plugin-single-instance, and macOS dock reopen (RunEvent::Reopen) also focuses the main window.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L395-L406",
+          "version": "repo-lines-v1:sha256:9ada349b4d6e4b90e773a8883b7f70384ff19327f9eaff228ccd6986e8da31af:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBmY2RjZTgxMjEwYzg2YzAzZTk3NDY3MWFhMTlmYWQ4ZDliY2YwOTMwMGI1NmRmYWE3ZjFlNzNmYmFiNzQzYTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4ZTUyNmQwMGRhYzRiZTEyYWQ3MzBiZGEyOWQyYjQ5NWIzYTZkYTM2NWU4NWIxNGMzNTE5YWUyZTg1MmExNTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxMTE1NWU3OTQ2ODg3MzQ5NjhiOTJhNTA5MWJiZWJmMTcyZWEyODIwZTI5MzZiZjhlMWYwMzdmOWEwMTU4ZDkifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L514-L525",
+          "version": "repo-lines-v1:sha256:f698bea799e20fd3e74c1da8b1dcd7fbbde85f72e35bbfcc4e5cac0e1538d499:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFlYTQ1YmE1ZjRlM2NkYzVlNGRkZmJkODkyNjUyMGQ0ZDQxZmFmNDdiYmUyZjNiYmQ5MjZjZmNkODRjNWIzYjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5YjE5ODJlOGRkNzQ4MTE4MTQ2YjM5YTJkMDA2MmY0MDgxZTM0Nzc5Yjg2NzVjMjM0YzRmYjEyNGRjMzkzOTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYzNzc1MWI0MTg1MDQzZmFjZWVkMTEyMWEyMzJlOGJlYTVhYWRmNGQ0OWM2MjZmNjRhYTcyNGQ4ZjBlOWQ0M2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVhZjBkMDEzNmM5MGE2NDQ4NTFlNmZhNDExYzc2Nzk1ODVhMTIzNmJlYmExZTYzYTMxYWY2ZmMyYjZkY2I5YTcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L754-L759",
+          "version": "repo-lines-v1:sha256:26d30c5d5c28aa9a87dadb0c22bc01f6abb52326c7ba4d75e38d2519c46369a2:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2JlYzJiZjUyYmQyOTA2NzYzZGNiMzc4MGNmMGRhMTA1YTFmNWY2Y2M0NDg2OGY5ZjE3NjdkN2NhYmMzMmVkMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGM2NDc5Y2MyMzA0NDBmZDQxZTgyMjQyMTg2Nzk2OTg1NTlkMjg5M2JkNjdiNDM4MGFmYWI4MTFiMzhhNTVhYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODYwZDZlOTg2M2Q0MWU0NDFmODUzNDY0ZDllY2FkZDQ4NGUzZDg4Zjg2YTNiZDRmZjZlMGNlYzgwYWQ5YjUxNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzdmM2NjZTQ5Njk1YmIxYWUwYWRmNjdhOWVlOWVjMTYxNjlhOWQzNTUwMjg1ZGQ5ZmY1ZmY4MTM0ODNkNDc5YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9a114ae6a7d944bc902a3b46a17ac030",
+      "statement": "The updater is configured in tauri.conf.json under plugins.updater with an embedded minisign pubkey and the endpoint https://github.com/Zackriya-Solutions/meeting-minutes/releases/latest/download/latest.json; the main window is granted updater:default and process:default capabilities, bundle.createUpdaterArtifacts enables update-artifact generation, and lib.rs registers tauri_plugin_updater and tauri_plugin_process.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L408-L413",
+          "version": "repo-lines-v1:sha256:c95a79fb57cccc3b9249b150dbecfa3ee6450e1cd27cc6852f281767dfe144a1:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWJkM2Y5YzI4ZGI2OWZiZTM5ZDM4ZTNlMDAxMzMzNDQ3NjE5YmZjZjEyZmFjNGI3YjMwZjJmMDM5MGY4NjA5OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzI3NzllY2IzMGZjNTk5OTJlODlmMDUyYTVmZTBhYzA2ZDgwNjUzOTM5NzJkNzExZjg2Mjg5OTE0YzQ4ZGFiMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzBiODcwN2U3ZDExMDVmYjZjZmJkYjczNzAzOTJjMmI4ZTIyMzAzNzk3NmM2NmJlYjc1NDc2NTkxOGZkNWRhNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWE1NjI4Yjg4OGY5MTk2OWVmNTcyNzFhZTczNGM3ZTk0ZGI5NDk1MTAyYzMwZmE2ZTdiOGZiN2MyNWY0YjgyOCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L113-L121",
+          "version": "repo-lines-v1:sha256:7cfa1df0c9dbf24523b2157a17e16e346cc87b12d53322bebff2c94f5a42d8de:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWI1MjQyMzNiN2Y4NDVmNDhlYWE1NjNhOTdlNWRlYmQzMTNhMTEwZjgyMTQ5MjllM2EzMzQ1YmIyYzMzYmI1ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDEwYjM2YWE3NGE1OWJjZjRhODgxODU4MzdmNjU4YWZhZjM2NDZlZmYyYmIxNmMzOTI4ZDBlOTMzNWU5NDVkMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTRiYTAzNzQ2ZGEzNTI4ZWY2NThjNmE4NTIwMDA3ZDlmMGU1OTRhNTY4MmRmYmFiOTNkNjdlMDhlMDQ4MzlhMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L64-L67",
+          "version": "repo-lines-v1:sha256:fda9be48044af66976ec766b38bc2816acbb453c1c3738c012045a739c138ffd:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzNhYTdlNGYwZDA0M2U1MmJhZDBhMWNkN2RhYzViNWEzZWZkNGNhYzkzYzk0NDJhYTkyMGUwYjJkZGE3ZmQxNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDg2ZDQ1YTc1ZDQ3OTFjNTk5ZjlhYzA4ZWJhNTU0ZTMxMmJjMmM5N2ZjY2MxMGVjNTBjOTNkZjg2ZTA1OGY5MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2ZiMDZlZTc1MjVhMjEzZTE0YjIyNTg1NmEyY2JhODI2NWI0MGUyNDIyMmI4OGRhOTM0MWM0ZDA5ZTEzOWQzNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjJhYTVhZDlkZGM5YmE4MmU2NzM3NzU3N2QxOWUyNGM2YTY1MzRkMjQwNjU4NjhlZWQ0OGVlYTQxMzcxOTk1MCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L91-L91",
+          "version": "repo-lines-v1:sha256:b676a9fbd3f224b6264aac60fdfaa0b568c8f7c53d9bfe85e5f50354c86dc99d:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjY3NmE5ZmJkM2YyMjRiNjI2NGFhYzYwZmRmYWEwYjU2OGM4ZjdjNTNkOWJmZTg1ZTVmNTAzNTRjODZkYzk5ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjY3NmE5ZmJkM2YyMjRiNjI2NGFhYzYwZmRmYWEwYjU2OGM4ZjdjNTNkOWJmZTg1ZTVmNTAzNTRjODZkYzk5ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk4ZjkxMGZhN2VkMjUyODgwMmUyZTc2MDRiZTU1OWVmN2JiZWNjNTMxZmI2MmUzZDI0MWE4NmU3OWE3ZWM3OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGQ5NWI3NTdhOThhNDMyNTM2NDY1ZDg0ZjY4ZGVmNzcyYjllNWI4ZmU2MGE5MzM1MWY4ZmI3ODM2ZjgzMjEzMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_88fed1c9df31491ebe2848b5e02a345a",
+      "statement": "The release pipeline produces the updater artifacts the endpoint serves: tauri-action uploads macOS DMG + app.tar.gz + .sig and signed Windows MSI/NSIS + .sig to the GitHub release together with the auto-generated latest.json manifest, signed with TAURI_SIGNING_PRIVATE_KEY so artifacts verify against the pinned pubkey.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/build.yml#L569-L594",
+          "version": "repo-lines-v1:sha256:252b74aa6e4df79c12818f67c95b2fa3b5fccf50ec07b0f67869f477a6d92cd0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhMzdhMDYzMjAxMmIxZmE3MTUxNzJkOTE0ZThhOGE0ODg5OWZhNzQzN2IwYzQxNzFiOGQ0YTIxNWU3MmM2ZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4NTRmOTFlZWUwMjEzYjJkY2NhMjM2MWVlMThmMTM2MjNhYTIwMDJmMzdjNGM3MDY0N2Q2OTJhZDVmNDRiMGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJhNmU5ZTVhMWFlZDQ1ZGEyMGQ4OTk1ZGY1M2E4YWIyOWJkY2Y2NTE4NmM3OWZiZmE3MTdkYTFkOTRkODA5ZjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY1NTlmNzliMzg5ZTc5YzRjNGQyOWJmN2E1NjlkMTUzODIyZWE3YTAyOTU0YzRkYWJlMTAwZjM5NTE0NWQxYWQifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/release.yml#L159-L175",
+          "version": "repo-lines-v1:sha256:04eb7c62164a44e0f5d51508e7e6eaa9d1247b7660aecf78439491c5d2d403a1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjZThiODJlMzgwNWEzYTE4MDAzZjJmZTQ1ZDRmNWRiYjQ3YWZkZThjMmRkZjU1OWNlZDJiNGZkYzRmNDA2MzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5ODYwNmMyOGNmYzdhYTc4YTQ2ZGYyNjhlN2JmZWEwNjU4MjgwNzI4ZWMyZjg0MDBlZjQ5YTUwNmY0YjFiMDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVhZDA3NTcyMTYyMDFlYmQzZWZiNWY2Y2NkNDU2ODM5NTFlYTBlMmY1ZGNlMWJlN2YwZjNkZTE5NDQzMDNjN2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVjNjYwZmNjYjdkNjkwZTEzMjIyYzQ5NmFlMTg0MzQ3YmZjMGUyMTBiNjg1NDczODkzMGU0OTM2ZGEyMDczYWMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_29cb1f837b324eb2b2586fd2f7aa4d54",
+      "statement": "UpdateService is a singleton (exported as updateService) whose checkForUpdates(force) refuses concurrent checks and, unless forced, short-circuits when the last check is younger than CHECK_INTERVAL_MS of 24 hours; downloadAndInstall sequences update.download() -> update.install() -> relaunch() from @tauri-apps/plugin-process.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/services/updateService.ts#L31-L86",
+          "version": "repo-lines-v1:sha256:05f2108227470739d19005a21d54a1437a103d9d07212927ea0007c17e04aaba:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhNDg4MDRmZGMyNTVkNmFhMmUwMzAxYWY1YWFlYzAyNzliNzMzMjZhY2E0MjAxYTdhNTU2MWRiOWVlNGNlMzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVkYjc1NzYyZjY1ZDRjZTA0NWQ3Zjc2ODM0MjMyYzg2NjYwNmMwNzc4YmNjYmQ5N2Q3NGVhZjBmODMwNzM0MmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzZjgxNmM1NjhjMDNjZWViMGJkZWM5NGFiYTlhZThlMjlhYjY1ZTE3NGFlOGRhZTczYzU2MGU4N2FkZmIwZjkifQ"
+        },
+        {
+          "resource": "repo://frontend/src/services/updateService.ts#L94-L114",
+          "version": "repo-lines-v1:sha256:59df5d3285e8ce491d66742fd07f08cbdf8ab6024aea1c6632cb4b8f47dfd050:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhYzg1ZGM3ZTNlNWMyNjAwN2FhNzQ5NzVjOGQzM2EyN2U5MWIzNzRiMTQxNDEwZjZkNDIzYmFhNmI3ODlhZmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlODA5ZjMwNGM0YTFiNmY3ZDIxYjQ4OGM3OTNmYjE2NTM1OGQ3MGQ3YTkwMDEwZWNlMWQzMzNiNzRhMzIwODUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYwYzAxMThjZDI4MjBmYTdjMWQ2NzAzYWM1ZTI2MzUxZjU4N2EzMWJhNjY1YWIyYTFjYzM5MmI4NTFmZjQxY2YifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c7670d6722a94979a2f2dfe94044556c",
+      "statement": "The frontend update UX: useUpdateCheck checks once on mount after a 2-second delay and silently swallows background-check failures while applying the same 24-hour throttle; UpdateDialog re-invokes check() to obtain the live Update object, streams Started/Progress/Finished events into a progress bar, blocks closing (button, ESC, outside click) while downloading, then relaunches; the About screen calls checkForUpdates(true) for an on-demand forced check.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/components/About.tsx#L32-L48",
+          "version": "repo-lines-v1:sha256:1c3e7908f48f1488965d10393e3b18fd2d3d019d03f1711f0b5d10d4091122ae:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjMTkxMzMxNmQ3MWZjYjY4ZGVhMjhkNmQyYTc2ODAwM2Q3YzBmOTIyYmEwMzNjM2U4NjQ0MTFmZGI1ZTcxYWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEzN2U3NGE3NDZmM2U0ZmE5OGQ3Y2I5OGRiMDdkMzBiZmY2NWNlZjY3NmYxN2FiMWVhNDkzYWM0ODQ5MDY4MTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNlOWM2NTc4MTE5YTZiMTk3ZTQ4ZjhlOTBhOGFmMGM3YTcwMDFmOGM4OGFjZTg1NTA3YmQ4NTI5YWRlMTZlYTAifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/UpdateDialog.tsx#L153-L175",
+          "version": "repo-lines-v1:sha256:df58a7a7ebe82eb97c4a4c9e04cae978c30ee2d502327400a355189671803c11:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0Yzg5MDZmMmQ3NWFlOGFkZmZhM2RiZmY3Njk5NDcyNWE5MjViZDc3YjIyMzRkZWIyMDQxN2RlOThjYWNkOWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUxZTM3MjVkYTAwMmI0NmVkOGI0ZGU4ODAwM2FkOTcxMGRjYWYxOGQ1N2M0NzAxZGMzYmVmZjBiMmM1Y2IxM2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzZDQyNmYxYWQyOGU5NWNlZWYwOTJjMjRiZWJlNTJhY2I5YTA3ZWYwMGM2MmNiNmNmZTJlMTAwNWViMGU4ZTAifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/UpdateDialog.tsx#L84-L135",
+          "version": "repo-lines-v1:sha256:2b94434202c4635b4638031b12e1828aed56c7319c082edfbb92a4386a220799:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExZGY4N2E0NzMxNmM3MDhjNTUwMjA5OGU5YWY2YzQ0NTM0ZWI4MGJlYWRjZjYwNjMwMjhlZmNhODU5MzdhYmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5MTRmZjVlYjdmY2VlZTg0ZTU2NzYzNDY2YzljOWRhMjY3ZGExYmY4ZTQzYTg4YWQwOGY0YjMxNDg2Y2I5NDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJhODNiOTA0MDNkODQ3NmE1M2U3ZGNiN2M3OGFhNjZiNGUwNWJkZjM3MDYyNTM4NDQ0NzdkYzFjOGY1YmM2ZTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImViMzgzODZjNWIxMjYzZjJjYWIzNDViZWY3NzJmNTJlZGU0NmY1MjczOWVjODM3ZTY3MzA2OWY1YjNkYzNjNDUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useUpdateCheck.ts#L21-L58",
+          "version": "repo-lines-v1:sha256:ca3b9191436b27c93dfeee89b40adeef3e4df7b0396c64b3a4b5aa4c4cdefdae:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhMGE1MDJhYjhlNmU4YmQ0Yjc0ZDA5YTNkOGY5MWViNmQ3YWJhYjQwMmE4N2FmN2Q2Nzc0Yzg3NDg3NTA0ZTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjMGQxZTUwYzg5ZGIyYjA3ZDYyOTgxMDc4MzM2M2FhYWJmZWEzMDBhMWQyNDE1MmY3M2IzMTRlZGYzNzZhNDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZkMTQxYWVhODg5MzcyOTRjYzc3YjE4OWZlMGE5MzIyZjNmZDJjNjI0Zjc3YjY0MjlmYjU3MmVmODYwYTZhZWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2NTg2OWI1MjlhNmI0NjkwOTdjN2JhNmI3YmQ3YWZhZjVhOGU5MDdmZjdjOGU0NWQ4YzJkMDA4ZjU2MDUwMDgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0d6fb0df0fa343dea16c4dbdf594a54f",
+      "statement": "NotificationManager composes a SystemNotificationHandler, a ConsentManager, an in-memory RwLock<NotificationSettings>, and an initialized flag; it is managed in lib.rs as NotificationManagerState = Arc<RwLock<Option<NotificationManager>>> starting as None, and setup spawns an async task that constructs and initializes the manager, sets default consent true, requests system permission, and only then publishes the manager into the shared state.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L415-L417",
+          "version": "repo-lines-v1:sha256:57572d7e80fe05135f7a1faf4383e84d778a49876e45d5acb3a100f9ad7c76cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmI3ZTA1YjBmOTRjYTBkYWNiZWNiZTA2MDlmZDcxY2Q3NDMyYjQ3MDU2OTc2ZmI0OWUxODBhNjA2YzE4MGE2ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDc4NTVkZjgzY2Y1ZDBjMTc5NjhhM2QyNjZhYWI2ZTEzYzJjZjQ2YmZiNDUyMDcyOTY3YTYwNzY3NTBkNmI0YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzYwYjA4MTBhMzEyODQ0M2EyNGMxYjljMDdkZmExNzg1N2IxYTEzNjBhZjZlNzcwNzAwMDlkYmFiZGI2NTM0ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDFhODI5MWQ2N2MwZjY3ODliYjllOWNiYTIxMjBlNjQ0ZDFjMDM4NTkyMGU1NjJjYjI2M2MwMTRlY2IzZTdlYiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L428-L452",
+          "version": "repo-lines-v1:sha256:8f2ec1f722f1efdd11b973e655a82b0a879a15ef1ab418dc646dff9693d30d99:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFiYjc1MzMzMGMxOGM2ODJjOTM0M2JhOTNhNDM5N2VkYzdlYTVkOGNhMWY0NDE3NGY4MDQ2YzY0ZDgyOWQwMzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlNDYyYmQ4NWVhMzUyMjgyMmE5YWQzZWIyNDA5OWIwMzJhMWI2MjdiZWNmZDdjNTgzMWU5OTI3ZDRiYWM0MGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMxMWM5N2YzNzRjMGRjMjE4N2JjYTQ5NjlkNjA5NWU3YmEyNzBiZjNkNTNkN2YyMDMyY2M5YjUyMTcwN2IyMTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdkZTY3ZTAyYjc4ZWEyMTY0Yjg4OGU2ZmY2ZTg1MjFjMDgwNzY5MDY2YjZlNTE5MjA2MjY5MmM5YjIwZTZlZjkifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/manager.rs#L13-L42",
+          "version": "repo-lines-v1:sha256:a44386757c730da580fcadeaa2cd07edcaaf6741e82557566357bcd50a10ee58:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRlYzAxMGJkMWM2Njk0OGUxMzkyMDcwOTdjODllZTcwY2FjZGY4YWE4M2QyNWQ0MzgzNWE4MWIyNjdkNWIzNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1NTg3ZmU4ZmRiZGQ5MmNlNjAyY2Y3YTI1ZjYzY2M0ZGI4OGQxYzNmNDI4NGE2NmJlMzBiMDMwMjk1NjM5MGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJlNTkyMDI3MzQxN2JjZWFmNjg2N2RmMjQzNzExOGFmZmNjYzhmYmE4NjQ0MDRhMGQ2OWJhMzc1MjllYTU3MTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9e50cfba74124cafa6ee8de9cc2a6826",
+      "statement": "Until the async startup task publishes the notification manager, every notification command fails with \"Notification manager not initialized\"; initialize_notification_manager_manual and test_notification_with_auto_consent can close this window on demand by constructing and publishing the manager.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/commands.rs#L200-L227",
+          "version": "repo-lines-v1:sha256:860c1ea4bfc742ddeab9880df7a21aaacac9822dc2fb076d3dbc5ceaa90431f9:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRmMmE2YzJhODcxMTc2M2RlZDEzYjNhMGRjYWNmYTQ3MTdkZjJlODFmMjRmNDc1YjU2ODhhYzkxNTljODEyYTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE4ZTNlMjM4YTcwZDJjZWY3Y2QxNjE3MzgxNTU1MzQ1NDUzMGYwMzRkNjBkMmE2N2M4YWZjZGU0YTIxYmMzMzgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/commands.rs#L30-L60",
+          "version": "repo-lines-v1:sha256:b151547600844a2a102867565bbe612ab17a09c5626d6501ea0f6d1eef7c4993:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAyMWQ3Mjc4ZTdjNmMzZDJjZjRiNGQ2MGZiNTBmNjVmNzBjZGZmMDFmMzdiMjlhMzNiNjFkMDQzNjNlZWZjOWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwMTBhOGQzZDQzYTcyMzliM2FjMzk5OWM4OTBmZDk0OGI2MzZiOTQzMjBjM2ZiNWQzZDVlYjliMjM5M2Q3MmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg0ZDdlNzc0NTU4ZThiNTk4NWEyYTUwNjVjYmZkN2NhMTcwNjU2MWM1MzI1NWFjNGQ4YTNjODY5YTRjOGQ0ZDYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2af7601768444d7cb02d1a2fb22df03d",
+      "statement": "All notifications funnel through show_notification -> should_show_notification, which enforces four ordered gates: lazy self-initialization if not ready, consent_given AND system_permission_granted, Do-Not-Disturb (only Critical priority passes when DND is active), and a per-NotificationType preference flag in notification_preferences — Test-type notifications always pass.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/manager.rs#L276-L305",
+          "version": "repo-lines-v1:sha256:e2a08c26cf134be86728ef673ff934802200392b368b3c047ee38206e91aab11:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY4YTU3NzYzYTgxZDM1Y2FiZTdmOGQzNGQ0MTc4NDU5OTY2ZWM3OWEzYTQyN2MzNWE0NWE3NmFkMWQxOTE3YjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2MmVlNTdlNDFhOGMyMGFlMDE2NGRmMjYxNDM5ZGNjNDk5ZDM1MjA4MzQxNTE1MTZkMDQ3ZThkZWFlOGE0NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlhOTcyNDJhYTIwZDY0ZTZkYjU0M2I1MjEwYzE0ZDk0MjRlY2JlMDdiMTEyMTEzYWExZWJiYTQ5MGRjNTM3MjQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/manager.rs#L80-L98",
+          "version": "repo-lines-v1:sha256:e90086f2b4883db9cda6990654a996740506085649e0e7d6d5cdd4f831fe0596:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxZmI1NzM0OWI1ZTQ5MDRjZmFjZWU5NDUyODAzN2ViNTRlNDdjZGYxMjViY2JmZWRlNTliYTdhYTkwMDE2NjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2MmVlNTdlNDFhOGMyMGFlMDE2NGRmMjYxNDM5ZGNjNDk5ZDM1MjA4MzQxNTE1MTZkMDQ3ZThkZWFlOGE0NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3ZjBlMmU2MDFlZGUxMDY2YjQwZWM0ZTkzZjc0NDkxY2U5MDY2MWUzYjhmNDM4YzlkYzA3NDA3ZWQ1OWM2ZjQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4f2cfda374624445b178dd9781175e32",
+      "statement": "The typed notification helpers (show_recording_started/stopped/paused/resumed, show_transcription_complete, show_meeting_reminder, show_system_error) re-check their specific preference flag before building a Notification, so disabled types short-circuit; defaults are asymmetric — recording started/stopped notifications are off by default while paused/resumed/transcription-complete/reminders/system-errors are on, with meeting reminder offsets defaulting to [15, 5] minutes.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/manager.rs#L100-L190",
+          "version": "repo-lines-v1:sha256:a1fa5b77003fbf0241f1deb454375862c7b8aee621683a26c06a996034c9953e:eyJzZWxlY3RlZExpbmVDb3VudCI6OTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVkMDAxZjQ1YzQzMTNmZmU2MjUxM2EzYWY4ZjQyNDliMzhhY2U1ODE2OWUzMDQ2MGYyYWQyNjQ3NDkwZDkwOTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZhY2VlMGQ1NGNlMDlkMjU5YWNkN2ZhMTMxMDBhNGM1MWUxOTVhODc2ZjY1ZTBlMjgwNDdmODE3YjU1ZTA0MjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ2MWE3NDA4N2FiNjQzNTgzN2Y1M2Y0YTY4YTg0ZDg1YmFjNDEyMjZlOGMxNzBmZWI5NGI3MjFiODdiMDI0ZGIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/settings.rs#L81-L94",
+          "version": "repo-lines-v1:sha256:fdc242ef0a4718bb80f4b3efc3ec3b1bc67b20f1e3c19679608f54b1478fefd5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzYmI0MTgzNWI5NzhkMzk1NzgxNzIwNjk3OWJkZGVjMTc4ZTg1OGI5NDRkOGVhNTc3MGRlOWYxMDA2NzEzM2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEwMjYwMWY3OThlMTAwZjY3NGUzYTJkNjUyYWEwNzgwZDcyOTM3MzA2OTg2ODFkMWMwMGRiNWEwNGYzN2VjMmMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_dc26e3589cbc4f79a318b3f5a063b695",
+      "statement": "DND is effectively manual: is_dnd_active returns true if manual_dnd_mode is set and consults the system handler only when respect_do_not_disturb is set, but SystemNotificationHandler::is_dnd_active/get_system_dnd_status always return false (DND is managed in app settings only), request_permission returns Ok(true) unconditionally for Tauri apps (so system_permission_granted is app-level bookkeeping, not a real OS prompt), and clear_notifications is a logged no-op.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/manager.rs#L218-L233",
+          "version": "repo-lines-v1:sha256:164dcb2375d32dd681472abfc08fbbcb3fd0fe0f27830d2a3668a89c3d6e542a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlZGQxZjBmNzEwMjI5YWIyZGI2ODIwOGY2MjE1NzYyZjI0OTc4MGJhYzRhNjlmNTVlMzdhYmM0ZjRkNDFlMDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2MmVlNTdlNDFhOGMyMGFlMDE2NGRmMjYxNDM5ZGNjNDk5ZDM1MjA4MzQxNTE1MTZkMDQ3ZThkZWFlOGE0NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdhMGM3ZDE2YTk3ZWM2MzFlZmJkNTk3ZDgzNjMzODRkOTIzZDVjNTI4NzA1NGM2OTg2NjM2NmNmZDZlOTMyZDIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/system.rs#L49-L73",
+          "version": "repo-lines-v1:sha256:8d1ea1610b11afffb15377c4b28c24ac90d6eea16ff55f731829ef480d07d46b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU3NDM3OGIxMWQ5MzRjNGE3YmI3MTg0MDRjYjc4YzI5NTQ4YjRlZGNkODNiNWEwZTk5OThlY2E3N2U3MzA2YzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQzODUzMGEzZTI2MGMyNjM3ZDNkODRlOGE0ZTE3MDEyMGNhMmViNDE3ODkyNWIzZWQ5ZDcxZmM3ZTFjYWZhMDAifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/system.rs#L90-L99",
+          "version": "repo-lines-v1:sha256:0730af6e359378716b93b08e7b91ee386f6b284df3ac6df05661456606ddeec6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlhZjZhODBmY2E0NzY3MTViN2RhOTM5NDliNGI0ZDQ1ZmE3MmU5MDQ2MWMyODBlNjI5ZDM3YzMzMzU3YjBiODEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMwNWE2YzE4MDgxZWY4NDg1M2ZiNjQzZDFjODQ0ZjI2M2Q1NWZmZjE0NzE2NGM2YzkxYzNmOWRmOGNhYWNhNmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e3e05cf43bce4abdb163065fe6df82ff",
+      "statement": "Notification settings are persisted as plain JSON at <config_dir>/meetily/notifications.json by ConsentManager via the dirs crate (not a Tauri store), with the parent directory created on demand; update_settings validates first (reminder offsets capped at 1440 minutes), saves to disk, then swaps the in-memory copy.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/manager.rs#L197-L216",
+          "version": "repo-lines-v1:sha256:9d9e3f16e00c498cae8095f725f2ceddf530a4d560c55beea596046fcb3121f0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwZTU2ZDE3YjI5NjJiOWUzNTQwZGRmMzIyYjEzZTc0MmU4ZDJlMDMzZmRlZWU1OTI1MDc1NDBkYzA3NDY2NGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjliNzk3N2QwNWY4ZTIxOTBmM2YwNTAwNGYzZDk2MTllNGQ2MGRhNDE0MzYyODcxNzdiYTUxMGEyNmZmOGJlMWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM1N2ZhZDdlMmRiMWE4ZWQ4NmYyNDliZWRlMDEwYTA2YjRjNGYzYmQzMDY4NzkxNDQ5MGMwNWQ2Yjc4ZjllMDAifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/settings.rs#L113-L150",
+          "version": "repo-lines-v1:sha256:d36cc87a94397ed2fcfcd4daf0c493af638bd06f9275d6414e3c915906ca5207:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhMDk3OGY1MmNmNTYxZmQyMzViMTgwNTE0NDk4N2NjN2U3OTMyNTAxOWEyMzdlM2YwNzE3OGYxMjI0Nzg0OGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViOWEwOGJjMjlmNmViZWJlOWE1ZjAxOTAzZDk4NDVkYmNiNTg0MmE0NTVmMDdkNWY0MDAyZGFjMzJhNWM2MDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY2NTQ2MmIxYmRlMDI0NDU5NmE3MWViYWUxZTVmZDY3MzMzOGZjMDFjZDI4ZDdkMTI1MDRlODM1ZGMxNTQzYmYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/settings.rs#L250-L260",
+          "version": "repo-lines-v1:sha256:c30c0756347a4a8d5400e4ca2555543614f74fe64e503c3e5749581e8e4daa47:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3MzM1OWZiMDU3NmEwMjI3ZDBjYjZiYjE4MDNmM2E5YjA4MzYxYzRiMDdlMzdkMjliNjlmMWQ3YjYyNjkyNmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJlY2MxNTc0YTYzZTAyYzU0OGY4M2E1YWIyNzMxM2Y0NmQ5NzVlMzQ3OWU2YTBlMzA4NGNmNmYwZjQxY2VlY2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJjMmRmMzIyYjYxMDQyMDA3ZmZkMjcwNmQ2YmY4OGQ4MzE3Mzk0MzIyODVkZmY4N2IyMTdlMjFiYzBjNjRiNGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c4569047661b4e378df73d71748e67eb",
+      "statement": "Recording-started/stopped notifications are fired from the Rust side: after start_recording, start_recording_with_devices_and_meeting, and stop_recording succeed, lib.rs calls show_recording_started_notification/show_recording_stopped_notification, which use the published manager or — when it is missing — re-check the preference from disk and fall back to building the notification directly through tauri_plugin_notification; paused/resumed/transcription-complete/system-error helpers exist but have no production call sites.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L117-L133",
+          "version": "repo-lines-v1:sha256:78c019df83693c176f9d2e98c32f0f38d5a335f7c2f8caf9350bdda443de416f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk0MzQ4NGYxYzQ5MDQ2YzYwMjZhYmYxYWU1NmI4NjQ3YmU4YjQ2YTc0ZjA1YjJjNGJmNWFiYjExYWU2N2Q2NzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2YmZlMWIxODdkYWM5MzJjNTg1MjYxODY2MjFmMzQ3ZWI0YmNjYTEzMTNmNDI5Nzg5YjQ3NTk0MGU3YTUyOTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM1MjgwZmVmNjM3MjhkOTc0MGU5NTEzNDc0NmZjOGE1YjgyNzBiZmE5M2IwZmFkMjU5MzNlY2YxYjk3NzgyOTgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L179-L194",
+          "version": "repo-lines-v1:sha256:793da8c03ad682a80e703dba1955e24887dece5c91c99a00044502e984ac34d5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2Y2RiNjhkZmMyMGNmOTQ0ZjJjYmVhNWQ1N2IyNTg4Y2JiMThhNWViYTliMmFjNzNmNWQ2YzVjYWUxYTE2ZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE3NjFiZjRiZTFiMWZjOTM5NDEyZDdiNjhhY2VkZmUyNjNjMWNiYzIyMjMxMjEyZGYzOTA5YzcyMjljZDE2ZWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM1MjgwZmVmNjM3MjhkOTc0MGU5NTEzNDc0NmZjOGE1YjgyNzBiZmE5M2IwZmFkMjU5MzNlY2YxYjk3NzgyOTgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/commands.rs#L285-L360",
+          "version": "repo-lines-v1:sha256:f6776ddb4a1765910ca052c71f2eea1e3ccdebd4110e33ac7c196b2f2ba73e41:eyJzZWxlY3RlZExpbmVDb3VudCI6NzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMzZmEyYzM1MGE5OGZjNTNhZWE1N2JlNDJkMTc3Yzk0ZDc2NGE4YzNlZmUzNzg3YjVhYWM4YWU1YzBlNjg2ZWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1YWMyYzIyMTEyZGJjYmQ3ZTIxOGExN2Q3ZjA3ZmIwMjFkYjlmMjhkOWRmMTA0OTgyNGViMzM0NDk3ZDU2MjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJjMTVlYWM1ZjZmZDRlYzAzZDY0NmIzNGM1OTkzYzMzMGE5ODY0ZTU1YjE3MTM1N2E1OTFjOGFlYzFkYjgwN2UifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/notifications/commands.rs#L362-L405",
+          "version": "repo-lines-v1:sha256:e8d2de7dca6152bd7d4a3880adf96d597ccecd23e997eb6c1b34d324bf12d127:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjMjdmNDBjMGQwNjQ1YmNjMWEwMmMyNDg2ZTYxODBiMjkzMzFlOTZlODNkMTEwNDNiNmFlYjRjZjgyNTc5MWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc4MTVmMTFiN2QxOGZhOWE1NGU4YzhiOTU0MWMyYTlhOTkyMGZhMTM3NWQzZWI2NWRhNjE0NjdjYWUwNTkyOGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_71e0fd20873b4819b1324a0ba8337f69",
+      "statement": "AnalyticsClient wraps posthog-rs behind an Option<Arc<Client>>: a real client exists only when config.enabled and the api_key is non-empty, every method is a silent no-op (Ok) otherwise, is_enabled() reports config enabled AND client presence, and track_event drops events with a warning when identify has not stored a user_id — no anonymous events are ever sent.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/analytics/analytics.rs#L128-L169",
+          "version": "repo-lines-v1:sha256:ca8a2f7e0b764e4b5275fe28a353e2632aadf886c57f76900a0f654adf05203a:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk4MDY0ZWRhNDM3M2E3NzY2MTcxNmZhOTczNGY3ZjcwMThkMDdkZTVmM2Y3ZGEzNjhiMzM1N2VhODFiZGM0YTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2MmVlNTdlNDFhOGMyMGFlMDE2NGRmMjYxNDM5ZGNjNDk5ZDM1MjA4MzQxNTE1MTZkMDQ3ZThkZWFlOGE0NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkM2RlOGQ2NGExZGMzZWNjZjRjZmNjOWQwNDJkMWUxZDU5ODk0MjgwODIzZDFiN2U4ZDVkMjU5NzU5NzkxNDYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/analytics/analytics.rs#L419-L421",
+          "version": "repo-lines-v1:sha256:e1ccd5416fc808fff4be5e46cc1af0d6b7091c7834bff5ee003d414df0ffd4e4:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGMyNzM1ODUwNWJlNDllYmNkYWMyZmNkZDQ1NDFhMjc5OGEwZDQwZWZjYjk0MDI1MGJiMzVlMDk4ZTJjNjI0NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGIwZDBlZGZjZjViZmM0NWI4N2MyYmI4MTgxNzRiZWNlZDcyOTc5OTFiMmFiMTYwOWQ0MzIxOWQwZWQxN2JmZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDlmNzM2NDQ3MDQ4NGQ4MzE3MGVjMDM5YTRhOWJkMTQ1ODNlNmM0ODE0NmRjZDBkNzJiNDBhNGZjYTQyZDI2NiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/analytics/analytics.rs#L78-L99",
+          "version": "repo-lines-v1:sha256:fbde5925418f8d5633d2396b80ab03814b31a2f7845e1565ec776c80f7bc811d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkNDQ1YzQ2NTk2NjY2YWU0NTM3YzM1ODhlMzlkMzA1NGE0NmU2MzY4NGRiMmQ4YjU4ODJlMGIyNGZiNmRhNjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzY2NjNjkxOGNmY2U5YjQ3YjJjOWQ4ZGRlNWM3ODJiZTk5OTFiM2Q2MWExNmRkNjg0MWFkZmFmODQyZjUxNGMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_92ed4ecbc80545f5a2c5e86e7f9f2d7e",
+      "statement": "All analytics properties pass through sanitize_analytics_properties, which strips a denylist (SENSITIVE_ANALYTICS_KEYS) covering meeting titles/names in snake and camel case, file/folder/path keys, device_name, and user_agent, applied in identify, track_event, and set_user_properties; this invariant is pinned by the analytics_properties_drop_sensitive_meeting_metadata test, and meeting events carry meeting_id but never a title (meeting_started_properties_do_not_include_title test).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/analytics/analytics.rs#L101-L126",
+          "version": "repo-lines-v1:sha256:9fa277b38bfaab86b97b44bf8de24c241868309c4edf47a7684c8c25c8c89293:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3MTA4YTJhYjhjMWI2NmVjYmZhOGZkOTk2ZDllNmJhNDM4MWQ3NmMwZmM4YjIwMDlhZmM3NTdhMzQyY2YzZDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc4ZjU2MWI1YjdiM2Q5OWIxZTI4NzBlNDQ4YzNlNzRjZWY5ZGJjNTJmYzExZTVhNjM2MzVjZDY0OGQyNmJjMzEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/analytics/analytics.rs#L460-L520",
+          "version": "repo-lines-v1:sha256:f7b0f0951cfd5c53a0d42a27f30db4e8d588e090e98b4bda359be0a48e76f487:eyJzZWxlY3RlZExpbmVDb3VudCI6NjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1Y2Y1ZmMyM2YyYTZkMjNjM2VhNTFlNzJmNWU4OTZjNzU1NWZiYWEwNWNkNWIxZWExODJiZjk2MThhOGU4MWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ0MzE0YjczZWU5OTA1NGQ0ZjhmOGM2ZDM0NWUwMGZjZWQwYTYzMDkwYWZmNGYwYzM5YmVlMTc5NjY2OWNlZWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/analytics/analytics.rs#L9-L28",
+          "version": "repo-lines-v1:sha256:def4c4db8424f2ca5320006b70eff162be56f091900d542f656a87c2e571f4a7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3ZmNlYTMxOTlmNDFmZmMxOGU5MWI0MGFiNGM0ODA1YjMxZjI0Nzg3YzcyMzQyZjkzYWY1M2QxMDQyYjE5ZmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE1Nzk1YTAxM2UxYjMzYjFjYzc1NzY2NmU3ZmVkYzJlZDc0NjgxMGRiYTkzYTA3YzNlYzM4MmI4YTBjM2ZlZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3ZjFlOWExNjI4YTA2ZmI3MTFjNGQ0YWU5ZGNiZDQ3YzY5MTMxNTQ5Y2RlOGYyMDRhMWJhZjk2ZTQyN2NlYjgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_eb62054e402144038136ac9aa74c145b",
+      "statement": "track_event stamps app_version (CARGO_PKG_VERSION) and the current session_id/session_duration onto every event; the event vocabulary spans sessions, daily_active_user, user_first_launch, app_started, feature_used, recording/meeting started-stopped-deleted, settings_changed, the summary/model family (summary_generation_started/completed, summary_regenerated, model_changed, custom_prompt_used), and the consent events analytics_enabled, analytics_disabled, and analytics_transparency_viewed — with track_meeting_ended carrying providers, model names, duration breakdowns, privacy-safe device types, chunk/segment counts, and had_fatal_error.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/analytics/analytics.rs#L128-L169",
+          "version": "repo-lines-v1:sha256:ca8a2f7e0b764e4b5275fe28a353e2632aadf886c57f76900a0f654adf05203a:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk4MDY0ZWRhNDM3M2E3NzY2MTcxNmZhOTczNGY3ZjcwMThkMDdkZTVmM2Y3ZGEzNjhiMzM1N2VhODFiZGM0YTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2MmVlNTdlNDFhOGMyMGFlMDE2NGRmMjYxNDM5ZGNjNDk5ZDM1MjA4MzQxNTE1MTZkMDQ3ZThkZWFlOGE0NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkM2RlOGQ2NGExZGMzZWNjZjRjZmNjOWQwNDJkMWUxZDU5ODk0MjgwODIzZDFiN2U4ZDVkMjU5NzU5NzkxNDYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/analytics/analytics.rs#L296-L395",
+          "version": "repo-lines-v1:sha256:2994212d9a8ec89d40cfa179f5b83044fbfa87792f225003177f2f45a14d7ecc:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjN2I4MzczZjcwNTE1MzdhNzk3ZTdiNGJiZWIyNjYxOGUwZDk4ZTI5YWZmOTQxNWFmYjIzNjQzMjU2ODk5NmRiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5NzQ4N2JjZWVjZTQxODRlM2U3NjI3MWNmNjU0ODUxOWUwNDM3YjhlMWU5YzlmNWYzY2Y1OTE3YzkyNmE2ZDZiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI1OTY1NWJjMjMxOGZhMjBhZjdjMGFhNWJiOWM1MDljNWMyMzljYzI5ODcwYWI1ZDU0ZTJiZWM4ZTk5ODY3OTFkIn0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/analytics/analytics.rs#L398-L417",
+          "version": "repo-lines-v1:sha256:af38201b1344d3731b6c085db1b4efe9bcc2566901a0524783797661dfe001ba:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwMzczZDhiMmU4YzhjMDllZGUwMmNkNTFkMzczNmIwMWMyZDBmMWNkZDk1ZWIzY2RhZTUxOWI4ODhhYjZkY2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ4N2FiOWE0N2EzMjhiZjJlZmVjY2NkMzZiNzY1YzE1MGQ3YWNjZDk5ODFlNTRhOWFiZDQ1ZDlhN2FmOWQwOTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2YjhlN2Q5OTJiNDdhZGUxOWQwNWQ0ZTE0YjhmZjRjYTE3MGVjYmZmYzYzMWU0MjY1OWIwZTU3ZTVkMjE0OWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_71ecbbe1dfc447ee909d0c9274ea05b1",
+      "statement": "The analytics command surface holds the client in a global static Mutex<Option<Arc<AnalyticsClient>>>; init_analytics constructs it with enabled:true, host https://us.i.posthog.com, and a hardcoded public PostHog project key, disable_analytics drops it, every track_*/identify_user command returns Err(\"Analytics client not initialized\") when empty, and the backend never initializes analytics on its own.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/analytics/commands.rs#L144-L148",
+          "version": "repo-lines-v1:sha256:1eefded9c562bc41bae14c97d0abea28482b0e4f0d1b72fa22b4a0e01e839692:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODAwYmFhNGY4OTA5ZDI2ZmFjYTZjOWNhMDA0MjE2NmY3MTJlNGJmZWNiNzFiNWE5ZjdlOWNjYmVhZjU0NDJkZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTllNzYzNTVjZjExOTk0ODBjM2Y5OTgzNmIxNDg2Yzg0MWQ4OTFmYWFkOTA0YzYwOGUwOTMwMjJkMzc1N2FlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzExMDllNGU1OWFmZDkxMDcwNzFjNWU5YjFiYTQzZGIyMWY3MDNlNmJlMGY1NWViYmFkNjE5Zjc1MjI3ZTY3ZCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/analytics/commands.rs#L318-L345",
+          "version": "repo-lines-v1:sha256:ccdecf845e37b331c681e4cf1e5dd9278f345788be3ebc869fbeec2f42abbb08:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkMTU1OGI5ODc1MTA1NGNhZjVjZjk3ZjUwMDhiNzRlNWViODgzZjE1MzVhYjFlZmI5NDc2MTg0MmYxMDE1YWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJjZjdkNDI1ZDcyMjYxOTZmZjRmZDk1NWJmZjMyMDRjNDJmZjI2MTI2YTkyMjkyZGNmMGY0NmUyMjdiOTJiMDEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/analytics/commands.rs#L7-L30",
+          "version": "repo-lines-v1:sha256:57b25d60e1b66d45c56aef36987304f4e96e5489dcb8efb3e1441852b90428f7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzZDcyZTgzNjJkYTlmYWY3ZGI1ZGQzMDhhMTJkZGJiMmEzYWZmZTM3YTY2NzJmZjgyYWMxMjVkZWUzZTdiOWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwZjg4OWVlMDIzZGIyNWFlMTIyZjdiMjFiZTc3MWEzMzBjNTllZjU2NmQwYjg4ZDAwMDNhYzEwMTFmMWI0MmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNlN2IwMmRkMjU0MDU4YmM5ODA5NzI0MzRmMzM0NTM5ZTQ0ZjYxNDJhNjE2NWIyOGNjOTA3Njg2ZDRlMWUwYjAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_672372c80ad5408ca92c9b0edf85ceae",
+      "statement": "Analytics consent is decided entirely on the frontend: AnalyticsProvider reads analyticsOptedIn from the Tauri store analytics.json, coerces missing or non-true values to false, applies a one-time analyticsDefaultOffMigrationV1 flag that forces analytics off for pre-migration installs (off by default), and only when opted in calls Analytics.init() -> invoke('init_analytics'); every static method on the frontend Analytics class no-ops unless initialized.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/components/AnalyticsProvider.tsx#L27-L60",
+          "version": "repo-lines-v1:sha256:9151fced32dd2c2dc7b17ed29c4e89930d59897d4c986d50314844291db5e2be:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NjZmYmZhODg5OThkYTc0NjU2YzUwMTk0OTU2YzI1ZjA4NDk0NTc2NjBjMDA5ZmU2M2QxZTlmYTlkYzkzMWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIyYzFhZTU2MDRkNTdmNDIwYWE2MzEwNDI0NTA2ZTVkODc4NmE1ZTU5YWI5MGU0NTQ1MmNkMDY0YzQ2OTUzYzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYwZjgzYWUyYjkzOGZjZjU5Mjk5ZmUyNDBmNGQxZjFjZmVhMTEwODNhZjI5YzgzNGQ1MThlNjQ2MDFkNTNiNzEifQ"
+        },
+        {
+          "resource": "repo://frontend/src/lib/analytics.ts#L29-L89",
+          "version": "repo-lines-v1:sha256:f2c743c2497ef7dd6ce79fc326153b91104993ebc6431c7937f58dd98ad3527a:eyJzZWxlY3RlZExpbmVDb3VudCI6NjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2NTJjY2E3YzQ5M2NhNGEzNGIyZTQxNDMyMzNiMTgxOTcxNTIxOWNmNjA1ZjU0M2Q0NjE1MmI2ZTc3MTJjZDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJmMzZhMDE1ZjY2Mzk4MTBiNWI5NTZkNzdlNDc2ODMzYTY5N2M0YmY3ZWM2NDk2MjUzMDNmODZhMTA4YmZhNjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhiODZlMDZkZDQzYTU1MjY1MWIxNDdlZmQxNTRmMmNlYjA0YWMyYWQ5YzFjNDQyMjJhZjU4NWVlMWE0OWZjOWMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_55c574ec30e843f784685d9d0b6984be",
+      "statement": "AnalyticsConsentSwitch is the only consent toggler: enabling persists analyticsOptedIn, runs the full init/identify/session sequence, then fires track_analytics_enabled; disabling first shows a transparency modal (firing track_analytics_transparency_viewed), fires track_analytics_disabled before the client is dropped, then calls Analytics.disable() -> invoke('disable_analytics'); the persisted flag is updated optimistically and reverted on failure.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/components/AnalyticsConsentSwitch.tsx#L55-L141",
+          "version": "repo-lines-v1:sha256:12771dcec6f808e53629b12241a6ec8437f44ef6dcbd8af84dd7b118a0c9630e:eyJzZWxlY3RlZExpbmVDb3VudCI6ODcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE5ZmYzOGY0MWU4ZTc0MDE2Yzg0NzU1ZGFmODFmZTg1YzhkNmJiZTlkZjU5ODQ3ZjdjZjNkZTY2ODI5ZDgwNzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUxZTM3MjVkYTAwMmI0NmVkOGI0ZGU4ODAwM2FkOTcxMGRjYWYxOGQ1N2M0NzAxZGMzYmVmZjBiMmM1Y2IxM2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4MDY3NDk3YTQ4OTgxMTFjMWIzNGFiZDAxN2M1OTI0ZjY3M2M5YWQ3MzA5NjM0MTY3ODk1MDcxMWUwNTVjZjYifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/AnalyticsProvider.tsx#L142-L150",
+          "version": "repo-lines-v1:sha256:1e8488ee27a61cde5e6b09499bc47f8e602584008fe2da0828bba6f45d483e15:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTljNjI1Y2ZjZGEwM2YyOWY5NjMxOTQ4ZWVhYTFhNjVkYTU5MmFmMDA2MTNhNDUyZDY1ZjViY2EwYjA4ZWM2OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTUzMzEzYzg0ZmNmOWI5MDlhYTliMDRiOTM4OTYxNWZiMmQzYjBlNTZiYjgzYmRkNjkxZTJmMTUyYjhjYjRjOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDI2NGE4NDlmZjI3ZDVhNWViZTFmOTA0Mjk5NjNlNmQ5MDEyZTU0NTMyOTE3YmQ0NWQwMjBiMDU1NDllNWM2NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_3543e74590b94d9b84b93a1f954fb93a",
+      "statement": "One analytics event bypasses the frontend: recording_commands.rs::stop_recording assembles track_meeting_ended directly from the recording manager's stats, reducing device names to a classify_device_type result of Bluetooth or Wired before submission; failures are logged and never fatal to the stop flow.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L702-L803",
+          "version": "repo-lines-v1:sha256:fdf4f0fdf77c7ad892717347dd6e6e91383bacd6b4fa89b49cc6d58c3cd5515f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI4NzQ0MmI5Mzc1NGJiYmJkZDcyNmZmODk4NDdhMWJjN2ViOTFkMzg0ZTllODkyNTE0MTFiODdkZTM4ZDFjZGE1IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5OTliZGVmZWVhY2E2MzQwZTAyOTBkYzg2ZTg4OWM4OWQ1ZTE4OWFhNWJhNDRiNTg1YjNiNzA3MzRmNGE2MmQ4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlMjJiNDA5NTU5MDMxYmQwY2RhZGI4ZGQ5NzNmM2MwOGQ4MTliY2I2ODM3N2ZmNjViMjgyMTdmOGI1M2M4MmU0In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_bece2eafb76943999dcff91a876e3556",
+      "statement": "Onboarding progress is persisted in the Tauri store onboarding-status.json under the single key \"status\" as OnboardingStatus {version, completed, current_step, model_status: {parakeet, summary, selected_summary_model}, last_updated}, with parakeet/summary holding \"downloaded\" | \"not_downloaded\" | \"downloading\"; store/deserialization failures fall back to OnboardingStatus::default(), get_onboarding_status returns None when the key was never written, reset_onboarding_status deletes the key rather than the file, and every save stamps last_updated.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/onboarding.rs#L11-L42",
+          "version": "repo-lines-v1:sha256:36ff43ae5d320f267336f155c5c8c60385626de8be7175639d39d2594dd7c02b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2MWNjZTI5NDE0NGUzNThmNTg0NTJhMzQ0NmE0ZWQ1MzU1NDg2YjgzODA1MGZlN2I4ZDY5OWYzM2RmZTgwYTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc4OTQ3NWIzZGM5ODBmMWZkMzIxZWVmZjEwYjNjZDNmZGYzYjNkZjc0OWRkMGJiYWUxYjcxNGNmZjI1MGNhMGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhmM2ViOWU5MWUzZjIxMzMxNzJiNDBlZTE5YjBlODg2ODQ4ZjdhMTY0MTkxNGI5ZTcxY2I2ZDI2MGI0NmVmYjMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/onboarding.rs#L111-L149",
+          "version": "repo-lines-v1:sha256:a47b3f7d22498a980043456f838a4ef014cfeee4adb799ca9aab29d945a0520b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUxNDcyNDU1YWY2ZDdhYmMxMWU0ZGFjNWYzMjMzYTUzODljNzdiMmIzYjhlOWFkNDA4YTA5Yjk1ODFkMDUzNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI5OWNkYjEwODUwMzYzYjVkNGI0MTE2ZTMxYjdlZWRkYzUzNWVkMTNmM2QzZTkxZTNiMDc1MzllZjU2MmI0NzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU4NDRhYThlNGMxNDViZDk0ZjMxYmI5NGU0ZDY3ZDBlYzFhODI1NTE5MTdlY2I1MTVjMzVmNGUyMzExOTcyMWYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/onboarding.rs#L46-L77",
+          "version": "repo-lines-v1:sha256:8545b4429d9cbfb4e16e7a0e38734326cced54ac21097b101b6dd86f43c9aeb4:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5NzE0NjgxZTg0Yzc3M2UwYTBiM2RjYjY5MmJmZGQwOTcyM2Y5MmFiZDQ3YjM1MWVjNzdlMWE4NDJmYWVjODkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmM2ViOWU5MWUzZjIxMzMxNzJiNDBlZTE5YjBlODg2ODQ4ZjdhMTY0MTkxNGI5ZTcxY2I2ZDI2MGI0NmVmYjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk0NzM5Y2MyY2Y5NjAwYTRjOTEwMzQ3MzY2YWM5MDk0MWEwZDNkODIxYjA5MDQ1NTZhZDRkMGFiZjg0MGRlMDUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b8a37662e92e441aaa7f53db58ee6f15",
+      "statement": "complete_onboarding enforces an ordering invariant: it first persists the model configuration rows to SQLite (summary provider builtin-ai with the chosen model, transcription provider parakeet with DEFAULT_PARAKEET_MODEL parakeet-tdt-0.6b-v3-int8) and only after both succeed marks completed=true, current_step=4, both models downloaded, and records selected_summary_model — so a crash cannot leave a completed flag without its configuration; the frontend's completeOnboarding guards the reverse race with isCompletingRef, suppressing auto-save during completion.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/config.rs#L12-L12",
+          "version": "repo-lines-v1:sha256:21dbe1ee7edbeb62479bad88c28eaf7939a0161c03d3b928d782647d535f47fe:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjFkYmUxZWU3ZWRiZWI2MjQ3OWJhZDg4YzI4ZWFmNzkzOWEwMTYxYzAzZDNiOTI4ZDc4MjY0N2Q1MzVmNDdmZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjFkYmUxZWU3ZWRiZWI2MjQ3OWJhZDg4YzI4ZWFmNzkzOWEwMTYxYzAzZDNiOTI4ZDc4MjY0N2Q1MzVmNDdmZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWE4M2I1ZTdhYWU2ZjgzNTlhZjk4ZGE3OGRhNjFhNzJjMTQyODcyMmUzMmNiOGIxYjNhNzZhNzVkMzcxNzAzZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2U1Mjk5Njk0MGU5NzRiOWUwMDgzYzEzMDEyOGRhOTdlODk2NWQ3OTAxMDhjZTcyZTA0ODE0NzM5MmY1Njk2OSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/onboarding.rs#L170-L222",
+          "version": "repo-lines-v1:sha256:d62a0c133252939c092f89fba18be0fe5e7d5588a38674346629d265351f0a0a:eyJzZWxlY3RlZExpbmVDb3VudCI6NTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMWVlMzNlZTk1ZmFlZTFjMTBlOWViZjNkM2RlNDFiYjE5MjUxNWNhZDc3Y2RhMjA1ZTU0NmRhMTcwMDFhNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5ZWJlZTc1Y2ViZDc5NmQ0NWQ0NjBhZGI1OGI4NDBmYWQyM2ZjNmQ2ZGVlMjcyNGY5MTU4NjFkZjAyNTA0M2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdiYzk4ZDZiMGRjNDkyYzUwMTZkZjEwODA1YTNhNTRlYjljMTg0YTVhNjEzN2U3ZjRiZWNmYTBjMjIwNTUwZDAifQ"
+        },
+        {
+          "resource": "repo://frontend/src/contexts/OnboardingContext.tsx#L436-L462",
+          "version": "repo-lines-v1:sha256:c9295b2dd8641042103147299901646a3622f2eee8e554eabb716d98130ab493:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUzN2MzZGI1MTI4ZWUwYmQ3ZjUyZmEwZmM0NzMxNTE1M2RhYTliYmEwNzczMTY5YmRjMTE3NmJjMzc1NDE4OTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkY2E0NDA1MWU2NTRmOTUyOGViMThkYjViNDcyNDBhM2QwMDQ5NmFkODcwYTVhNWUzOWU4YTIxZWM5NThjOWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgwM2JhMTg5NzlkYjQ2NzJhZWUzMTkzZDdmNjNlOGFiMTZmNDMwODE2YzVjNDdmNGM3YTNkMjY0MDhjOTA2NmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_05d9f090e9cc42699877b5b5263d31d1",
+      "statement": "model_status.selected_summary_model is serde-defaulted and skipped when None so statuses written before the field existed still deserialize; this backward compatibility is locked by the onboarding_status_deserializes_without_selected_summary_model test.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/onboarding.rs#L20-L26",
+          "version": "repo-lines-v1:sha256:5826c6a8e7b7fbc4eb2d6d99aecc204ad441206f017fce8643021058cacdb7db:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODVjMTJjYmRhOWNjMDAxMGU4N2Q0ZDkwMDE4N2FlODRkMjg2MTZhMmI3YzBlOWRkMzhhNjViNThmNmJjZGVjMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWQ3NWU3NWIxZGQ1OTc3YWM2MTk1NTIxN2RhNGZlNmE0NTZkMDlhMjQ1ODc3N2NmMWZlZjNiOWU0NjEzNzQ1MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmE0MTcyMTIzYWRiMGZiYmJmODkwZGI0OGIwMzgxNjNkYTZhNDY2YzNiYTI2MjkyZTJkMWI0N2MxYzhjNmI1NyJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/onboarding.rs#L224-L246",
+          "version": "repo-lines-v1:sha256:185fd414f5b54a2b7129db069924b79c18063e95995d7a73af1ed71a203fc2d6:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1Y2Y1ZmMyM2YyYTZkMjNjM2VhNTFlNzJmNWU4OTZjNzU1NWZiYWEwNWNkNWIxZWExODJiZjk2MThhOGU4MWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ZjZmNDY2ZTU5Y2ZjMzA3MDNjNDVmNzJhZjY1ZGU1NGFjMzYzZDM1NGNjMWEzMzMwMzUwYWNkNDUyNDM0YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_58e0b7bfde414885ab6b4f00ab46a86f",
+      "statement": "Three consumers read onboarding status: app/layout.tsx shows onboarding on null, false, or error (fail-closed); OnboardingContext reloads it but verifies model claims against disk (parakeet_has_available_models, builtin_ai_is_model_ready falling back to the recommended model) rather than trusting model_status, clamps current_step to the 4-step flow, yet trusts completed outright so background downloads do not drag users back into setup; and the tray's check_can_record reads the store on every menu rebuild.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L269-L282",
+          "version": "repo-lines-v1:sha256:1f4141dfcc5720cd527d29ae86ee53f6b8e305b523c0c7c080e29ff2b77ce33f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2M2I5MGE5N2RlNTM2OGRlNjMwMTI0NjNmMGU5MDMwY2RiNzAwOTUxODhmYWJlMWRiZTVkMjA4OGI1MzA5NjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEzN2Y5MTM0N2JhMjNkNmFjYTE0NjkzYWE1MDY4YzlmYWI3ZTdjNjI4OGNkODE5ZmIwMDg5MzU5ZDRlNjI0YWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBlOGRkNWFjODRiYWM0NTRlYWExYTc1MmJhN2U4OTkxOTBiMmIzYTY4OWQ0MWE3ZGY3MTIzMDI1OWMzMTI1M2UifQ"
+        },
+        {
+          "resource": "repo://frontend/src/app/layout.tsx#L79-L99",
+          "version": "repo-lines-v1:sha256:6a788940227dc44abd6338627be7f589fa637e2ad609838fb8b584ce49ad7909:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NjZmYmZhODg5OThkYTc0NjU2YzUwMTk0OTU2YzI1ZjA4NDk0NTc2NjBjMDA5ZmU2M2QxZTlmYTlkYzkzMWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE0ODllYTg2MGZhYjg1YWYzODNmNDE4MzQzMjQ0ZjE3ODMwZTI2ZjBmOTY1NzVlNzEwYjdjMTliNjgzN2QwNDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhYTY3MGU2NzZmODllNDMwZDU2MDFlZDMwYTQ3YTczODM4ZjY3ODdmOGExNDExN2Q4YzdlYTdhMjI5Nzk2YTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI3YmU3NzgyZjU4MGQ2ZjE0Y2Q1ZGU0MmM1OGVhODdkNTRkMDExM2I4YmZlYjA1YzU3YzUwMzE0NzE0YjAxNDUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/contexts/OnboardingContext.tsx#L335-L434",
+          "version": "repo-lines-v1:sha256:c7cd4fd1396639c7e67d1797379324a797e492bba0e1078fdfbb67b2a947e580:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJkMzc2MmVmODE5MTY4MDJhZDNmOWU3OGZkMTcyYWM1ODY1ZTBlZjAyYjllNWJlZGU1M2ViZjRhYTFjOThjZDUwIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MmEyY2IyNWExMjJiNDQyMjFhNjIzNGVjNjYwYTdiNWZiN2Y5YmRlN2IzYjllMmIzYzU1OWEwZDk2ZmFjNzM5IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI1MWUzNzI1ZGEwMDJiNDZlZDhiNGRlODgwMDNhZDk3MTBkY2FmMThkNTdjNDcwMWRjM2JlZmYwYjJjNWNiMTNmIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIwNmRmMDYwYjE1NGZjZGQ3YjBhMGY0NjFlM2FhMDVmMDQzNTVmNmFjMDYzYzE0NjM4Mzg4MTNlYmNhOTBlOTYxIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_f78f4ec42d2a48bbbbc8ce9df8fd45ef",
+      "statement": "The BuiltInAI ModelManager is managed as ModelManagerState(Arc<Mutex<Option<Arc<ModelManager>>>>) starting as None; setup spawns init_model_manager_at_startup pointing at app_data_dir/models/summary, and on failure only logs that the manager will be lazy-initialized on first use — every builtin_ai_* command re-checks the state and calls init_model_manager itself when empty, so startup failure degrades to slower first use, never a broken feature.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L419-L419",
+          "version": "repo-lines-v1:sha256:253adae75840ed7020dfe0293652c183db20d8002162c08f08f4e1f2fd6d99be:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjUzYWRhZTc1ODQwZWQ3MDIwZGZlMDI5MzY1MmMxODNkYjIwZDgwMDIxNjJjMDhmMDhmNGUxZjJmZDZkOTliZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjUzYWRhZTc1ODQwZWQ3MDIwZGZlMDI5MzY1MmMxODNkYjIwZDgwMDIxNjJjMDhmMDhmNGUxZjJmZDZkOTliZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjU0ZTdmNTVhZmJlNzVkNTZhZDg1ZmY0ZjM1ODdmZjhjODU5ZmM1YmE2NDMyMDRhM2ZjYzgwMmI0ZjQ5NmI1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTEwMGIwNDE0MWY1ODY1M2MxMjc1NTJiZjdmZWRjMDZmYTM3MjAxZWNkOTk0NzVlY2Y3MDZmNzQxYzEwNzYwYiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L474-L484",
+          "version": "repo-lines-v1:sha256:79fe2671bbc519f643914b47705332bbb538baed750f81ba3df5ecb7a3e67af2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlNjRiOGZjZDNlODZkNjE1ZjdjYzkxMmY1NGFiNWQzMGVlNTI1YzY0ZDA3ZDg1N2I0ZDU5OTVhYjM4YTg3NjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlNDYyYmQ4NWVhMzUyMjgyMmE5YWQzZWIyNDA5OWIwMzJhMWI2MjdiZWNmZDdjNTgzMWU5OTI3ZDRiYWM0MGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRmZTY0Y2I0ZDE1NzA1OTViMjk2YTUyMDRlOTI5OTQwMGFjZWU2MDQwMjcyMDA0MmQyOGI4ZmQzYzI0MGY3YjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYyOWZmNmJkNGYwNDkwZTY3YjQ5MDg3MDQzOTM4MDY1Y2MxYTZhM2IyMWVhYWExZDU2NTk2YTFjMGQ1MTZlNTkifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/commands.rs#L358-L382",
+          "version": "repo-lines-v1:sha256:6c89c32f52b18ff0ea9ad4cf09f6c6f6a1479b076f7838fcaa7d586d4424a75e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkNGEzYWUyNDc5YTFjYjlmOWNkYmMwNWZlM2RlOGM3MDFhN2ViM2JhOGJjNTljOTNkNmRjMTA2MWFlOWQxYmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNkY2MwYjJkMjBjYzllYjhlYzc5M2Y2OGI1M2I5ZWNjMmZhZjZhZjJjNDY2OGFiOTNiZWFjNDkwMjQ1NDc4NzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU2ZDU3YmZjNmVlMjUyMjZiMjc3OWM1MDA0ZTI2MjZkNDBlZTFlNTI0Nzk0ZWI4NDBmM2E5MTUyYjRhNjdlOGEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/commands.rs#L49-L64",
+          "version": "repo-lines-v1:sha256:c224efdc5bac6c76f4fa7107f320a69437a51f79e6d3a2e5dbe84ad41d2a054d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjZjI2ZDVhOTQyNjVkMzMwNmRjOTYyN2U1ZjIxODJlYTJlZTUzYzAzZjJiYWE2MjJiMDgwNjQxNjJhODNhYTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjllZTM0NWVlOGQxZTE3Nzk3NmE3NWY0NWYzY2M4NjdlOWM0YzM5NDQ3MGZjZTg5ZjRkNDlhZDdlMTkyYWM2MTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ0MTI4MWQ4YTA3MmYyZjM0MjEwM2YwY2EyOWJhNmNlYzY0Y2Q2ZDc3MjU1N2UyMzQ0NDk4ZmYxN2Y1OGE3NTMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/summary_engine/commands.rs#L72-L97",
+          "version": "repo-lines-v1:sha256:efd671a999166c96dd3c50f46392161df97e9d0627b57afca16730cd11ed2ca1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU3Yjg1MWQ2N2M5NGU1ZTAzZGY0MGQ3MjRhZTU3OTY4MTAxYzI2MzNlNmViYTNlNTY2OTMxYmYwY2M4ODczNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM4YmI0MGQyYjlkZWNmMmZkNWMzZjQ2NmNlNmYyZWQ1YzVhNmRkMmQzMGVjY2VhNGFlYjUzYWQxZWQ1MDYzNmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFlZjI3NzdhOTY2NTkzYzJmZGY1YWVlMWRmZDVkYmJmMjY3MzEwNjA1ZTI4NDQzYmJiMDE5ZTZmYWFjZWE5MDMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_03c7eafbb53e47a4b0743c18784107ec",
+      "statement": "The frontend reaches notification settings through ConfigContext (get_notification_settings / set_notification_settings commands); PreferenceSettings toggles show_recording_started and show_recording_stopped together as a single \"notifications of start and end of meeting\" switch and tracks the change as notification_settings_changed.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/components/PreferenceSettings.tsx#L55-L111",
+          "version": "repo-lines-v1:sha256:e0656aca689e150be533e9e19f4f12a73232dc87f554e2ec7292464baf59f882:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE2NjkxYjEwZjA3MDgwYjZkYTBiNTZmMGQ1M2ZlYzlhNDhhNzE2MTg4ZTk0MTljOTM2ZTJlYzEwYmZmOTJiYzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE3OWNlYjUwNWQwODE5ZGU1MjRjYTgyOTA5Mzg1YWU5OWRlN2MyZmU0MDUzN2I1NTYyNTRmOWYyOWNhNDczMjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMxNmQ1ODM5NjIyZTgzNmJlMTE5MDQyYTZhMjY0Y2M0OTI2ZDY1Yzg3ZGExYWU2ZjIwM2FlMmJjYjUzOTY4OGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlZTY3MmQzMTFhNzkzZGY5OGM4YjkyMjA3NGM2OGFmYzM1YjRkMjk4MTBiODE4YTM4MDg1YWE5YzJkZjA1MjAifQ"
+        },
+        {
+          "resource": "repo://frontend/src/contexts/ConfigContext.tsx#L428-L471",
+          "version": "repo-lines-v1:sha256:047d31a774b17c00d0c544f77fc891094b902a3e127f5f8ddc3bec603a3087dd:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkzOTYwZjljMDQ0ZDg5NmQzNmFjYjZlYjY4MmE0ZWYwZDU2ODI4MmE2Y2MyZjFjMmIzNDFhNzFjMDY4ZTVkOTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYzUyZjA4YjM5YjA4YjAxYzhkMzA4YmY4ODBiMGJlZjAyZmQxZGZjYzlkOWFhOTNhNGQxYjVmNGQ1OGI2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI3ODFkMGYxOGVjYWM2MDhhNDI4NDQxMTkzNTc1MjE2N2RlODNiNzY2OTAwZDM2NDk1ODA4NzdiMzNhNmM1MjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxZDU1OWY4ZGMzOTRjYWFjZjcwMjlhMzA1ZTAwZjRlZGQ1ZTIyMGE5YTFiMjQ5ZjgzM2Y2OWU2YTJiOTFmYjkifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-07T20:26:28.923Z"
+  }
+}

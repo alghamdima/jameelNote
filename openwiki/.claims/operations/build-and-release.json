@@ -1,0 +1,448 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:fc883841ecdcf17132b51fda57c77315bc26e69c1192a0dff9c2bc12694bc371",
+  "claims": [
+    {
+      "id": "claim_141dd3433ce64497bd66e6d874ab2b58",
+      "statement": "GPU acceleration is a compile-time cargo feature choice: the app crate's default `platform-default` delegates to per-OS whisper-rs declarations — macOS always compiles whisper-rs with metal+coreml, while Windows/Linux ship whisper-rs with only raw-api so cuda/vulkan/hipblas/openblas apply only when a feature flag is passed — and pnpm tauri:dev:<backend>/tauri:build:<backend> scripts map each backend to `tauri dev/build -- --features <backend>`.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/package.json#L12-L27",
+          "version": "repo-lines-v1:sha256:4927f1116a42870400562e06a40956b544ef0cdf577b66b2a2965ecc4d5cc3c1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVkZDdmZWFhOGJkZjdiOTE2ZmI1MWUwZjZiZjk3NzQwZTk2YjE2NjkxYzU5ZDQ0ZDg2YWQ0MWNhOTg0N2ViZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk5YzEzNDcwYjZhYmQ3NmM2MDI3NzExYTc2MDkzYjYyM2I4MWY2NjBjYzA2ZTZlMDI1MzU4MzY2ZDVlZGIzNWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImExZTQ1OTg4ZWVlODY5NDg2NzNkMWQ2NTJkOTZkNTM5Yzk5MmRhMjljNjYwMWE0NTM2MTMwNzhmN2FkMDg3MGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE4OWY1MTI2OGYyNDRmOTNjZmYzNjQ1NDFkZGI0MDJiMjRjYzNmMzY4MzViOGM1NTU3MzJhYjUwZDYzZmI2ZDYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/Cargo.toml#L162-L199",
+          "version": "repo-lines-v1:sha256:457e0da5fe6f9faa86be9da7cdf6e14d942d2499cbd7dd5e0e2749735354987a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhMTQ0ZTdkN2Y1MGExNmY2ZDFmNWUzYmZjYTUxMzQ5NzFjNTAwNDgzNzE4MDA5MjViZTlhMGRjYmNkZmRhYjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMzc5YTA0NjZiZDE0ZjljYjhhMDkwMGQwMTUzZWY1NTljOGI5ODA5Yzc4NWJlZjlkZDdkMWQ5MDUxNTNkZDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwNTJiMjI4NmFhZTA0ZmY2MDg3YTEzODYzNmQ1NzEyY2E5NzFhY2IzMzhhYzg2ZTM5MzVjNWJlYmI5OTBhMzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY3M2VjNDQ1OWIyNTNlMDg2NjU5ZDZmOWU0ZDQzMmQ2MWRjOTM0ZTNkMmU5NzMwM2FkODRhMzIzMGNjMTlkMjEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/Cargo.toml#L38-L63",
+          "version": "repo-lines-v1:sha256:c845a39bcc4ce4914afbb4abe2d1843c7f52714e056ed76a6c1877b4db11801d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2ZjZjMWM3M2U0Njg1YjZmNTU3OTJhZTUzOTI1NTNmZjc5ZDNjYzA2N2IwYjc0ZTA2ODY5OGY2YjJjNzZiODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2NmM5YmNkNGUwY2UzMzQ3MTA1NzJmODliNjI4ZDc2YzQ3OTUxMWIzMjk1Y2ZhNzUzZDYwMzE2ODA0ZDIyNTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRhNDZkNGMwNzMyZmY3ZmZhOWU5ZGU0ZjA5Zjg5Y2IyZjE0YTBjNGFhODg4YWRjNDQ3NGZkNjQ5M2JhZGVlYzQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3927bd296f8a4e5c8556e31ec742accd",
+      "statement": "scripts/auto-detect-gpu.js selects the GPU feature by priority — macOS arm64→coreml / Intel→metal; nvidia-smi plus CUDA_PATH-or-nvcc→cuda; rocm-smi plus ROCM_PATH-or-hipcc→hipblas (Linux only); vulkaninfo (or C:\\VulkanSDK on Windows) plus both VULKAN_SDK and BLAS_INCLUDE_DIRS→vulkan; BLAS_INCLUDE_DIRS→openblas; otherwise CPU-only — and writes only the feature token to stdout while diagnostics go to stderr, which scripts/tauri-auto.js captures (or bypasses via TAURI_GPU_FEATURE) to run tauri dev/build with the corresponding --features flag.",
+      "evidence": [
+        {
+          "resource": "repo://docs/BUILDING.md#L64-L72",
+          "version": "repo-lines-v1:sha256:48efe121d1fad039a5ad7727f257d0b9141cdc74c85cd83f38590138d08e20ed:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmZjN2IzYzNkNGRmYjUzMWY2YmNkMDU4NzNlMGI0NDFmZDJmMzJkYmUwMDNlNDNmZjhmYTU4ODEzMjhjODE3MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2U2NGFkZDAwZTZiMzBhOGE1Y2QxZTA5NmM5YTQzYzEyM2NlNDllMmUxNTQ2ODQzNTliMjM1ZTIwMWVhOThiMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2QxNTNhZjEwY2U2YjE3MmFlYWY2ZmNmYTY3ZWZkODg2NDFmYTNjNmJkYmVkOTNmMDQ3YzJkNGQyM2MwNGY0ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODhmNjg1MjU1NzAxZWU3NWNmNDBkMGY2MTJhYmM4ZGQ2ZGYwNGJlNDY5ODRmNTM0YjlmNDgxMDg0MTg4NzUwOCJ9"
+        },
+        {
+          "resource": "repo://frontend/scripts/auto-detect-gpu.js#L19-L103",
+          "version": "repo-lines-v1:sha256:b52daa6ae36de96f244a59c13f7568ffb599db88b4bd82ba67dc80a223ae9e99:eyJzZWxlY3RlZExpbmVDb3VudCI6ODUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNiM2Q0MjNmN2E0MjcyNDI0OTNkOWViMDllNGU3MmY3ODg3MzM3YTE2NzRmN2FiOTQzZDM1NjQzZjU0ZWQzMTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/scripts/tauri-auto.js#L18-L57",
+          "version": "repo-lines-v1:sha256:de6c764434aaa99378390d18272d7f9d7da987adbcf1f231e4f69b9365289cf4:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkZjY4MjllZTc3ZGZmMjc4NDZiN2I3Nzc5ZTBkZmQ5NWMwNzdlMjk5NTZmMmNjMDFhMWM5MWU3Yjg5Y2E2MmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI2MjkwYWZkZDg1YzA0MjRlZTgwYjU3MGZlOTk1MzcyODkwZWY5NzM2MTE2OWFiMGM1ZWFkNDUyMTA0ZTc2YTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM5NjBjZGE1ZTIyNDA5NTM3MDFmNTk1NzY3MjRkNmJlZDdhOGRmYWI3ZWI2YTYwY2MwOTIyZjdlNWU1ZDdiMDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f23c8b5613194db0a51e467c39c1d94e",
+      "statement": "build-gpu.sh and dev-gpu.sh orchestrate the full local build: export Linux CUDA CMake vars, detect the GPU feature (respecting TAURI_GPU_FEATURE), build the llama-helper sidecar with the detected feature mapped coreml→metal because llama-cpp-2 lacks CoreML, delete stale sidecar binaries, copy target/{release|debug}/llama-helper to frontend/src-tauri/binaries/llama-helper-<rustc host triple>[.exe], then run pnpm tauri:build (with NO_STRIP=true for AppImage safety) or tauri:dev via tauri-auto.js.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/build-gpu.sh#L68-L189",
+          "version": "repo-lines-v1:sha256:3c93e01df1a45a7203eddc155cde75a0830d82f704a55949cb254e1ab1211ee9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIxNzE3YjA1NzIxODdiYTMxM2IxYjVmNTYyODYxMWRiNjBjNzQ5ODgzZGE3ZWNjNzJiOTAyMjdiMTE2N2JhYzczIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIzNzY5ZDIzN2NkNDIwYjlkMzhiOTgxYTBhNGY2NzcwMTkwYTRhODNkY2ExZmU1NmM0ZjViYTFlMmNiYzBlZjc2IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIzMWNlMWFhMTE2OTVkOWI1MTU3MGRhMTVmMjM5ZDcwZDJmNWNhZDU4YTc4NTBkMmE4ZGE5Y2VkNTg2MWQ0ODMyIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIn0"
+        },
+        {
+          "resource": "repo://frontend/dev-gpu.sh#L66-L170",
+          "version": "repo-lines-v1:sha256:a96094cbabac3f65a8e4c161331caadbfa7d15ba6056c1b25159ab52d23ce861:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIxNzE3YjA1NzIxODdiYTMxM2IxYjVmNTYyODYxMWRiNjBjNzQ5ODgzZGE3ZWNjNzJiOTAyMjdiMTE2N2JhYzczIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJiN2M5OGQ4MmE5Y2Q3MDY0ODZmYTUyZDUxMDQzYTFiMDczODUwNTlhZjAxNzBmZjQyNDgxMWE4MzYzYTExNWM5IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIzODg5ZTRiODY0ODRjZmZiYWYyNjVkMmNjZTYzZjc2YTY0YjkwYjgzMWVkMjNkMzgyNjhkN2Q2Y2Q4OTJkZDQzIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJkNzc5MzMyNTUwMjZmMjRjMGI0YWFjYzZiOGUxYTFlNGFiYThiOWY3MWY0ZDQ2MDYzNjQzMzZlMjgzZjQ4YjYzIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_92bb6ed4db3640e49a8886ccd548988a",
+      "statement": "Windows has two divergent script families: build-gpu.bat/dev-gpu.bat mirror the sh pipeline (kill port 3118 processes, set LIBCLANG_PATH, run vcvars64.bat with manual LIB/INCLUDE fallbacks, detect, build and copy the sidecar), while build-gpu.ps1/dev-gpu.ps1 skip detection and sidecar steps and hard-code Vulkan via pnpm tauri:build:vulkan / tauri:dev:vulkan; build.ps1 is the signed entry point that loads TAURI_SIGNING_PRIVATE_KEY(_PASSWORD) from .env through scripts/load-env.ps1, aborts without credentials, delegates to build-gpu.bat, and scrubs the variables afterwards.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/build-gpu.bat#L119-L198",
+          "version": "repo-lines-v1:sha256:b0723f8d8b7d5d85a53ba5dec4d9591de3c5cfa313611cfc4c0dc0de37094d22:eyJzZWxlY3RlZExpbmVDb3VudCI6ODAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAzMjliYTY2YmNhZThmNDE4NzhmMzYzYmJjZjQ0ODBlYTlmOWU2YzFiZTYzNmYyNGNiNGE3YWI3NzgxNDRiOGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ZDNmZDVkZmMwNzdiYTI2NTVkMzZiNmU0NmEzNjk3NTQyZjk0NDI1ZjY0YTg5NDRjMGY5MTFlZDAzOTFiYWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA1NzdmNzg2ZWFiY2E4NmY4YTRmOWQ4NTQyODJhODA4MzZlYTdkODJiYjcwYjJhZjc0MmU5M2M1N2RiNjcyOWIifQ"
+        },
+        {
+          "resource": "repo://frontend/build-gpu.ps1#L32-L56",
+          "version": "repo-lines-v1:sha256:d8e91caf884d23f384190321ae4641e4b67b538030fcc2bfda45c38c8204930c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1ZjcyOTYxNDg4NzI2MDgzOGMzNmYyNDA3Y2EyZWM5NzJiNmI2MzNiNzU3YzA4MmJlMTAzMTRhMWRlMzNiOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFjY2I3MzFhNDI4YzRiZjU2YWYxOWM5MjI4NWZiNDA0YjMzYzczMTk3ZDJjNzQ5OTI0NjM5MjQxZmQ0NDdjOGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwNDEzYjJjMjJmYzI5ZjU2NDRkYmRiZjE1MjE0MjUzYWYxM2JiNjVhZjA4NDBiMjliNDllZDZhNDdhOTE2MGUifQ"
+        },
+        {
+          "resource": "repo://frontend/build.ps1#L11-L62",
+          "version": "repo-lines-v1:sha256:b078f7ac02ee1912f75ada68acf6e744c6e2525edf8fa32f1f89f733f2642153:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3NDFmYzM4OWZmZmQ4M2I2Njk2Njc1YjYzMGFiM2MxMmM1ODIxYmJkMzhmOTE0YmUzODdkNGM1MjNmY2ExMmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlYzZiYzYxNmJiZTE2NTk0ZmU5Y2JhOWQ5YjgzZTM2MWUwMGNkNTNhNGNhNGI3OGJmZjE3ZWU2Yzg3M2YwOTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZkOGNhZTRkMTYwZjNkMTdjMGJjNDRhNWQzNmVlNzAxODg4MDY2MDlhYmFkYjAwZTAxYjM2YWM3YzM0NzY4ZDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZiMDY4MjBlMDI1ZDdkYTM3NmNiNmI0MzkyY2ZiYWMzMDJkMjc3MWJmOWUzNDUyZGRmZjk4ZmY0ZmQxODM2ZWMifQ"
+        },
+        {
+          "resource": "repo://frontend/dev-gpu.ps1#L32-L52",
+          "version": "repo-lines-v1:sha256:5c5a1a38da8eec76392060762574535f9b50a6a2111065e8edbec4f4e901b8fd:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAyOTllZDBkYzNhZTdhNGIzODEzYTQ1ZWM3ZmY5OGUwYzE2NTAyNmFlYWY2YWFiZTQwNjZkNDVhZTRiMjU1ZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNiMTA5NjEzZjk5MDhlOWU1YTk5ZWZjNWIwNmJmYWEzZjBmYTM4YjUxMWE0YmRmMDRkZTJmZDJiOWU3OTU5ZDQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjczMmZkMDBlZTk4YzRjYmIzY2Q2YWQxM2E0MjA2YzFkZTBiMDM1ODY1NjdhNDcxMmNjYjRmMTc3ZjVmZTVkOTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYyNWZiNDBhYzZkNGNmMjRhY2NiYjNiMTZkZWExMzBiY2Y0MjU4NjgxNDhkZmJjY2FjMTdmZWRjOTgzOTk0MjEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9c3eba8badf8448a8952ec3a2a3d369e",
+      "statement": "frontend/src-tauri/build.rs runs three pre-bundler jobs: detect_and_report_gpu_capabilities() emits per-OS cargo:warning guidance (macOS Metal/CoreML enabled, Windows/Linux feature status, nvidia-smi/rocm-smi probes with feature suggestions in CPU-only mode), links AVFoundation/Cocoa/Foundation on macOS, and delegates to build/ffmpeg.rs::ensure_ffmpeg_binary() before tauri_build::build() runs.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/build.rs#L1-L22",
+          "version": "repo-lines-v1:sha256:7871722c016daec36d616f15c4550f8b2fea3209b6830afdd5aa3536b42332c4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMxNjRlMDkxMzgzODA4MDY0Njc3ZTBjYTYzMTE5ZDU0ZWM3NTNlMjA2MjRmZTc0MzlmY2JiMzQ0ZjYyNWM3YzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJmOTc2YWNkNWU2ZTc1NDk4OWEwZGQ2M2ZlZWZiNzJiZGRhYzQ2ZTUzNDRkYzZhZDQ0NGNkMWQyZGI1NGE2ODIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/build.rs#L25-L92",
+          "version": "repo-lines-v1:sha256:fddb0684df0a10348f63a4c938fc2cc8ba760d942b1ff375bc6fe286397d2b81:eyJzZWxlY3RlZExpbmVDb3VudCI6NjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExZGVhMjBmYWUxNzEyNmFjMGRiOTRkMzM2MDY4Mzk1MGEzNTlhZmE2NzFkOTliNTIxMDYzNGNlY2Q5ZjJkYjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNlM2VhYjRiODVlNjkwMjk3YzUwMzI5NDZiMmU5ZTgyZmM2ZmQzZDI4NjAwYTlkNzZiYjg3YjUxYjA0NTM2YTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6acc39fe92bb43319a8d02620d8f16cd",
+      "statement": "build/ffmpeg.rs guarantees a verified ffmpeg at src-tauri/binaries/ffmpeg-<target>[.exe] at build time: it reuses a cached binary only if `ffmpeg -version` succeeds (deleting and re-downloading corrupt caches), downloads from per-target-triple URLs pinned to the Zackriya-Solutions/ffmpeg-binaries release 0.0.1, extracts ZIP (with Zip-Slip protection via enclosed_name) or TAR.XZ archives, sets 0755 on Unix, and panics the build on download or post-download verification failure.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/build/ffmpeg.rs#L124-L151",
+          "version": "repo-lines-v1:sha256:291e0b084b450cac81dbe8a68535f14f8c83f4dbe79959a1797e693d0c16a4aa:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBmNjZmMjc5NDMwNmRkYTc2MWMzZDI3ZDczNDM4ZjM0ZGZjNzU2YjBiOTYxMThmZTY4ODJjOWIxNmEzZWFmMzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ZjZmNDY2ZTU5Y2ZjMzA3MDNjNDVmNzJhZjY1ZGU1NGFjMzYzZDM1NGNjMWEzMzMwMzUwYWNkNDUyNDM0YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2ZDQyN2RlZDI4OGE3YmE2NmMwYmUyMzNmMjVhZmZmZTJkYTA4OWRkMTM3NzhmMjU5ZmEzNjE0NWM1Yjg4YTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/build/ffmpeg.rs#L332-L351",
+          "version": "repo-lines-v1:sha256:680d90924998212a79029dceb53eef9b095da47a72565b150a4eb30ee0fd73d2:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkMzEyN2Y3YWI3NjNhZmZhNGQ3OTVjNTQ3MzhkYTUzYjYyYWVmNDMyZWMyZDNlMmQ1ZDA1NjczNDdiN2QxOGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE1NWYzZmE4ODg1MTlhYmZhNTU3MWQyYzkzMWI5Y2M0NjVhZGRjOWMxMTg4Njg5NWRkYTM5ZjFkM2U3NGQzMmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/build/ffmpeg.rs#L7-L60",
+          "version": "repo-lines-v1:sha256:d276a4e5a0a4ee23e3de1fc0b3616b983df6860c7ec0847716de4e1a96e246a6:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0MmNlMmFlYTE1YjdhMmI5NDRjYWM1NWViM2IzZDMwYWIxMmRiMmE3MTExZTJlMDNjNTZjNWUxZDg2YzQ4MzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjllOTc4OGUzZDNlNTgzOTlhMmFkNGFhMGM0MTdkZjAzNzgzY2U4Yzg5MTI4YTFkNmJhMTA2ZjYwYjQ5YTZkMjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUxYjQyYjBiYmRhZjlmMmM5M2ZjMmRjNWU1NzBlOGU3OTczYTVhNTY2MDAyNWEzMGY1ODM4NGE0ZDY1OWM1ODkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c5fb7e432f374d91b58f9c275b323a3d",
+      "statement": "CI caches the build-time ffmpeg download with actions/cache over frontend/src-tauri/binaries/ffmpeg-* keyed on hashFiles of build.rs and build/ffmpeg.rs, so the ffmpeg.rs download runs only on cache miss.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/build-macos.yml#L150-L154",
+          "version": "repo-lines-v1:sha256:0b810394725ce76e40b77e03a8b445bb1de8ca77985ffcb764b8aa55bc0ad3da:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTEyYTkwMGQwNzc4YzBkYzczZGZhYmYwMDExMjFmOGEzMjc0ZDAyNGM3M2U1NzgxMmU4YmRhNzc3ZWMwMWI1YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTc3NTMxNmU5NjE0ODg2ZWFiOWM4NjRlZTA4MjA2NTA1YmI0MjdiMjEzYjUwMTIwMzk0MGZiMzM1MzliZjFkZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWZjOGYwZTI3OTI3YmNjYThjNzJiMWQ5YzBiMzlhOWQ3MDQ5MGY2ZWU4ZTNjYTBlMmI3MGE4ZTJkMmIwMDQ4NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjE3NmNjZmNmYzI0Yzk5ZjJkMjAwYjY0MTM2YjFiY2FiYzM1ZGYzMDAyNDhkMjI4OGRmNmI4YjM4ZjVkZGNkOSJ9"
+        },
+        {
+          "resource": "repo://.github/workflows/build-windows.yml#L663-L667",
+          "version": "repo-lines-v1:sha256:7cf6850f182a57837f0f23d30e3470c7273e5b9d32940a55f31cb7f9f8b6a79f:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTEyYTkwMGQwNzc4YzBkYzczZGZhYmYwMDExMjFmOGEzMjc0ZDAyNGM3M2U1NzgxMmU4YmRhNzc3ZWMwMWI1YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTc3NTMxNmU5NjE0ODg2ZWFiOWM4NjRlZTA4MjA2NTA1YmI0MjdiMjEzYjUwMTIwMzk0MGZiMzM1MzliZjFkZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmRjZmVmYTU3Yzg3YjE4NTg0MmE3ZThlMjMzOWYyMWJjOWFhZGEwMGNiMDRlNWNjZTFkYTMxMzM2NjY4MzFjOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTlmZTEwNzU2NTYxYzY5ZDJlMzFiYmQ5MGVhZTMwMWY1ODMzOWUxOTY2ZjhjZjkxYmU3MWRjY2MxMTlhN2RjMiJ9"
+        },
+        {
+          "resource": "repo://.github/workflows/build.yml#L563-L567",
+          "version": "repo-lines-v1:sha256:1eea217a2a3d75910dd46d9057c9d6e38e8c71982fe62c3f0364ff6558e68b06:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTEyYTkwMGQwNzc4YzBkYzczZGZhYmYwMDExMjFmOGEzMjc0ZDAyNGM3M2U1NzgxMmU4YmRhNzc3ZWMwMWI1YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmM3NmFlNzRjNGFlNmMyNjA4ZDZkY2UxNzVlYjMyYTQ1Y2RiYjk0YTE1NTk0YjdkM2E3OWQzZmM4MTY5N2FjOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDZiMDY4OTA5YjRmODQ1MzBkYTc5ODlmOWE5OWMyODI5YmU2NjBlZDVkMzM0MDUwNTUyMDA3OTI2OTNlNDNlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmUxMzI0M2IyZjRkNDk4YjkwZTAyMDc2MWJkNzdhYjUwOWUwMTY1YzExYWE5MDgzZjYzZjg0NTY0MWQ0MzFhYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_24a1402384474a2995368ec99e0bbc97",
+      "statement": "At runtime audio/ffmpeg.rs::find_ffmpeg_path() (memoized in a Lazy) resolves ffmpeg by fallback chain — bundled binary next to the executable (the externalBin artifact), PATH, $HOME/.local/bin on macOS, current directory, exe-relative Resources (macOS)/lib (linux) — and finally self-installs via the ffmpeg-sidecar crate into a platform-specific dir; the decoder uses it to pre-convert mkv/webm/wma inputs to temporary WAV because Symphonia lacks those demuxers, with unit tests pinning the extension sets on both sides.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/decoder.rs#L264-L326",
+          "version": "repo-lines-v1:sha256:18196d4ba1495c22deeb5ebb55bddace0e3f3a85f16043df3028e7942b9774d9:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhMjNhMWUzNTliN2RhZTg2YWVjNWE2OGJiYTVlYzdiOTg4NzkyYTUwMzg4OWI4MGVjZDY0ODNhZWZmYTQzMjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlOTA2MmFjMGM4NzZmODBiYzJjOTc4MDgwZDA0ZjRmNDE0OGY0YWVlZDZlNjM5ODA3ZjhhNzQ4MmVlYzljM2YiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNmNDdhMGVlNjc2M2RhOWU3MWUyNGFiYWMyYWI4MzJiYzE2YmE5NjMwM2FmMmE2MDUxNTkzYjY5YjBhZjNiNjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdmOTM5ZTdhZTAxYmExZjU3YjYyN2RmOGZmMGYzNjdhOTc5OWYyOTlmZDQ4Yjk2NjVkYjU0Yzc3Nzc2ZGNjNDEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/decoder.rs#L806-L823",
+          "version": "repo-lines-v1:sha256:5e199cc98107139f5a60a93d7d2155e39b9d722de27c3c1964f86a8cf0824c0e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc0ZTJhZmE0ODNjMjU1MWJkZjA4YjdkZTA0N2Y0NmJhMzNhM2MwNWRlNjE2Y2VlZGY2ZmQzMjc5NWVkOTQzYjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRlMzAwZmYzZTIzZTFlNDUzZDVmM2UzYTY5NzJmYjY2ZThmNzk4NjdmYTFjZTE0NGUyYTZjMDg0MTY3YjNhNDgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwMGRiMDQwZjI5MDliZjk3OGZmMGE5NTZhNTVlODNjNjUzNDE4ZGU2YmI2OGY4MDQxZGE5NzZmOGQzZDIyNzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTRkMDJhODEyMTk0NGQxNzZkMjY1ZTliYjljYzU5ZjZhYjg5MGJjYWRmOGFlZmRlYmRiYmI0ZjJlYTg0NDQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/ffmpeg.rs#L18-L120",
+          "version": "repo-lines-v1:sha256:269db55439953600c99d4a5f2a8852aeb45317d0c0cd390e84681b3afb8bf733:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIxYjhkMzBjN2Q4NGQyNjJiYzIwNzlkNDlhOGNmMmZiNTEyNTI0NWE5MTE3YTljNzJmYjIxNDVjMDAzNjVkYTZmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MDJmYjI3MzQwODJhYWU1NjhjNmNkODZhYTEwMDhmNjQzOTc4NDgxM2QwNTZjZTc2YjY5MDNhMmEyN2FmYzgyIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIzMmY5MGM1NDRmZDQ4N2ViYjQzMTYzYjQ4OGY1ODNiNzk3MmUzNzZmYmQ0ZGIxNzA4MTAwNWVhMjQwNmFiNGEwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJhNTJmMTdiZTU3ZDNlOWQ3ODliMDE3ZGM2NTBmM2E5NWFiZGU2ZTExOTI0Mzg2NWUzMTU5OTIxZDhjN2M3OTljIn0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/ffmpeg.rs#L192-L232",
+          "version": "repo-lines-v1:sha256:b5c24ba78eb4f4b34aaab05d552ce2555d33786595a202931a9790a1b5317fc7:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM2NjhhZWFjYTU4OWQxM2M2ZTc1YjBhOTYyNDBkZDYxMWM0ZDgyMDc3ZTczNzBmYjI4MDJiNGEyNzE1ZDEwNjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ZjZmNDY2ZTU5Y2ZjMzA3MDNjNDVmNzJhZjY1ZGU1NGFjMzYzZDM1NGNjMWEzMzMwMzUwYWNkNDUyNDM0YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_35aedce934ed4e4785f9c7f415022064",
+      "statement": "tauri.conf.json's bundle block defines the shipped artifact contract: targets deb/appimage/msi/nsis/app/dmg, createUpdaterArtifacts true (emits .tar.gz/installer + .sig), resources templates/*.json, externalBin binaries/llama-helper and binaries/ffmpeg (Tauri appends the target triple, matching the llama-helper-<triple> filenames build scripts produce), macOS entitlements.plist with audio-input/audio-output/microphone/screen-capture plus hardenedRuntime, and a Windows signCommand invoking scripts/sign-windows.ps1 per installer file.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/entitlements.plist#L1-L14",
+          "version": "repo-lines-v1:sha256:200c66862382f7ba3bc7818b01eb714059e9ae81fca865803d7bff3115c9d29f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlYjY0MWRjY2YxMDYwY2Y4MjgzMTc3OGFiMDRiMjcwYjk3YjI0NzgwZDA4OTVkNWIwMGQ0ZWIyMTdmYzhhMWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY5OTZiMGI0NjU5Y2M4NzMyMzM3ODExM2I4NzM1MTAyNDc3MjJiZDE2ZTQxNTUzMGVlOThlM2M0OThlMjA3NTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L412-L413",
+          "version": "repo-lines-v1:sha256:7ae0784c38ddaab58f77585e3571ff34581616dbedfe8fbeacccf5701632bd36:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzk0ZWRhZTVlZTRlMWMzMDUxMzk0ODM0MDIyN2E4NGZiY2VhNmExY2UyZWFmOWY1NjU2MTEyMTgzYzg3M2ZiMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzI3NzllY2IzMGZjNTk5OTJlODlmMDUyYTVmZTBhYzA2ZDgwNjUzOTM5NzJkNzExZjg2Mjg5OTE0YzQ4ZGFiMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTY2NWRiYmY0ZTU2NzBjMmQzYThiN2VlOGY2N2NmZDg3MmUwM2E1NTE4ZDhkZGQ3NTBhYWRlNmYxM2M4ODU0MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWE1NjI4Yjg4OGY5MTk2OWVmNTcyNzFhZTczNGM3ZTk0ZGI5NDk1MTAyYzMwZmE2ZTdiOGZiN2MyNWY0YjgyOCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L81-L121",
+          "version": "repo-lines-v1:sha256:a88dd726aabbaf6850fe1cdbc63ef457bdc13b949858cc1eed58b587c4009f3e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyYzA1OWJiOGMwODhjMmY5MDA0OWI3MWNlYmNjMGJiNDQ3MzAwNWNlZWRjNGVlMzQyZjNjZWMzNzAzMjBmNmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxMGIzNmFhNzRhNTliY2Y0YTg4MTg1ODM3ZjY1OGFmYWYzNjQ2ZWZmMmJiMTZjMzkyOGQwZTkzMzVlOTQ1ZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjOGQ4Mzg3M2YyOGRjMDA2MTdmYWZlNGQ2YjEyOTI5NDRlOWMxMzM3OTNiMmMyYTNhMjc3YTEyODRkNmM5ODMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_58500a98d00a481f93db84a20cbb2248",
+      "statement": "The updater trust chain is pinned in tauri.conf.json plugins.updater: an embedded minisign pubkey against which released artifacts are verified, and the endpoint https://github.com/Zackriya-Solutions/meeting-minutes/releases/latest/download/latest.json — so builds signed with the matching TAURI_SIGNING_PRIVATE_KEY(_PASSWORD) (set as CI secrets and documented in .env.example) are the only artifacts clients accept.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/build.yml#L581-L588",
+          "version": "repo-lines-v1:sha256:5b46626547e3f6d30f121558aa40aa012935ac515566a238a75fe4c5f882600e:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGZkZmNmMDdlYTRiZGQ3ZTM4MjBjYjE2Y2M4NDI2MjQ3MWMxYjM5NDMyMmQxMWU2NWNmODA2NjhjNzUzNWEwZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDM0NDYzMzRhZWMzYTIwMTVmYmRiYjYxZDNiNzhiMjEzNWZmNjhiMDUzZjUxNzE2NzZiMzE2YjFmYTQ4N2U3NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjkzODA3MzA1MDM5MWVhYWUxZTZlN2RlYmYxZDZhMjU1MjZlYWEwYWM1NGM0Yzc5OWZiNTA0YTI3MjEyODA4YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTVlY2NjMjVlNzcyOGI5MDFjM2NiNGE0ZTEzYzRmODFhZDFiOGU4N2E5NmNjZTgyNzg4OTdiOTA4MTg4MWVmYyJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L113-L121",
+          "version": "repo-lines-v1:sha256:7cfa1df0c9dbf24523b2157a17e16e346cc87b12d53322bebff2c94f5a42d8de:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWI1MjQyMzNiN2Y4NDVmNDhlYWE1NjNhOTdlNWRlYmQzMTNhMTEwZjgyMTQ5MjllM2EzMzQ1YmIyYzMzYmI1ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDEwYjM2YWE3NGE1OWJjZjRhODgxODU4MzdmNjU4YWZhZjM2NDZlZmYyYmIxNmMzOTI4ZDBlOTMzNWU5NDVkMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTRiYTAzNzQ2ZGEzNTI4ZWY2NThjNmE4NTIwMDA3ZDlmMGU1OTRhNTY4MmRmYmFiOTNkNjdlMDhlMDQ4MzlhMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_069478f49d1245a99d090719be2ad32b",
+      "statement": "The security block scopes the webview: CSP connect-src allows only 'self', localhost:11434, localhost:5167, localhost:8178 and api.ollama.ai; assetProtocol is enabled scoped to $APPDATA/**; and the main-window capability grants fs permissions scoped to $APPDATA plus store, notification, updater, process and core permissions — a new HTTP endpoint called from the UI must be allowlisted here or it is blocked.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L397-L413",
+          "version": "repo-lines-v1:sha256:02cc3b1c87da67d795a76d5fcb1b4604fae3bf021426c5c7a99604940bbfb44f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMzM2NzgzNzdmNThiODIxYTljNWIyOTRmMzFjYzhlMzIyN2U0YjFjNjJjZDdiOTk2NDkzNzU3ODU2MDhiMjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyNzc5ZWNiMzBmYzU5OTkyZTg5ZjA1MmE1ZmUwYWMwNmQ4MDY1MzkzOTcyZDcxMWY4NjI4OTkxNGM0OGRhYjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY2NDAzYzQwZmQwZjYwNzQ3MDNhODUyMTNmODQ1NjMxZDRmNDNhYTdkYWZkOGQyMGVhN2Y2ZWE4YTFjNjE2YzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVhNTYyOGI4ODhmOTE5NjllZjU3MjcxYWU3MzRjN2U5NGRiOTQ5NTEwMmMzMGZhNmU3YjhmYjdjMjVmNGI4MjgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L25-L79",
+          "version": "repo-lines-v1:sha256:2f4e622d84e7c52641bae6f4cb520d78a39262250b14bb06dfccbf2dc0252576:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1MjRhZmU5Y2NmNTVlNTI3ZmFjOGViMGNmMmY4ZjAzMTYxNTFhZmEzNTdhOGU2YjA3MzVhZGRmZjZmZmUwODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ0NTU3NzgzNjQyYmM4MGY2NTI2N2M3ODdkY2JjZmViMWY0Mzg1Y2I3MWU5NGNiMWY0ZTZhZjk5ZTFiNmIzZWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1NTM3NTZiMWI1ZDhmNzYxMDk3NDFlNWMxMmM2MDlkOGI1NTA0NDZmOTgwMjhhZDYxMDcxN2VjZjA3MDA4N2UifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c13ccb7760924464bb3bb9a2d74bf5e2",
+      "statement": "All build-related GitHub Actions workflows are manual workflow_dispatch only — build.yml is workflow_call (reusable by build-test.yml and release.yml), build-devtest/build-macos/build-windows/build-linux/build-test/release are manual dispatch, and pr-main-check.yml is a build-free manual validation — with no push or pull_request triggers anywhere in .github/workflows.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/WORKFLOWS_OVERVIEW.md#L5-L9",
+          "version": "repo-lines-v1:sha256:7aeeb7d1440aa09465d51334e2207d79d2ce7588fd5ff4c7c007e27380696117:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDgzNzIxZGExMzhlNjY2NmU3OGY4ZmNlMzNjYTY4ODdhM2I3NDkxYTNkNGJhMzU1N2M5ODlmMzk5ZjAzNDY4YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDNjODVhNjM4OTcwMmNiMmFlZGY0NjE4OTFjYWIyYjU3ZDZiZjgxYTM2ZjgxNzFkNDcwMmI0NjZmMDcwZmY3NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzA0OTNjMThmMjk0ZDQyZjAyMDNkOGYyN2Q2MzIzOGYzZTgzODgzOTljMWE4MTBhOTI2ZWJjM2VlMGM4ZTBhZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDM1ZWMyMjZhZTA0MzY1YmZjNTIxZmZjMzlmYWM3ODA4NjMzOWFmNGNkZGYwMWMxYTQ1MzZhOTllYWY3NjQzNiJ9"
+        },
+        {
+          "resource": "repo://.github/workflows/build-test.yml#L3-L3",
+          "version": "repo-lines-v1:sha256:c5f82d0aa8598c7f0d21ec020226f7b7e397041198233c78d35573b63f1fed03:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzVmODJkMGFhODU5OGM3ZjBkMjFlYzAyMDIyNmY3YjdlMzk3MDQxMTk4MjMzYzc4ZDM1NTczYjYzZjFmZWQwMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzVmODJkMGFhODU5OGM3ZjBkMjFlYzAyMDIyNmY3YjdlMzk3MDQxMTk4MjMzYzc4ZDM1NTczYjYzZjFmZWQwMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWRiNTU4YmJhZmM0NjQ5MGE2MTIwZDhkMmI0MWI5ZWZkYzY5MmUwN2EzZThmNTFlYmZlMThiMjA2ZDdkODg3ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzkyMGY0NDJhOTZmNzA5NjZiMGRmNTYyYTI1MzBhOGZlNzhhZDhlZDlhMTM3Yjg5ZDhkNzc5ZjA0ZmIxMGYwNCJ9"
+        },
+        {
+          "resource": "repo://.github/workflows/build.yml#L3-L6",
+          "version": "repo-lines-v1:sha256:469bfbfbae4df6bfa2b0e8fb27f9f0e8cf4dedbab767f86503230698b8ba59dc:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTk2ZGM0ODE0OWY1YTgzZDFlZDZkYmIzOWJiYzdlMmI5MDJhYTNkMzRkNmJkNWFlNGIyOTFiNjhkZjBjYTc5YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGY1OWMwZTAxNjJhOTY4OTdmOTY0NDdkZTdlMDM2NTA2YTM2ZDI0M2YzZWE4YmU0YzhiNGYwZDI3YTljZGU3NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmQ1OGYxMDVlYzRmNDVjMTFlMTYwMGQyODM1MzE2MmE3ZTg1MDkyNzY0NGEwMDc1MjcwOTY0NmE3Y2ZkMzBlNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjYyN2Y4ZmUwZjZkZjVkMGE4YmZkOTZiNjIzMmZiMjhhYmQ4ZDlhZWYzNWIzNzFjNDhkNjI5ZGZiN2UyZDY0ZCJ9"
+        },
+        {
+          "resource": "repo://.github/workflows/pr-main-check.yml#L6-L7",
+          "version": "repo-lines-v1:sha256:526c3887bbebb8fce80075da5304b80640fb7c2c4e47507dce64ea5d9116b64b:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTk2ZGM0ODE0OWY1YTgzZDFlZDZkYmIzOWJiYzdlMmI5MDJhYTNkMzRkNmJkNWFlNGIyOTFiNjhkZjBjYTc5YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2YyZmE3M2YwNzA0ODlkOTcyNGEwMjlkZmI1MDJhYTA4ODUwN2QwODU3OWJiYmNjOTRlZDkzNWMxYTA1MzMxNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjJmOTQyOTI3MWZiNzFmNjc5YmIyMTA0YjU3OWY4OTlkYWU2MTdjMDdmMWExMjlhMmY4N2VjNDU3OThiYzUxMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYTBlYjRkN2VlMzJkYjM0OTZiZGI2YzM2YzdjZDhkNDgzNWM4OWViZTI0ZTY4ZmJkM2ZmOWQ4ZjRhZTU3YzQxMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ddaec2456b104e18b465a34cc45d0a34",
+      "statement": "CI pins platform features centrally: build.yml's 'Determine build features' step appends --features vulkan for Windows, --features openblas for Ubuntu, and nothing for macOS (Metal default), and builds the llama-helper sidecar with --features metal on macOS but CPU-only on Windows/Linux (documenting a llama-cpp-sys-2 CMake race on Windows Vulkan), whereas build-devtest.yml's Windows leg builds the helper with --features vulkan; the binary is copied to binaries/llama-helper-<target> before tauri-action runs.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/build-devtest.yml#L313-L370",
+          "version": "repo-lines-v1:sha256:73ac3719d933fb27cdb54103d93cc1ce3a7f801fb3e04af81860ce1be1a13287:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiM2QxYjBlZGI0M2FmNjgzN2VkNDIwM2M1YTIyMTIzYTg5ZWU4Y2I5NzZjMmM4MDg3YmEyN2ZjZjZhODg1ZjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0YTgzMzMxYTM4NDg5MDYwMmJhMzYwODQ0NzRmYzY0OTY1ZDlhZDFkOTZhOTljOWM4MjVmZDc3MmRmYTdjNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUwNzU4M2VlODk3YTJhOTI5OTdjNGE2YjVlNWM2ZjU3NTUwMTUxYTljZGJiY2VlYWNmOTY1NjBkNGM3ODQzNmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNjNjg5MTUzZGVmNDY1MDYxZjNlNGUxZDI3ODJiNzBjMTVlNDE2N2JjNjllNjY0N2U5NTNlNGIxNTE2YWNjNDgifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/build.yml#L483-L506",
+          "version": "repo-lines-v1:sha256:85e7dd81d825d2167624f4e6f048eaccdd633e436ffcb2fd9920aba24735356a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjZjZmYTllN2I3ZGU0NmJlMzM3NDFhOTQ3YmRmMjFhMmI5MTU4MjQ0N2IzYzllNDQ3NmVhM2VlZWFhYzk0ZDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZlMGU3ODY0Y2I4MTcwOTNlMDU3ZTk0YmE0YjA3YjkxZWRhMDcyOGFlNGM2NWYyNjdmNDE5Yzk1OTk3ZWU4NmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVhNTcwZWQzZWI2M2Q0Y2ZlMTIzNzJlYjFiYjc2NmQ5ODE5MjQ2ZmE1ZjE2OTk2MjI5NTVkMzA2NDhlOTFlYTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlkZmE1MWUxZWYxNWEwZmFjZjk3Mjk5MTJkMDZiMWE4MWRmNTc0OGEzYTA2MTk1YTgyYTIwMWZmZmE5Y2ExMzgifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/build.yml#L508-L561",
+          "version": "repo-lines-v1:sha256:3be00189c292beaaad8e6e5f778f2d993dd2e60e931b52cf3304c63fcca6e50e:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlYjlhNmMwMzQyOGQyYWZiZDZhNzlmNTEzOGE0NDc2YjZiOGIyZTJjOGJiYTRjNzQ4ZGViZmRkZmRjMTBjNDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0YTgzMzMxYTM4NDg5MDYwMmJhMzYwODQ0NzRmYzY0OTY1ZDlhZDFkOTZhOTljOWM4MjVmZDc3MmRmYTdjNjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxODZlNjM4ZDAyYzBlM2U2YmNkZTQ1MWVlYmYyYmRjOGFkYzM3YjA0NWNmYTExNzUwMjUwMTI3ZGJiZGFkNDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU3ZjUwZjA0OWFiOGMxZWNjM2JkOTNkOTEyYWFhOTIzYzBmMjYxMmNiNmE0ZjJlYjJlZjViYjc3ZDgyYzNkNTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_230eff8fddfb48f7b9092bacaee58898",
+      "statement": "build.yml installs platform prerequisites per runner: Vulkan SDK 1.4.309.0 plus Vulkan_LIBRARY/Vulkan_INCLUDE_DIR/VK_SDK_PATH env vars on Windows, pinned libwebkit2gtk-4.1=2.44.0-2 packages on Ubuntu 24.04, libopenblas-dev on both Ubuntu legs, FUSE plus an AppImage repackaging step that extracts, deletes libwayland-client.so*, and rebuilds with appimagetool --no-appstream; macOS builds only the aarch64-apple-darwin target with deployment target pinned to 14.2 via .cargo/config.toml.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/build.yml#L104-L108",
+          "version": "repo-lines-v1:sha256:535a8a1175164886e4a90bbb357af24513d30960f03bcb8061da936eb6eb8df8:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGQ5ZDY2Mzk4OTY1YzdjOTlmMTgyM2Q2Y2RlMjYzMmQ1MzFiNTQzMDRjYTlkOWFkZDQ2ZmU3YzdiZWFkOTEyMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmE4OWUwMmU1NjlhNzU0MjU1N2U4NmU5N2UzNzk4MjljZmU1YTE3ZGRkMDlmNzE1NzkyNjFiNTAzNzgzNzE0OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTMxMGM5ZTQ4ZWNmMTMwMzlmMjRkYjFkZjdkZmNkY2E4YzNmZGNlYTVhYWVkZWVlZDg4NDNkZTM1ZDVkOTM1MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTBiZTljM2EzMzcwOGI0MWJiYWUwNjhkY2FiYzcxYmZjNzBhZjVkYmRkYWY0Yzk0M2NhN2EyN2Q4YjdhZDc2NyJ9"
+        },
+        {
+          "resource": "repo://.github/workflows/build.yml#L134-L239",
+          "version": "repo-lines-v1:sha256:529bf17a5725c00d37c5bc90f5052c7f484feaa80c5e713385c484333cee7c66:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIwODY4OTQ1MWVkMzA3NzdmZDVkYjNiOThiMmI4MjUzNzIwZTFmMWViZTBiODIyNDg3MmM3YzE2NTI2NDUxOWZlIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJhOGI1YjI2MzY2YWIxODBlZmVkYTQwZTk2NjNjNWRkNWNlYjgyODkxMzdkNmY5YTk5ODU0MjhmMGVmNzYxNWQzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5M2QyZjA5YWY2MGQ0NjMwZDBkMDJjOGE0OGI4OTAwOWNiYzRlZmU2YmRlYTVmNTU0NzU1OGI2YzI0ODYwYTFhIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlMmEwNTRjZjQzMWIyM2ZkNGI3ZDQ1OTYyMjRmMjY1NzU3NTdlYzdmNTYxMmVmZDU1ZmJhMzE4YjcwYWY5ODQwIn0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/.cargo/config.toml#L1-L13",
+          "version": "repo-lines-v1:sha256:ce7c60961ae9d7a1b0feefb65750bed566671f8801dabf38a499d15fb18feab8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3NmY1ZmVlYWFiNzc0MGRhMTYyMzU4M2ZhMDg0YzMzZjZmMmQ0ZjE5MGE1M2YyMGQ3ZmI1YmIyZjczZDg5OGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1NzliNzRjNGI3OWNiNTcxNmI3OTkyMzA2M2YyMTY3NzMxNzYwMTA3NmE4NThhYWM2ZTA1ZjIzNjIwZTMzNjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c43c8313a6bb49f5a81e89ee6967d307",
+      "statement": "build.yml's Windows step copies vulkan-1.dll into frontend/src-tauri/vulkan-runtime, but that directory is not listed in tauri.conf.json bundle.resources, so the DLL is not shipped by the bundle config and the workflow's own fallback note acknowledges the system will use the user's installed Vulkan runtime.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/build.yml#L188-L239",
+          "version": "repo-lines-v1:sha256:ea295d7454620fc9ad2b60aa46a7f18c2d9e79b5dc6ec1f01d7ce0464f30ae18:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ0Njg0ZWVkMDY1MGZiNjViOTBmNjY4YTJhNWQwNDVmNzE5M2U5OTkzMGY1MDhjZTdmZWI5NDYyNjY0YzNiZjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4YjViMjYzNjZhYjE4MGVmZWRhNDBlOTY2M2M1ZGQ1Y2ViODI4OTEzN2Q2ZjlhOTk4NTQyOGYwZWY3NjE1ZDMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyODg3MDViNGIzYjZkNjBkYTMyZmQ3MTVlZDc2ZjhkNDljNDM2YTgyM2IxYzBkOGYxYWJkNDVkMGQxMjAyZWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUyYTA1NGNmNDMxYjIzZmQ0YjdkNDU5NjIyNGYyNjU3NTc1N2VjN2Y1NjEyZWZkNTVmYmEzMThiNzBhZjk4NDAifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L97-L99",
+          "version": "repo-lines-v1:sha256:27b7be73cb064eb56afd32429b05ca766859661370e78d579d6db3a9a74fc42f:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjFhYjRlODgwMTk2NzU4MmEwOTNkNzliNjg3YjgzZWYyNWQxYmNiMDk0Nzc0M2UzYmU2YTg0MTNkNDliMjFjYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGIzOWUxNmRjYjVhMDI4OWYxNDQwYmIwY2Y4ZDUyZGJlNTgxZDJhYjY3YjM2YjM0NDBlZGZmNGYxZGY4YWU1MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmE5YWRjMTExOTdjMzM4NjIxOWYwNTY4NDU3NzQ5ZmE3YTEyNzAzN2E1OWVhNDRhMzM1MmE3MGM5OWRmZGRkOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDcxMTAxYzljMGUzMWRjM2VkYWE0MjAxZWJlNTNjOTNmNTdkODMzOGQ1ZTVkYzhiNTIzMTQzOWUzZGFkNTQ1MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1285928c6df4434bbc88d8a7c04370f5",
+      "statement": "Windows signing is a DigiCert KeyLocker (cloud HSM) flow: SM_* secrets are exported, SM_CLIENT_CERT_FILE_B64 decoded to D:\\Certificate_pkcs12.p12, smctl windows certsync syncs the certificate into the Windows store, the keypair alias from smctl keypair ls is exported as DIGICERT_KEYPAIR_ALIAS, and tauri.conf.json's signCommand runs scripts/sign-windows.ps1 — which exits 0 without signing when DIGICERT_KEYPAIR_ALIAS is unset (unsigned builds), otherwise signs via smctl and hard-fails unless Get-AuthenticodeSignature reports Valid.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/build-windows.yml#L117-L200",
+          "version": "repo-lines-v1:sha256:ed856666f49fb160e7b8bb1f3c2943740ebdec2658a505529d393303891c1dd1:eyJzZWxlY3RlZExpbmVDb3VudCI6ODQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5ZmViNDI3YjVjMjA2ZjkyZTlmM2ZkZjVlZjlkZGEwZDgwMTJjMDc1MmQ0OTE4MjAwOTk1ZmJiNzQ2NmQ4YmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZmMTM1ZTExNmI4MmJmNjU5ZTMyYjFhOTMzMzUwMzNmNGQwOGE0ZWEzMmFlMDBmY2E3YzBjNTlhY2Y3NjhjYjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwZjhhMzRlOTg4MDI0NGI3N2IyOTczYzQwZjA4MTllN2NkOWMyYjkxMjUyNjg2NjQ3NmUyYWVjZDc3MDM2YzkifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/build.yml#L241-L412",
+          "version": "repo-lines-v1:sha256:7450ad40475ab6ba6ec64dd2fc13bbb6b2547dbb1444e60dd6d4de9a24418bc7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjMGE5YzYzOGMyZjQ5NzdkMDQyNTA1MWE1MzRjODQ4YjU2M2E5OGMxNTg0ZjNkNTRhNDkyZDA5OTg0YWVjZjZkIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI1NjNiNDM1NGFkNTg5ZmIxN2JjYTE2ZWNjMTYwOTFiODNjOGQ2MTlhNWU5MmZhNzcyMTY2ZGYyNDBlNTY0N2RhIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlNWQyYTllOGNiYzFlMDAzODhlYWUzYzBmZjdiZTAxN2JiNzMyZGM3NGIwY2NkMzM3ZGJlYTc4YTQzNjdmMGU4In0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/scripts/sign-windows.ps1#L1-L38",
+          "version": "repo-lines-v1:sha256:9aa44c9ad1bbf3e4d1e8d42d8548f250e95d5c271bff2d8a1d2c1677cb5950c9:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNiMTUyZjE3MGRkNTQ1NjA0MzdlZTAxNzY5MmUwNjRlZWNiMTJiZTEzYWMyMzRkZjlmMTU1ZTdiYzkyNDk3ZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE2YzBhZjMyZGM5OWJmMjJmNDZjYzY0MDdlZGNiMzI1ZWI4MWQ2YjFmMDExYjEwZjNhZmQ1NDViMGY5ZmExMDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5bb70c5d44614c649c7e6ceaebbc8a96",
+      "statement": "macOS signing imports the base64 APPLE_CERTIFICATE into a temporary build.keychain, extracts the Developer ID Application identity into CERT_ID exported as APPLE_SIGNING_IDENTITY for tauri-action (which also receives APPLE_ID/APPLE_PASSWORD/APPLE_TEAM_ID for notarization), and build-macos.yml verifies with codesign --verify --deep --strict plus spctl -a -vvv for Gatekeeper acceptance.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/build-macos.yml#L109-L131",
+          "version": "repo-lines-v1:sha256:14cce1a47de1aa0b0928ce21915969fd6c23365726236b0ab2690bc26b911ab8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwMDVjNmViMTMxYThhNjAzNGI5OWU1NTFjYzUyOWViZjcwYWY5MjAzNGVjMWQ3ODhjZGU4YTMwMTgxMGMyMWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVkNmQ5M2IzMzFkY2RhMmVlN2M5ZDAyOGUzOWIxYWVjY2QzYzkzZDhkODYxNGYxN2FiY2IzMmFiMTU5ODAzNDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEzMGEyOTZhMTNjM2FjZGI4OWI1OWRmYjhkMGFjNmM0YzY0YjQ5ZDNkN2YyZmI4ZmIyZGM0NmE1NmYwYjdhMzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZjMGQ4OWNiMDYxZTUyYWY1ZGEyYTc3ZGRkMWZiZGUwYzMzYzkwYjQzZjBhMjZiMmUwNDkxZTFlOWQxZTFkOWMifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/build-macos.yml#L156-L179",
+          "version": "repo-lines-v1:sha256:7a9b096b6a3ec916a9d383c0c00d822aca249334d6db49c5ba466a60fd178a30:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk0ZmUyM2EwN2M0NTMzODMxNTljNDEyY2Y1ZWM2Y2EwZTZlMzQyNzNhMzVmYWUwMDk3MmVjNmYxM2NhODE4ODUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA1OWMxZGYwOWNiOGZjZTU2MTdlNDFkNWQ1Njg3YjQyNGY3YjczYWZlYTM2NGZkMTI2ZGIwZTVhZmQ4NWEyMWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMyMmJiODExZmJiYWZjNzRlOGIwMjc1MmYzOGVhMjVjMWFlNzA4Zjk5YTRlN2E1Mzk5NTJmZmQ1YzJlZmE5MDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3MTg4YTVmY2ZmZjM4YTlkNDdlMWY5OTRkMzdkNGQ5NjBkNDBjMjg5NjI0MDcwODQ5MjViOWIwZTgzZTRkM2IifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/build-macos.yml#L203-L239",
+          "version": "repo-lines-v1:sha256:8aad05b1515bf0e9a55359998ad0019c31f0cf3617a2375a9347db5964c388fc:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjYzhhN2U5ZTdlNDY2ZDZhYTM0ZTZlNDIxMTY3NWE3OGExOTA3ZWJhNjU2NDJjZGFhYTg4MWU0ZDc1ZjgyNjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmNTU5NzljZTczMDIwMzNlNmIyZmQ3ZDg4ZjUzN2EzYjhlMDkxZWEzMDVjODExZmZhMTI3NGJmNTc2NGVhNWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJiNWJkNmY1YWI2MWM4YzY1YjkwOGM1MGJiZmU2YTM4Y2U2YTI0YzllNWFmZjYyM2M5MDg0ODI0ODEwYWNiZWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFiZWQ0ZDMxMTY1ZWViYTE5NzA0ODBmYmRmZmI0NWUxOWMxOTk4ODdkNTljNTZkN2MwN2U1MmEwYTlmMjFlZDYifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/build.yml#L440-L462",
+          "version": "repo-lines-v1:sha256:052c01ac4d9ffe0444888f2f4b601c7868191c964ff78458a3f40aae3683d3c2:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwMDVjNmViMTMxYThhNjAzNGI5OWU1NTFjYzUyOWViZjcwYWY5MjAzNGVjMWQ3ODhjZGU4YTMwMTgxMGMyMWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVkNmQ5M2IzMzFkY2RhMmVlN2M5ZDAyOGUzOWIxYWVjY2QzYzkzZDhkODYxNGYxN2FiY2IzMmFiMTU5ODAzNDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYxMjBkZTQ5MDNiYjcwOTY3NTYzOTM4MTRkNDY0MWE0YmNkYmI0Y2NmZjE5MDdmMTMyZjE1OTZkNGRiODk0NGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ0MjExMDUyMjgyMGQyNzIxZDJlN2EwOTNjM2E0NzdmMWZmYTdhZThmM2FlZTVmYzJiOTYzZmM0NzA1NjNmNjQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6ed00402852b46cfba9ac10d4c636783",
+      "statement": "Every tauri-action invocation receives TAURI_SIGNING_PRIVATE_KEY/TAURI_SIGNING_PRIVATE_KEY_PASSWORD (updater .sig files), MEETILY_RSA_PUBLIC_KEY (embedded at build time for license validation), and SUPABASE_URL/SUPABASE_ANON_KEY; Apple/DigiCert variables are added only when signing is enabled, and devtest runs unsigned by default through a dedicated unsigned step that still passes the updater signing key.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/build-devtest.yml#L372-L414",
+          "version": "repo-lines-v1:sha256:0526cf6fdeb50574f1b8de82f9ee6360e536c2cc8df9f96f9874c51d99a89c19:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI0NjIyNjgzNmMzYTgwYWVkZTU2NzIwM2VkYTljZTNiNDA0ZGQ5YjQ0MDZiODdmNzU0OTFlM2I5YTlkZjRlN2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1MTYwYzcwMjlkZWRjY2M1YzUyZDJhZjc1Y2RlMTg2NTQxZGE2ZTM5Y2Y5Zjg2MmRiMTQ5MzQwZWQ2ZDdlOGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFlZDEyOGQxN2ZiM2RlM2Y0YzI5ZTE1OTY4Y2VjMzhiYzU2MDMwMDRkMmQ0OTE0ZWI2Y2Y5MDFhYWM4NzNmM2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ5NGI1MmNiMTQ1YWM5N2I3YWY1M2Q1YTdjNmM2ZWRlZWZlNzFmZmY5YzEyNWRlOGUzMDMyNzkxNTBlYzhiYmQifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/build.yml#L569-L594",
+          "version": "repo-lines-v1:sha256:252b74aa6e4df79c12818f67c95b2fa3b5fccf50ec07b0f67869f477a6d92cd0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhMzdhMDYzMjAxMmIxZmE3MTUxNzJkOTE0ZThhOGE0ODg5OWZhNzQzN2IwYzQxNzFiOGQ0YTIxNWU3MmM2ZjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4NTRmOTFlZWUwMjEzYjJkY2NhMjM2MWVlMThmMTM2MjNhYTIwMDJmMzdjNGM3MDY0N2Q2OTJhZDVmNDRiMGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJhNmU5ZTVhMWFlZDQ1ZGEyMGQ4OTk1ZGY1M2E4YWIyOWJkY2Y2NTE4NmM3OWZiZmE3MTdkYTFkOTRkODA5ZjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY1NTlmNzliMzg5ZTc5YzRjNGQyOWJmN2E1NjlkMTUzODIyZWE3YTAyOTU0YzRkYWJlMTAwZjM5NTE0NWQxYWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b757df11d4d845fb99db39412d56d965",
+      "statement": "release.yml creates a draft GitHub release after deriving the version from tauri.conf.json with auto-increment (existing tag v0.1.1 → v0.1.1.1 → … capped at .100, then error instructing a tauri.conf.json bump), then calls build.yml with sign-binaries true for macOS aarch64-apple-darwin and Windows x86_64-pc-windows-msvc only (Linux excluded; use build-linux.yml for testing), with tauri-action uploading signed installers, .sig updater artifacts, and the auto-generated latest.json directly to the release; a release-<ref> concurrency group with cancel-in-progress false prevents duplicate releases.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/release.yml#L12-L112",
+          "version": "repo-lines-v1:sha256:008d493f36a266dc576a90141552ba2d04b350429cfd720cf8f8c93acfc975b7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjOTE1OTI4NGQ4ZWUzN2QzMWQ0NDFkZDJkNDdiMmY1YjUzNGFlMjI0MmE1MTJiMmI1ZDhhMjUyNWRmNTJiMzViIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI1OWQ1ZGQzZThhMjRkNWNlZTI4ZWEyM2Y3YjU0ZWFmNTI0NjhmZjFlZGNhYTVlZjU4OTcwZjFkOTVmMTI0ZjVjIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI3NWEzYWFmMDgxZGU2YmU3OWQzZmE3N2IwMWNjZDdiMWYyNTllNjZmZThhNGM0ZDJlMjAzYWUzOTdkMWE2NTJiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlNDc5NjhmNDliMjI5MzliZjRjMGFmYWM1YzdlNjgzNWQ0YzAwMWRjYjdmMDU2YWNiYjc4M2QzNzRmMTQ3YmRmIn0"
+        },
+        {
+          "resource": "repo://.github/workflows/release.yml#L157-L197",
+          "version": "repo-lines-v1:sha256:81d34b2b161d4d0722ea4d1989465efd2bf2a324e0d4d79911ab06a0987aa95d:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ0OTQ2NWZlYTYwMmFkODA2NWI4Zjc1MmIxYTlkZTVhMDJkY2Y0ZWU4NGFkNjhlYzUxZTU0NmM5YjFmODYwOTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU1NTBmNzA4YTg0OTBhMzhhMjhmNmJjY2NkZTZhM2FhZWY2NzIxZTg3NjgyN2JlZGYzMzJlM2E3MDNlNTNlOTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_76cef8f4be684656b36823743f3af98a",
+      "statement": "scripts/generate-update-manifest-github.js produces a Tauri-compatible latest.json for manual releases: it scans a bundle directory (default target/release/bundle/updater) for tar.gz/zip/dmg/exe/msi/AppImage/deb files, maps filenames to platform keys (darwin-aarch64 defaulting on macOS, windows-x86_64, linux-x86_64), pairs each bundle with its .sig signature, and emits GitHub release download URLs for tag v<version>; scripts/test-update-locally.js serves the result at localhost:8080/latest.json to exercise the update flow before publishing.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/generate-update-manifest-github.js#L18-L31",
+          "version": "repo-lines-v1:sha256:f88e26b4dee484674e5d74f00558e8f25717794b5c1316e3931dd0b2c84cc198:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlYWRhMThhMjBiODNmN2VlNDFiODY2Mzg2NGQ4NDJkM2UwOWI2N2ZjN2E4NTMzYzVmYTRiYjJlZGVlZmY1YWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNjYmRhMzkyYjEzYmY1MWM1MmI1NjcxMWJjYzYzYjA1MWEwNDZlZDkxMTgzNjIzMzQ2NjM2YmEyNmY1NTliYzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFmNDkxMzA0MmNiODEzOWQ5YTE2MDQyNGQ2ODEyNzU3ODNlYWZkOWZkNWI1ZTUzMzhhNWFlZTI0MjIwNzc0OTIifQ"
+        },
+        {
+          "resource": "repo://scripts/generate-update-manifest-github.js#L70-L151",
+          "version": "repo-lines-v1:sha256:0ddceec5420a0fb8153cab698adfa876de882dba445af12db72331f736809543:eyJzZWxlY3RlZExpbmVDb3VudCI6ODIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YTI1Y2QwYmFiYTYzNGMxYzQ0YTM0MGM4MzU5OTgxNmFiOWQyOWE4NWFjYTc2ZTlmOTg3YzZhMTJkM2JlMDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI2MjkwYWZkZDg1YzA0MjRlZTgwYjU3MGZlOTk1MzcyODkwZWY5NzM2MTE2OWFiMGM1ZWFkNDUyMTA0ZTc2YTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUzZjdhN2ViM2UzOGFhODM4YjYwOWE5MTZhN2ViZjA4OTM4MjhjMGFiMzRjY2FjZmE0N2U0NGI2ZWFmYTljZGEifQ"
+        },
+        {
+          "resource": "repo://scripts/test-update-locally.js#L21-L39",
+          "version": "repo-lines-v1:sha256:b9e0be2b5ec2cbbd406d8bfdb31b4dab1b521de5e8ec3f7c9995bdfbe6aa81ec:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmOTMxZWE2NzcyZWNiZDY5MWFiNWRiZTM2OWUzMTJhZDBjZjFkMzc5ZWE0MzEyM2YxZWZkZDMwOGU3N2FjMDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNjYmRhMzkyYjEzYmY1MWM1MmI1NjcxMWJjYzYzYjA1MWEwNDZlZDkxMTgzNjIzMzQ2NjM2YmEyNmY1NTliYzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIzZDY2ZTNhODY2ZDRhOWIxZjZjOGVlYWY0N2Y2YjlkZDQyODNkNWRmZjc0ZDU1MjA0Y2FkMmVjMjY1MzMzNGUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_41f18eb454a2426b8282f0a7e9304d00",
+      "statement": "CONTRIBUTING.md defines the branch strategy: main is production, devtest is the development/testing branch, feature branches are cut from devtest; PRs target devtest, must link their issue, pass CI, and receive at least one maintainer review before merging.",
+      "evidence": [
+        {
+          "resource": "repo://CONTRIBUTING.md#L9-L61",
+          "version": "repo-lines-v1:sha256:6eb1e61f37927cb2462de25df824e05e19775e145e1b090ea7340a25ab3024e2:eyJzZWxlY3RlZExpbmVDb3VudCI6NTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViMDgyZGY4YWFhMmIyZTBmM2FiMzcxMmM3OGY5MmQzZDA4Yzg3ZDkyZGY0Y2FhOWYwOWQ0ZTJlNjFlYjYzODQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0NzYyZDI3NmI1OGZmNjhiZjVjZjY1YTY2ODI3YmFiYTcxMzVmNWE4NmQwNzk3MjQzMjIxYTUwMWMyOTI0NmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2NjVjYzM0NmM2MjAwNzhhYzBjYjRjMjAzYTkzMGU1NTRlZTBjMzI4MjIwMThhMjI0YWExNzJhYzQzNmViMzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU4YjA2M2Y4ZmEyOGUzZGU1NDcyODE5ZTkyMzA3MmUwMjhjYTZjZDhlMGUwNzMzNjQ1MmQ3OTQyMDc3MDViMWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d746a444cc9e45028bb44af60dde9f35",
+      "statement": "frontend/src-tauri/tauri.conf.json's version field is the single version source of truth — every workflow greps it for artifact names, release.yml derives tags from it with the .N auto-increment rule, and pr-main-check.yml warns when it is not plain X.Y.Z semver because a non-numeric pre-release suffix (e.g. 0.1.2-pro-trial) breaks the Windows MSI build.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/WORKFLOWS_OVERVIEW.md#L157-L163",
+          "version": "repo-lines-v1:sha256:6e0eb8fb4068e8f5ebe52d945a2f098fc2c8f6578e14771580e5e86f1811e45b:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTcwYTMyYWM1ZWU0MjM1NDJkMjhjMmVkMTcwNzUwM2U2MDJhNzgzMmVmOTliZjI5NDc2NWEwNjYzYmZmZGQ1NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGFhNjcyMGNmZDJlMTQ1MGNiNDI4Yzc1ZmE4Yjk5MGIxZjgxYzM2YmU2YjAwZWYzYTc2ZTJlNTQ1ODA1OWVlNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOThiYjNkZDg5Mzc4ODU1ZWMyYzVlMDVmM2MxYjIzMmRhOGNlMmMzYmY4M2U4OTFjYjk2YzExOTA4Y2NhYjc2NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDAxZjJlYzE3NTkzYzEwNTRlYjQ2MzY3ZDg0NTNlZjI0YTE3M2NlOTZiNzExN2Q5MWY5YTY4ZDQ0ZmVmOGIwMSJ9"
+        },
+        {
+          "resource": "repo://.github/workflows/build.yml#L60-L66",
+          "version": "repo-lines-v1:sha256:4661dd80e85fa1090400ac766581008e1a0593bec0fc96d0ab26502a14ca984c:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmFiYTZlOTU5MmM0NTE1ZTU4YjBkYWJiMjA2ODcyNGU3ZjZkMmI0MWYyMmRiZDkxN2E0ZjVlYTkxMjIxYWRkOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWVhNTBkZTI5NWQ1NzRlMTdiZTliYzVhYjNiZGZkMGNlOWNiNmU1MGYyMmE3MTY0Y2NlMTVmYTQ3ZjQyMjMxMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWVkNjM1M2QzZDAzNWEyOGE1M2I4YmJmZjhjODczODc3OTg5NWY1NjgzNTI3YmMzMmUzMWI2MTc1Y2FlNGI1ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWY1ODJiMGIzMTE4MDMxM2YyZGU1YzY2Yzg4NmRmMWNlMjQ2Y2ZmNGYzMzc0YTNjNzAxMzhhODViMWY1NGYzNCJ9"
+        },
+        {
+          "resource": "repo://.github/workflows/pr-main-check.yml#L21-L51",
+          "version": "repo-lines-v1:sha256:c8bc1b3070b7a9c0464261ffa9d9decd7578d01e7e420234d83d109b1b769b54:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBmMGUxNDhlZmM4ZGRhZmZjYjE1YjFkMjI1ZjYxYWUwZmQ4ZjYwNTk2Yjc3Zjk1YzNlZjQ3OWVmNGRlYTlhN2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmNTU5NzljZTczMDIwMzNlNmIyZmQ3ZDg4ZjUzN2EzYjhlMDkxZWEzMDVjODExZmZhMTI3NGJmNTc2NGVhNWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5Y2IzMzEwNDQ5ZGU1ZTRjOTc1NDU3ZTEwZjA3ZTk1MjU1ZjVjMWQ0MDAwNzdmMTU2MGY4ZTFlYjgyN2JmYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM5MzJiOWY0MzlmYjUzZWNiYzdmYjVmMWZmMTFjMjAxZTE3ODUyZGI0ZmJkYzQ0ZGE3OGFmYmI3NTI4YTc1ZWUifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/release.yml#L26-L67",
+          "version": "repo-lines-v1:sha256:bd6dc828d3355ca9e0c7750f69e9f3744600827c3629ec7d1bffa3482c2ee568:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhODM1MmJkMGVkNzBjZGYzZmFjZDI1MTg2MTFhYjUwZGY1NmQxODhiMTBhMjIyMzAyZmYwZjU2MWE0NzAwMmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVlYTUwZGUyOTVkNTc0ZTE3YmU5YmM1YWIzYmRmZDBjZTljYjZlNTBmMjJhNzE2NGNjZTE1ZmE0N2Y0MjIzMTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZiNTk3ZDgwNmIyMTc4ZGU1NDMzZjdhN2ViNjMxODY5YTQyMTI4MWY0NGYxNjBmZmJmZTEyYjYzN2Q2ZmFkYWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg0ZmJlNTg3NzkxODI2Y2RiZTEzYzU1OGNhZWFiNTBmNTI1NTIzZDk4MzJmZjhkZThlOTg0M2FkM2U5ZWYzZTAifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L3-L4",
+          "version": "repo-lines-v1:sha256:709d54d616ee5d2c36fc3fb46bda6d7eceac3514996fc070637475e32974cd79:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDM1MWM2MDAyZDMxY2Q0YTA4MTIwYjBiM2U1MDk4NmIzM2Q1NTMxOGM4NTgyMmFmMTliYTVhNDM3YzVmMTMzZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTNkM2E2NDc1MzcxMGJjMjk5YTRmOWUzMTIyNzFjMWI0NTUxMTA0YTRjN2EzNGUyNTNmMTJmNjAyZjI1YzZjMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWI2M2I2OTJhOGU4ODYwNjA5ZWI3ZjE0Y2RhMDVlYzJjNDZhMzU5ZDYyYmE4ODgzOGRhYmMwNTUyNzM2OWNlNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmRjMDU1ZDI3OGNkYThkNmU3ODE1MmM2NDY0MDJkYzg2MGYwZmE3MjJiYWU1YzNlMzBlNTVkYWNjMjU5MmVlNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_3a2878eb8d8b400e9c370a8358548445",
+      "statement": "WhisperCompiledBackend::current() resolves the compiled backend at runtime with precedence cuda → vulkan → hipblas → (macOS or metal feature → Metal) → Cpu; WhisperEngine uses it to decide whether to attempt GPU acceleration, and whisper_context_acceleration_for enables flash attention only for Metal and CUDA on High/Ultra performance tiers — coreml is a whisper-rs compile feature only with no runtime enum variant, and inline tests pin the backend/tier/flash-attention combinations.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/whisper_engine/acceleration.rs#L12-L80",
+          "version": "repo-lines-v1:sha256:d5547b01905aff77ddf10d2b8081d8459b8e5869dfbbfaef64d5d2c94a05603f:eyJzZWxlY3RlZExpbmVDb3VudCI6NjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmZTE0NmU5ZjcxMjNiZWY4ZTMwZGFlYzUyM2Y4MTU5NDE1NWM2ZTI1OWM3YTRkN2ZlMzBjNTkxY2VlNmJlNTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMzNDgwNTU4OTg3M2I3YzkxY2UxYjRmOTczMWQ1YzRiOGY1NWZhOTQzMTkwY2I0NTNjYmM3ZTQzNWE3MTJlOTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdiYzk4ZDZiMGRjNDkyYzUwMTZkZjEwODA1YTNhNTRlYjljMTg0YTVhNjEzN2U3ZjRiZWNmYTBjMjIwNTUwZDAifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/whisper_engine/acceleration.rs#L82-L144",
+          "version": "repo-lines-v1:sha256:db95167212a358648badd1bf4f1447d5b8fb96fed419aabb19d3fbca27f504dc:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1Y2Y1ZmMyM2YyYTZkMjNjM2VhNTFlNzJmNWU4OTZjNzU1NWZiYWEwNWNkNWIxZWExODJiZjk2MThhOGU4MWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/whisper_engine/whisper_engine.rs#L52-L77",
+          "version": "repo-lines-v1:sha256:3d82b615162ba5e3a501203f8a88b48cbfce16614ae7c822be53f4fabd9f3873:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAyNTIxNzE3YzBiNWI2Y2YwZGZiMjk4OWY1N2JiNzliZGNiYjYzNTdiMmM5MTJmZGIwZmQwOTFlMzRiODQ0MzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2ZmZiOTkwYWVmYjUzMWE5NGIxMTYyOTY0MTE4MWNiYWJjMGVkNDliMTFkMWE3YTM4MDkxNjdjMjU5OGEyY2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3ZmJjOWRjYWVkODNkN2RmNzVlOTJmNTBiMWUzNmMyZWUzNDUwMmJmN2U2Mzc4ZmY3MTY5MmMzZTk5NWZhZWYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c5d7d40ff5544483b902121e3e10b01a",
+      "statement": "The CI matrix splits by purpose: build-devtest (all four platforms, signing off by default, 14-day retention) for development; build-macos/build-windows/build-linux standalone dispatches for per-OS verification with 30-day retention; build-test for signed all-platform pre-release builds with the meetily-test- prefix; release for production draft releases (macOS + Windows only); artifact names follow meetily-{workflow}-{platform}-{target}-{version}.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/WORKFLOWS_OVERVIEW.md#L252-L259",
+          "version": "repo-lines-v1:sha256:cdc0ae9e4874ba64d279add3b5563f4772e20b26854d2ae6412594247d84cf21:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTQyZmQzMWFmY2NmMmM4MTUwY2YxY2QyZDg1MDI4MjA3NzNiYWUwM2Y0YTdmNjZjNGUwMDA0NzFhYjJjYWRmNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODk4ZWJmMDg5YzYwODI0ODU1MGViZWJhMzVmMTQ2MmJmOGU5MTQ0MzM4ZmRjNmI5NTc2ZDRhNzM0NDQwN2VlNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTZiN2MyNmY4MTdhOTI5YzAyMGM3NTQzMmFkNTMwODE1ODA4MDVlNzRjMzRkOGI4M2JiMjg4NTQ4MGMxMGVjMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDAxZjJlYzE3NTkzYzEwNTRlYjQ2MzY3ZDg0NTNlZjI0YTE3M2NlOTZiNzExN2Q5MWY5YTY4ZDQ0ZmVmOGIwMSJ9"
+        },
+        {
+          "resource": "repo://.github/workflows/build-devtest.yml#L2-L52",
+          "version": "repo-lines-v1:sha256:f9f2a2898886630a8beb98748d38faa98a4d5b41d28f44c005e988d1476098a6:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoxLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ4NWIxMzc4MDlhZjBmODUxMDJkYjNkMjkxNjNjYmVlYTcxMzIzN2UyMThiMmJmNjExNmM5Yzg3YzQwZGI1ZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk5ZTVlOTY4NTMwYmM4MWE4ZmEyMWMwODNiZGVkODNkNmQ5NDlhZGZkN2RkYmM5YTBjYmYwODEwNGUyZmFhMzcifQ"
+        },
+        {
+          "resource": "repo://.github/workflows/build-devtest.yml#L471-L488",
+          "version": "repo-lines-v1:sha256:b892242656df2d614700fe0b236ca3fc61c4b9e60ec766ae156dcb39e7c11ad6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNhNGZkNTZjNmU4OTNkMjRmMTkzY2U3OTJkYTI3OTBkZWQyOTk5OTZlN2M1OGVjYmY0OGFlYzM2ODdiYTY4OTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2NmQwNGZhNzkyMDQxYWEwNGMxY2ZmYjZkN2IxNWFkYTc1N2UxZGU4OTFlNDY2MzFmYmZmYzU2YTFhZThmNjkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcwOTU5N2FkOTNmMzhmZGY1NTNmOGM0YmFjZWQxOWE5NTEzYzY1MDhjNjZjMzAxMGY3MmVhYTJkYWJkNDYzM2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxMDFkMDBmNjMwOTQ0NjRiODQ2N2MxMjQzY2U0NTZhY2IyNzBiM2FlOTI2ZDY1ODdhYWQxMzBlZGMxOTkxODYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_317c140726b3444781f6f6f8821af7bf",
+      "statement": "llama-helper is a separate workspace-member binary crate (root Cargo.toml members: frontend/src-tauri and llama-helper) pinning llama-cpp-2 =0.1.146 with metal/cuda/vulkan features forwarding to llama-cpp-2 and a size-optimized release profile (codegen-units 1, lto, opt-level s); it is built independently by every build path and delivered via tauri.conf.json externalBin, never linked into the app.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/Cargo.toml#L1-L9",
+          "version": "repo-lines-v1:sha256:da9f41d3e2ac000d0f2b0eec477c5ec78623d7fcf4a5c87744bee342ec31eec2:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGEzY2Q1YTgxYjNmOWE2MjFhYTQ5M2Q5MGM0NWY0MmFiNTcxZDRlNDJiOGFlNWFmZjM1MWNiMGEwMmQwNmQ4MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmJhNDFiYjQxMGEwNTg4MThhZTI1ZTlmOTMxOWFmZjg2NjliYTMzYWMzMjdhYzFkYjczZWZiNmEwNjgxYTNkNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzc4MTEzYmU1NmM5MWY1ODRmZWYyYTEyNThjZTMzMmI1ZTMxZTA0YTQzZTE5NmJiOTkyYmEzZDQ5MDdmZmUxOCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L100-L103",
+          "version": "repo-lines-v1:sha256:5100676791e7629d0f5887cdbf4a438cd03f17a48997a835b2032f0a31551d29:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTNmNThkMGJlZmQ5N2Q1YWE5MjZlOTVhMDNlNDIyZjQ3MTU1ZDBkZGMyNWIyMzZjNzk0Zjg3MzIxNWY4M2Q4MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGIzOWUxNmRjYjVhMDI4OWYxNDQwYmIwY2Y4ZDUyZGJlNTgxZDJhYjY3YjM2YjM0NDBlZGZmNGYxZGY4YWU1MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjdiN2JlNzNjYjA2NGViNTZhZmQzMjQyOWIwNWNhNzY2ODU5NjYxMzcwZTc4ZDU3OWQ2ZGIzYTlhNzRmYzQyZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzIyNzZhYWRjMTU0OGQzNjQ1YjM5MzViZjlhNmVhYjNmNTJlMzUwM2M4MjBmNGZhODAwZWVlODc5MWYyYjlmMyJ9"
+        },
+        {
+          "resource": "repo://llama-helper/Cargo.toml#L1-L22",
+          "version": "repo-lines-v1:sha256:c1a38b3831eecbbf04e41fd997ba340503382d9e7ebc4091527cac67850d0648:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhM2NkNWE4MWIzZjlhNjIxYWE0OTNkOTBjNDVmNDJhYjU3MWQ0ZTQyYjhhZTVhZmYzNTFjYjBhMDJkMDZkODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjM2M1YTAxYTg0MjBhNGE3ZTg1YWQxMzZmMDM3NGNlZTM3ZjNlNDRkMjY4ZjlhMTEzNDYyMGM4MjcyYWRmOTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-07T20:26:28.923Z"
+  }
+}

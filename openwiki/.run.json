@@ -71,7 +71,8 @@
           "Note which top-level modules exist (audio, transcription under audio, whisper_engine, parakeet_engine, summary, summary_engine, database, api, notifications, analytics, tray, onboarding, ollama/openai/anthropic/groq/openrouter) and that AppState { db_manager } is the shared DB handle.",
           "Point out that audio_v2/ and lib_old_complex.rs are not declared in lib.rs and therefore are not compiled into the app; link to legacy-and-dead-code.md."
         ],
-        "status": "pending"
+        "status": "complete",
+        "completedBy": "openwiki/0.5.0"
       },
       {
         "id": "5ca52d57-e3d3-4b7d-b223-375b5b822b11",
@@ -97,7 +98,7 @@
           "Group the generate_handler registrations in lib.rs run() by domain: recording/audio (start/stop/pause/resume, devices, level monitoring, device events, reconnection), whisper/parakeet/parallel commands, summary + templates + builtin-ai commands, api_* meeting/profile/settings commands, database import/path commands, notifications, onboarding, import/retranscription, analytics, system audio and permissions.",
           "Note serde conventions: settings/model configs use camelCase renames (whisperModel, apiKey, ollamaEndpoint) on the Rust side; frontend services are pure 1:1 invoke/listen wrappers without behavior changes."
         ],
-        "status": "pending"
+        "status": "skipped"
       },
       {
         "id": "1bcce7ce-8d1d-4559-81cc-ae67f2b28b12",
@@ -123,7 +124,8 @@
           "Include a mermaid flowchart of capture -> AudioPipelineManager -> (pre-mixed path to RecordingSaver/incremental checkpoints) and (VAD speech path to transcription worker).",
           "Use the repo naming convention consistently: devices are 'microphone' and 'system' (never input/output); pipeline expects consistent 48kHz with resampling at capture time; use perf_debug!/perf_trace! for hot-path logging (zero-cost in release)."
         ],
-        "status": "pending"
+        "status": "complete",
+        "completedBy": "openwiki/0.5.0"
       },
       {
         "id": "62d2ca95-42ca-4d57-bbfe-be2103f3a064",
@@ -150,7 +152,8 @@
           "List Tauri store JSON files and their owners: onboarding-status.json (onboarding state incl. model download status), store.json (auth token and misc), notification settings via the notifications module.",
           "Note default storage locations: DB and models under app_data_dir, recordings under the platform Music/Movies folder via recording_preferences; always use Tauri path APIs, never hardcode paths."
         ],
-        "status": "pending"
+        "status": "complete",
+        "completedBy": "openwiki/0.5.0"
       },
       {
         "id": "e9ed48d4-9982-41d8-b8e9-07ff3e911f11",
@@ -176,7 +179,8 @@
           "Explain notifications: NotificationManagerState managed at startup and initialized async with default consent + permission request, commands for settings/consent/DND/test notifications, and where recording started/stopped notifications are fired from lib.rs respecting user preferences.",
           "Note onboarding persistence via tauri store (onboarding-status.json: version, completed, current_step, model_status for parakeet/summary) and that the ModelManager for BuiltInAI initializes at startup with lazy fallback."
         ],
-        "status": "pending"
+        "status": "complete",
+        "completedBy": "openwiki/0.5.0"
       },
       {
         "id": "9cc5141f-53ec-4fa2-be03-cb1f2f3cf8d6",
@@ -202,7 +206,8 @@
           "Sketch the page map: app/page.tsx (recording home), meeting-details (transcript + summary), notes/[id] (editor), settings; components/ groups worth knowing (RecordingControls, Sidebar, AISummary BlockNote editor, model managers, DeviceSelection, TranscriptRecovery, ImportAudio).",
           "State the pattern: Rust command updates native state -> Rust emits event -> frontend listener updates context -> components consume; services/ are pure 1:1 invoke/listen wrappers (recordingService, transcriptService, configService, storageService, updateService) — wrap new commands there."
         ],
-        "status": "pending"
+        "status": "complete",
+        "completedBy": "openwiki/0.5.0"
       },
       {
         "id": "aa4c569a-ba4d-4cec-a20b-94569028a1e5",
@@ -228,7 +233,7 @@
           "Include a mermaid sequenceDiagram: UI -> api_process_transcript -> SummaryService -> LLM client (provider or sidecar) -> save to summary_processes -> UI polling.",
           "Note the 5-minute ModelMetadataCache (Ollama metadata) and where chunk/token thresholds in processor.rs control prompt construction."
         ],
-        "status": "pending"
+        "status": "skipped"
       },
       {
         "id": "0698ef98-9fb9-4211-b9e8-5a7e03c9490c",
@@ -255,7 +260,7 @@
           "Explain model storage and lifecycle: models dir resolved to app_data_dir/models via set_models_directory, ModelStatus states (Available/Missing/Downloading/Error/Corrupted), download/cancel/delete-corrupted commands for both engines, active-download de-duplication.",
           "Explain the parallel_processor/parallel_commands path (worker pool, retry, resource constraints via system_monitor, pause/resume) as the batch-oriented alternative, and that audio/common.rs ENGINE_LIFECYCLE_LOCK serializes engine load/unload against live recording, import, and retranscription."
         ],
-        "status": "pending"
+        "status": "skipped"
       },
       {
         "id": "b16b1deb-f2b6-4d3b-b98d-4add21d69c51",
@@ -281,7 +286,8 @@
           "Explain SidecarManager lifecycle: spawn of the resolved helper binary, stdin writer/stdout reader pairing, last-activity tracking, is_healthy flag, idle timeout via env var, RAII RequestGuard counting active requests, and force_shutdown_sidecar called from RunEvent::Exit in lib.rs.",
           "Explain packaging: llama-helper builds with llama-cpp-2 features (metal/cuda/vulkan) mirroring the main app, build scripts copy the binary into src-tauri/binaries with the target triple, and tauri.conf.json declares it via externalBin alongside ffmpeg."
         ],
-        "status": "pending"
+        "status": "complete",
+        "completedBy": "openwiki/0.5.0"
       },
       {
         "id": "d0765cd7-aec9-47f4-9c15-385f7da0416c",
@@ -308,7 +314,8 @@
           "Explain request shapes: generic OpenAI-compatible ChatRequest/ChatResponse vs the Claude-specific request (system + max_tokens + content blocks); 300s request timeout; CancellationToken-aware generation in summary/llm_client and processor.",
           "Note that BuiltInAI is not an HTTP provider: it routes to the llama-helper sidecar via summary_engine (link to llama-helper-sidecar.md) and keeps everything local."
         ],
-        "status": "pending"
+        "status": "complete",
+        "completedBy": "openwiki/0.5.0"
       },
       {
         "id": "db95d2da-96ec-4619-a225-40a094937fdb",
@@ -334,7 +341,8 @@
           "Map the GPU feature matrix: default platform-default enables Metal (+optional coreml) on macOS; cuda/vulkan/hipblas/openblas are opt-in on Windows/Linux; whisper-rs deps are declared per target OS in Cargo.toml; cargo feature flags map to pnpm tauri:dev:* / tauri:build:* scripts.",
           "Summarize CI: all build workflows are manual-dispatch (build.yml, build-devtest.yml, per-OS macos/windows/linux, release.yml) per WORKFLOWS_OVERVIEW.md; release uses scripts/generate-update-manifest-github.js to produce latest.json; pr-main-check.yml and build-test.yml are the PR-time signals."
         ],
-        "status": "pending"
+        "status": "complete",
+        "completedBy": "openwiki/0.5.0"
       },
       {
         "id": "bfab5e7a-7018-4a1d-b2f7-7be86e4911ac",
@@ -361,7 +369,8 @@
           "Locate inline #[cfg(test)] mod tests across the Rust core (e.g., audio/{vad,decoder,ffmpeg_mixer,device_detection,incremental_saver,import,retranscription,permissions,system_*}, summary/{service,processor,language_detection,metadata,templates}, whisper_engine/acceleration + system_monitor, ollama/metadata, onboarding); run with cargo test from the workspace.",
           "State the repo's validation norm: prefer the narrowest quiet validation that proves the changed behavior, and preserve complete failure output."
         ],
-        "status": "pending"
+        "status": "complete",
+        "completedBy": "openwiki/0.5.0"
       },
       {
         "id": "48134098-9521-4fc3-bf01-8dc299df0326",
@@ -386,7 +395,8 @@
           "List progress events (stages: decoding/transcribing/saving with percentage and message) and the cancel/is-in-progress commands registered in lib.rs.",
           "Point to the ImportAudio UI components and useImportAudio hook for the frontend side, and note validated formats/extensions via AUDIO_EXTENSIONS constants."
         ],
-        "status": "pending"
+        "status": "complete",
+        "completedBy": "openwiki/0.5.0"
       },
       {
         "id": "4d7a10c6-c362-4937-aff5-a820cc6d88d5",
@@ -413,7 +423,8 @@
           "Explain the startup branch in database/setup.rs: is_first_launch delays AppState creation and emits first-launch-detected after 500ms so React listeners are ready; otherwise DatabaseManager is created immediately and managed.",
           "Note validation interplay: recording start re-validates the selected STT model and surfaces actionable errors when a model is missing, connecting this workflow to live-recording.md."
         ],
-        "status": "pending"
+        "status": "complete",
+        "completedBy": "openwiki/0.5.0"
       },
       {
         "id": "cfa67531-5223-4a63-a6df-b1819c0b3aef",

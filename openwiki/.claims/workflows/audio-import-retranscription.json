@@ -1,0 +1,504 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:d20df53bf9410cad6bc6f6828dbf40e73bfdadbc21dd274a4ee4dc66989622b4",
+  "claims": [
+    {
+      "id": "claim_dd41dbb7aada40ada080333a53b07f28",
+      "statement": "Meetily has two batch audio paths gated behind the importAndRetranscribe beta feature flag: import (audio/import.rs) creates a brand-new meeting from an external audio file, while retranscription (audio/retranscription.rs) re-processes an existing meeting's stored recording and replaces its transcripts; both share helpers declared in audio/common.rs (\"shared utilities for import and retranscription\").",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L1-L23",
+          "version": "repo-lines-v1:sha256:3ccaf1bccf5723e3759536f4227d395d778f4743dd35d3ecd504a8fa3a0430df:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc2NGE5MWEzOGY4YWZiMDFiNzZjYTI3N2VhNzZjY2I3NmJkMjMyYzkwNmZkZTdiYWE3OTY5YjYxZGYwZTZhM2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllYjliZTY2ODY1MDEwZjFlZGZkZTVmYTUyODM5YmE4MDA3ZmYwODk5ZWI1MTAyMzg3NjE5OTY2ZWMyMWNhYjkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI3ZTRmOGVjOGEyOWY0MmQyYzEyMzJmNmZmZWJlMWNiNmNiYzc1YzQ3Y2ZjZDhkZWY2ZmJiYzE1ZWE1ZTA0MWYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/mod.rs#L42-L52",
+          "version": "repo-lines-v1:sha256:c8c1c325caa0caad34b151ec75d818eb729b6dfc4e8c9fcf36b2705ffe358577:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5ZTZmZjZhMDdlYmY2YzIyODVkYzNkYWY0MjE0MzY2MDk3Njc0Zjc0ZWUyMzlhMGM4OTg0MTk3M2EyOWM3OGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImViZmZkZDYxZTMyZTU1YmI1OTQ3MjViM2FkOTgwNGQzMmRlNDFhNDFmZTJmZTYwZDc0NGVjMWI0MDIzODE3OGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5MTZkZTUwNDVjYjZmOTFlOGQzMTFiZjc2MzA5OTlhMWJiMDRlMDVjNzcyNmE5ZWUwODk4N2JhODIwMDQ4OGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ4OGIyNTEzM2FhMDc1NjBlYTA1YTQ2YmRhMGYwOGMzNzY5ODMwM2U3OTUyNjVlMGE5ZmViMTRlMTg3ZjBkZjAifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L1-L17",
+          "version": "repo-lines-v1:sha256:38f3bcc9401b4c27b05e138874ed440117ecb670a55a7a50934310c5e1ebed5e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc5N2MyMWNjZTMzZmI3NWRkYzU1Y2Q1MzQ2YTczYmVmNjYwODk3ZDZlYWY1ZjA3MDEwNDAyOWRkOTM5ZDg0OTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlOTRkZjYzYjJlZDdjY2IyMTk4NTQ5ZTcyZTEzNTk1ZTlmMWY4YzY1MDk1ZmViYzYwZDM5ZmE4Yjk3YmFiMWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBiZDQwNDY2MmY5ZTI4MDRmMTJjZDJkZDZiMzVkMGU2NzExYWY2YTJiZThjZWM2ZmQzNDNlZjA2YjIwMGM4ZDAifQ"
+        },
+        {
+          "resource": "repo://frontend/src/types/betaFeatures.ts#L19-L29",
+          "version": "repo-lines-v1:sha256:33fefd5813232dcaee3e9f1f6a603543631f262f136edcc321caafadb9e319ed:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmNGFlYjgwMTI2OTE0OGMzOTUxZTdlMjM2YjIwNjdjNjRiZGM5NTljZWUwMWY2ZjBiOGFiNDE4NzgzNTk5ZWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMWQxYTYzMzkwMjI5Yzc5ODM0N2U4M2EwNDA1NDQxYzk0MDAwMzUyODRhZDE2OGMxYmY2Y2RmMWQ3MGEzNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyZTMzNTkxMTAxMTk1ODlmZDliZTZmN2UyYWE3YjRhYTU3ZGY1NTFhYjJiY2M4Y2YxZGJhMzhjYTY1NWZmYTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJlNThiMDZkNmUzYzU5MmY0YTU2OWQ1NDMzYzc1ZmIzOTM3MjQ0MjhiZGI3MDY1ZDZiYzdkNTRjNDJhN2Y1ZWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_54ff38f966bc480cada596e9252cceef",
+      "statement": "Both batch flows execute the same pipeline body: validate/copy or locate the audio file, decode it, convert to 16 kHz mono, run whole-file VAD, load the engine, split and transcribe segments, build TranscriptSegments via create_transcript_segments, persist to SQLite and transcripts.json, then unload the engine. They differ only at the head (validate+copy vs. find_audio_file) and the tail (insert new meeting vs. delete-and-reinsert transcripts).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/common.rs#L17-L103",
+          "version": "repo-lines-v1:sha256:3b82402a359c9fd8934e752a58db7b2550b54ab069c7fc0fd2701d463efd9d76:eyJzZWxlY3RlZExpbmVDb3VudCI6ODcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNiOGVmYjhhOGY5ZTM1N2U0MTkwNzE5NTgzZDZmODgxZWJiZjNkNmMxOTY1ZWEyYjIxN2QwM2M0ZDRkN2YwMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlmZDA1OWU2MDc4ZTA4ZWY0N2IwNjg4ZGJiOTZjNTQwZGZlY2NkNGRlMGRlOGEzMzFiOWIxN2I3NDVkNWZmNDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ3MjAzOTJmMTc3NmY4OTNlZDgxZTJiZDAyZDU5ZTMzZGVjZjI5YWJjZTA0YWU1OTVlMDA5MmZlMGQxNzcxNjQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L311-L674",
+          "version": "repo-lines-v1:sha256:d78d15cb5b4f51207727710b2518c497d989b251e51ba1ad645896134a2bc955:eyJzZWxlY3RlZExpbmVDb3VudCI6MzY0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJhYjE3MGFkMTFlNWRiYTNkMjYyZTRlMjliZDIyODYzM2M4MmJlNzAxMGFmM2E5ZWM4ZTFhMDk2OWZmYzk1ZDI2IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI2ZjcyZjZhYmNjZWVmMTc5NDZiNWE1MTdjZWQxMmJhOGM1MDI2NTgwMDU3MGFkMTdjNWZlOGJjZThkOTIyMmJmIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI1ODI3NDk2ZjFkZWIxNzZiODI5N2VjODNhNTg1ZWRiNWE2NWQxMjBkNzAyNTA5ZTNmZjc3NzdkNWIzZTVjNmFjIn0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L172-L499",
+          "version": "repo-lines-v1:sha256:36b2964edbed7b18bad459232dda24c0a6cd6caba86201587a9675fa4a9e8379:eyJzZWxlY3RlZExpbmVDb3VudCI6MzI4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI3MmI0MDI0Njk4ODYzZDZjNDliOTdlMzFjYTNjNTNjOTAxYzM2N2QyZjZkNzA3NjU4MGVmZmZlOTFlOWU2ZjU3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI1YTYxYjQ1NjYwNDk0M2M2ZDMxOGJjODA3YmMxZWY4YTQxNjY4N2U1ZDYzOWRjYTNkYzdhMzZiM2U5OGYwNjdmIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJkZmQ1ZTU1YzhjMGQxOWJlYzc1ODRiOWE1NzFmMWYzOTNkNzNkNmM2ZTFjODIzNzNkNzU2OWI2Y2Q1MjAyN2M4In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_819078614ead4240bb97335cc0403133",
+      "statement": "Each batch module owns a static pair of AtomicBools (IMPORT_IN_PROGRESS/IMPORT_CANCELLED and RETRANSCRIPTION_IN_PROGRESS/RETRANSCRIPTION_CANCELLED) plus an RAII guard: acquire() performs compare_exchange(false→true) and returns the error string \"Import already in progress\"/\"Retranscription already in progress\" when set, and Drop stores false unconditionally, so the in-progress flag is cleared on every exit path — early returns and panics — with no manual reset.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L25-L52",
+          "version": "repo-lines-v1:sha256:545777eb72ac4c9d670b3cfbf0d10cc118b245643e6a9547874c76721e949e98:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjZjEyZjAzNTc0MDFjNWQ0NGQxZDc2MDI4ODM3YzJmYzdkYzVmOWM3MzA1NjllOWUxZGQ4ZTRiYmE3YjhhMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRlYTllOTA0OWE2ZjFmMGQ2M2VkNTZjZmI0M2I1ZThiMmZlYzgzODNkYzZjM2E5MDdjYWQzNGQ5ZDI5NzgzNjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJkZjA0NGY3MTA3YjllMmU4Y2ViMmFjYTE4N2FjNDRhN2M1NjU3NzJiNDMwYjRhNWM2OGQxMTc3Njg1MDI3NWUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L19-L46",
+          "version": "repo-lines-v1:sha256:5ed1734c2d1b961f3bd5787dc12aaa0686f6d93e3a4de132e3192cb8eba4da2c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwMmY5ZjhjYmYwZWQzOGY0YjQwYmFhYjM1ZTljNmJjOWE0ZjE2MTgwNmYwNTFkOTdhMWJlZmIyMDE2MWVjNGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyZTIyYjhmMDQ1NTA3OGFjNmI4OGFkYzU0MjQzMTAxM2FhZTQzMzY1NGI2YzZjMTRhZmZkZTlhMDg2ZTc3YTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJkZjA0NGY3MTA3YjllMmU4Y2ViMmFjYTE4N2FjNDRhN2M1NjU3NzJiNDMwYjRhNWM2OGQxMTc3Njg1MDI3NWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ee043ee3bafb4371996ba0f008fc6c87",
+      "statement": "start_import_audio_command and start_retranscription_command pre-check the in-progress flag and surface the \"already in progress\" error string to the UI before spawning, then launch the batch via tauri::async_runtime::spawn and immediately return an ImportStarted/RetranscriptionStarted response; the RAII guard inside start_import/start_retranscription re-checks atomically, closing the check-then-spawn race. Results arrive only through terminal events.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L962-L989",
+          "version": "repo-lines-v1:sha256:226541951301843acd2517372a837d48bd4e761029a4b5463f2f41e61b0b3624:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjZTc2NDA2ZDZjMDczZWYzMDdhZjllNGNjNDRhZWQ5ZTBiYTZkYTA1MDFkNDgzMjJiZGJiZWY3YTdhYzIzMDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZlNWFiYWIyMDYwMGZjMWZmOWNlYWVjNTI3YWFkZmYyMDU2ZmI0ZTczNzAyMTVlM2MzYzNmMjVjNDVhMjk2MmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBiMzg3YzM0YWZhNGM3ZWU2MWQwMDNjYzRjMzZiYzgyZjdhZjY0MTNiMGQyNjQ4YjYxM2U2NWE1NzczNzIyNmMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L777-L819",
+          "version": "repo-lines-v1:sha256:eb91f42dba6a4cff97c63ab2e440766753037205bb71338aa12f040ffdcd6b0e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ2OGQwODNhMzczZjMwN2ZlOWRlYmRlN2M5NjQ1M2QwOTA5NDUzMGYwNjVjYjVkODUyMDdhNjA1NGU2NmNmZDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZlZjhhMjhlZWRmZDFiNGVkYmMzNGVmNGY2YzkxZTVhODAyZmFlODRkZDA5YzE3MzRmMWEyZDdjNjc3M2JkNDkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImExZmI4ZGYxZTRkZTc1MDcxODJhYTYzODAyMWQ2ODg0OTA5YjczMjE3MmI2ZmJkNDJkYmQ3Yzc0NmUwOTM4ZTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_48b326924a9043a1ad7d0275e08c1b77",
+      "statement": "cancel_import_command/cancel_retranscription_command set the cancelled flag (erroring with \"No import/retranscription in progress\" when idle) and is_*_in_progress_command expose the flag. Inside the batch, the flag is reset at start, checked between stages and before each transcription segment, and polled inside the VAD progress callback (returning false aborts VAD with \"VAD processing cancelled\"). On cancellation import removes the meeting folder it created at each checkpoint; retranscription needs no cleanup because its DELETE+INSERT transaction commits only at the end.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L336-L506",
+          "version": "repo-lines-v1:sha256:8e780e09281a49165b3b39070d0426bdf5b37714de6ed86830a18c56623c9380:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjMDMyYjUxYmNlNjVhZTE3MTZhZWQ3M2M0MjEyNTY3YTlmNjRkMzVjZjBkMTU0MzY1OTIyZjU2MmM3YTZlMzUzIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlYjY3NGY2OWRiNmJkNTcyODJiZDU5NGI5OTEzODg1MWIwODcxYjBmZTdiNzhkYzNhNTlkNDlkODE0ODU5Mjc5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0NDlmYzY3N2VkNWYwYzJmOGUwNjg1ODYzNTNiNTgxNTE2MWIxYTk1MTYxMjcyOWJmNWFhYTQ4MDVjNmM3MjVjIn0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L990-L1005",
+          "version": "repo-lines-v1:sha256:fab7edfb8e7798da0945a9cfcb29897a2e2ad24b0d28ec0e186c8eb599f4858e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIwZTZmYWJmZjRjNDdkOWFjNzM1ODFmNDQ1MjA0YTI5MGQxZTJjM2VlZGUwZjA3ZjkxODA2NmFjMDVkOTI5YjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdiYzk4ZDZiMGRjNDkyYzUwMTZkZjEwODA1YTNhNTRlYjljMTg0YTVhNjEzN2U3ZjRiZWNmYTBjMjIwNTUwZDAifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L429-L460",
+          "version": "repo-lines-v1:sha256:b3b464fc8d20c4631bf1f666826d36d674abc0d3b1f3371d41a88ffe1728a7a8:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1ZTI2NGU0ZDY3NjAzZmE2YjNkMGFjZjBlNzFmMDAzMzMzMzg0ODQ1MmQwOGYwN2Y3NDkxOTVkNTFjZDFlZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjMjQ3YTQ1OTVhNGVhZDljMjIxNjJiYWEzNmJjNzA4YTg2ZmY3MWNlODEwZGQ2NmE4ODQ3NzNkMWEyNzU1M2MiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEwZjllMDM1ODA4Yjc2OGE2YjIwYTM3ODg5YzAyNWY4NzQ3ZWMxNzUzYWUzZWUxZTcxYjViMmU2NDcyYzZiMzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcyYmJlMWM3NzZmZDlhZGMwMGEyYmU2ZWRlZDI0MjgzNjM2NzA3Zjk3YjhiZmY2ZDFjZjM2ZDNhNDMzZTc0ODYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L821-L833",
+          "version": "repo-lines-v1:sha256:0e342879a1057a67002bb74746c69415d628d1b800f7764a2043d6c20ba2a648:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMWVlMzNlZTk1ZmFlZTFjMTBlOWViZjNkM2RlNDFiYjE5MjUxNWNhZDc3Y2RhMjA1ZTU0NmRhMTcwMDFhNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwNjNjNGQxYWY4Y2Q4OWJiMGJkZDc2NTdmZmNiZjY4MDZhNjEwZDc5ZDZjOGQ0YzMwN2MyNDFkZjM5MDA1MjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdiYzk4ZDZiMGRjNDkyYzUwMTZkZjEwODA1YTNhNTRlYjljMTg0YTVhNjEzN2U3ZjRiZWNmYTBjMjIwNTUwZDAifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/vad.rs#L383-L394",
+          "version": "repo-lines-v1:sha256:94b6e200c1555898f85eb75e1aed049ae2174549d07b1efda8ab29721ed2a12e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4YzAwNmIzMGY4ZTYxNDg4ZjQwYjBiNjEwOGI2MjBkNWY4YjI4Mzc0NmM5YTFlNjViYTFhODg3MWYwMzM4YzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNlMWYyYzU3OWMxMDdiZWE4NGY0YWYxZGNiYThmYWVkOTdhNGE1OWQ3MzFkOTBhYTM1ZWQ0YjNlN2Q0OWMwN2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJlMDM3ZjZjY2E5NDA3Y2IyMmUzYWNmYWJmNDIxYzY0ZGZhZTc5NzY1NmI1MTRmNjIzYTI1NDVjMjAyZjVlMzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9b0ea4e5515c43e9927f67eb0211711d",
+      "statement": "Both flows end by calling common::unload_engine_after_batch(use_parakeet) after success, failure, or cancellation. It acquires the process-wide ENGINE_LIFECYCLE_LOCK (an AsyncMutex handed out as an OwnedMutexGuard, serializing engine lifecycle operations — pinned by a test), skips unloading entirely when recording_commands::is_recording() is true because live recording shares the same global engine instances, and otherwise calls unload_model() on the WHISPER_ENGINE or PARAKEET_ENGINE global.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/common.rs#L10-L47",
+          "version": "repo-lines-v1:sha256:8f388564ca964006d7bb801ad231253c5cb4b71235428745063be6e4b5a9dbe3:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNhNjVkMjgxZDU3ODQyYjRiZDdjNmU1NGRjZWY1OGQ4NDcyZTZjYTBjZjljNTRlNTM0NmI4NWIxM2U4Njg2ZDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdjODdlYjYwNjdmM2I1YTE3MmE4OWFlYWNiZTNhYjUwYzJmYjZlMTAwNTc4ZDVjZTcwNTM5Yjg4YzhjZmJhY2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwZjUyODMzMmMzNmU5YTUxYjkxNjBhNmQxNzg3NTk5ZWRmMTc0MjZlNTIwMzdjZjFlZDZkNThmY2Y1NzVjZDMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/common.rs#L218-L235",
+          "version": "repo-lines-v1:sha256:8299cbd4dd17ec9fc5cb4ae4a08a0e3f8a4657c7b568ef740decdba1bf95bed5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxY2M0MDY4N2QyNDRlOWRhZjkxY2VkNDY1MjMyNjU2OWE0ZmI2ZGZjODFkMDNmYmU3MjNhNWVhM2NjYmU5ZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5ZWMzYjNmYzljZWRmMDgyMDRiY2M0YWUwYTVmMTMwYzhkODEzYjgxNTQ0ZWQ0NGVhYWJjYTA4ODEzOTg2MzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L278-L283",
+          "version": "repo-lines-v1:sha256:e0c96536d00acfb266fdec33b9ecec1df7d022334f4b08c0fcb9ba59ca07ff39:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTI1ZDdkOGJiMTc3NDZiNDg5MDdlZjNkNTE4MDZiYjhiMDg1NDIyOTNiNjlhM2VlOTUwZTYyZDVmYjIzZDI3OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzUzMjE2MThkZDU0M2Q0YjY0ZGM2ZDFhY2UwZjYwODdhOTcyN2UyNDEzYjY5MDAzMjZiZjNhYzhjNGJiM2I1YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDkzNTFkMzA3ZjRkOWUyMjMwNDJkOWMyM2M5YzliYWFhZjg4NTZmYjZlZTA3YjMzZmJiMTdjZTI3MDU3OWY4MiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L899-L902",
+          "version": "repo-lines-v1:sha256:db50fc4dbf4871b9c8c04b99f8637d540d180cd15916b01a6c77a8d8bdf75a4d:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTBkMzJkMWViNGJiYmE1Y2ZjZmIwMDQ3YTA0MDdmOWM5MmIzYTUwNzFkZWZjN2FlZmUwZThmNWRhYjZhNWM1NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzVmNmY0NjZlNTljZmMzMDcwM2M0NWY3MmFmNjVkZTU0YWMzNjNkMzU0Y2MxYTMzMzAzNTBhY2Q0NTI0MzRjNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTMwNDRiMDlmMjVjNDJhYmQ3NzIyM2I2ZGVlM2ZkOTk5OTA3NjRmYjZjZjJiM2MyNmE2MDgwZDA2OTJkMzMzNCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L107-L111",
+          "version": "repo-lines-v1:sha256:3ec4a9897a5e48807319fd28d2534060b6f79d55cbcb9eea2241912f98b4389c:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGM3MDI2N2UxMzgxZDljNjk2MWYwMTUwNTBhYzY2M2I4NWM5MmZlYzBkMDFjYzcwNzdlNjgzZTU2ZTk1Mjc2MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjYyZDhhZjU4ZjhjNDZkMTczOTZmZTgzYzU0YTUyMDExZDAyNjBkNzVkNjA0NzJmMzhhNmQwMWFmZGJmNzNhYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDQ1MWQ2MWZmYzFmYjc1ZThiM2VhYzEzY2MxNWJjNDk1ZTk0YTdhYWQyYjZhZWQ4MWY2MGFiYjJkMTM1YjQwZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDkzNTFkMzA3ZjRkOWUyMjMwNDJkOWMyM2M5YzliYWFhZjg4NTZmYjZlZTA3YjMzZmJiMTdjZTI3MDU3OWY4MiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c08598e90a604dc2934db352bd1f2d13",
+      "statement": "Import creates a new meeting folder via create_meeting_folder (sanitized title + \"_YYYY-MM-DD_HH-MM\") under get_default_recordings_folder() — the platform-default recordings directory from recording_preferences.rs, not the user's saved save_folder preference — copies the source file there as audio.<ext>, and persists the meeting (id \"meeting-{uuid}\", folder_path) plus all transcript rows in a single SQLite transaction.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/audio_processing.rs#L35-L58",
+          "version": "repo-lines-v1:sha256:52039eaad2259a04c016ba361f65ae9c5cdae4f64b9453b48f72890216a88614:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlYzg5NDE5N2EyNWE5ODdjNzBjN2JiNjk5M2VjMDhkNmMyNjcyY2U4YzkzZmJjMDQ0Nzg5Y2ViYjMwYmYxNjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBmNTFlNWRjMDc0YmMyNDgzNGQ2ZjE1OTU4NjRmMGQyODZkMDY0YTMxNDI1NWU0MTVlZDk5OTdiNjU4ZTIzNmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZlNGJhMjI3Mzk5MzlhZmM4YjZiOTAwYmRmNDg4ZjM4NTA0YThhNTRkODhmN2Y3Y2E5ZDdhNWY3OTcxMjlmZTQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L341-L364",
+          "version": "repo-lines-v1:sha256:d7f57354cde5416a2231809cf38e4216ab6ebfdf93ee8118ddb316e6f04d5cc7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3Y2VlNGViNzk4ODhmMzg1MTA1NGRkNTU0YTZlNjZiMDFjNjJiMjY2M2E2M2ZhZDNhY2M5MThjYzcxOTI5ZTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk0MDY4MDEyYTAzZjY0YzlmZGJjMTc0MWJkNjhiMjYyZWJjYzZhNmRjZDE3ODFjYmI3YTAyM2YyZTIxNGYxZTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc4MjEwMDNkZmZjYWJhMTE0NmRiMDQyY2IxNTYzNmY2NjUwMjM5MTcwNzQzZDViY2ZlZTI5ZWY3YmZmMWI1NDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRhNmE1MDc2NmE4YmJmZGVhZmJiNDdmY2UxZTFjMmNhMjU3NDg5OTQ5MGI2YjA4YjhkYmFmNjY3ZDM5M2I2ZTYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L689-L748",
+          "version": "repo-lines-v1:sha256:d634b52ee091cc27ca81e9404b508f36a2f8364cc88384e389ab5725325416ea:eyJzZWxlY3RlZExpbmVDb3VudCI6NjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNhZDE2Njk4NjRhMzNmNDVjMTRlY2FlYWUzZTZhNGU0ZDJjMDFlNzc2YWMwMzZjMWQwOGVhOGVmYTAwNzc4ODYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5ZjkzMDgzYzE5NzEyMWI5ODI3MDBiYThhZmFiZDE3MjJjZjFkM2U3NDA0NTA5ZTgwZWZhMjcyNDdmNjJmMDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImViODFiZWRmNGRiNGM1OTQ1NjRiNTk4NTk1YzNhZDUxZWE5ZjU3MGM4NmQwNDkzNzEzOWQxZTViNTZhNzkxNmIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_preferences.rs#L42-L77",
+          "version": "repo-lines-v1:sha256:52cf77c226117bd347cd5ca8219f985eca2771b27b5bf0fc13e52d42e44b3e46:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxOTg0ZGM2NzUyNjYwZmY3ZTAxYjMwODc5NzQzYzkyODhkZmE5MjljNTZhYjFlOWUxODU1NzA4NDJkODk4ZWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2NWY2MDA2Yzg2MGY5ZDNjNDFjZmYwNTdmNTg0N2I0MjYzZjkyOGY3OWUzYmRjMWMwN2Y5YzVkNTgyYmIzNDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3576e0600f5a44ebae11c118ede6f6ce",
+      "statement": "Retranscription locates the existing meeting's audio with find_audio_file — fixed candidate names (audio.mp4, audio.m4a, audio.wav, audio.mp3, audio.flac, audio.ogg, recording.mp4, audio.mkv, audio.webm, audio.wma) first, then a directory scan against AUDIO_EXTENSIONS — and replaces transcripts by running DELETE FROM transcripts WHERE meeting_id = ? plus re-inserts in one committed transaction, leaving the meetings row untouched; write_retranscription_metadata preserves existing metadata.json fields, adds retranscribed_at, and removes detected_summary_language.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L139-L169",
+          "version": "repo-lines-v1:sha256:9972d6b3a12e4cc8ec891e4c0deb7b408fc3700f698b0a85b9ffd851f63ffde4:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhmNmQ2NjJkYzVlYWI3Y2I4NmZhY2VmOTY4NTgwYTk0NWQ3ODYxZDY5MzQ5YzNkNzM4Zjk3NDE5ZDcxMzkyMTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAzYTEwMzdmMDcxOTYxZmIzYjEzYTdkYWZmNjlhY2MyYmFiODEwZmU4YmRhMTZhMmIyMjcxNTU0MzcxNGNjNzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzNTc2NzgxYmMxMzM3N2VkZWEwZGEzZmVjNjgwOGI3NGY4NzlhMjBhMzQyZmE4MDc0NTJlNzZlNjYyOThmMmEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L429-L466",
+          "version": "repo-lines-v1:sha256:36849237b2b817e0ec05f00ccc103690d50b6159e32b2d66e5b011493c092f63:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1ZTI2NGU0ZDY3NjAzZmE2YjNkMGFjZjBlNzFmMDAzMzMzMzg0ODQ1MmQwOGYwN2Y3NDkxOTVkNTFjZDFlZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0ZTQyMDhjZDZmZmI4YzRhMzU0N2IyZjU0YWRhMTk5NzhjM2YzNjVlNzhmOTUwMmVmNTE0NWNkZDJhYTg1NDMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEwZjllMDM1ODA4Yjc2OGE2YjIwYTM3ODg5YzAyNWY4NzQ3ZWMxNzUzYWUzZWUxZTcxYjViMmU2NDcyYzZiMzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImExNzYxMzMzNGEwYTY1YjQ0OTdjYmVkOWFhNGUzY2JhOWVmNGQ3NzA4NmQxNzczMDdmOWVkMTU2ZTYwYWIwYzEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L723-L766",
+          "version": "repo-lines-v1:sha256:6aae06e537174419ba96b350167b007fe9e960007609c6464dbde0b8c2b44507:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1ODZiZmEyOTE3ZWE1NmVmMDgwMjhjODcwNjk2ZmE1Mzk0MTg4ODFiNTk2NmI4NTI4OTk4MGRmZTFjMjFkODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIzYjQ1NGRlZThlZDkyNDUxZWEyOTEzYzhlODJkODUyMDkwZWFiYmJiNWVlZDM4ZDVmZGMzOGRmZGNmMjc4NjgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_768e6bde02d44522914cf85635838a30",
+      "statement": "validate_audio_file enforces, in order: file exists, lowercase extension in AUDIO_EXTENSIONS, and size ≤ MAX_FILE_SIZE_BYTES (20 GB, guarding against OOM); duration comes from a metadata-only Symphonia probe (n_frames/sample_rate) with a full-decode fallback when metadata is unavailable. The resulting AudioFileInfo supplies path, filename (used as suggested meeting title), duration, size, and format to the UI via select_and_validate_audio_command (native dialog filtered to AUDIO_EXTENSIONS) and validate_audio_file_command (drag-drop).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L119-L190",
+          "version": "repo-lines-v1:sha256:bb4bd08dffab572f790a9fd0ed908764c9660d8ba154f2c6a6a95b5e4dac459b:eyJzZWxlY3RlZExpbmVDb3VudCI6NzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxMmFlMTYyYTgwMWJjNjVmZjBmYzJjMjM3NDhlZjczNzA2ZDE0YWFiNDRhOGVmNDU1MGE5ODMwN2U5NTM0N2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU2ZTg3NTJhZTM1NzFlMjgzNTIzMzFjMmFlMGVhYzlmMDZjNDA4M2VjNWJkOTdhNjYyNjIxNTAyODkzOGNkOGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhlMTRmZDA0N2IxYjhiNTc1MjI0ZGE3YWJhYjI5ODNjYzY1N2QxODMzYWY3NmY5MDBjZTExNzQ2OGQ0ZjdjMWEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L192-L251",
+          "version": "repo-lines-v1:sha256:555931a2e05ca4e510b5c3165b6d9fd93970fd70d1335d9605ddb3937779fff6:eyJzZWxlY3RlZExpbmVDb3VudCI6NjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3N2ViN2JiOTBlZmMxYTRjMmY2YmM4MmQxMjhjM2Q4MzU4NDMwNTg4YmU5OWI4NmU4YjE3YjhhNGE0N2Q2YzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwNjNjNGQxYWY4Y2Q4OWJiMGJkZDc2NTdmZmNiZjY4MDZhNjEwZDc5ZDZjOGQ0YzMwN2MyNDFkZjM5MDA1MjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU4NWRkZTk5YWRlMTIyMGQ2MWM1NjBhZWYwZDI4NzIwNTUxMjk0OTRmZTg0ZDkzYmFhYzVmMjMwMDJlNDE1YWQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L60-L61",
+          "version": "repo-lines-v1:sha256:40e52eb33cdc9b4b29353bb15eee6a4f5913ffde0c0bf9d504332f6a016545ee:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODcyNjQyMmVlNWJhZmJjOTg3NWYxYWU1MzhiNjExZTJkNTQxNjNjYTI4NzU5NWYzMjNjNGUxNzI0NmRmY2Q4MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjI4MTExNzVmNGYyMDVhMTczZTQ2NTIxNTE5MTAxOWI3ZGM4M2Q5YzY1NDc5NjMwMmI4NWFiMGY3NzdkNTdmNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTMyMjM3M2VlM2ExZWM4NTFiOGYxNTkyYTgzYzFlNTY0NWRkM2Q1ZGE5YjI3NjJkN2ZjNDg5MmQ2YWE4MTE1MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDRhOGU4MGVmNzFkOWFiMjhlMDQ1YmVjMmRlMjNkYmFjOGY0NWU2NmU5NTQ1MTM0NDhiYjgxMWE4Yjg3ODhmYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_56796eb065c04b9ca7a9342333d2f0a6",
+      "statement": "AUDIO_EXTENSIONS defines the ten supported formats (mp4, m4a, wav, mp3, flac, ogg, aac, mkv, webm, wma) in Rust (audio/constants.rs) and is mirrored by frontend/src/constants/audioFormats.ts with a \"keep in sync\" comment; the list drives the file-dialog filter, validation, the retranscription directory scan, and the frontend's isAudioExtension drop check.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/constants.rs#L1-L7",
+          "version": "repo-lines-v1:sha256:7362064439058e008e5b4430e4a8b139e8f93750923e192133dcdc8fafa5357f:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjUzZWFmN2FkMTU3NTdlMTFlODg1NTYxMjU0MmIyZmVkNGJkMjk2MGE5OGNlZjYxMGI0YTcxMmFhNDM0OGNmOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjAyZDJjMGQ2ZGM1ZTc0ZDkyZmExNGI5MWRiZWEyNjQwOTBiZWIzNWZkYjkxODhkOWIzNDExODFkY2U5ZjRjZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L925-L933",
+          "version": "repo-lines-v1:sha256:f1aae47acd64709725b01f8322001c1fe30361559940fe782e4a196eb11fe9a7:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGFhZmI0MjBjNTc0MzFlNjE1ZWFkZWU4NjM2ODFmNGIyN2IyODk2OTBjOGMxMWQyY2I0NGRjMmE4ZmYxNjliYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjAzZTEzMmI1MjA4ZmNlOTFiYmVhZTFmYjQxMjY2YTRmZTVhYzViODIyOWYyODA2YzhjNmNiMzkyYTE1MWRjNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGU3YmY5Y2QyNTZhMTcyODI3MTg5MGE5NTZkMDlkNzcyOTlmZjkzNjNjYmJjOWU4YTg4NjU3M2QyNzkyOGIxMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzUwMmJhYjlmMzczMDViMzdkYjgxYWMxMzhiZDc5MTYzMjQzNjYyMjAyZTg3Mjg3N2YzNzM4NDU2YWU3NjE3NiJ9"
+        },
+        {
+          "resource": "repo://frontend/src/app/layout.tsx#L142-L146",
+          "version": "repo-lines-v1:sha256:012e423fa49077564137319233b91c2b98ddb092c3c0408d211acd2766c62887:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ1NDk1Mjk0MDFhOTM2NDVhNDZjNGMxYTllMWI5ZmViZjFiZDJjMTM2YmQyNjYxNTk2Y2UxZWE2OWJhZjRhYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjJkMTFjYWY0M2U5N2VmMzY5ZTZiZWVkMWEyNjhiZDA1ODM4ZjI5YjlkZDI1NGJmNjliYTY0ODg0MTQ3MjM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmE0MWQ3M2M0NTIyYmVhMzlmZjgxNWUyNGJjZjEzMTE4NTMxZDY3MWViM2NmNTMxMjE4ODVlMTFhMWM0NzI0ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWFiYjYxNzM2MmRmNzU2NDU2ZDYxNjJlOGJiMWY5MWU4YjU1MGQ2ZmFjNjJiYzJhZGIzODQ5ZDQ1ZGIyMjNmNiJ9"
+        },
+        {
+          "resource": "repo://frontend/src/constants/audioFormats.ts#L1-L17",
+          "version": "repo-lines-v1:sha256:1090d895128b54605db61354a51e9e508fab4bcdc19305d366ab246391bc09da:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxM2ZiNGRkNzgwMTE0YTllMDU0NzAyYzliNWI5MWY1ZGU4YWMyNjIxMDg2ZTVlYmY4YWQ5MDg1ZTI4MjRlNzUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c384a15686fc4e1582d75366d3deb7e3",
+      "statement": "The decoder decodes with Symphonia and pre-converts formats Symphonia cannot demux (FFMPEG_ONLY_EXTENSIONS = mkv, webm, wma) to a temporary WAV via an ffmpeg subprocess; the TempPath guard auto-deletes the temp WAV when decoding ends even on error. DecodedAudio::to_whisper_format then downmixes to mono, normalizes/clamps samples (including post-resample clamping because the sinc filter can overshoot ±1.0), and resamples to 16 kHz — files above ~5 minutes at 48 kHz use parallel 60-second rayon chunks with a 100 ms cross-fade, falling back to single-pass resample_audio on chunk failure; linear interpolation was removed because its missing anti-aliasing filter made VAD miss ~99% of speech in long recordings.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/decoder.rs#L111-L127",
+          "version": "repo-lines-v1:sha256:63bf0436dda80c679c3b06c93ad02433104ab88955c6c0f963d3e12513aeb9be:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiNWUwYTEzYmJhODNjYWQ1NDBmMzMzOTlkYWZiMjQ4ODA1NWQxNTQyNmY2Y2ExNmUzYjQ4NDkwMjgyYjc1NzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2NDZlOWU5ZjI5ZGEyMTFjMzJkNTZiZGQ0OTYyMDZkOWQ4YTk2NzY3N2YwNzZkYWY4NmMyN2JhMDdjMjczZDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzZjZhYzgxNDAxNmMzYmIyODRjMjRkNTI3NGQwMzY0Yjg3NmFjMGM0ODEyM2Q1NDhjOTM2MmM4MDI1YTlmMzcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/decoder.rs#L22-L23",
+          "version": "repo-lines-v1:sha256:7bbd626a72e50eb66cbd4df316f2b1e6d4ac86e8f690276bec8d6ffe463b4b8a:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDUyNjQ1OTRkYTRjNjk1YzcwMDczOTJkNTM2ZTI4MDNiMTZkNzk2M2I4ZWJjZmVjZTMzZDkzMTc3YTI5OTNkMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWNkYzkzMDVkNGJkNDk5ZjMyZTEzNmFiYzYyYTdjZDJlZjU5MmEzNWY3MWFhOWY5ZGEwOWRlNTE0NTEyMjM0ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjA3OTg5ODEyYWVlZWFkNDE4ZjM4MDk4MjI5NTk1ZGE4ZWI2MmU1MzhmZWNlMDBkMmM1MjNjZjk5YTE4ODBjNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjk2ZGEyM2FhNGUyZjdmOTgwNzllMDEwMjdhYjY0ODc2MTdjMjgyOGMxOTk1NGUxZDFkZDk3YTQ5NDIyYTcxMyJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/decoder.rs#L272-L297",
+          "version": "repo-lines-v1:sha256:63955dfaf8b37a1e55e76557c6480472f11851225ffa49fbb3e7663673eb2db6:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNmMWJjYTVkZDVjMTQ2MmU2MWIxYTcwOGFkNzU0OTRjMWI3ZWNkMzM5Yjk2NDNkYmFiZmRjN2JlOWUzY2FiNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjNjFlNmIwMjJlODdkYjdlMGQ3NmJjY2QwNzk5ZGFiZmIyMGE2ZTY5YzVmYWFjMDY4YjJhN2Q5ZDdmOTkxM2YiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5MmM4MDc0MWNjZmIwOTJkN2M1MWJiODY0NTlhZmEyNTc5MGNjZDFjNzZiNmYzZWQwYWJlMWU2YTc3OGQ0YmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjllMzVhNzhmZmQ2MWY4MDkxNGE4OTBjYTc0NGYxOWRjZDI1MjM0YTZlOGJjNzFjMzlmZTg4NmI3MDE3ODgzYzQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/decoder.rs#L397-L421",
+          "version": "repo-lines-v1:sha256:dd608ca25eeb8a3911a8ece2cbf016d0933a4b34a5609ed27bdb3f389807c4b3:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgxYTk2OGJlYjJmODcyN2QxNGYwYzE1OWEwYzRjY2YzZWEyMTZjMzhlZjQ2MDEyZmVlNmUwMjc1MzI5ZTI5OGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1Y2RlZjgwODVhZTc0YWI2MzZkNjQ1OWY1YzZkNWZiZmIwZGIyNjRmMWIwZDc1YmFjNTE5YzliM2Y2NzE3YWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEwOWQwOTRlYmExYjhiMmZjZWFkYTFkNmFjNjg5NGNiNjQ1YjJmYzk2MTliMzJmMjgxODc2YTQ0ZTE1NzExYjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRlN2FjOWJiNzA3NTEzNDc1NGNmNGIzMjNkMTFmN2E4OGVkNjVkNzkyOWZjZTRhZjA5ZjJkODk3ZTkwYTFkODkifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/decoder.rs#L42-L108",
+          "version": "repo-lines-v1:sha256:f19cb40219a2efd50796918db614767a76631783697989c4bb30dad7172f56b2:eyJzZWxlY3RlZExpbmVDb3VudCI6NjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0NWM5YTU5YzdhM2IwYWEwMWI5YzcxZTI4NWI4Y2Y1NWFkMzA2MTNhOGVjYWFkMzVjOWZiMWU2NDkyZDUzMjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyNzYzNWY2YThkMDU2ZjI2ZGUwNzQ4YzdlNmIzOWQzNmYxYzcwNGUzNTMyYTc4ZjIwMGEzODEyYjY5NWE1ODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ1MjRkNTM1NWZiNDA3NWM5NmFjOGZhNzYyNDcyMmM2ZWMyNGYxN2Y3NWMzMWI3OGViNDcyZjUzYjQwM2U5YzcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4dd1ee43ab8b43d2b32c57836120d58c",
+      "statement": "Both batch flows run whole-file VAD via get_speech_chunks_with_progress with VAD_REDEMPTION_TIME_MS = 2000 — four times the 400 ms redemption the live pipeline uses, because batch VAD sees the entire file and a short redemption fragments speech at natural sentence pauses. Files longer than one minute are processed in 10-second chunks with a (progress_percent, segments_found) callback that also carries cancellation; segments under 1600 samples (100 ms at 16 kHz) are skipped before transcription.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L54-L58",
+          "version": "repo-lines-v1:sha256:df5310d5d4f96130b54519c7aa7e3b26619fe4ce9ab4c43677eca970c664c0c6:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzRkODI0ODBmMGIzMTljN2E2YTQ4NmUwMTUzNmQ0YWQwM2MxNWNhM2NkMTQ1ZWZiNWVjY2JhMjlmYTBmZmU4ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmQ4ZjE0MjMwMWM4NWQwNWU0MWUxMjA5NWU1ZDM0MmRjZmRhY2U2NjE4NjA3N2U2OTZhZDZkZGYxNTczNzM2OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTllNzYzNTVjZjExOTk0ODBjM2Y5OTgzNmIxNDg2Yzg0MWQ4OTFmYWFkOTA0YzYwOGUwOTMwMjJkMzc1N2FlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjRjNzA0ZTE5YTM4MTM1YjY4M2U1MzdhYzhkM2E2YTI1ZDI5OTIyMzYyOWY0YzEwMTMyYTEyNjk5NTBlMTc2YiJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L571-L579",
+          "version": "repo-lines-v1:sha256:1a34e89fe1ba1ffa3b2ac670a5c0c5dc262722c88674058ee51eba9d107d3c65:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDQ0MWMwZTMwN2ZjOTM3ZTA5ZGE2ZmMxODMyZWEwMWQ4MzVlMTNhZWIzY2UxNzkyZmJhN2VkNTY2OGI3YjQ2NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZiMDQ0OTE0Njk3MjJlODM2M2E5NGU0MDQ0NTM4ZTAxM2EyYTIxN2UzNmIxZTU2OGJhNjBhY2I3YjRjOGYyZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjBhMDg2MmRmMzQ5ZDQxMWMyMDU3MDM3NWQ0MGU0YmZlNjU0MjQzMzQxNTQzYzJlODNkODE3Mzk2Mjc5OTk5YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWQzNjkwMTkwOGU0ODcyOGU5NDRiMTdkODJlMWM4YzBiNDU3Mjk5MGU2YTM2ZGM0NWMzOTE4ZWYyMzM3OWU1NCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/pipeline.rs#L722-L729",
+          "version": "repo-lines-v1:sha256:a7241c7286890110090b9b5d04f223cbc9bac423584368c91f733581ad49321f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTJlYWRiMjEwZTAzOGVjZDI1NmI3NTlmNWY2OGYxNDI3NmU0YzM1ZTNiMTcwNDE3ZGFkZDk3OGQwNzEzYjQxZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzJkNTRlMDU4MjQxZGFhZDFlYTExODg5NzQxNjAzZTliZGMzOGQzMmJkYjIwODU0OWM2MDBkNDhhMmZkYzUyMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTkxNjc5MmQ1YmExYjc5YTQ0ODc4MDAxYzIyNWNhYmYzNWVkN2I3NmE5NWFhMTAwYWQzM2EzNGVhNmEyOTk5MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2JiM2M1ZTRiZjMwMmQ0ZTViMTNjZWQ3N2M2MDE0NzlkYWI1NzUwYWNjYjcyYTk1M2I0NWY4YzE3Zjk0ZWQyYSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L48-L52",
+          "version": "repo-lines-v1:sha256:df5310d5d4f96130b54519c7aa7e3b26619fe4ce9ab4c43677eca970c664c0c6:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzRkODI0ODBmMGIzMTljN2E2YTQ4NmUwMTUzNmQ0YWQwM2MxNWNhM2NkMTQ1ZWZiNWVjY2JhMjlmYTBmZmU4ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmQ4ZjE0MjMwMWM4NWQwNWU0MWUxMjA5NWU1ZDM0MmRjZmRhY2U2NjE4NjA3N2U2OTZhZDZkZGYxNTczNzM2OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTllNzYzNTVjZjExOTk0ODBjM2Y5OTgzNmIxNDg2Yzg0MWQ4OTFmYWFkOTA0YzYwOGUwOTMwMjJkMzc1N2FlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTllNmEwMGQ0YzI0N2U3YzQ3YzM4ZjlhMDAxMjljZjE1ODYzNDNhYjc1MzNmZmM5YTU1NWViMmE2Njk3ZDk3YSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/vad.rs#L333-L409",
+          "version": "repo-lines-v1:sha256:8dc57afb4f5a702e2ca431321398f70b064a5503a0f8d9126c5f89e8a7f9a995:eyJzZWxlY3RlZExpbmVDb3VudCI6NzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUxNTdjMWQxMjc3ZGZlZTEzYTZmOWU1OTdlN2NiMDhkYjFjZWY0OWVkMTQwZjY5OGRlMTBjMjhjODMzN2U2NTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzNjI1OWM5NzJlZGU3MzgzYzBmNzRiMDU3YTk2ZWZkMDllODU4MDdkOTJjYTFhYWUwOTQ3YzA1NDE1ZGU2MjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdiYzk4ZDZiMGRjNDkyYzUwMTZkZjEwODA1YTNhNTRlYjljMTg0YTVhNjEzN2U3ZjRiZWNmYTBjMjIwNTUwZDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3fdfae8af8a1439e8ca9946947151a05",
+      "statement": "Speech segments longer than 25 seconds (MAX_SEGMENT_SAMPLES = 25 × 16000) are split by common::split_segment_at_silence: it scans ±3 s around each target split point for the 100 ms window of lowest RMS energy, cuts at its center when the window is silent (RMS ≤ 0.02), and otherwise falls back to a 1-second overlap split, advancing the cursor past the overlap so overlapped audio is not transcribed twice; timestamps are reconstructed linearly from sample positions.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/common.rs#L105-L123",
+          "version": "repo-lines-v1:sha256:1d99904c84c09175e797b35c1b31461ce3b78944cbbbf0455d1006e00eaf54ac:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkOWViMjFjM2RiODkxNDhiNTYyMmNhNWYwNTExNGJmNWIyMmIyNTBmYTRjZjQ3MTcyMzhiYmIwY2IxZTNlMGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1ZjZmNDY2ZTU5Y2ZjMzA3MDNjNDVmNzJhZjY1ZGU1NGFjMzYzZDM1NGNjMWEzMzMwMzUwYWNkNDUyNDM0YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY3ODczZmEyMTZmYmI0Yjg4NzFlNDFlZDA5ZDAwZGY5YjJjZGYxMWM2MGE5NDI5NmExOTM1YzE1OTJjYzc3MTgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/common.rs#L134-L209",
+          "version": "repo-lines-v1:sha256:5ecbcc7defa4e92b1b9c772d871d2adc3e630ba3d02c26f25f0c9e69c05b06ad:eyJzZWxlY3RlZExpbmVDb3VudCI6NzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjODI0MzEzNjM5NjEyMGU5ZjU1MTgyODNmMzE1Mjk4MzFjNTE1MDg3NjFmYjkxNWY4MmYxN2RhZGM1NmQ4NzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5YTE4M2U2ZGRkNTU2NjA3ZGY2MmMyMzUwNDA1NzVjNWJkYTllY2VlNDY0MjJmMGYxODE1OTMwOGZlYjhhYmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzYWE1ZjZiYjdhNWI4YjA3YWM0M2YwNDc0NWJiNjI1NWQwMWRmZGRmYjNkN2U3NWY2OWU0YTY1MjIwNmEzYmMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L522-L545",
+          "version": "repo-lines-v1:sha256:0b6cab18d8c18c76bf02fbced093d771f2a46ad8e2ff6ed22c83483d3dfdcbb4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkYjlmZGU3MTdlYjI5YzEyODk3MmExMjFmYmRkZjZlMWNiOGI4MDZmZGRlZDIzZjY3ZmE4YWZlNjFmMWNhMzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1NWIyMzA2OTMyN2Q5MmE0NTM5MjIwMTI3Y2VjNzUxNjZhZDNjOTEyYjM2ODYwODRmYzA0ZjU3NTQ0MjhiY2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc2M2Q1NzE5NDY0MmYwNjcwOWExMTUzNDVkZGQxNDNmMDUyZTQxZjJhYTY1YmMwMjZkNDlmN2RkOTllYjFkYmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMzYTBjY2JiYTIzMmViOThkMjI1NmQ0ZTgwOTM1OTg5OWQ0NWI0ZWRhNjE0N2JhODBkN2ZkYTdmZDg0MGFlNGEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7dd8fbf213f145ffa8335ac7e71dce8f",
+      "statement": "get_or_init_whisper/get_or_init_parakeet (duplicated per module) reuse the global WHISPER_ENGINE/PARAKEET_ENGINE singletons; the target model is the explicitly requested one, else the transcript_settings row (providers localWhisper|whisper for Whisper, parakeet for Parakeet), else DEFAULT_WHISPER_MODEL (large-v3-turbo) / DEFAULT_PARAKEET_MODEL (parakeet-tdt-0.6b-v3-int8), with a non-fatal discover_models() before loading only when the current model differs. When no model is requested and the configured provider does not match, import silently falls back to the default model, while retranscription's Whisper resolution errors with \"Retranscription requires Whisper…\".",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L750-L876",
+          "version": "repo-lines-v1:sha256:73f44ad038e9b3c3e0107bbcca977440762e0789110428c4ff60b0fbc85c9ca9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJmNjUwYzRiODZiMjMyMWIyY2JjOWEwMDRjZWJlOWJkMmFhMDUwZDdiODNjNWFhNGE2N2E0ZmVmNTNiOTM3YjgxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIxYWNjZjMyZWY2MDAwZWNjOTkwOGNjZjM5MDM4NDYwZWI1YTNjNWJjODkwYTI1OGExMGI3N2YwOWYwM2U1ZDdmIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlNWMwNDdiYmJmNmY4ZGI1ZGVkN2JhOTdhYzczN2ZkYTlmM2I0MjE1MWRjYzE0YTBhZWY0OGUyMGJmMzE2NzllIn0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L522-L577",
+          "version": "repo-lines-v1:sha256:29d3a56ce7a86d95a75ed3c8a3cf4a3adf7a25b351f14c582a7201ca8095c373:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkZTBlODE5MWM4NTE2Y2I4ZDUwNzYwMTEzZjY3ZmUwYTQ5ZjI5NWQ3YjI1ZDA4YTQ0MmY2ZjRlODVmMmYzZTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI5YmRiODAxMDY5ZDdlNjI5MmE3YzMzMGNmNDNiYjUzN2I1ODA0ZDMyYjQ0OGM3MDQ1ZTI3ZWIyZDIzMTc5ODgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE5ODZhYjdkZWExNmE3YzMxNWJhNDYyZGMyMDcyMTk3YzY5MmZiMWU5ZDBiMmZiYTBjNGU3OTdiMzQ4OWE0YWQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L603-L621",
+          "version": "repo-lines-v1:sha256:bbb6335a37bcffbe5aa1f5e2f20612a18220ae1b2b88a292a35692af23a8d10f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ0Yzc5NDg5YWY3MjYzZjRhYzNiYWIxZjBhOGZhY2QxN2E4ODcyNTIzZTdiMDczZmNiYjFmYzk2YTc1MjlkYjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE4NjYzMzczMWE4ODU2ZDJlN2FhN2VjZjNlYmM3NWY5OTk4MDU4YTBiZDIxZGQwNzU2ZTdmY2QwOTRmZTgzNmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFiMzViNTNkOGVmNGQ4OWRhOTZkZjJmOGYxNDBkZGQxMmE3MmM4OTI1MjU3MWNjNTgzZmIyNWQ4YWI5YThmN2MifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/config.rs#L6-L12",
+          "version": "repo-lines-v1:sha256:b0d49cd54911680a43a051bea6646168055d6691b64704c387f05e60c1760bb4:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2JmOTY5MzJkYzMwY2I2ZGE4MjEzODJlYWM0ZTk0OWE1MmJmYWEwYWE2Y2ZiMWU4OGI0YTM2NjUyNWIzYmI0NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjFkYmUxZWU3ZWRiZWI2MjQ3OWJhZDg4YzI4ZWFmNzkzOWEwMTYxYzAzZDNiOTI4ZDc4MjY0N2Q1MzVmNDdmZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2RkMTMwNWZmYTkxMTlkNzc3NGFlMDc4MzI1M2NiZDMzNzYwNmRiODkxZmZjZjA1NjY3MmEzZTYyNTM0NTBlMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2U1Mjk5Njk0MGU5NzRiOWUwMDgzYzEzMDEyOGRhOTdlODk2NWQ3OTAxMDhjZTcyZTA0ODE0NzM5MmY1Njk2OSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/parakeet_engine/commands.rs#L8-L8",
+          "version": "repo-lines-v1:sha256:cacf3c82b6062c7f7da51ff99744df5de02f1f1e9ee3ce63e5f2dc9f48ee5b57:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2FjZjNjODJiNjA2MmM3ZjdkYTUxZmY5OTc0NGRmNWRlMDJmMWYxZTllZTNjZTYzZTVmMmRjOWY0OGVlNWI1NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2FjZjNjODJiNjA2MmM3ZjdkYTUxZmY5OTc0NGRmNWRlMDJmMWYxZTllZTNjZTYzZTVmMmRjOWY0OGVlNWI1NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmRkMjk1MDA2NzIxNDE2MzgzOWJmZTVkNDYxN2Q4NzAzYTJiMzFjYzBiODVkZDc1NTAyNjhkYWYzODMwZjUxYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDljZGNmMDIyYzQ4YWMxNWNhODNiMDNmOTM2NWVlMTg1YTY1NWJkYTg0ZTMxMGEyZjdlYjY0ZGQ5ZmQxMTJmNyJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/whisper_engine/commands.rs#L8-L8",
+          "version": "repo-lines-v1:sha256:e653373080daddc7dbfc4ff65ab4a07c4713f85533755a85ea8f21660ac1ec59:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY1MzM3MzA4MGRhZGRjN2RiZmM0ZmY2NWFiNGEwN2M0NzEzZjg1NTMzNzU1YTg1ZWE4ZjIxNjYwYWMxZWM1OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY1MzM3MzA4MGRhZGRjN2RiZmM0ZmY2NWFiNGEwN2M0NzEzZjg1NTMzNzU1YTg1ZWE4ZjIxNjYwYWMxZWM1OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWEwYjY4MTEwY2Y1ZWM3NDA5NTAyMWY1Y2Y3ZjdhNDlkNjFiNTNjOTg2MmMzZTRhNTBiM2NiOWU2MDQzYWUxZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDljZGNmMDIyYzQ4YWMxNWNhODNiMDNmOTM2NWVlMTg1YTY1NWJkYTg0ZTMxMGEyZjdlYjY0ZGQ5ZmQxMTJmNyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_41dea80613ff4fb7814e0c0cef5d5026",
+      "statement": "Per segment, Whisper uses transcribe_audio_with_confidence(samples, language) while Parakeet uses transcribe_audio with a fixed 0.9 confidence and no language input; empty transcriptions are dropped and only non-empty (text, start_ms, end_ms) tuples accumulate. The frontend hides language selection for Parakeet models and sends null for 'auto'.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L551-L609",
+          "version": "repo-lines-v1:sha256:85c88efc51d66cf1981578af1c07307e5071723f75ead0cc7f68b75fe60cff7b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmZTc4NTVlNjVhYWJkMDY0YWM5YWI3YjJmYTJjNjE0MDc0NjVkYjBkMzExZTQ3YzkwOTFiYjE5ODRkMWFmMzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ0MDBiOTU5ZmM2ZTc1NzA3OTc4YmYzYzY3MTkzNGZhMjU5Yzc5NDFhOTQ5MWRiZGIyZjFhM2Y5Zjc5YjVjODMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgzOTMzZDRmNzcxZmQwM2RhYmEyNjRkYjM2MmQwMzMxYWYyOGYwYzEzMzU3NmU2MDFhZDE5MjdlZWYwZDBjMmIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L364-L399",
+          "version": "repo-lines-v1:sha256:215c3d9648cbb12e4f91ede299bdca44449d8ae90c58e3d5b530b45f2731d7ad:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhNzBlMWJjOGE2YWMzOWIxYWY1ZDhkNDMxNjAyMzg3NTIzNjlmYTVjMmE2ZjhiMGYyMjEwOTdiOTBiODI2YTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwYTA4NjJkZjM0OWQ0MTFjMjA1NzAzNzVkNDBlNGJmZTY1NDI0MzM0MTU0M2MyZTgzZDgxNzM5NjI3OTk5OWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgzOTMzZDRmNzcxZmQwM2RhYmEyNjRkYjM2MmQwMzMxYWYyOGYwYzEzMzU3NmU2MDFhZDE5MjdlZWYwZDBjMmIifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/ImportAudio/ImportAudioDialog.tsx#L172-L196",
+          "version": "repo-lines-v1:sha256:38b1a68fbe943c15d9a68bc59a7bbc2e02406e5a2abad3ed2a031913d46fe3a1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1NjE3ZmVkNjVkZjYxNzJkYzU5OTkzYWNhMjBlOTY0ODQyMjU0NzY0MTJmZTZjM2I2MzMyMTI5Zjg3ZmZlYWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0ZTQyMDhjZDZmZmI4YzRhMzU0N2IyZjU0YWRhMTk5NzhjM2YzNjVlNzhmOTUwMmVmNTE0NWNkZDJhYTg1NDMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzYzcwNGNlNjZhODM0MzlhYTQ5MTdhMzljMTViNjljZTNjMjRlNTc5YTBiNWRiMDBjYzczNzQxZjZjMTg2OWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcwZWM4MWRkY2Q5MWRhMGU0MjgwNTM4MTZkOWQzZDNmZDlhZjZlYmQ4MjQ0MjMxOGVhMDMzZjI1MWM1ZTI4OTYifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/MeetingDetails/RetranscribeDialog.tsx#L210-L223",
+          "version": "repo-lines-v1:sha256:2e6346ede2441e2a05d5e4ec7b4219c0d0d16795dcb654c08c8ea00f389c4049:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE3MjM1YTdiOWMyOTk1ZTgzZDNkOWNjODVkYTZiMmJjNWUzNTcyZmEyMzFhNzhkODE5OWQ1OTNhYjNlNDFlNDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxN2FmMTEwMWM5N2I3YzJmNTI1NDA3ODJlNjM0Y2M0NDQwZjBlOTcwMzQxZTUyZjk3NTIzMTFkNzhiN2Q3ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg5ODQ4YTRlYzJkNDIyMGUyMjNhNTY3YzU0NGNmNTM5MzZjNzA0YTUzM2U1MzdiM2U4ZGZiZWZiNDEyYjQ0ZDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU3ZTQ3ZDEwNWMxNmEzNjRkNTNmZmI4OThhNDBiOTEyMzNmNWQ0NzhiOTFkNGQ4YWE5OGZjY2U2NWIwOWIzNmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cef1b8fb0e314fcc92f2ab492983eca3",
+      "statement": "Zero-speech audio is handled asymmetrically: import still creates the meeting with zero transcripts and emits a non-fatal import-warning event (no engine is even initialized), whereas retranscription fails outright with \"No speech detected in audio file\".",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L485-L500",
+          "version": "repo-lines-v1:sha256:6c9400924acc0bf2a81aa5669852cab28b6b11a70b998cc3253374245cf7ef7d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk5NjllZGM3NzYzMTcwZjNmZWE5YTgxM2NhOTMxNWUxMjQ4ZDg2MGY0YmQ1ZGI0Njk5NDIxMDRlODc2YjFiNjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRhNmE1MDc2NmE4YmJmZGVhZmJiNDdmY2UxZTFjMmNhMjU3NDg5OTQ5MGI2YjA4YjhkYmFmNjY3ZDM5M2I2ZTYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L294-L297",
+          "version": "repo-lines-v1:sha256:83ef6d8a0c911f09b45c95c36a7f7c8f517fa3c42a5feef6a40d3af53bb0893a:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTk2OWVkYzc3NjMxNzBmM2ZlYTlhODEzY2E5MzE1ZTEyNDhkODYwZjRiZDVkYjQ2OTk0MjEwNGU4NzZiMWI2MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk5YmRlZmVlYWNhNjM0MGUwMjkwZGM4NmU4ODljODlkNWUxODlhYTViYTQ0YjU4NWIzYjcwNzM0ZjRhNjJkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTY2NjJjZjRjNzQ3ZGFiYmYxMjhiYTE5M2I0ZjRmYmY5NThkOTg2ZTMyY2YwMGM0ZjI0MTk1N2JmMzBhYjAzNiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2488b528d2f5495b9c8f27d082dfee91",
+      "statement": "Progress is emitted as Tauri events with a {stage, progress_percentage, message} payload (RetranscriptionProgress adds meeting_id): import emits copying (5–10), decoding (15–20), resampling (20–25), vad (25–30), transcribing (30–80), saving (85–90), complete (100); retranscription emits decoding (5–15), vad (20–25), transcribing (25–80), saving (80–90), complete. Terminal import-complete/import-error and retranscription-complete/retranscription-error events are emitted in start_import/start_retranscription after the engine unload, regardless of outcome.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L285-L305",
+          "version": "repo-lines-v1:sha256:78d6ec10a0e2c27fb0fb84b01fe6dc0d14dea55a5c7b63c08bd380cf32b9b120:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiNzNkNTEwOWRhMDA3YmQ5MGFmNjQ3ZGMwMGQ5OGU0Y2UxZTc4OGQ2ZmU5OTE0ZDQ5ZjEyNDYwYzllMTRiYzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFkNGI4MjIyMzNiZTdkZWY4ZWFjZTZlNWY0YjcxM2JlNzdlZWNkYzNkNjZjNDQyYTI3OWExM2QwNjJhMjE4MDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzYWE1ZjZiYjdhNWI4YjA3YWM0M2YwNDc0NWJiNjI1NWQwMWRmZGRmYjNkN2U3NWY2OWU0YTY1MjIwNmEzYmMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L334-L666",
+          "version": "repo-lines-v1:sha256:090e14154bd1266fc026a1e7b3fa8462ff7a8ff4d5780b9863062f479b9f845b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJhNTkxNmZhOTYxMGIzNWExMDgxY2QzNzM2NWM5NTBiM2IzY2U3OTllMDE0YzAxNmVmZDU5N2EzNGYwODdmNDIxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJiNzg5MjkyY2I4YTRmNGY0YzBkMjgyZWJjMTlkZWEyYmEzMGFkNTI4ZDlhMzRiYjQxOWQwYjI4NzZlNzllNmMxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIzYjI0NDQ2MTQ4N2Q1NjhmN2EzM2M5ODZiOGQ4YTBjMjcwODZkOGViYjUyODM1NjQ1Yzk3NGY5ZDc5ZTNhZDkxIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIwMGRjNjYyMjAzMzE5OTA1ZDJiZjUxYmVjNzQwYTgyNGJhZjQ4ZmU3MGE5NDJjZmZhZjRlZTA5YTZmYTg1YmFiIn0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L73-L88",
+          "version": "repo-lines-v1:sha256:41534110461a7adc27e528a708fd418dc62136d622406fca59f014feccdafae9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1YTI2OTMyMzVkNjJiNTc0ZDliYWE5MjEyYWQyMThiODdmYmMyMDc4ZWVhODM4MzA4ZDcyM2ZhYzE4YjJlMjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNhYmJmYzViYjUyYTRiMmNhMWI1ZDZmOGQxYWYwN2U2ZDg2ODI4NzEwYWJlZjMzZWRmODczZjkzMzU1NDIwMGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM5ZWM0MTAxODY4OTNkZDFlYWJhZjA4Yjk1OTQ4NDQ0NjNmZTk4MTNlOTY1ZDhiYzU2YTZjODI2MTRhMzQwMWQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L113-L134",
+          "version": "repo-lines-v1:sha256:652a4e8a0963ce8d67f453e6f6a1f72c5c4e45685aac9d59b08ab757e86371e5:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiNzNkNTEwOWRhMDA3YmQ5MGFmNjQ3ZGMwMGQ5OGU0Y2UxZTc4OGQ2ZmU5OTE0ZDQ5ZjEyNDYwYzllMTRiYzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5M2U1ZTg2MzcxMmMyZWY5OGExNGZjNmUwMmJhZTJkY2EwYjkxMGFjZGNmNzJlNmQ4OTBmZTAxMTA2Mzg5NjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzYWE1ZjZiYjdhNWI4YjA3YWM0M2YwNDc0NWJiNjI1NWQwMWRmZGRmYjNkN2U3NWY2OWU0YTY1MjIwNmEzYmMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L502-L518",
+          "version": "repo-lines-v1:sha256:26c0608bbadd30e2402fd36774b98a9c0d0bb1bcf81b819355e00937a531a2cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkYjJjODMwYzVlMzJjZTlhMWUxY2QwNmU0MGRlYWZjMDkxNGZkNmU0ZjUzYThhY2Q0MmNmMjU4ZWRkZWQyOGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhOWQyYzJkMzU4ZjExYmEwNjM1NDI2MGMxZjRhMzAxYjk4ZDY4ZDdjZjQyMWU0ZThhZmE4NWUxMzFjNDBlNjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI5YmRiODAxMDY5ZDdlNjI5MmE3YzMzMGNmNDNiYjUzN2I1ODA0ZDMyYjQ0OGM3MDQ1ZTI3ZWIyZDIzMTc5ODgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L54-L61",
+          "version": "repo-lines-v1:sha256:2294c3e35e939269de40ae9ab8939be888097056ff8ef1dd871723dc9f1968ff:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGU1MjkwZjk5MTk4ZDFlZTQyYTNmZGEwYmRlNGVhMzQ3ZjVhYTk2MzJiOTE2ZTY2MDAyNDM1MGFjMjEyY2M4YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTMyMjM3M2VlM2ExZWM4NTFiOGYxNTkyYTgzYzFlNTY0NWRkM2Q1ZGE5YjI3NjJkN2ZjNDg5MmQ2YWE4MTE1MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODExNmU1ZDExMjVkNzhiYzVmMTI4YTFmMTE3MjJlZjZkODY1MDkyYmQ5ODBiMmI2M2UzMjgxY2Q1ODU1YTkzNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9dcb7998145845cc80aee36e9be9e4da",
+      "statement": "create_transcript_segments maps (text, start_ms, end_ms) tuples to TranscriptSegments with id \"transcript-{uuid}\", trimmed text, a current RFC 3339 timestamp, and VAD-derived start/end/duration in seconds. write_transcripts_json writes the per-folder transcripts.json (version 1.0, total_segments, ordered sequence_ids) atomically via a .tmp write + rename, and both metadata.json writers use the same pattern; sidecar-file write failures are logged as warnings and never fail the batch — SQLite remains the source of truth.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/common.rs#L49-L103",
+          "version": "repo-lines-v1:sha256:fb996fd4a8c1ce7bf878402133fb0dcccf7d58ed6698f1b6363828c417c56880:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFiNWRkMDllZTk5NzI5NDJhOWVmNGMwZGM5NjVkMWU3ODE3ZjVhYThiYjkxY2Y1Y2FkZDQ3Mjg4NDM3OTE1OGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ3MjAzOTJmMTc3NmY4OTNlZDgxZTJiZDAyZDU5ZTMzZGVjZjI5YWJjZTA0YWU1OTVlMDA5MmZlMGQxNzcxNjQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L648-L666",
+          "version": "repo-lines-v1:sha256:8d4d4744df71d610f3db7aa7236374cbde12ad3e6dca2da42e5c43f13ec70afe:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjMzk0NjNmY2M3MmM0ZmRkYmNmODEzMWFjZTdkNzc0MGFlY2Q4Yzc1Njg3MGRkZjAzMzBiZDFhNDgwNDllY2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3ODkyOTJjYjhhNGY0ZjRjMGQyODJlYmMxOWRlYTJiYTMwYWQ1MjhkOWEzNGJiNDE5ZDBiMjg3NmU3OWU2YzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVhYzI4ZDhmM2NhYTUwNmFhYjMxMTM4M2U0ZDVkZTk2ZjdlMmRmOWRkMmFmNjMxNTFlNjhmMzU5OTc4OGY1OTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAwZGM2NjIyMDMzMTk5MDVkMmJmNTFiZWM3NDBhODI0YmFmNDhmZTcwYTk0MmNmZmFmNGVlMDlhNmZhODViYWIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L468-L491",
+          "version": "repo-lines-v1:sha256:bb848bccfded95d140479655df65206026d6c32391a15224e54d4148f1b09b6c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NmQ3NmI1NTA1M2MyYWYyMGVhZmRlMzdhYzFlYmY5M2VhZTZhMmJiOTEyZmIzZWVlNDFlNzk0OTA1MWY4NjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVmZmQ0ZDJhZTIyOWYzYWY5ZTk4OGNhMGZlMjJlMzUxYjc2YzU2YWZmNDYyYWQyNzIyZTMxZThlODQ2MmQ3ODEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJkNDFlODU4NWYwZWZjOTJkMmRkNzhjMjFkYTA4MzRkZTVlYWFkYmQ3NzcyYWEyMjQ0MDkyMDFiYzQ1ZWE2ZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhlMWI4NWNiZDFlZmZmNjIyZjI4OGYxNTEwYmM5YWZmZTUxYzA4ZjZiMzZmODQyN2NkNTYxOTZmOGI5Yjc5ZTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7e56c80cdb394328b118aa04281de280",
+      "statement": "lib.rs registers eight commands for these flows: audio::retranscription::{start_retranscription_command, cancel_retranscription_command, is_retranscription_in_progress_command} and audio::import::{select_and_validate_audio_command, validate_audio_file_command, start_import_audio_command, cancel_import_command, is_import_in_progress_command}.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L741-L750",
+          "version": "repo-lines-v1:sha256:cb89d374d410b8fb8a8c20ecb775ad3d8c5614755a2a0f6d4e2044140347862b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRkMmYxYWFiOGMwNmQwNjU3MzcwYWE4ZmQzNDBmZTMyMTcwYTkwZTQ3Y2QxMjNlMDQ3OWQzMDU5YzQwMmY2NWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwNWFlYjRjMjA4OWYzODc4NWZhMjEyYTEwNzNjN2M2OGRlYjViZTcxMjgxNDMwZDMyZGY4N2JjMTZhMDQyZGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNiMmRmNGM0OWI0Y2FiMzhhYWZkZjkxYTVjY2M0MTM1NjEzODgyOWM0N2I4NTBmNTkxM2EyMTllMmU2YTY0NGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2MGQ2ZTk4NjNkNDFlNDQxZjg1MzQ2NGQ5ZWNhZGQ0ODRlM2Q4OGY4NmEzYmQ0ZmY2ZTBjZWM4MGFkOWI1MTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_467920ad7e0641cb8e3c5503e20c5493",
+      "statement": "The useImportAudio hook owns the client-side state machine (ImportStatus: idle → validating → processing → complete/error) and registers import-progress/import-complete/import-error listeners once; an isCancelledRef guard makes listeners ignore events arriving after cancel (set before invoking cancel_import_command). On completion it tracks import_audio_completed analytics and applies the pinned summary language (applyPinnedSummaryLanguageToMeeting) before calling onComplete; startImport tracks import_audio_started with size/duration/language/model and invokes start_import_audio_command.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/hooks/useImportAudio.ts#L204-L259",
+          "version": "repo-lines-v1:sha256:a94413936772248adb98f1619c8024e32ddb5e0198b7f2226f21f2488bc65d82:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyNWRlZjQ0MDM5MmJjYTU3NTgxZWY0YmUzNzNjOWU5YTEwNTI3NTc2MTYzNGI3MmVmYmZiNjVlMTQzYWY2NjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYzUyZjA4YjM5YjA4YjAxYzhkMzA4YmY4ODBiMGJlZjAyZmQxZGZjYzlkOWFhOTNhNGQxYjVmNGQ1OGI2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk2NjE3YzU5NWQxYzc0NjA2MDlmMGMyZGMxMDVlNDg1MmU0OWIwMWY4OWI2NTQzNDhhYWU1YWVmYjE0ODVmYzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYzNzE2NTNkZDRlNjI0MTA3NzY2MDkyNTZkNTI0ZmI4NTkyNTNjZmZlYjQ1ZDhhN2YyN2RhMjRmOTk4NzRjYWQifQ"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useImportAudio.ts#L33-L33",
+          "version": "repo-lines-v1:sha256:0b5ab97eff4031dea6a19837dbc324b6ad9a01bc124b021c218778aaac1ff534:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGI1YWI5N2VmZjQwMzFkZWE2YTE5ODM3ZGJjMzI0YjZhZDlhMDFiYzEyNGIwMjFjMjE4Nzc4YWFhYzFmZjUzNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGI1YWI5N2VmZjQwMzFkZWE2YTE5ODM3ZGJjMzI0YjZhZDlhMDFiYzEyNGIwMjFjMjE4Nzc4YWFhYzFmZjUzNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDEwYTI5ZDBiOTk3MGVmY2M2ZGZkOTYyM2NiOTRlOGQ2NGYyMmJkMTIwOTBhYzcwN2Q4M2EzNGI3NTA5Nzk0YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWEyMmE0OTljMWY1MTc3NTdlMzY3OGQ1YjQ4Mzg5M2ExMDhhODlhNmVmOGMzZmYyY2NhZjA2YWM1ZTc3YzkwMiJ9"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useImportAudio.ts#L75-L158",
+          "version": "repo-lines-v1:sha256:6cd585192f854a061a695a759764d3538332020e9ab8e0a9e336b7c907602062:eyJzZWxlY3RlZExpbmVDb3VudCI6ODQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiYTNkZDY0NDk0NTRmNjZlNWZjOTk0YWYxZjg5MTFkN2IzMWUxOGNhN2Q1M2JmYTNhMGMxZWQ3YTEyMzhkZWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYzUyZjA4YjM5YjA4YjAxYzhkMzA4YmY4ODBiMGJlZjAyZmQxZGZjYzlkOWFhOTNhNGQxYjVmNGQ1OGI2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFiZTQyOTIwNTVjMjdjZTBiODMwNGY1ZDk1NzJjOTNkMTgwYjE3ZWQxZTFmZDZmYTBmNTQ0OWQwNWRhZGE5ZGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjExZmJmODYwOWE5ZDAxYjczMzVkMjAyMzhlMWQ4ZmIwYzliNmZjNzUwNjFiZWFkOTRkZGM4MDY0NmYzMzg5ZjQifQ"
+        },
+        {
+          "resource": "repo://frontend/src/lib/summary-language-preferences.ts#L148-L148",
+          "version": "repo-lines-v1:sha256:28583c0683138fc1977268867fd6f4a146eeb2c5d871788e169089d42be2bbd3:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjg1ODNjMDY4MzEzOGZjMTk3NzI2ODg2N2ZkNmY0YTE0NmVlYjJjNWQ4NzE3ODhlMTY5MDg5ZDQyYmUyYmJkMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjg1ODNjMDY4MzEzOGZjMTk3NzI2ODg2N2ZkNmY0YTE0NmVlYjJjNWQ4NzE3ODhlMTY5MDg5ZDQyYmUyYmJkMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTIwNDBlMDk1YTk0ZTJhZGE3NGU0MjFmMzcxODc1MWE5MWE4MTBiZmQ2NmY0OGY0ZTkzOWM3Yjc0ODBlYjY3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjQ2MTZmOTNiMWQ2MjZjN2I2YmQ2ZmExYTQzMTVhZmE5NjgxMWM1MDdlYTZmNzRmNDFkODdhZTRlOGMyMGU2MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_5868d00c59774227b13d5a4914a64b2a",
+      "statement": "ImportAudioDialog consumes the hook, pre-fills the title from the validated filename, offers language/model selectors from the shared useTranscriptionModels hook, blocks closing/Escape/outside-clicks while processing, and on completion refetches sidebar meetings and navigates to the new meeting. Drag-drop is handled app-wide in app/layout.tsx: tauri://drag-enter shows ImportDropOverlay (format list from getAudioFormatsDisplayList), and tauri://drag-drop validates the first audio path via isAudioExtension and opens the dialog preselected. Everything is beta-gated: the dialog only mounts when betaFeatures.importAndRetranscribe is on, drops are rejected with a toast when it is off, and Sidebar entries go through ImportDialogContext.openImportDialog which toasts a Settings > Beta hint when disabled.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/app/layout.tsx#L131-L157",
+          "version": "repo-lines-v1:sha256:6adcd301e5aeea1ef72bcb2c8526149661aca4dbc96f9256fcefe52ebf6b14a2:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiY2JiNDE0ZjY1ZDVkM2M5MmQ1NGQ5OGY0YTQzOWU3MDFkNmQ1ZTJjMzRkZGEyNzRhZTFjMWI3ZThiZGNkZDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYzUyZjA4YjM5YjA4YjAxYzhkMzA4YmY4ODBiMGJlZjAyZmQxZGZjYzlkOWFhOTNhNGQxYjVmNGQ1OGI2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVjMjcxNTc4MWM1NGUyMDhiMGVhZmFiY2YxMDc3ZDI3NDNlOGQ5OTE5ZDYzMTM5MWNhMDc3NTYzMDViNGNlMTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE3ZDBiZGYwYjZlNzE1ZjJkYzA5NDRhYTRmMThiMTkyMDFiNTUzNzg5OTFjMDk3MzNiZDMxZTA1ZGY0YTA0YTkifQ"
+        },
+        {
+          "resource": "repo://frontend/src/app/layout.tsx#L39-L62",
+          "version": "repo-lines-v1:sha256:a7220b3f1ea24868da22494974612c687c29a2d6a26deb07883861b899a4605e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmN2ZmZDE3MTBhZDFmM2E5ODE0NGQxYzg2NWVjYjkyN2RjZGM2ZjRkNTcyM2VjMzEzNTY0NTZiMjk2NjUzNGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlhY2VhZTc3NDJjNGVjZWNmMzhlZDVlYTYyZDgxOWMxYjcyNDYyNWRjNzc5MDNmZmI1ZDllNTE0ZWE5OTE1MzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhkMWFkN2FmZTExMDRlZDY4NTZiZDBlZTA3MGUyNzk2ZDAzZjdjYzYyYzliZDIwNTU3NzliZTZmOGFkMTgxNTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/ImportAudio/ImportAudioDialog.tsx#L187-L225",
+          "version": "repo-lines-v1:sha256:9355bb0a628409a4cb73a50be825f7ae2083d3233ae473c96e9187bb46fa6cbb:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkMGUyYWMzNzBhNzBkNmIzMjFlMTg1YTgwNGU4ODIxZjZiZjQxOTk2MmJlMzNmNjFkZDIyNzY2YTExNGE4ZmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUxZTM3MjVkYTAwMmI0NmVkOGI0ZGU4ODAwM2FkOTcxMGRjYWYxOGQ1N2M0NzAxZGMzYmVmZjBiMmM1Y2IxM2YiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI0YzBhODQ3NWUxMjllNmI2NzZmYTM5ZDNmZWQxNWUyMjk0MWUyMTFlZGFiNjhjNjdmMGI2NTUzNGViMDYyZjUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/ImportAudio/ImportAudioDialog.tsx#L97-L126",
+          "version": "repo-lines-v1:sha256:25f685c2ea20de4b6115300dfbc6fc064826f3f97b3ac6f8f1c49dbb5df350af:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzODAxMGI5NzkwNWM2NGRlMzZlNzU5ODM3ZmYyYTU1Zjg1NTY1NzcwZWM0M2U1ZWVjY2QyNDUxMGJmMDAyMTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhM2U0NmY5NDI3NmI2ZjZmNGVkMWYwMmFmNzhiZWY2YTJlZTFjNDM5ZGQ1NTg0Yjk3Mzk0ODMxMzIxNGQyYjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYzYTYzNDc5YmZiOGI2YjQ0ODdiODBjMzcwNDdjMDVlZDZiMTAwODA2OTdkNDE4MTVmYzc2ODM4NTI4MmMxODEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk2MTgwOWZmM2EwY2MzOTgyY2FkMjJiMTdmYzg5ZDkxM2VkOGRmODZiMWVhMjZiNDY5NGJmYzI5ZTgxOGM1MTYifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/ImportAudio/ImportDropOverlay.tsx#L1-L27",
+          "version": "repo-lines-v1:sha256:d0eed1353812aac42673130d3f7fc1bb055968c7fb1ab56f481e0e3113de4490:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4Y2FjOTM1NjAwYzgwM2M1OGNkOWJiYzZmMDI2ZTljYjFiZmVjNGQ3NGZlZjJkZmZkNTQ3NzBiNjQ2ZWRkZjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/contexts/ImportDialogContext.tsx#L27-L37",
+          "version": "repo-lines-v1:sha256:65ac171c83c94730965f84bf5d2ea44dede0d8a0528752627c59c956d0f6f972:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwYTU1OWVmNGMyMzU0N2ZiYTE4YmVlZjEzMGFkMTYwMTM4MWIxYmQzYzE0ODBiNjM5ZWEyODBkYTZiODdmMzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1MDVmMzA1OWNkM2ZmMzk2MjdlMWNjNjlkNWU2ODA3MGNkYmIxMzg5NzM2NTU3YTE2NDM2Y2QwNGRkNTVjZDkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRlODM4Y2U2Y2IxOWI2NjBiMWFhYTcyOWZlMzgzMjMyZmZjZmU4ODFhYzNhMTA3YWQxZGFhN2VkNmE5ZWUxZjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM0NTJlM2QxNGExYjA0YjZiMzg0NzQyMDMwNTg5YzNhNjVhNWZhMzQyNTI0YzFjZjAwMzY0ZWUzZWQzNTZkZDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0774417a26e744c49fe98f6f9c25be22",
+      "statement": "RetranscribeDialog is rendered by TranscriptButtonGroup's \"Enhance\" button only when the beta flag is on and both meetingId and meetingFolderPath exist (meeting.folder_path flows from meeting metadata through the details page for retranscription). It listens to retranscription-progress/complete/error but filters every event by payload.meeting_id so concurrent batches on other meetings cannot confuse it, invokes start_retranscription_command, cancels via cancel_retranscription_command, triggers a transcript refetch on completion, and disables start when no folder path exists.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/app/meeting-details/page.tsx#L130-L137",
+          "version": "repo-lines-v1:sha256:3f6bd3dee900bbe072abd927f61d8d22dc0b130cc94b97379387895e4677bf7a:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTdkNmNmMjA2NDFmODViZWZiMjY2YzFjODQ5MzI0OGZkYjU2NTc2YjcwMjdkYWI3MGUyMzE2NTU5OTMxNGY1YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzE3YWYxMTAxYzk3YjdjMmY1MjU0MDc4MmU2MzRjYzQ0NDBmMGU5NzAzNDFlNTJmOTc1MjMxMWQ3OGI3ZDdkMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjliMGFkZTk2NzNmZjQzMTVkZmI4NjIxMmFjNDM0MTI1ZTc2NjMyYWVhZjE2Y2Q4MmQyNzU5OGFiZDQ0ZjliNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjE1MTM1NWM1NzVkZGQwOTZlYTNhOWQxYzY1NDY3MmFkNDk4MDQ3MDhlZWIxNzliZWUwYzZmNDMwNzdjNTJkYSJ9"
+        },
+        {
+          "resource": "repo://frontend/src/components/MeetingDetails/RetranscribeDialog.tsx#L130-L197",
+          "version": "repo-lines-v1:sha256:0d7d7fa715395088a48cd993498f5c49e6c45993a16afb9eabae3152b1262b6a:eyJzZWxlY3RlZExpbmVDb3VudCI6NjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyYjczODQ1Y2M3ZTE3ZjZiY2E5MDZlZmY5ZWM5NWU0Y2JjOGI1ZTU3OTdlNDI1YzUwNWE2YjhmMTYxZjc5YWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2YTJmNGI5ZDBjNzBjZjM4M2UxODkyY2Y0ZDk3MWYwZWEwMGNkMTBjYzkxYmI0YWQ4NGU0YmJkZGQyNzExMmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYyNDkwMGE5YWI0YjM0ZDdkNTM1MGJjNmFlZDg0OTE5MTEyMmNmZTA5ZGUwOTMzMzk2YmQyOGQ5NDY2OTgxMmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzM2EzMmQ4ZDBhZGI5MTU1MGM5MGNjZjMwODE4MjIxMWFiZjBmZDQ3YmE0NjkyNzZkMjc4NDM3YjUxNTA3ZWYifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/MeetingDetails/RetranscribeDialog.tsx#L199-L245",
+          "version": "repo-lines-v1:sha256:50c5f0434171988682df6b8a15a98b4ef8b898f59b1202efc28a168b4e83e1e2:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1NDhiZjYzZTg3YWI3YWFiYmNkM2EwZWYwYjgxZWNlMjJhMTcyMThjMjlkOTNkZjdjOGRkZWNhMzc2YTY0MmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyYTJjYjI1YTEyMmI0NDIyMWE2MjM0ZWM2NjBhN2I1ZmI3ZjliZGU3YjNiOWUyYjNjNTU5YTBkOTZmYWM3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjMTJmZGVhODJiMTE2ZDJmMDBjNDkyZGM2ZTM1NmRjMGVlNmI0MTFjN2I2MGQ4ZTE4ZDlhMGY1ZjU5MTNhODUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRmZWNlZGU4NjNiODYzYWU4MjdjOTI2YTVmNWMwOGJkMTE0ODYxZThkNjYwNTQ3MTAyMDVhOGEyYjg4Nzc1OTcifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/MeetingDetails/TranscriptButtonGroup.tsx#L71-L96",
+          "version": "repo-lines-v1:sha256:dde0057b0716dd87e7a22e047a8574d451811a6b99fd3f65287ac3f5a37862eb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkZGRiZmViOWE0ODBiNDI3Nzk5ZWRlYjVmMTBmOGVjYmRkM2NkNzZhMjI0YmY1ZGE4ZGFiY2UzNjkzNTNlMGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxMzAwNDg0N2UwNGQ4ODQxMmY5NGVhYjZiMDU2NDlkNjJiMDQyM2QwNDliYjRiMzI3YTgxNjMxNmQ2NDQzY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRmMzFmMjI2YjgzOTk0MTNiZGQ2YjQ0Mzk5M2YzZjk4M2EwMDllZDNlNDIzZjcyYWYwODI4ODQ0MTQ2NGY0YzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgwODY3YTYzODc0ZDM0YTJhMDAyNGMzYWRjYzdjNzExMmM2NjUyMzNiNzZhODQ1YTYxNmNmYjNmZmQzNDQ1OTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ed6e1bdaeaaf46d0b7bc5128c04acadb",
+      "statement": "Focused tests cover: engine-lifecycle-lock serialization (common.rs); the VAD_REDEMPTION_TIME_MS == 2000 constant and find_audio_file priority/fallback/error cases (retranscription.rs); import validation, AUDIO_EXTENSIONS membership, create_transcript_segments behavior, cancellation flag toggling, metadata duration extraction on bundled jfk samples, split_segment_at_silence, and the atomic transcripts.json/metadata.json writers (import.rs), plus a #[ignore]d TEST_AUDIO_PATH integration test comparing VAD at 400 ms vs 2000 ms; and decoder tests for mono conversion, resampling, and chunked-vs-single-pass equivalence (decoder.rs).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/common.rs#L218-L235",
+          "version": "repo-lines-v1:sha256:8299cbd4dd17ec9fc5cb4ae4a08a0e3f8a4657c7b568ef740decdba1bf95bed5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxY2M0MDY4N2QyNDRlOWRhZjkxY2VkNDY1MjMyNjU2OWE0ZmI2ZGZjODFkMDNmYmU3MjNhNWVhM2NjYmU5ZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5ZWMzYjNmYzljZWRmMDgyMDRiY2M0YWUwYTVmMTMwYzhkODEzYjgxNTQ0ZWQ0NGVhYWJjYTA4ODEzOTg2MzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/decoder.rs#L584-L700",
+          "version": "repo-lines-v1:sha256:b80c593e4bcc240d56b6f555793d866732e0bcb5dfe44c14e48bf796d9c4170f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5MmI1ZWRmNTk0OWNmZWE2NzgyMmNmNjkxMTMyMzYzZDY4ZDZmMWUxNjlmNWUwZDRmN2MxNGU1ZmExZTZkNGU1IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI5MDA5MzEwMThhNjU2NmI3ODUwZjk3YzViODBiYWNmNDM1NGVkY2Q3YTc1NWMyZmY1NGZhZjgzOThlNjJmYTY4IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI0OWVjM2IzZmM5Y2VkZjA4MjA0YmNjNGFlMGE1ZjEzMGM4ZDgxM2I4MTU0NGVkNDRlYWFiY2EwODgxMzk4NjM2IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiZDg2MjJmZGRmNDJmYzI1ZjZkNWYwODVjN2ExMTcxMTQzYTg5MzFlNWRiMmRkM2UzNWI5N2Y2Nzg0OThkZTFkIn0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L1007-L1109",
+          "version": "repo-lines-v1:sha256:7a541f556222dada22107ae75cd81bbefe9dccf0309f56d40b1eee5e24465d7b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIyNWNmNWZjMjNmMmE2ZDIzYzNlYTUxZTcyZjVlODk2Yzc1NTVmYmFhMDVjZDViMWVhMTgyYmY5NjE4YThlODFiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIyZjgyNjE4MGY0YzZlMTVhYzJlMmE1MGFkYTA4NzdjMGM0YjgwZGM1ZTIyNDgyMzhkMDU5MTlhMWY0MDBjYzM4IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJhNGI2YmQwZDViZWNmNjZhNDk1OWI0N2Y0OTdhNmFjYjk5YjgwYzA5ZDBlNzg4NGEzYjcxNGY5NmYyMjJiYzM3IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJhMDBkYjA0MGYyOTA5YmY5NzhmZjBhOTU2YTU1ZTgzYzY1MzQxOGRlNmJiNjhmODA0MWRhOTc2ZjhkM2QyMjcwIn0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/import.rs#L1243-L1250",
+          "version": "repo-lines-v1:sha256:f38dc50338f54179dc3e7084cb6cf8976f8cf04f228e5c3854cdb3aeb20d85f2:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGE4MjA3OTgwZDFlMjdiN2IwZDQyMjY4ZWQwNDk0OGVjOTM4MDNmZmY5MzA0ZmM5ZTJhY2I1OGFmY2EyNjRiZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzE1YTgyZTA4ZDNkMTNjZGE4ZTI2YjMzZjdkYmViMjc1NGM2ZjFlOTg2NTY4OWI5NTc4ODg5MmUxMGQzMDIwOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTU5MWZmN2Q2NDI3YjQ3MzhkZWNlMjdkNWE1ZDk4MjY5Y2RhYWQ1Njc5OGQ0MDMyYTA4NzNlNjk4NGYzYzE0NyJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/retranscription.rs#L931-L996",
+          "version": "repo-lines-v1:sha256:e9a3714376a385fa2518ebd67eaec4e0a284dd01589515130888c3eaf6a8c319:eyJzZWxlY3RlZExpbmVDb3VudCI6NjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyYjVlZGY1OTQ5Y2ZlYTY3ODIyY2Y2OTExMzIzNjNkNjhkNmYxZTE2OWY1ZTBkNGY3YzE0ZTVmYTFlNmQ0ZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJiNGExNzc4YWNhNWJmNzkwMGM1ZTllMjQ2ZjMwYjRmZmM5OGRmZmRkMjMzMjlhNzVlMTFlYmU3ZmVkZmU3NDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRjY2ZkMDc1MTNlNmM0M2FlM2VjYTI2NzNiMDdhNmViZjNlYjNhNzUzNjU5OGM2ZjA0ZWJmN2FiNTc4MzdjMjgifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-07T20:26:28.923Z"
+  }
+}
