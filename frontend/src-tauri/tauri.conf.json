@@ -1,6 +1,7 @@
 {
     "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
     "productName": "JameelNote",
+    "mainBinaryName": "JameelNote",
     "version": "0.4.0",
     "identifier": "com.meetily.ai",
     "build": {
@@ -82,6 +83,8 @@
     },
     "bundle": {
         "active": true,
+        "publisher": "Abdul Latif Jameel Finance",
+        "copyright": "© Abdul Latif Jameel Finance",
         "targets": [
             "deb",
             "appimage",
