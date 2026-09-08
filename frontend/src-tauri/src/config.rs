@@ -4,8 +4,12 @@
 /// Used across database initialization, import, and retranscription.
 
 /// Default Whisper model for transcription when no preference is configured.
-/// This is the recommended balance of accuracy and speed.
-pub const DEFAULT_WHISPER_MODEL: &str = "large-v3-turbo";
+///
+/// large-v3 is the most accurate Whisper tier for Arabic; the q5_0 quantization
+/// keeps that accuracy at roughly a third of the file size. large-v3-turbo is
+/// faster but prunes the decoder from 32 layers to 4, which costs accuracy on
+/// languages with less training representation, Arabic among them.
+pub const DEFAULT_WHISPER_MODEL: &str = "large-v3-q5_0";
 
 /// Default Parakeet model for transcription when no preference is configured.
 /// This is the quantized version optimized for speed.
