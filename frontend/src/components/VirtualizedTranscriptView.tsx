@@ -97,12 +97,14 @@ const TranscriptSegment = memo(function TranscriptSegment({
                     </TooltipContent>
                 </Tooltip>
                 <div className="flex-1">
+                    {/* dir="auto" resolves each segment's direction from its first strong
+                        character, so Arabic segments render RTL and Latin ones stay LTR. */}
                     {isStreaming ? (
                         <div className="bg-gray-100 border border-gray-200 rounded-lg px-3 py-2">
-                            <p className="text-base text-gray-800 leading-relaxed">{displayText}</p>
+                            <p dir="auto" className="text-base text-gray-800 leading-relaxed">{displayText}</p>
                         </div>
                     ) : (
-                        <p className="text-base text-gray-800 leading-relaxed">{displayText}</p>
+                        <p dir="auto" className="text-base text-gray-800 leading-relaxed">{displayText}</p>
                     )}
                 </div>
             </div>

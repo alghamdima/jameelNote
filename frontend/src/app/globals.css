@@ -211,4 +211,17 @@
   [data-node-type] {
     overflow: visible !important;
   }
+
+  /* Bidirectional text in the summary editor.
+     `unicode-bidi: plaintext` makes each block resolve its own base direction
+     from its first strong character (the UAX#9 heuristic, same rule as
+     dir="auto"), so an Arabic block renders RTL while a Latin block stays LTR
+     in the same document. `text-align: start` is the CSS initial value of
+     text-align, so it cannot change how LTR text is rendered -- it only lets
+     alignment follow the direction each block resolved to. */
+  .bn-block-content,
+  .bn-inline-content {
+    unicode-bidi: plaintext;
+    text-align: start;
+  }
 }
