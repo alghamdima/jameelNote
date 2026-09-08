@@ -6,6 +6,64 @@ tags: [onboarding, first-run, database-init, legacy-import, model-download, whis
 verified:
   - by: openwiki/0.5.0
     at: 2026-09-07T20:26:28.923Z
+sources:
+  - id: openwiki-source-11f5c6bb90971a4e27fdab3a
+    resource: repo://frontend/src-tauri/src/audio/recording_commands.rs
+  - id: openwiki-source-1ca973fc852e90b53dbfebc7
+    resource: repo://frontend/src-tauri/src/audio/transcription/engine.rs
+  - id: openwiki-source-9ed88384f6ae757b4593a037
+    resource: repo://frontend/src-tauri/src/audio/transcription/worker.rs
+  - id: openwiki-source-fd7120b2522a7dd560757d59
+    resource: repo://frontend/src-tauri/src/config.rs
+  - id: openwiki-source-c6a09c9c079dd1e3f0773df9
+    resource: repo://frontend/src-tauri/src/database/commands.rs
+  - id: openwiki-source-f5d9886c8927a30c2d79ac90
+    resource: repo://frontend/src-tauri/src/database/manager.rs
+  - id: openwiki-source-f2b0d5f3228bbc87d0a16054
+    resource: repo://frontend/src-tauri/src/database/setup.rs
+  - id: openwiki-source-fa2361dff56a72baf10d098b
+    resource: repo://frontend/src-tauri/src/lib.rs
+  - id: openwiki-source-54a4a238e110ee6394c701dd
+    resource: repo://frontend/src-tauri/src/onboarding.rs
+  - id: openwiki-source-fc5f683811fed3fe986e735d
+    resource: repo://frontend/src-tauri/src/parakeet_engine/commands.rs
+  - id: openwiki-source-b1ce0111d679b1ef9537222d
+    resource: repo://frontend/src-tauri/src/parakeet_engine/parakeet_engine.rs
+  - id: openwiki-source-5bd53a4df3608b9a35f3a0d2
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/commands.rs
+  - id: openwiki-source-e99d4be974c0985d67df9fcc
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/model_manager.rs
+  - id: openwiki-source-7bce73018348ca4ac14fb36f
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/models.rs
+  - id: openwiki-source-8e27a5deea501e9ae498094a
+    resource: repo://frontend/src-tauri/src/tray.rs
+  - id: openwiki-source-7b97a7f81a20d637d1e53452
+    resource: repo://frontend/src-tauri/src/whisper_engine/commands.rs
+  - id: openwiki-source-01429805a181be4f6cf2f678
+    resource: repo://frontend/src/app/layout.tsx
+  - id: openwiki-source-a2b8b3f5dc2b91428a815891
+    resource: repo://frontend/src/components/DatabaseImport/HomebrewDatabaseDetector.tsx
+  - id: openwiki-source-834930fe59a25aff50db63ac
+    resource: repo://frontend/src/components/DatabaseImport/LegacyDatabaseImport.tsx
+  - id: openwiki-source-ec2ca1e512c70eb61ca702e5
+    resource: repo://frontend/src/components/ModelDownloadProgress.tsx
+  - id: openwiki-source-8347c3e8a35ea5c1bfbb02c7
+    resource: repo://frontend/src/components/onboarding/OnboardingFlow.tsx
+  - id: openwiki-source-9304b1f11a1a21d2a371d47d
+    resource: repo://frontend/src/components/onboarding/steps/DownloadProgressStep.tsx
+  - id: openwiki-source-cc71053fcc4957a0ae177318
+    resource: repo://frontend/src/components/ParakeetModelManager.tsx
+  - id: openwiki-source-3ad2a61cc245dff9ad039362
+    resource: repo://frontend/src/components/shared/DownloadProgressToast.tsx
+  - id: openwiki-source-a98b226eff939ae5e257526c
+    resource: repo://frontend/src/components/WhisperModelManager.tsx
+  - id: openwiki-source-367b744dd3ad9ef481d17b17
+    resource: repo://frontend/src/contexts/OnboardingContext.tsx
+  - id: openwiki-source-3886b107f16c8c68acb0e498
+    resource: repo://frontend/src/hooks/useModalState.ts
+  - id: openwiki-source-85d76c296c6736f0bcf75eeb
+    resource: repo://frontend/src/hooks/useRecordingStart.ts
+generated: { by: "openwiki/0.5.0", at: "2026-09-07T20:26:28.923Z" }
 ---
 
 # First Run & Model Setup
@@ -86,6 +144,7 @@ Detection or import failures are logged and swallowed: a broken import must neve
 
 ### Manual import dialog
 
+<!-- openwiki: broken internal link [/openwiki/architecture/legacy-and-dead-code.md] file "/openwiki/architecture/legacy-and-dead-code.md" does not exist. Fix the href or restore the target, then delete this comment. -->
 `components/DatabaseImport/LegacyDatabaseImport.tsx` is a self-contained dialog ("Do you have data from a previous Meetily installation?") that embeds `HomebrewDatabaseDetector` and offers a browse flow — `select_legacy_database_path` → `detect_legacy_database` → `import_and_initialize_database` → reload — plus a "Start Fresh" escape hatch that calls `initialize_fresh_database` and reloads. It is currently not mounted anywhere in the app tree (the auto-detection moved into `OnboardingContext`), so it survives as an opt-in component; see [Legacy & Dead Code](/openwiki/architecture/legacy-and-dead-code.md).
 
 ### The `.db` → `.sqlite` copy semantics
@@ -223,6 +282,7 @@ The `builtin_ai_*` commands are thin wrappers over `summary::summary_engine::Mod
 
 The download protocol has one subtlety: the progress callback emits `builtin-ai-download-progress` with `status: "downloading"` **always** — never "completed" — and the command emits the terminal `status: "completed"` event only after `download_model_detailed` returns `Ok` (which includes GGUF validation). Errors are emitted with `status: "error"` and the message, **unless** it starts with the `CANCELLED:` marker that the manager's cancel flag produces — cancellation already emitted its own `cancelled` event, so the error path stays silent. The manager streams to an 8 MB buffered writer with a 30-second per-chunk stall detector and classifies failures (timeout/connect/body) into user-facing messages.
 
+<!-- openwiki: broken internal link [/openwiki/concepts/transcription-engines.md] file "/openwiki/concepts/transcription-engines.md" does not exist. Fix the href or restore the target, then delete this comment. -->
 Recommendation is RAM-based: `recommend_summary_model` returns `qwen3.5:4b` when system RAM is at least `QWEN35_4B_RECOMMENDED_RAM_GB` = 14 GB, else `qwen3.5:2b`; unit tests pin the 13/14 GB boundary and the qwen-over-gemma priority used by `builtin_ai_get_available_summary_model`. `builtin_ai_get_recommended_model` exposes this to the wizard and to `initialize_fresh_database`'s default config. How the downloaded GGUF is actually loaded and served by the sidecar at summary time is covered in [Llama Helper Sidecar](/openwiki/integrations/llama-helper-sidecar.md); the transcription engines' runtime behavior is covered in [Transcription Engines](/openwiki/concepts/transcription-engines.md).
 
 Frontend consumers of these events are layered: `OnboardingContext`/`DownloadProgressStep` for the wizard, `ParakeetModelManager`/`WhisperModelManager`/`BuiltInModelManager` for settings-time management (both whisper and Parakeet managers throttle progress), and the app-level `DownloadProgressToast` provider, which turns raw events into global toasts ("Transcription Model (Parakeet)", "Summary Model (…)") with status-specific auto-dismiss timers. `ModelDownloadProgress` is the shared presentational progress bar for a `{ Downloading: percent }` status.

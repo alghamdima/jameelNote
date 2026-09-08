@@ -1,0 +1,532 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:ebf676cad892e474fc0c4ea48f6671dbb5614f2e636feda39204becb40b5edbe",
+  "claims": [
+    {
+      "id": "claim_9898c5815a784f1ea13a75f04b0b711b",
+      "statement": "Backend recording start is strictly ordered: it first acquires the shared engine lifecycle lock, then rejects a second start via the IS_RECORDING atomic, then validates the transcription model (via validate_transcription_model_ready, which resolves the transcript config — defaulting to parakeet when missing — and initializes/validates the matching engine) before any stream is opened. On validation failure it emits a transcription-error event with actionable: false and aborts without opening streams.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L83-L107",
+          "version": "repo-lines-v1:sha256:bd2c765de3e5e41629549b9cd80e4ad8b6e22fa897763e7f0bf364c71b63f81f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU3ZGRkYmM2MTBmZDUyYjdiMmI0MGQ0OGRiMGMwNDkxZjYwNWFjMTI1M2E0ZDRlMTA1MjZlNjVhZWRlN2NlMTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwOTczM2EwNjQ0YjIxZDM1ZjA0Zjg5MjFhMjk2ZWI5OGY5NDM2N2MxOTFiN2I1NmZhODMxZWUxZjI5NDZiMTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI0YmMxNWJjNjY5OTk1ODBmZDg1MzBiM2U5YzlkMDFlMzdjYmJhMzc4ZDdmZDM1ODE1YWNiOTNjZmNmNzQyZmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU5YTQzNjkwOTY2Y2ExNWYzNTUwZGRhMzdlMTJiNGViNzgyOTM0M2QxNDRkZWYxZWUxZDhjN2I2Y2E3YTUyODgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/transcription/engine.rs#L54-L146",
+          "version": "repo-lines-v1:sha256:f343a75f1eae1e9c72d7236293c88c8504518450415f068dcf45cbf903e5cc6e:eyJzZWxlY3RlZExpbmVDb3VudCI6OTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNmZGQ1MWQwNjcyZWNlODFiYTRlNDYyNGI1NGJjYTc2ZDIxMmQzNmVhMTNkOWNmYmM0MDNlYjdmNTUzMjM1YjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMzZGVkOGE1ZDA1ODU1YThlOGNkNGUxOWE3NzVhYjFjZTZiZmQ3OGQ3OTE5MGIzZjNmY2YxNmZkNGM2ODBmNWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMzMmZkNDI4ZjgwYmEyMGQ3YjIyNWMyMmNjNmI0NzlhOTRmYzM4MDYyODFjNjkxMWIzNzI3MTZjOGE0NzE0ODQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L306-L344",
+          "version": "repo-lines-v1:sha256:74570ee3ab14b09c8d3b79e15a3ae22bed8bf0b498a8135196e3a28d6d2dd9c9:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMWVlMzNlZTk1ZmFlZTFjMTBlOWViZjNkM2RlNDFiYjE5MjUxNWNhZDc3Y2RhMjA1ZTU0NmRhMTcwMDFhNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkNDZkMTJlN2Q4NWY3MTU2ODljNmViMzI5YzkxY2NiNjkzMGNhZTU3Yjc5ZDcyMmRhOGRhY2Q0MjhiYWU0MDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgxODkxYmZjOWM3YWQ4YzVjNDk3ODVmYzg5OTljY2MyNDI5NzFkMDk5MWI0MTk3YjY3NGIzNWM3MGM0M2Y2YjkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8d449c949e4e494b8d4881c265bb48c1",
+      "statement": "Device resolution at start is Preference → Default → Error for the microphone (start fails if both preferred and default input are unavailable) and Preference → Default → None for system audio (recording continues mic-only with a warning). On macOS, default-device selection additionally overrides Bluetooth capture devices to built-in wired devices for stable sample rates.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L129-L216",
+          "version": "repo-lines-v1:sha256:4e3055e6580fb530070f8d5e7f9d58427ee42fac0c7d50ee6f10da013f4933f1:eyJzZWxlY3RlZExpbmVDb3VudCI6ODgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAwOWQzMmRiOTE2MjRhMzY0YTE4YmEzYTg0NGJjMDEyNzRmNjM0ZGQ0ODkzNTEwZjFjYWY4ZmJhZGNjNzk2ZTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI0NWE3Y2VjYmYxZWEyYzdiNTIwNTlmMDNhZDkwNjU2YmQwMmU5M2QxODFkNTMwNmFiMDYxZDdmMTFlNDZlYmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRmNDllMjk4OTU1ZWRiZjMyZDY5ZTkxZDhkZjc5Mjc2Mzg3MGFiNThjYzk1YzZjNDNmYjQzYWVkZjdkYWU5NmYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_manager.rs#L149-L189",
+          "version": "repo-lines-v1:sha256:1e9e67b90320cb26407e1f9ac24c16dcfd079e7a6c8b171651488393989eb55b:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0MWJjZDY3YTdkMzczM2EzZTk2NWRiNTU1NTcwZTUzZDZlNTU5NGY4ZWVjZTZhMWIzNTRkMzMwZDQ3NDY5YTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkY2MyMWU4ODgwMDU5MjY1NmRlYzA3MWY4ZDBkNDdjZTU0NzI4NGJmN2Q3ZTNlMDlhZGQ0ZmVjZTAzY2Y1MmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMzMjdlNWQ4ZDU3ZDNkMTg5OGY5Y2YxZjQxOTNkZDIzOWM3ZjFmYzQ1MWU0MjdkNDhhNDA0N2Y0MDNiYmEzNmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY3OTM0MDczMDM2MGMxY2ExMWZmMGFjNDZkYjAyZmJkNTUyYzkyYTRiYzk5YTJmZGEzMTAyNzFhYWMyMjAxYTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_515f03137661439f9dfe80bfdd51a1ef",
+      "statement": "A started session is kept alive by process-global statics: the RecordingManager is stored in RECORDING_MANAGER, IS_RECORDING is set true, and the transcription task's JoinHandle is stored in TRANSCRIPTION_TASK. A meeting name (provided or generated `Meeting <timestamp>`) is always set so the incremental saver initializes. After start, the backend emits recording-started and refreshes the tray menu.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L218-L305",
+          "version": "repo-lines-v1:sha256:2f23298d1c1d4e300bf7cd6350a98499f4fe5561dab421a291f7fb95b4546935:eyJzZWxlY3RlZExpbmVDb3VudCI6ODgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhZDNlM2VlNDMyMjc5NGM2NDI5MTQxOWQxOGIwOGVmZmE4YWQyMTE5YjZjM2JhNzY0ZWI4MjRjZmFkYTdlNjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ4OTc3MWZlMWI2NjI4ODc1YWEyM2U3ZGJlNGFhNzE0NjFkMDBjZGZiNjZkZGYxMWI5ZDgyMGFjNTg5N2ZkZjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEzN2U3NGE3NDZmM2U0ZmE5OGQ3Y2I5OGRiMDdkMzBiZmY2NWNlZjY3NmYxN2FiMWVhNDkzYWM0ODQ5MDY4MTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE4MDVhY2FjY2I0ZmNiN2I1OGE5MDkwMDdkNTUzMWVhM2IxZjdlYzJjNGI5ZWU4MWRmYTBjYzI1OGM0NDI1YzYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L424-L462",
+          "version": "repo-lines-v1:sha256:5248acd7e8cf3faaf43e1d10ca959752488b2b80aa04913af118e538c1bc773a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczNzUyN2ZkOWQyN2I3MWNjNmFjZjI2N2QzYjBmZjhjZjQ3YjBmY2YyOTE3NDg4MDRmNTY5OTk2MjQ2YTYzZjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhhZGU5NmEzMzZkYmYyODk3ODQyYjNhMTIzNzI3YmFlNDY0YWEzMjcwOGEyYThiNTM4YWRkZjVjYzNjMWM0N2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY0NDZiYTQyZTUwNjI1MjZhMWY5YmQyNWI0NjhkOWI1MjI2Mzc5NGE1ZjU5NTM4ODQ3ZTQ5MmRjYmRmZDdhODcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_dc3abcdc539e48e1b3517c20dc802d32",
+      "statement": "At start the backend registers a transcript-update listener that converts each event payload into a TranscriptSegment and stores its Tauri EventId in TRANSCRIPT_LISTENER_ID; during stop that listener is explicitly unlistened so lingering references cannot keep the microphone active.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L260-L291",
+          "version": "repo-lines-v1:sha256:7d9827e5459dd8aa9cc03126acb0dde38c28a9160b4f4607bb05942a28a3c338:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjOTYwYTZhOWRlZDZlOWE3YWNjMjg4ZjdiMDM2M2ExOGIyNGVhYzFhODI4N2QyNWMwZDc5YjIyY2I3OGVjZTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU5YzY4ODBiZTRhNWJjZWJlZDY0ZGI4NGQwMjM2NWVhY2U3MDliNmY1ZmFlOGZiZDQ4NDEzYzQ1ZDAxZDhmN2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY0NDZiYTQyZTUwNjI1MjZhMWY5YmQyNWI0NjhkOWI1MjI2Mzc5NGE1ZjU5NTM4ODQ3ZTQ5MmRjYmRmZDdhODcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L537-L545",
+          "version": "repo-lines-v1:sha256:5456164b06326a1e5cc3472e9d56de9604e6d8ab76e891df477320cbbef224e9:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzUxNDE0ZDZkOWViZjk1MDEyNTJiNDcyMzE3OTRkMjhkMjg5YmQxMzY2ZjdjYzZiMDgzOTg2NTY4NzI3YzNhZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTk5YmRlZmVlYWNhNjM0MGUwMjkwZGM4NmU4ODljODlkNWUxODlhYTViYTQ0YjU4NWIzYjcwNzM0ZjRhNjJkOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzE3MzUwODE4YjJiYWQ4NjYwYjBhODk2OGY1NTg0ZWYwM2ZhNmJjYmNhNTBkNWNlYzg3M2IxYzM3Yzc5NWQ3NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1bd42e151b3c498182b50f2edc7fdcba",
+      "statement": "The ENGINE_LIFECYCLE_LOCK serializes recording start/stop against batch jobs: acquire_engine_lifecycle_lock is taken by recording start, and unload_engine_after_batch takes the same lock and skips model unloading while a live recording is active.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/common.rs#L10-L47",
+          "version": "repo-lines-v1:sha256:8f388564ca964006d7bb801ad231253c5cb4b71235428745063be6e4b5a9dbe3:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNhNjVkMjgxZDU3ODQyYjRiZDdjNmU1NGRjZWY1OGQ4NDcyZTZjYTBjZjljNTRlNTM0NmI4NWIxM2U4Njg2ZDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdjODdlYjYwNjdmM2I1YTE3MmE4OWFlYWNiZTNhYjUwYzJmYjZlMTAwNTc4ZDVjZTcwNTM5Yjg4YzhjZmJhY2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwZjUyODMzMmMzNmU5YTUxYjkxNjBhNmQxNzg3NTk5ZWRmMTc0MjZlNTIwMzdjZjFlZDZkNThmY2Y1NzVjZDMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e70d220620d845d887aba37b8fb3a260",
+      "statement": "RecordingSaver.start_accumulation initializes the meeting folder and IncrementalAudioSaver only when the user's auto_save preference is on; otherwise it creates the folder for transcripts/metadata but skips .checkpoints/ and discards audio chunks. The folder is created as <recordings>/<sanitized name>_<YYYY-MM-DD_HH-MM>/ with a .checkpoints/ subdirectory when checkpoints are enabled.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/audio_processing.rs#L35-L57",
+          "version": "repo-lines-v1:sha256:f18a4d1eca2ffdb257c642e2634829acdfca8fb3ddef1f1e45e479976708813a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlYzg5NDE5N2EyNWE5ODdjNzBjN2JiNjk5M2VjMDhkNmMyNjcyY2U4YzkzZmJjMDQ0Nzg5Y2ViYjMwYmYxNjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc2YTliZDRiNjFjZTllZmMyNGVhNjVkYmYyMTQzNmUxMTg0ZGE0NDU1YTIxNGIwZGRhY2RmNDBhYTI0MmRjNjkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBmNTFlNWRjMDc0YmMyNDgzNGQ2ZjE1OTU4NjRmMGQyODZkMDY0YTMxNDI1NWU0MTVlZDk5OTdiNjU4ZTIzNmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZkMDFlOTg1ODM5ZjhhNTZiODEyMzVlYjJiYmJkNmE5MTg0ZGZmZWEwMmQ3MzE0Mjc5MWRkZjM0NDE0NTBkYzYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_saver.rs#L140-L173",
+          "version": "repo-lines-v1:sha256:52ee5acf054a5026a06ac8aafe3b5a6f41113c97436627e72001119768c6bed9:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlN2JhMjFhYzgxMmExZjMyMThiNjIwMmNkYzczNGQ0YjllODdkZjUzZDE5YzM1ZDk4OGNhMGYxMDMzMzMwNWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM5OGY4ZWJmY2NkMGRjYzRmYjEwYjhjYjZjNzk2YmYwNWViOWM3NmNkMzM2YWZhNDkwZjE4MGFlNjM3YTRhMzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjExZjhjMjdhYjViZDBmM2ZkNTFiYWJiOGUwYjNlYTY1MGIzN2M0MjUwMjI0Y2FhNDA1NzU3NTc4NjEzNjEwYzcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_saver.rs#L225-L271",
+          "version": "repo-lines-v1:sha256:30fd8bc3bc98a7e45a625f6dc2415ecf7347192230417bc706ed54f5d3771876:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhMWY0NTk2NDA4MjQxYzZhZTRlMWFjZWZmOWY3MWRkNzkxMjRlMWU3ZjRlNjQ2YmVjODJkMDAzZjBjOGEzMWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg4MmE1NTRiMTgyOGUzZTY1Mzk2MzFlMTdmZDcwZjQyMjUwZTU3ZWM5NGUwYThkNzc4MDc5M2E2ZmQwN2YyMzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEzN2U2NDQyZjVhOTk1MmZkOTVhYjgzNzhiNTQzNjU5ODZhYjUzYjAyMTRhY2Q4MjQ0NDkyN2E5ZWU5NjY0OTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_245a1b3043d64691bcfa37c0968c6ec0",
+      "statement": "IncrementalAudioSaver buffers pre-mixed audio and, whenever the buffer reaches 30 seconds (sample_rate × 30 = 1,440,000 samples at 48 kHz), encodes it as a mono checkpoint file .checkpoints/audio_chunk_NNN.mp4; finalize() writes any final partial checkpoint, errors with 'No audio checkpoints' when zero checkpoints exist, and is the source of crash-survivable audio.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/incremental_saver.rs#L114-L145",
+          "version": "repo-lines-v1:sha256:dabc20480039a25d1effed5e60b8854d11682b9f8c4f23fece605b12d18f203c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4YTE2YjlkOWIzZTFjNDg0MzE1YzUxYTE3YWEyYzg3ZjhjOTEyMmM5YmRhNzUzZmZiYjJlNDNhZGIzMmFiNjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2MmVlNTdlNDFhOGMyMGFlMDE2NGRmMjYxNDM5ZGNjNDk5ZDM1MjA4MzQxNTE1MTZkMDQ3ZThkZWFlOGE0NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAzOWUzZDA5NGQ5YWVkZjM2ZTc0OTJlOGRlMDU1ZmQxYmU0NDBmZWM0OWVmODQ4ZmEyOWI2ZGVjYmFlZmI4OTMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/incremental_saver.rs#L52-L112",
+          "version": "repo-lines-v1:sha256:3da019d9898f4e0c2505d4998bc2f7bf9ef67daf2fbe14a5c362d2df9ec90925:eyJzZWxlY3RlZExpbmVDb3VudCI6NjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3NGEzYWU2NTk4NWI1Y2ZlYTMzM2VlM2YwMTFlNTIzZDhkZmQxZjA1NGQwOTJhYTljMzIzY2I0ZjA0MjExZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViOWEwOGJjMjlmNmViZWJlOWE1ZjAxOTAzZDk4NDVkYmNiNTg0MmE0NTVmMDdkNWY0MDAyZGFjMzJhNWM2MDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ1YmUxZTJhNTgyM2RhMTFjYmM0NTI4YzZkZGM3MjgxMmY5NzAxYjcwNjY4NzA1Yjg2YTc1ZjBiZmUzYzA1ZDYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_60688166c84a464d856e133d67f55c7b",
+      "statement": "Transcripts are persisted continuously during recording: each transcript-update event is upserted into RecordingSaver's segment list keyed by sequence_id, and every add rewrites transcripts.json to the meeting folder using an atomic temp-file-then-rename write (as does metadata.json).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L263-L287",
+          "version": "repo-lines-v1:sha256:0cd49c7d4d9039931f7c2c7812c6dfbf26d6569fdee625f18489f3b6dc786d16:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5Y2E4OTFiZmY3YWMxZjdjZWFhZTQwZWYwNTEwNjZiZTllZmU0N2I0ZTQyODFlODZjMzE5YmUyYzU1ZWJjZTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YzEzNTkwNjY1NjMyM2QxYzVlYTQxNjU0ZWU2NmFmYjU4NWFjZGNmYWVhY2ExMjFkNWUzMGJmMTkzZWVkZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjMWE4ZDU0Y2QwN2NlM2ZmMDRjNmVhODA4NmUzMjc2ZjMxYjBkNjcyNTgxZmE4NGU3YjRlNzM0OTg4NDQ0ODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ0ZTYyNDI4NzA5ZTEzYWY5ODIyZjk4MjNhZTY1YjZlYzhiM2E2MDRhNTgzNGI4MDkyMzQwZjhmMTUwOGFjYjkifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_saver.rs#L285-L338",
+          "version": "repo-lines-v1:sha256:49a4f8cd0413ea554b640c49cc63b04dd41c150e397005bfbee5a60562d858d2:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUzY2FlYmJlZDZjZjc2MDg0ZDhhYWFmNWJmMzdmMmMwZTlmYTI0ZjIxNzVhMmNkODE1YTUxMTI4Nzg4ZGJiMTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2MmVlNTdlNDFhOGMyMGFlMDE2NGRmMjYxNDM5ZGNjNDk5ZDM1MjA4MzQxNTE1MTZkMDQ3ZThkZWFlOGE0NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIxMDNhYjE4NDJmZGU2OWNjZjcxNWJmMjcxMDhlOTk5Yzc0MzBjZDk3YTk0YmYwNDM3MTQxNjY0YjBiNmU5ZGEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_saver.rs#L94-L119",
+          "version": "repo-lines-v1:sha256:cb14be4885a3ff2eae33965a522439434d9e5d4f8a15d5903c492062d505919e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyNTZkOGU5ODkwYmUyNzI1NTllNWZlNmVhNWU2MThjZTFmZmE1MjI4ZTEwZTBkYjgzMTdhNTFmY2M5NWM5YmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUyM2RhOTg3NjgyOWMxZTdkMzc2ZDQ3ZWM3ZjUxZDVmMjcxYzAxY2YzNDMwNjRmMGFhODRjMWExMTkyMzc0ZGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1dad28b658be4f9fa00770a8033de11c",
+      "statement": "The transcription task runs a single serial worker (NUM_WORKERS = 1) so transcripts emit in chronological order, and for each accepted chunk assigns a monotonic sequence_id, derives recording-relative audio_start_time/audio_end_time/duration from the chunk timestamp, emits speech-detected exactly once per session (session-scoped flag reset at start), and emits the transcript-update event.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/transcription/worker.rs#L177-L228",
+          "version": "repo-lines-v1:sha256:4df09fa5e5aa601c323279398be2a9e9fc9e47dcc0119b6906b73176f92816a5:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4MGYxZDU0Yzg5MzM2YTJkMmRkZDUwMmE1YjlmODZiM2QzM2EyNGY2NmE3MWQ1NjI2ZWZiNDFlMDYxMDA2ZjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU3YzI0NGE5MDg2MDhmNjc5MmU4ZTk3MDA4NzY1ODJiMGQ5NDkyZWYyMGNjN2YwYjEzMjk2Yjg1NDI4MTE0MDgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg0MjllZjFhOTNmYTgzOTQ5ZDEwZDg5MjE2YTdhNDhkYTA3N2M4NmJjYmNjNjFmNWNiOTM2MzgzZTcwZDA3ZWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUxNTk4NWNhYTY4MjU4NTg0ZTZhYzcxZjk0NTU1ZGM2Y2Y3NzBmNGZmMWI3YzU1NmI1MDdiZTQ5NDA0M2I2ZWUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/transcription/worker.rs#L44-L76",
+          "version": "repo-lines-v1:sha256:e7a30563affa95718216e3e25bbe6a95ad314d40d4bde62133991a94848a8b94:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2YzFlZDdlNmM0ODg3NDU0ZmIzNTg4OGQ1ZTA3MTUwY2I0MWE3MjcwMzAwMmU1NzYxM2RhY2YyYzYyOTA2MzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1Y2JlODUwNTAzYzY4NDJmNWZjNGY2NGQ1OTc1ZWYxNWFiY2RmNjllNmU0NTk0MDY2Y2Y4ZmI5YWZjOTViYWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZlMjQwMDIyZDVjMGJhM2JjNTRlMThiZGU5ZWRkZDViNmY3NWRiZDU3NDM3ZWFjYTkxNmU3ZThiYzhjMGU2YzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFhYjExOGY2OTFmYTZhNTNmM2MwMjg5Njg4ZDA4YjUyODVlYTY1MDI1N2EwNGYyOWRhYmU5NzU0ZmEwYjNiNWYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c7a9883721e94889a3cf0ea604de09f1",
+      "statement": "The transcription task enforces zero chunk loss via chunks_queued/chunks_completed counters: workers poll until input is finished and all queued chunks are completed, the dispatcher's final verification waits (10 attempts) for the counters to agree, and a residual mismatch emits the transcript-chunk-loss-detected event.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/transcription/worker.rs#L291-L313",
+          "version": "repo-lines-v1:sha256:dc2ef88941ce52d3f3caa3eed672d6e0f82cd5d3d5f6d274fb6c263627403a4b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk5M2YyZDQ5ZTFmZjYyMDZiMmVlMDdjNzQwN2FjYWI4MzcxNDliOTM2MDViNTg0OTJhZjdlYWVjNDU4NDI2MDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU3YTVmZmEzZTA5NWRmMDViNmIzMzMzODcxYWJhMWMxYjNlMjVhYjNkYmYxZDQ5MmYxNTRjMmNjMmIxMjJmNTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY4YTdkOTg5NTdjZWIxOGRkMDdjMGQ2MzdjYzg4MTE1YzMxNGZmZGNkZThjOWQwMWIzMjY0NzIyMDA4NDk2ZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU4ZjQ4MDJlY2Y3NmMxMDNhYjYyZmVjMjEzOTkzM2Q1OTZmYzE0ODlhOWRlN2NlZmViMzY0ZTlhZjFmYWUxNjEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/transcription/worker.rs#L361-L400",
+          "version": "repo-lines-v1:sha256:ff212a249c5ee715959abbc632050300aea23b85c07979a824a9c6ae58339875:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2MmFjNGNhZjg0YWI2Y2FmMDM4YjViN2YyZWZlZjUwZDdhZDJlNDM4NzhjYjI4MjhmYTE5NTBjODhhMzkzMzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhOWY4NmQyOGU3ODRmOWZkMzFmYjcyZDE1ZjYwY2JjZWFhZmRkNjY5Y2JkNWI2ZGE3ODg4YTAyMzMyMWViYjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgwYTM3MTQyNDUyMTNkMzEyOTNjNjc2YWQyMWYwZjcxYmIwMWNmMWM4MzVhNjRmZGU1YzAyZDU1MGY5MjA2NmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_12aac14b0e07407a8221b8d4bbfe0232",
+      "statement": "Transcription failure semantics: engine initialization failure at task start emits an actionable transcription-error and ends the task; per chunk, a model unloaded mid-session causes skip-but-count (chunk preserved in accounting), AudioTooShort and ModelNotLoaded are skipped silently as expected, and other provider failures emit transcription-warning (with transcription-error payloads from the provider adapters).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/transcription/worker.rs#L136-L141",
+          "version": "repo-lines-v1:sha256:f15ebe90e3e8a0263e337ff686958c31bf168de3cf563e5dd96e6e30be815f06:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2JhOGRlODEyY2YyMGYzYjY1YWI2MzRmYmVkNWVjNzY5OTY4ZDVlYWVmNTRjZjM2ZmQ2YzVkODk4MmI4YjViNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTdiNGUxZjFjYWM5YmZkNmZkMGIzNTA4NjRmNjViNzllNzFmZDkzZjBlYTIxZTA5MWQ0N2Q2M2ExODkwZTU2MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDRmOTQyYTgzN2Y4ZGMwMjQ2NzliYjNkODA2ZDE0Y2Y1MWI3NDc4MGE5MTQ3MzVhY2ZhNGVjN2EyZjE0OGExZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjNhNmMyYmZlYzY2ZTY4NjgzNTlkNzQ1MWU4YjJkMTcyN2RkYjFjZDAwMmU0MWU0NTI2MGNjYTliOWU3MjI0MCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/transcription/worker.rs#L238-L257",
+          "version": "repo-lines-v1:sha256:4ef2ef3151954d7ed40a51b4b6630e9557ef175dff893ef99a0c6b526836a085:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMyZjE0ZGM4YWI0ODFiMDdkMjI4NjEzNDY2NmU4N2MzMGMwNGRhMjdlNTg0Yzk3ZGEwYzhkODk5OWJiZWY3YTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhYjIwMjFlYmNlYWViY2JjMGM0N2FjYzUwNjhjMjYzNmY3YmYyZGZiZjA1YTNmNWQ0N2FjNzE0Y2Q1YzRkMjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1MjlhMzEzY2Q4N2U0MDg3MGFlODRjMDQxZWMyMzViNDEwMzU5YmVhZGQzM2NjMDI1MTRjYzFlYTYxZjU1MDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI4NDA1OWM3ODEyOTY3ZGIyOTUyZjAxODZiMjBiZDJhNTBhZWQxMzA2Njk3NmI1OWZlNjdiYmM2NDhjZjQ4NzcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/transcription/worker.rs#L53-L64",
+          "version": "repo-lines-v1:sha256:273fc854e99ea4d7b449ed89fd5ea1b18e3347aab2f2f7ef05b59779c725da3c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA3OWMwM2E2NjMyNjZmNjhmNzU4YzAxOTM2YWEyMmJmZWFkNzc0YTgzYmQ0ZmZlOTdiYTU4NDc0OTFlMDlhNTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1Y2RlZjgwODVhZTc0YWI2MzZkNjQ1OWY1YzZkNWZiZmIwZGIyNjRmMWIwZDc1YmFjNTE5YzliM2Y2NzE3YWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZmOGFlZTY5MDU3ZjRiNDMzN2IzZjZhMDE5M2VlYjZjYWFiZDMyZjlhYjM1NWJhMGU5ZTY5Mjg0YWFkMzk0MDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0N2RjMWEyMjIwODBjMDMwM2Q4NWRjOWZlYzU0MGMzOTEyMTM5YmM1OGJlYzcwOGZhYTBmODgyMGUxYTgwZWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4674e167fc214ef68142da599ed651dd",
+      "statement": "Pause/resume are guarded state transitions on RecordingState (pause fails when not recording or already paused, resume when not paused); while paused, audio chunks are silently discarded (send_audio_chunk returns Ok without sending) so paused time contributes no audio, and each transition emits recording-paused/recording-resumed and refreshes the tray menu; is_recording_paused exposes the state for polling.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L914-L990",
+          "version": "repo-lines-v1:sha256:5e2ec1aaba0f1c6e3eeb18dca89bf8c81e14a93ad7f82879f9d479572552a1fd:eyJzZWxlY3RlZExpbmVDb3VudCI6NzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMWVlMzNlZTk1ZmFlZTFjMTBlOWViZjNkM2RlNDFiYjE5MjUxNWNhZDc3Y2RhMjA1ZTU0NmRhMTcwMDFhNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg2Yzc1ODJhYmZmNzMyMDNkNjNiNGU2NjdkM2YxNGI2NjBiY2Q4NTQ2ZjUxNzFkN2Y3NDc2NzMyZDU2ZmQzNjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg4NDQzMGNhZjY1NzAxNjllYjBjOWRiZWFhMjM2MDU0ZjEwOTJmZjZmZjdhZmM5MDU1YjFkNWYyMzUyOThiMmMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_state.rs#L177-L208",
+          "version": "repo-lines-v1:sha256:752f9afdb49c631b5f002ac589adcdf3ed5f58791ee353ae177d43f4f81e10fd:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZhMzg4NTJlMmJlNTI4NDgyYzMzZjQ1ZjNlNjRjNmM4MTFhYWM2MjJiZDkyZTk3NmYzMjAwNGE0Mjk3Mzg3NzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk4MjIxNWViYWU4ZjM4MGRjZDc0OTI5MTUwYjk5ZDFjZjdjNmUzY2FkNzlhZjUxYjE1MWUxOTg0M2YzYjA2MzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1YWRlNTAxOGY0NDM1NjYzOWIyOTE1ZDViZWE2YzFhODhlZDAxNDI0Nzc1ZTk1OWI0Mjc1NjFmODZhM2Q2OTAifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_state.rs#L265-L283",
+          "version": "repo-lines-v1:sha256:22ff8dd9aab0699cbae32e265fac42df40e15b995cfb9610877baaf7902d4191:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1YTQ3YmNiYWE3MDEwOGM4NjBiM2U4NDAwMzhmYzRmY2ZhNWQ5MjBhMmFkM2QyZTQ3NjZiYzZmZDg4MWU2MjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdmZGMxZmFhMTdmMGQwOTMyMTliMzEwNTdkNjQ3NzRhMDQ2MjhlMWQ3ZTMwYmE0OWFmNGFjMmYyYWY2YmVkNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZlNGVjMGNlNDQzMjFmYjRlY2YwYjYxMTIzODQzYmRkMTExM2NiNjZkOTAxMmU1ZDA4MDJkMjA1YjBlNjg4NjAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8d7a2e5c8a5545c9bb255c6416ccfa1a",
+      "statement": "RecordingStateContext is the single source of truth for the frontend lifecycle status (RecordingStatus: IDLE/STARTING/RECORDING/STOPPING/PROCESSING_TRANSCRIPTS/SAVING/COMPLETED/ERROR). It syncs with the backend via listeners on recording-started/stopped/paused/resumed, an initial mount sync via get_recording_state that fixes the refresh-desync bug, and 500 ms polling of get_recording_state while recording.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/contexts/RecordingStateContext.tsx#L133-L226",
+          "version": "repo-lines-v1:sha256:c0f6002620833356bf94dfc896a0fd41087440a3e8a4c6a00613e6c0b7d40fef:eyJzZWxlY3RlZExpbmVDb3VudCI6OTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NjZmYmZhODg5OThkYTc0NjU2YzUwMTk0OTU2YzI1ZjA4NDk0NTc2NjBjMDA5ZmU2M2QxZTlmYTlkYzkzMWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYzUyZjA4YjM5YjA4YjAxYzhkMzA4YmY4ODBiMGJlZjAyZmQxZGZjYzlkOWFhOTNhNGQxYjVmNGQ1OGI2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM1MTI0ZmI3OWRiNmVmZTY0OTY5MWU3NzcxYTQzODI3OGMxNGE2OWFiYjMzZmJiYzlkNDEzYWE5YmZmMmNmNTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ5MzhhZDkxOWU0OTVhMmFmYWVjZDE2NzBmNzc3ZWQzNTA4ZDI1NTQ2ZjQ2YjQyMjgwNjQ4NjRlZjAxOTQ3MDQifQ"
+        },
+        {
+          "resource": "repo://frontend/src/contexts/RecordingStateContext.tsx#L16-L25",
+          "version": "repo-lines-v1:sha256:771786b83c5969d46f9ffc104428606cf0f19795375317440b50b2b21ebc24a1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNkZjljYThmYWRiZDI1ZDY5N2ExYTc1NTBkOTZkNGE4MDNjYWVmNjA4N2U5Njc0NTY1MGNkMWI1MmQyMzM5YmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFjODE2OGJhNjU2YjU5YTU4MGYwZjZjZTI0YmI5ZjI5YjM0NjQyMDVmNDNlODcyZjUyNmE5N2ZlODhmYTEzMzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdlOWNlMGZhZDQ1ZjlkNTlkYzlkN2ExOTdmMzZlNGQwODJhYjRjNzE5MjQyYWQ3ZDhlYjBjOGEzN2NjODRmNWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a70e21ddd79d427389039c301449a0de",
+      "statement": "get_recording_state returns is_recording, is_paused, is_active, recording_duration, active_duration, total_pause_duration, and current_pause_duration — with null/0 fallbacks when no manager exists — and the RecordingStateContext poller maps these into React state.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L993-L1019",
+          "version": "repo-lines-v1:sha256:22fdf491aeb27b64a90d66fd1a2abbe496a2b2eff8980dc2359b2a7afdcafd20:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMWVlMzNlZTk1ZmFlZTFjMTBlOWViZjNkM2RlNDFiYjE5MjUxNWNhZDc3Y2RhMjA1ZTU0NmRhMTcwMDFhNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjNGY0Y2M1YmI5ZTFiNDdkNzk4Y2IyZDIyZmE4MTFhZjZlNDE5NTZhYmZkODEzNjFlMDc2NmQ1Y2Y4ODhhMDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEzYzQ4YzI3ODA0Y2NmYmZjOWMxMWFkNzkyMDk5ZDBhZTgxMGUzM2Q1ZDllNDkzYmQzYzU0Y2M0ZTQ4MGY2NjkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_43e454f0d08646c2a3dc1dd615fe3bfa",
+      "statement": "Two complementary mechanisms recover UI state after a webview reload during an active recording: useRecordingStateSync polls is_recording every 1 s and re-adopts (or drops) the session in local state, and TranscriptContext pulls the full segment history from get_transcript_history plus the meeting name from get_recording_meeting_name when it finds itself recording with an empty local transcript list.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/contexts/TranscriptContext.tsx#L361-L405",
+          "version": "repo-lines-v1:sha256:4ce1fd352c573be8655904b005fafc324dd86518e70a716d7c160b21f8b55275:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4ODU3NDMxYzlkM2QyZjUzNTMyNDc5NWM1NzM2NTcyOTRkZWZlODI0YjBkNDRjZTViZDBlZmY4NTZmZjZhNzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg5YzIzODRhM2MwM2RhZTQ5MWRjNWE5NTQ0ZDg4NWVhY2IxMWVjMTZkMzJjYmNiNTVlMTc1YWEwOTg4ZmJiYTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc4MmZlNDI5ZWJlYWQ3MzdlY2YyMTJhY2ZlZGU0YTZlY2MwMTBlNGEzMzk1Y2Q3MWEzNWExYjUxYmQ1ZGM0YmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY1NDdiNTgyNzc5ZmEyMGJiNDE4OThkNGM2ZDFiMTEzNTkyNzBmNjViNmUxNjhkZmYwZWViYWI0MGQwYzhjMGUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStateSync.ts#L25-L64",
+          "version": "repo-lines-v1:sha256:378526a4f7560c9b2e712a22e7dd797e12ecd6a9ea279d4113a4e29212eb9fe7:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NjZmYmZhODg5OThkYTc0NjU2YzUwMTk0OTU2YzI1ZjA4NDk0NTc2NjBjMDA5ZmU2M2QxZTlmYTlkYzkzMWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhmZTM5OWEzMTVhMzJkNWFjOTNlZDRjOWJlZGE5NTUzMGMwYjRjMjQxOGMzOTIwMWI4YzY4MWFkY2M0YjdjZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY2ZjdjODg3YjUwODgzOWNkNzFiMTU5ZmVlMTJmYTQ1ZjNmYzBlNTM2NzEyZjJlNDkwMjQxZWM2YWUyMDkzM2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI0MDllOTIwMGU1ZmQ4ZWNlZTQ5ZGU4OTlhMzA4Y2FmMDQ0ODYyNTYxNDEzZmRiYmJhNTU3Nzc0Y2Q3ZjFkZGMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_14ec1bb51d10495a8895f05f301e1134",
+      "statement": "AudioDeviceMonitor polls the device list every 2 s while recording (5 s when all devices are present), classifies devices as Bluetooth by name heuristic (e.g. AirPods/Bluetooth/Wireless), declares a disconnect only after 2 consecutive missing checks for wired devices or 3 for Bluetooth, emits DeviceReconnected when a missing device reappears, and queues events on an unbounded channel.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/device_monitor.rs#L162-L251",
+          "version": "repo-lines-v1:sha256:d1f3db5315fb3e380da67ab24d4629003a9250b65164a7ee779d7b4608134172:eyJzZWxlY3RlZExpbmVDb3VudCI6OTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwOWY4M2E3ZDMwZjA1NDU1NzE2M2JiMmNkMTFiZjhmYmU1YTMxYjI5Zjc2MjRhOGE2NzM3ODMyYTFkZjAxZjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI1YTZlZGM3N2M2NjY2ODM2MTdmZjBhNTllNDdhMzA5ZmQ3ODU1Njc1ZTAxNTEzNTc4NzZmNjNkNTYwYTUzZmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/device_monitor.rs#L44-L77",
+          "version": "repo-lines-v1:sha256:0d78abbff7631662d4074d7d5cbe915782c807f0a486f5227ff28a76bbe57801:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRiZTVkNmMyMmIwZGJiNWJjNDdhNjE0NGU2NDQxNWU0MmQ3YWVmNzM5Njc1MWYwZGM4ZWU1ODIxNDM1N2FmNTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRhYzFlZDRmN2ZiNjllNjA5NzA3MjhlMjVhZjk4YjRjOTdhNmRjYjQxYjcyMWQzNDllZGU3M2ExNmNhMzlhZGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVkZjQ2NTljM2QyNzE0MTlmYjA3ODUzNTY3YmUwZTdlZDVlNjViNmU4ZjJlNjliMjY1ZDBjMGYzNmYyNzVlMDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c5a0d7c30dab472b9f4a79e2988d10ca",
+      "statement": "Device reconnection is exposed to the frontend through three registered commands: poll_audio_device_events (drains one queued DeviceEvent; designed for 1–2 s polling during recording), get_reconnection_status (whether a reconnect is in progress and which device is marked disconnected), and attempt_device_reconnect (the UI Retry: re-enumerates devices and restarts streams with the other device preserved, requiring an active recording).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L1112-L1129",
+          "version": "repo-lines-v1:sha256:cf67399e142205388f887620dcac8a3a681f1bce89741f2dc7a753c3ea73834a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNkMTk3Mzk0YTg4NGZkODI4MmZlNWJkMDA5MjQwYjA2YjY4MWJkYmRlMzhiNjM0YzY3Y2ZiMDA4MTFmN2U3NmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzN2ZiN2VhZTQ2NzFhM2QzNWNiZThmNDM3NmEyZmFjMDZkNGE5MjhjNGUwZmY3OTFlOTM5MjRkODQ3Mjc0ZTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNjZTU4MTUzMThkODU4M2QwNjIxZjMwNmZmOTNkMmNmOGIzNjQzNjZlMTMyYjRjY2MwNzA0ZjdkOWM5ZTBlMDIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L1168-L1200",
+          "version": "repo-lines-v1:sha256:0010f9750c322af42aebe3fd2750b42ff896b06b07d38ae7c102ffe3853ae60a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxMzQyYWRjZTdmOGQ3NzU5ZTZlMGI0NDYxMDQ1YmZhYzA2YWQ2ZmE1M2JmN2E3Yzg4OTFiY2M5MjEwNWZmZDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0NzVlOTRhOTA0YWM0OWIzMTU0ZDQ2NzJhNjZlODYyOWI4NmRhYzc0ZTNlMjkzN2JlNjkyN2FlM2RhMTFjNTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE3MGI2MGYzMzExMTM1NjZiNGM2OWZiNzExZmViMTRlMDJjZDAzNzYwOTg3ZDQxMTQxYWNmNmM4YmI3ZWQ0Y2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjliMTY5MGQwMTc0ZDY4N2U0ZmU2YjEzY2NjNWVhYWY1ZThkN2Y3OWJiODBkYThlMmMyMDYyYTA3NTk1YWU1NGMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L613-L618",
+          "version": "repo-lines-v1:sha256:ec65b3a4f19cbcc0acb674721cde26f8e6449065364098fb0fc661e2a0360816:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGEyMmJlMmM0OTVjNWU0ZjUxYjAyY2NkMmQzYTNmOGYwNWZkZjA2NzJlODE4NzAwMGYwMmIwNzZmZjMzZWYxYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjAxNTBkMWNiZDFiZmFjNTRkODljZjk2ZTA3Y2FiMTNmNzBlMjBkY2MzMzkxMGNjYTVlZWUwZDE1YjlmNWU1OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjMzODg5YmM2N2FmOTI1NGFkYWQxOTNlNzYwNDZlYjAyZjk2ZmQzNjE1Nzc0MDU0Y2I4ZGI3Yjc5NmRkMDJlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDdiNDUzZmNkMjUyM2M3ZGU1N2ZkYWUxMGQ3YzEwNjUyZDMyMTg3ZTM4MTgwOGZhZDExNTMyOWJkODJhZTAxNiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4fe4352098664491810f4caf672d2ede",
+      "statement": "The Bluetooth playback warning surface: get_active_audio_output reports the default output device with a per-platform Bluetooth name heuristic, and BluetoothPlaybackWarning polls it every 5 s to render a dismissible alert when the active output is Bluetooth, resetting the dismissal when the user switches back to a non-Bluetooth output. This addresses playback distortion of 48 kHz recordings over Bluetooth (documented in BLUETOOTH_PLAYBACK_NOTICE.md), not a recording defect.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/playback_monitor.rs#L17-L79",
+          "version": "repo-lines-v1:sha256:3e8c0bfdff084f115ed64eac34194990545b1a35ff965f91cbfc122d561e8d1e:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUxZGMxYTRmODk0MmMzZjQwOGE0YTRhNWZiNzM0MDQ2NWIzNzZhZjEzZTE2ZmRmNDAzYWFlNzY2YWIxZThlNmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBjNmZjNDU0OTJkMzEyODJlYzQxYjYyZTIzY2NmMDhmZmUzMjJiMmVkMGM1NDRhNTlmZTI4MGJiNDM3MGJlYmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzNDM4OGRhNGVkNDQ4MGFhNGI2NzA1YTAyMDE2ZWY1MGNhOTJjMTEzY2Q2ZGE5NzMxOTVmMjgzMjAxZDYzOTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/BluetoothPlaybackWarning.tsx#L15-L63",
+          "version": "repo-lines-v1:sha256:6b9ebe79db51afceb240a3853a12225644c64afe20bcdd1786b1c2d4a50a5382:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkYTU1Y2EzNmQ0MGI2NjE4ZTIxMWQxODY3MDEyYzBlZjVjYjJjZWE5NDViOGIyODkwYjRiYmMzMGNlZTQzNzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgyODkyNTUwMGQ0Mjg1OTNlZGJhM2FmYzRiNjVmMGIwNTI2YzVkNDMxZDc3NDYzMWYzMDcyMmE2ZjNlZjk2YjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4YjEzYzcwYmQ4ZWIwZjQ3NjRmODU3ZjY0YzYzYjI2M2ExMmZiYjIwNDQ5OWYxNmRlOWVhYjExM2IyNDhiYWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6522aa62ca9d4f52a53dc7cf3e054cec",
+      "statement": "The backend stop first takes the manager out of RECORDING_MANAGER and calls stop_streams_and_force_flush, which stops the device monitor first (avoiding slow Windows WASAPI polling), stops streams, sends empty-chunk flush signals so the pipeline drains accumulated audio immediately, and fully clears device references via RecordingState cleanup so the microphone is released even if Drop is delayed; each stage emits recording-shutdown-progress.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/pipeline.rs#L1030-L1073",
+          "version": "repo-lines-v1:sha256:b90a914308e29c2bf36302b6df7268a803c88e11493456814590856c03858420:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZWEyMmEzYzc4N2Q0ZTZjMTNmYTNiYmI2ODQ0YmQ1NjZjYTcyNzJkYTM3ZDY2NTc2NjA5ZWFmZTBhNjJiY2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc0NzgwMjUzM2IxM2Q2ZDc4YTNkYzE1MDY2Njg4YjVmZmY1MTJkMGEwZmYzNmMyZDEyOGIzZjE2ZDVmZTVmMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI3YTRkZTIyMzEyNWFjMzQ1MmJlYTIwZjMzM2RmZTMyZTQ3NmU5YmQzOTM3ODhmYzM0ZGZjYWM0MjUxNjNhZTYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L507-L545",
+          "version": "repo-lines-v1:sha256:4285adcba9a538f2182fcda9b993bc4dd467d3d174e0ed638a8207dade0a4eb9:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc2MTJlZDM2M2MzM2E4NDllNTQ5MDU4NzA4NzNlNGE5OTQyZWZjNWZjMDBkMjIxYzFiZmI1ZmRmYzJiZDY3NjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImExMjE5MTZhNTlhNTUwYjlmNzM5MDA4YmE2NjUxNTBjN2M0Y2IwZDEzYTAxOWZmOTcxYThhYzAzMTQxODZlNDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcxNzM1MDgxOGIyYmFkODY2MGIwYTg5NjhmNTU4NGVmMDNmYTZiY2JjYTUwZDVjZWM4NzNiMWMzN2M3OTVkNzUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_manager.rs#L255-L285",
+          "version": "repo-lines-v1:sha256:3186ca6bb0cc34ee882869351e8d032513bc9e8f53ef3f5bfc977a0061486297:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5YzYyYjJmNjZmOTkwNTY5ZjcxMmU3YzU2ZTc5ZTM1ZTE2OWI4ZmZiNTAzNDgyY2RhZTMxMjhhNDJmMjUxMjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRmYWRkNzhiNjVjMDNlMmU0NzViOWMxOGViNTUzZjI2MzQwMTk1OTg1YjI1MmU0NGMxMmRjNWEyMGFmMGIzN2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFiZmUwYzQyMTA1NDEyYmU5OTFkN2JlYTg3ZWE0MzgzNDVkNzZlY2Y5N2VmMWY1MGMzNDliZDdlMDQ1YmMzMDMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_state.rs#L161-L175",
+          "version": "repo-lines-v1:sha256:ea664cbc5f177105e02fc813070f95912864fa0f6ec461326eb0dde233b063f0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMxODFlZTZkMzFiYjlkNjJlOWM5MzA4NDM3YTMyYzQ5NmUwOGNmZWE2YThlYjk2MjdlNDhkZTAwZDkzM2IzMTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2MmVlNTdlNDFhOGMyMGFlMDE2NGRmMjYxNDM5ZGNjNDk5ZDM1MjA4MzQxNTE1MTZkMDQ3ZThkZWFlOGE0NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZjNTg4YWUzNmY2ZjQwYjVhNzM0ZjQyNDg0ODQ0ZDNiYWNiN2FiYzY5ODMwZmJlY2I1YmRmZDM0ZWJmNGNkNGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a5423ffc1ffe4ad9bd8a2e2127559c0a",
+      "statement": "Stop ordering guarantees zero transcript chunk loss before teardown: the stored transcription task handle is awaited (with a 500 ms progress reporter and a hard 10-minute cap to prevent indefinite hangs) and only then is the transcription model unloaded — Parakeet when the configured provider is parakeet, Whisper otherwise (config fetch itself capped at 30 s).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L547-L700",
+          "version": "repo-lines-v1:sha256:8622ab4a6f8317efc9e38f8dd3a5a966dbb933855958304c243938ca650c7ebe:eyJzZWxlY3RlZExpbmVDb3VudCI6MTU0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJkOGVjYmRjYTY1OWQ1MzczNjkwOWZjNmYwMjUxY2RlNGFlMjkyYmNiZGNiY2Y3NGZjMTNjOTBiZDQ3NzBlOTQ2IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5OTliZGVmZWVhY2E2MzQwZTAyOTBkYzg2ZTg4OWM4OWQ1ZTE4OWFhNWJhNDRiNTg1YjNiNzA3MzRmNGE2MmQ4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI4YWUwOGJiZWEzZWVjYzczNTIzY2E4NTE2OTk5NDRjMzM1M2VmMTkwOGVjYmRkZTkzOGEwNTRhZjgxODYwZjQ2In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_89eecb51b7b64ed4bf87a57e3951f4b6",
+      "statement": "During stop the backend tracks meeting-ended analytics with privacy-safe metadata — device types classified from device names (Bluetooth vs Wired), provider/model names, total/active/pause durations, chunk and segment counts, and fatal-error flag — and analytics failures are logged without blocking shutdown.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L702-L803",
+          "version": "repo-lines-v1:sha256:fdf4f0fdf77c7ad892717347dd6e6e91383bacd6b4fa89b49cc6d58c3cd5515f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI4NzQ0MmI5Mzc1NGJiYmJkZDcyNmZmODk4NDdhMWJjN2ViOTFkMzg0ZTllODkyNTE0MTFiODdkZTM4ZDFjZGE1IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5OTliZGVmZWVhY2E2MzQwZTAyOTBkYzg2ZTg4OWM4OWQ1ZTE4OWFhNWJhNDRiNTg1YjNiNzA3MzRmNGE2MmQ4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlMjJiNDA5NTU5MDMxYmQwY2RhZGI4ZGQ5NzNmM2MwOGQ4MTliY2I2ODM3N2ZmNjViMjgyMTdmOGI1M2M4MmU0In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_ac8db6341a494b4f94530347b75021a6",
+      "statement": "Stop persists recording artifacts via manager.save_recording_only (capped at 5 minutes, failures non-fatal), which runs RecordingSaver.stop_and_save: IncrementalAudioSaver.finalize() merges all checkpoints into <folder>/audio.mp4 with FFmpeg concat (-c copy, no re-encode) and deletes .checkpoints/, the final transcripts.json is written and verified, and metadata.json is updated to status completed with the actual recording duration.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/incremental_saver.rs#L114-L145",
+          "version": "repo-lines-v1:sha256:dabc20480039a25d1effed5e60b8854d11682b9f8c4f23fece605b12d18f203c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4YTE2YjlkOWIzZTFjNDg0MzE1YzUxYTE3YWEyYzg3ZjhjOTEyMmM5YmRhNzUzZmZiYjJlNDNhZGIzMmFiNjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2MmVlNTdlNDFhOGMyMGFlMDE2NGRmMjYxNDM5ZGNjNDk5ZDM1MjA4MzQxNTE1MTZkMDQ3ZThkZWFlOGE0NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAzOWUzZDA5NGQ5YWVkZjM2ZTc0OTJlOGRlMDU1ZmQxYmU0NDBmZWM0OWVmODQ4ZmEyOWI2ZGVjYmFlZmI4OTMifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L805-L847",
+          "version": "repo-lines-v1:sha256:905a2303525f89d7e744b0b3efaabf50aed943df608e3476773eb6d2fe6378b4:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwOWI5ZjdlNDlhZmJkMWQ0MThhY2MxMTZlYjk5NmZlODQ0NmQ3MjM0NTI3NGJmYmY5MGNjOGIwMzZkMTA0OGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0NzRmNmRmMmRkMWI1ZDJhZjU1NjVjOGUyMjczYmUzMGVhYjQzYTdhMzE5YWNjNDdmODEzZDU2NTFlMzRiYTYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_saver.rs#L353-L459",
+          "version": "repo-lines-v1:sha256:8a31f4f7133735468353ff5c29ae77f69971b1fb051ec49081371c61fcbc6c58:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1ODFkZDNhOGViMTNjOGVhNTQwYTYxOWQ2Y2FiYWVmZjgwZTQxNWJlNWU0NDkzN2EyYzVjNjgwODY0NTk4NDAwIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5OTliZGVmZWVhY2E2MzQwZTAyOTBkYzg2ZTg4OWM4OWQ1ZTE4OWFhNWJhNDRiNTg1YjNiNzA3MzRmNGE2MmQ4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI4OWE3MDQxN2YxYzRlNDQ3NjYyYTQ0YTU4MjQ5MGNjYzVjNzc4YWI3NGY5NWRhMWJlZjE2MzJlYWZhYjcyMGE3In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_96bea72359bd4a4383c07e24cb062c1b",
+      "statement": "After teardown the backend clears IS_RECORDING and emits recording-stopped with { folder_path, meeting_name } for the frontend — it deliberately performs no database save, deferring the SQLite save until after all transcripts have streamed into the UI.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/recording_commands.rs#L849-L897",
+          "version": "repo-lines-v1:sha256:225c1c0ea1732c3f8028e26396783b1ee882319da995fe7b23cce96ea6b7d059:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkMDRmNjFlNzJhODM1NzRjMjYwZmQwYTI0NjRiYzg4ZGM5OGUwZWQ3YzQxYmI3ZDAzNDVlODgxN2JhZTcxZjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI3N2NlYjNiOTMxMWJlYTk4MWJkZTFlNThmMTZmYWY1ODY3MDIwZTkxMWY5YWIyOGY3YjA3OWI1YjhkMWRkNTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlZGJlZjdmNWY4MjYyMDUxMWUwNDU3YTI3YTQ0YTI4ZDU1MGIwOGZjMDY0MmZkZjE1YWM2MDY1NTM3OTM2OGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9e95ec55e2014cec8109abb3c26d365c",
+      "statement": "useRecordingStop listens for recording-stopped, stores folder_path and meeting_name in sessionStorage (last_recording_folder_path / last_recording_meeting_name), and records the handler as a promise so the stop flow awaits that data before proceeding, closing the race with the backend's stop completion.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStop.ts#L79-L118",
+          "version": "repo-lines-v1:sha256:f630d9d552902d91b5bc67c1e117b219b674e816fe1e805d831cc6ff1a2b3557:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NjZmYmZhODg5OThkYTc0NjU2YzUwMTk0OTU2YzI1ZjA4NDk0NTc2NjBjMDA5ZmU2M2QxZTlmYTlkYzkzMWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5ZTFlNjM2MWQ4OGRkYWI3ODY5N2E5YjAyOTc4YmQ4NjI5ODU3YmYyODUwOTY1ZTk1Y2E1NjA1NDY5MDZiYzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjljZWFmY2EzYmQ4MGM2NTlhNWFmYmI3NjM3ZTBhODczNGZkZjg2ZWQzYzhiMGIxYjhhYmJmYzJhOTdjYzUyZWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEyMjU0ZTMxMDQyNTA2MmI1ODMxOWVhNzY1NGFjOTgwMTc2ZWYwMDA4MTcyNjExZjNhZWNmNjBkY2UwMDhhODkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c00e1f95ccb04e8099fcdc3d258754f2",
+      "statement": "The frontend stop flow waits for transcription completion by polling get_transcription_status every 500 ms up to 60 s (also listening for transcription-complete; done when not processing with an empty queue or after 8 s inactivity with an empty queue), then waits 4 s for late segments, force-flushes the transcript buffer via TranscriptContext.flushBuffer() (processing all remaining buffered entries regardless of timing), and waits 500 ms for state updates before saving.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/contexts/TranscriptContext.tsx#L475-L481",
+          "version": "repo-lines-v1:sha256:0a570cca83f026d7c53eaf21d24819e78c6b2034f1d278481aaf6a44cfc5d535:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjRjZTEwZjU2NWI1OWE3MjViYWJiYjQzYTczZGMzYTE2N2FkNTEwNjA5NGNjZDdiNGU3ZDZiZTU4ZjRhZGIyZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmRjNTJmMDhiMzliMDhiMDFjOGQzMDhiZjg4MGIwYmVmMDJmZDFkZmNjOWQ5YWE5M2E0ZDFiNWY0ZDU4YjZjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmNlMThjNTZjZDU4OTFlODVlODM4ZjAxOWEzOWNmOGZkMGUxMDMwOTFmMDdmMTE0YzA3NGIxYTUwMjI1NGFhYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2ZlZmNiMzZkMmI1OTRiN2Y1ZmU2NWJiZDA3ZTg4YjAwMDcwMmM5Y2NiOTdiYjM3Nzk2NTAwNjQ5NGYwYzA3YyJ9"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStop.ts#L148-L231",
+          "version": "repo-lines-v1:sha256:f42c1afab72b7c051936d27772ca30e2e1fd3de2db2f84a2dc57f5831b97c03c:eyJzZWxlY3RlZExpbmVDb3VudCI6ODQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1NzQyNDA4ZTI4YzM5OGE0NWY1MmQ2YTIyZmUwYjM4NTlmNmM5NmE2OGFlZTc4NDBjNzgxMTMwY2U0M2IxM2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4N2FmMjk4MDZkZDRmZDE2MGEyMjdlZjAyY2MxNzI4MjMwMDlhYWZkNmQzYmQ0ZjExNzJkYTg0NzY3YjUwOGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxMWQxMWE0NTExYWI5ZmI1NGY3M2I4NDM1YjEwZjE3ZDIwNDNhMGQ4MGM4ZjEzMTY5M2QyNGI5NDI4MGMwNTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE2N2VkMzRjNGIyZjcxOTg3MGE4NjU0ZTA0OGZiYzFhMTcyMmNmMDQ3ZjYzMWVlMThhZTQ1YjFmOTM0YTAzZTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_eb67e268593941fa99be50276c78cb28",
+      "statement": "The wait-for-completion poll relies on get_transcription_status, which is registered as a stub that always reports an idle queue (chunks_in_queue 0, is_processing false, last_activity 0), and nothing in the active backend emits transcription-complete — so the frontend wait returns on the first poll and the real draining guarantee is the backend's awaited transcription task during stop.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L213-L220",
+          "version": "repo-lines-v1:sha256:6cc3e95ab1e6dcff25ab6d3e0c0cacf37b65d1073c75cc7aef2fe610c6f2492b:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWUxZWUzM2VlOTVmYWVlMWMxMGU5ZWJmM2QzZGU0MWJiMTkyNTE1Y2FkNzdjZGEyMDVlNTQ2ZGExNzAwMWE2NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTA4ZjliMTk2Y2U4ZjA5YWU1ZTE4ODg5OTE4NTEwMzE4ZGRiNDcxYWVhY2U0MThjYWJmMTRjYjMyZmNkNDJjNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjM5OTRkNGQ4NDdkYjdjZDI0ZWNlNTNhOTVhNTUwODNkYmVhMmIyZWIyMzk1MTY5MmQxMTU2ZTcwNmU3MmNhOSJ9"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStop.ts#L148-L181",
+          "version": "repo-lines-v1:sha256:284c497cb99a20393fe1f6474e62cf86e886ff1b7070c722da9c6c0e5ae2f6ef:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1NzQyNDA4ZTI4YzM5OGE0NWY1MmQ2YTIyZmUwYjM4NTlmNmM5NmE2OGFlZTc4NDBjNzgxMTMwY2U0M2IxM2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4MDA1ZDU3MTA2YTM2MmViMDAwZGFmM2RhNDY3NGM4MmI1MThmZjVhMmUyZjY3ZWU4ZTc1N2EzMzNjMmFmNjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxMWQxMWE0NTExYWI5ZmI1NGY3M2I4NDM1YjEwZjE3ZDIwNDNhMGQ4MGM4ZjEzMTY5M2QyNGI5NDI4MGMwNTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmNjgwNmQ0NTAzNzlmYzU5ODAzNjlmYWFlY2I5M2I4NWQ5ODk4YWVkZTFkZTc2MDVhZWZjYWEyNWNlODg3MTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7b16ca4db89c485083262eb565239294",
+      "statement": "The SQLite save uses the backend-provided meeting name (savedMeetingName preferred over the locally generated title) and the folder_path from sessionStorage, calling storageService.saveMeeting → api_save_transcript (which persists via TranscriptsRepository::save_transcript and returns meeting_id); it also applies the pinned summary-language preference to the new meeting or, failing that, detects the summary language, with non-fatal warnings.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/api/api.rs#L973-L1003",
+          "version": "repo-lines-v1:sha256:63d365ab59b0ea037841b81a4503388b4a7662f051c77168c5fd80efd7ffda44:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4MmQ1YTE2ZDAxNzRhNmExOTliOGNmMTQ5NzM1NmJiNTA1ODRmZDYwZTQxZWI4MzUxZDRmYjM3MDViNGQ4MDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0OGVkZTE4Y2FjOWE2MDVjMDdlZDE4YmUzYWRmYzRmZWFmNGMyMjRlMDJjZTkyMTFkZDVlYzI4NDNhNTlmNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxYWNhOGRmNmJlNjU2OTEwMzU1YzU2MDVjNGQ3NDNjNjg0ZDc3ZmNkMDUxYTMyMjU0MGFjZDY1YzFjMDMyOTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStop.ts#L236-L290",
+          "version": "repo-lines-v1:sha256:07a7eb81c8e13bd1b5c7edcffb0cd8e127fc1b8189753d590a3c7ae234fd71c8:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5MDAxMDY3NjEwMTgyNWY1NmI5NTIwMTdhMjdmNjVhZTVhYjNjZDMxNGE5MDM2Y2VkOWJkYjVlY2NjYTRhMTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4MDA1ZDU3MTA2YTM2MmViMDAwZGFmM2RhNDY3NGM4MmI1MThmZjVhMmUyZjY3ZWU4ZTc1N2EzMzNjMmFmNjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM1NWZiMjZmZjlkNTRiN2YzNDBkNTgwYzk3OWU1YjYyYjU1ZWYxZTliMGIwZjVhM2E0YzkyZjJjYjc0OGI1YTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU0NWM1YjJjOTZkY2FkZGFhYjBkMTM3MTQ2MTg5ZWNkNzkyN2Y2ODRmODg5Mzg3ZjgyMGQzYTE3N2IxNTA1N2MifQ"
+        },
+        {
+          "resource": "repo://frontend/src/services/storageService.ts#L39-L49",
+          "version": "repo-lines-v1:sha256:eb743a3f24dc159c95dcd5e8bc4e69bda420cf687dcf01d483639fdb6bffcf13:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3YmNkMmUzYjlkMjIxYWJhMDRkZTQ5MmJmOTZkZmRhZTc0ZDM3MzYwOTY3MDEyMGUxYjYzNDUwNzM4MDVhNjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRhYzc3YWJhNDg0ZjI3MGE1NWUzOGIzZDY0MGY4MTFiYzVlZTBmZWIwNmQ0ODBkMmUyNjA0NWY2ODgzNGNiZjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM1MTYwNjkxNjY5Zjc1NjNlMWZlNDJkYzg1NzI0Mjc2ZWE0ZjgxNzE3MzgwYTZlMzk1ZWY5OWY4MDY2ZjZjNTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7e81212dbaf3467089acfbcf9e1f9e82",
+      "statement": "After a successful save the frontend marks the meeting saved in IndexedDB (markMeetingAsSaved, also clearing sessionStorage.indexeddb_current_meeting_id), removes the recording sessionStorage keys, refetches the sidebar meeting list, sets the current meeting, shows a success toast with a View Meeting action, tracks meeting-completed analytics (duration from transcript timestamps, word count, WPM, first-meeting activation), and after 2 s auto-navigates to /meeting-details?id={meetingId}&source=recording, resetting status to IDLE; analytics errors never block the flow.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStop.ts#L292-L396",
+          "version": "repo-lines-v1:sha256:73a24568162995cce9f5765239506f522e666919432681b6d91fd004c207a3a5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5ZmI1ODU2MjY4OWZmMWJjYjg4ZWEyMzEzMjIzMGZiZDY4YTNiMTllYjI1NDJmMDk0MDUyM2VlYzczNmI1MjNhIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI4ODAwNWQ1NzEwNmEzNjJlYjAwMGRhZjNkYTQ2NzRjODJiNTE4ZmY1YTJlMmY2N2VlOGU3NTdhMzMzYzJhZjY2IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjN2M2NmQ2YTgzMDczMjBmNmM1YmNkYWI3MmUwODQwYWVlYTllMzQzYTFkOTU0Y2Y4NjA3Y2I4ZWFkMDg1ZGFjIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJjNjMyZDhjMzg0NTIzYTY5MDZlN2FkMDlhYWEyYTk5ZDI2ZDRjYjE3NWQ2ZGI2OWQwZDFmZGY2ZjcwZDc4ZWFmIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_12bf950a890f46ecabf6302989c216b2",
+      "statement": "Tray-initiated stop calls audio::recording_commands::stop_recording directly in Rust and then emits recording-stop-complete, which RecordingPostProcessingProvider handles app-wide by invoking handleRecordingStop — so post-stop processing works from any page. handleRecordingStop guards against duplicate/concurrent stops (stopInProgressRef) and is also exposed as window.handleRecordingStop for Rust-initiated callbacks.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/tray.rs#L152-L201",
+          "version": "repo-lines-v1:sha256:e5552cc628cb47ba515ee4c3e0046a329c22d5469bc7793988b0456c987161f7:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNhZWEzYzY5Mzk3ZDExMGJkOWY0ODJiMTIxOGMzNjVjYzM5ODRlNWRmYWFiZTBiZmQ0YjEyOGY0M2EyZGZhMWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRmYWI3MTBkZGY3ODU5ZTU3NTc2NGE5MTNhMDAyYzc0NTg1ZmZhNzAwMTUxMGNiODgxMWRhODNkMmNmNzRiMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRiN2Q1MTkyOTk1MjM0MTJjNGVhMDk4NWYyNjhmODk4MThlOTI4ZjRmZjRmNTk0ZDdkNWUxM2NlYzI4OTc5YTcifQ"
+        },
+        {
+          "resource": "repo://frontend/src/contexts/RecordingPostProcessingProvider.tsx#L30-L58",
+          "version": "repo-lines-v1:sha256:25cbee1b4c1ae0d37737ae35ad2bd361ca1a687a7d26949434de5b08635f9ddb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NjZmYmZhODg5OThkYTc0NjU2YzUwMTk0OTU2YzI1ZjA4NDk0NTc2NjBjMDA5ZmU2M2QxZTlmYTlkYzkzMWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhOTZiYmU4MjFhMmY0ODZmZGQ5ODE5YjgwNTRmOTFlZWQxMjU4NWZhNjJhOWU3NDdlNWJiN2MxMGZlZGEyMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBmMDY1NTc0MTRhMGQyY2UyNjE4Yzg4MjJjMDk4YjA4NmYzNzBkZTc3NjRjZTUzZDI1NWVjNjYxZmQ3ZjhjZTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxYTAwZjdmNzEzMzEzMTAwZDNkOWMyZjk3MjhlM2Q3NmQxM2QwMGQ0ODkwZWZlZDMxYTA2ZmM0NDI1OTdjYzAifQ"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStop.ts#L440-L455",
+          "version": "repo-lines-v1:sha256:e3d5c87ecaa8ff3aa194d46147711a6c001f081724d1f1992016c06b595ba999:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMDI5OTFhZDc0MmUzNTMyZTY4OWIyNTE5YTU5NjYxYWNiMjA2NmMyNGRmNTAwNWIxYzQ4ZDRkOTEyZWI3YzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYzUyZjA4YjM5YjA4YjAxYzhkMzA4YmY4ODBiMGJlZjAyZmQxZGZjYzlkOWFhOTNhNGQxYjVmNGQ1OGI2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NjY3MzM3M2NkNDIwOWI2Zjk0ZmEyMjU5MmUxNGU3MDQ4YTBhYmJjNmI2MDA4OTgyMDEwYmVmZjQ5NTQ5MjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM1MjczNTA0Zjk5ZDRkZmY1ZWI3ZmRmMmU3MzI3ODY0ZDFiYzM3MzFkYzMyMjg1YjYwZWNhN2Q0MTRlM2FkNmEifQ"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStop.ts#L72-L77",
+          "version": "repo-lines-v1:sha256:ff7c4d3d9f0a819eea5cbd82985ca2c69140167ac7f726f0fcaa3ed3b94be890:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjYyOGFjMTEzMjkyOTE0OWMxM2Q2ZGNlMGZmNmFkMjYxMmY2ZGZlMTcxYWRkNTE3MzUxM2E5Y2IwZDgyODdhNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTNlOTg2NzlmM2IxOTBiY2YzMzEyY2U5N2M1NmQ5M2U0ZWQ3NzQ0OWExMDVlNzM3MzQ4ZmRjZDRlOGY0NTMxZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWIyNjIyNjY4MmFlMDU0YjI2MjA2ZWEyZTU3ZTRkOTc3N2YwOGFjNGE4YTdjODU2YjY2MGMxZTY5ZjhjYjAwMyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e1d04448776e413e8a2e8937b6aeaebb",
+      "statement": "Auto-summary is armed on the meeting-details page only when navigated with source=recording and the user's auto-summary toggle is enabled; with a configured model in the database (or gemma3:1b as fallback when the DB is empty) the page sets shouldAutoGenerate, and PageContent kicks off summary generation once transcripts are loaded.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/app/meeting-details/page-content.tsx#L142-L164",
+          "version": "repo-lines-v1:sha256:cd2b2cd6ec07d6a24b20ebfff7dcbbd70a90ba5c9e25b7cdecdd7052df391b05:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExZGZkMmFmZWU3NDFkZmRiZmY4ODZjY2Q1M2RjZWQ3YTAwMTUyZjM3OTcyYmE5NzE5NGYwNjFlNTBkOTExMTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIxZmU5OTU1YjkwNGJiNjkwYjllZDMxYTg0MzQzNzY2ZWMyMTRjNTYwNThlZWMxMmZhMTBhOWRhZDJhODZjMjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZlNGFmZWRmZGEwNDYwOTk4YzJjN2U0OGExOTU3YjkxZjdjMTQwODcwZTEyMDk1ZTE0MGIyMTQ3NWMxZmFiZTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRlNzk0MmE1OTU2NDJlZDZkOGQxNjhmMTVjOGU4MjIzZjNhZGE1MjFiZGRlYTU4ZmRiODIxMTVkOTRiNTQwZTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/app/meeting-details/page.tsx#L64-L117",
+          "version": "repo-lines-v1:sha256:964bd7e0fb4b27c8e33ddd10fb0928dddcaf8cbdcfa93b488f1b61700eceb0c7:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExZTQ0NmVlY2M0MzM1MWY2NjJmZWU3NGYwMDYzNjhjNjZjZjQ0MGFmNTA1YzJiOTQyZWNkNDdiNzMzYjE5MTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZjMGNkNWMwODExZWFiNmEwNmJlMDQ2Yjg5MzU3MmIxOWU3OGU0ZjA4N2JlMzZiNDE1YzBjMDUxZDVmYmFmYmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk2NjE3YzU5NWQxYzc0NjA2MDlmMGMyZGMxMDVlNDg1MmU0OWIwMWY4OWI2NTQzNDhhYWU1YWVmYjE0ODVmYzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2NTUyZjRhNDZiM2I1N2ExOWZjNzdjMDY4OTFiYzAxYmIwMDZhYmIzY2M2NmFjMWMzZGU2ZjY4YzM4ZDVjMGMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c177fe9b36fb4957a177fe2b15b4d341",
+      "statement": "TranscriptContext journals the live meeting for crash recovery: on recording-started it generates a meeting-{timestamp} IndexedDB id (mirrored to sessionStorage.indexeddb_current_meeting_id), initializes meeting metadata with the backend meeting name and folder path (get_meeting_folder_path), and while a meeting id is active writes every transcript update to IndexedDB non-blocking (failures swallowed so recording is never interrupted).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/contexts/TranscriptContext.tsx#L321-L328",
+          "version": "repo-lines-v1:sha256:90f4181222972a933f7f32e9040025ff93a2eb23cb965d92a298f082aa088f98:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmFlY2QzZWY5ZGY3ZjFjMDgwYjc0NWQ5ZjUyODU4ODcyOGMxYzgxYjE0OWU0Y2M0NjExNDg1NjYyYTJlOTQ1ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODgwMDVkNTcxMDZhMzYyZWIwMDBkYWYzZGE0Njc0YzgyYjUxOGZmNWEyZTJmNjdlZThlNzU3YTMzM2MyYWY2NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWY1YzdjNGUxNTE4NDRkMGZiMDJlNDI3NGM3MjIyMDdjNWFmYzQzN2U1YjlkNjI0NzNmZjA3ZjBhYjZmNTgyNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDg3ZGE1ZDExNjI5Mzk0OWEyYTczZTQ5MmIxYWU3NjIyZjgyNDk1MzUwMGU1Mzg5YjIzMmRjMThjOTM2ZDc5ZCJ9"
+        },
+        {
+          "resource": "repo://frontend/src/contexts/TranscriptContext.tsx#L85-L143",
+          "version": "repo-lines-v1:sha256:804d41850f993bb81850e35b6a65964857883752a168cc213cb354536aaaecac:eyJzZWxlY3RlZExpbmVDb3VudCI6NTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NjZmYmZhODg5OThkYTc0NjU2YzUwMTk0OTU2YzI1ZjA4NDk0NTc2NjBjMDA5ZmU2M2QxZTlmYTlkYzkzMWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YzEzNTkwNjY1NjMyM2QxYzVlYTQxNjU0ZWU2NmFmYjU4NWFjZGNmYWVhY2ExMjFkNWUzMGJmMTkzZWVkZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhjZDMzYmQzYzBjNGM5MzY5NzgwYzI5NDkxNzEwZTljMjFiYWM0NDQyYTRjZTM0MGViMzYyODkyMTQwYzU1NjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE0NDAzODczZmNkMmFlMTc3YTU4YzY5NmZmZmJiYzk0NTkxMTUxYjA5YzA1MGEwMTA0OTg0MTM3MTZhYzdiZmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4ed4321a14c84612b5408682429a4db6",
+      "statement": "The home page runs startup recovery checks (skipped while recording or mid-stop-flow): it prunes IndexedDB meetings older than 7 days and saved meetings older than 24 h, then checks for recoverable meetings; if any exist it shows the TranscriptRecovery dialog once per session (guarded by a sessionStorage flag).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/app/page.tsx#L70-L119",
+          "version": "repo-lines-v1:sha256:02430bfdcb4564a632c20337e2ec687330290f65a8edc40e5e6740fff7ffe00b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE1OTE0N2I5OWIzMDZkOWI5ZWFlNjM1NTg3ODU0MDA1ODcxYmQ5MjM4ZDhhZTY1N2FlNmNlOWQ1MDYzNzQwNTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0MTQ2NmVjN2Q2ZjA4MDVlMmVjZjFjMTg4MzU4NDRiYjkwZWYwYzQ1NGE0NDE4MWY1YmU3N2M0MmE3Mzc3NmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ3ZDEzZjU4YmMzMjVlMjIwNmUyNWViM2E4N2VjNmU0MzVkNTI2MjE4MDhiYWU0MTExZjlmNGFhMDBjNmMzYTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJjM2Q0NGM5MzM2OGRhMjNmNGYzZDEwZGIwNzI3ZTdjOWFjNzk4NjIxMDQ0YjFiMGYzMzM0NjZiYTBlMjA5OWYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bf2d2e2f69b940758352a7bd11e636fc",
+      "statement": "useTranscriptRecovery.checkForRecoverableTranscripts lists unsaved IndexedDB meetings within a 7-day retention window (excluding the last 2 seconds so the just-finished session is not caught) and verifies audio availability per meeting via has_audio_checkpoints, clearing folderPath when no checkpoint audio exists so the UI shows 'No audio'.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/hooks/useTranscriptRecovery.ts#L41-L90",
+          "version": "repo-lines-v1:sha256:6b7ea6494390d80e68a0a7b1eae47e53ed04669c7238c000da740a9b985ff734:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhMTBjMjZjMDU2NDNlNDZmMDIzZTg0NzViMmVlYWQxZDMyMGI0YjAzZmUzMzBiMzY5MzI3ZDk1N2Q0MjEzOTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYzUyZjA4YjM5YjA4YjAxYzhkMzA4YmY4ODBiMGJlZjAyZmQxZGZjYzlkOWFhOTNhNGQxYjVmNGQ1OGI2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNiZTc5Njc4NzQzZGYxY2NmZjQxMDljYmNiYmIzNDA5NjIyOTcwNzEwZjU5NzVjMzlmMWIyNWFkYzUxMjBkN2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYwMWFhOGZkZWRlOGVhYTRlOGUxYjE5NjllM2EwNmIwYWVmNDlhMTkzNTY3MjIyOTIwYmQ2N2YxZDgyNmIxNDYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c76015cb081c4e18bce185039a9d199d",
+      "statement": "recoverMeeting loads IndexedDB metadata and transcripts, resolves the folder path (falling back to the backend's get_meeting_folder_path), invokes recover_audio_from_checkpoints, saves the meeting through storageService.saveMeeting, marks it saved in IndexedDB, cleans up checkpoint files (non-fatal on failure), and removes it from the recoverable list; the home page toasts the result and auto-navigates to the recovered meeting.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/hooks/useTranscriptRecovery.ts#L110-L224",
+          "version": "repo-lines-v1:sha256:0b38dfe67c696190e3ae379dbffc4f8d16fec69146c3e73d3659883a8d1b6566:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI2OTAzOWQ2NzA0OWI2YjA5MGNlZmY3ODE5MTI2MDhkYzk4YTk0OTEzNjA2YTU1NTFjYTgyMGE0YTdhODMzYTcwIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJmMmIxNzc2MzIwZjJkMzcxMjE1YmEyZjFhNDg5ZjQ4NzZiODgzYjdlYjYyMWQ0ZDBjMjMyNGU3YjJjMzk4NmZmIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJiYzYzYTJjZDlhNjQ4MDczMTA3NTE3MTg1NDIwMTYwMWQ1MmUwMzczMjliMTM3YzE2YzNjNTQzNDlkOGRlZDU5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI1OTViMGYxMDFmYTMwMGQxYTk2YzVkY2YwOTJjY2JkM2QyNTFlNzYzZmNlNzc0MDg5MDMxZGE1OWY4YjQ2N2VjIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_38a9938b649f495e91fab715ba423600",
+      "statement": "Three Tauri commands support checkpoint recovery: has_audio_checkpoints reports whether a folder's .checkpoints/ contains .mp4 files; recover_audio_from_checkpoints sorts the checkpoints, merges them into <folder>/audio.mp4 with FFmpeg concat, and returns status success/failed/none with chunk count and estimated duration (~30 s per chunk); cleanup_checkpoints removes the directory after a successful save or recovery.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/audio/incremental_saver.rs#L240-L414",
+          "version": "repo-lines-v1:sha256:60074676b9b0ece19740e647cbc58cb090acb76e4f38547b8e4c2a6bbdc519f4:eyJzZWxlY3RlZExpbmVDb3VudCI6MTc1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5ZTFlZTMzZWU5NWZhZWUxYzEwZTllYmYzZDNkZTQxYmIxOTI1MTVjYWQ3N2NkYTIwNWU1NDZkYTE3MDAxYTY0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJiOTZkMzFjMzNkMzA4N2EyMGNlN2FkN2ZjNGU0NDM1MTI2ZmVkNDczZjc0MDkwMTRlOTA2ZTRiNmEyZTg0N2E4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI3YmM5OGQ2YjBkYzQ5MmM1MDE2ZGYxMDgwNWEzYTU0ZWI5YzE4NGE1YTYxMzdlN2Y0YmVjZmEwYzIyMDU1MGQwIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_ae3c686cd85e4440964f92c7848f2e40",
+      "statement": "useRecordingStart gates every start entry point (manual button, auto-start from sessionStorage.autoStartRecording after sidebar navigation, and the start-recording-from-sidebar window event) behind a Parakeet readiness check (parakeet_init + parakeet_has_available_models, distinguishing a Downloading state with a wait toast from a missing-model error with the model-selector modal) before invoking the backend; on success it sets the generated title (Meeting DD_MM_YY_HH_MM_SS), status STARTING, and calls startRecordingWithDevices; failures set status ERROR and reset local state.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStart.ts#L146-L215",
+          "version": "repo-lines-v1:sha256:b127fff4dfe3764383082761e037ed5865cc6162a1f38e90aa0d0e01a2d5ed77:eyJzZWxlY3RlZExpbmVDb3VudCI6NzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5MjljZDM4NTRlODUwNWNjMzJiYTdlMmZhMjljNWY1YThlZDBkMmZkN2ZkY2IzYzkzYWU2ZTE4ZTZjMTZmNTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVhYTdlNzg1MTBiMDRmMTRhMGJhMDE4YWYwZTlhNjkwYmZmZGM2MjU1MTE0YWY4MGUyNjg4NDlmMDE2MDczYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNhNDlhZjQ0OWZjNjk0M2ZkNGY0Yzc5NGM0Zjc1MzFjYjAxOWJhOTMyMzhlNWNhZTFkMDk1MzE1NzFjMjE5NTgifQ"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStart.ts#L41-L107",
+          "version": "repo-lines-v1:sha256:a0935f9113a6cd2c0453340dee01c575b1cc2945692eca4f1b49b0ae1d39ea6f:eyJzZWxlY3RlZExpbmVDb3VudCI6NjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM1M2IxMGYwNTI1ODg2NTNkYzE1ZGU5MmJkYzlhZTg4NmM3NmJlM2FhZjZmMWYxNDNlMTg2MWYwNWM4OGQ4MzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNjJmNjBkODU5MGE1NzljZjQ2ZjhkNjczNzhjNGM1NzJiOTYyY2VjY2RiOTBjN2E1ZjdiNDJiOTYwNzgyYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFlMGQyNDQwNjEwOTVkM2ZhYmNiMDkxZGYyZTVlNGQ2MjhiMTgyYTJjMDQwNmQyMzNlZDkwN2U0YWE4NDEyMzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlkNjE4M2QyY2VlNGQwZjU0NjBlMGU2ZDI2YTA5MWY2MTRiZTY1YTQ2ZjNkNGEwOTgyNDBmMDA3YTc0MzcxMjYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_367d2573a08246ca85d1b259fcbc3218",
+      "statement": "The UI stop generates a save_path (<appDataDir>/recording-<timestamp>.wav) and invokes the stop_recording command with it, then triggers the frontend post-processing via onRecordingStop(true); device-specific start failures (microphone/system audio/permission) are classified in RecordingControls to show targeted error hints.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/components/RecordingControls.tsx#L140-L202",
+          "version": "repo-lines-v1:sha256:a9ef28aea6753ea85ffb98effd4c0dc20c8ecf554a00e1730ef770e1f5d70e6e:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3MjM1MWRjYmE2NWM4NGFhNTQ2MjdiMzFkOWExNTBlNmFlMmM3ZjZkY2JiNzhkNjI4Y2EwNTYzMjIzYTlkM2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkM2I2M2ExNWIxM2Q5OTA2MDQ1MjU4NTY4NzcyNTg0OGJhMjA2MjdkMGRjNWQ0NDQwNzFkMzcwYmFlYmVlNTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNlYjMzZGE2ZTI0Mzc0NjFmYjE3NTJjYjNiOGM0N2Q4MTc1NGZlZjRjZjgzZWFlZDJiYTM0OTYwNTQyNjI4M2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY3NjFkZjZlYTljOTdhMTc1ODA2ZmMyNzNkNTNhNzMxMjEwMDEwMTdiNzAxZDEyZDM2MjNhOGEyZDIwNzZjYzIifQ"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStart.ts#L119-L143",
+          "version": "repo-lines-v1:sha256:db3bf93476ce368263bb0bebfc8a4023237b747cd4167657b160546231fa97cf:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUyNDYzODBlZmVhNDRhMmZmNGRhMGQ3YTQ4NDk5NDc5ZjhiMWM1ZGQ3MTFhZWM0OTNkOTQyN2FlMzJlMGJjNmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJjNzAxMzY0NjAxMDIxNDYyNGI4MTE5MDFmOWQ5ZTJiODY2ZTNlOGZhYTBkYTY5M2JmOTQ5NTZlYzk2ZTRmMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNhMTJlMGFlZWY4YzZmNjJhZmMwNzg5ZmRkOGEwMTkzOTBkNWFjZGEyZWE0YzExMTA2Zjg4OTVkNTgwZTg5ZWYifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-07T20:26:28.923Z"
+  }
+}

@@ -6,6 +6,76 @@ tags: [build, release, bundling, tauri, gpu-acceleration, ffmpeg, llama-helper, 
 verified:
   - by: openwiki/0.5.0
     at: 2026-09-07T20:26:28.923Z
+sources:
+  - id: openwiki-source-88b296dfd8f5bde850e9a9bf
+    resource: repo://.github/workflows/build-devtest.yml
+  - id: openwiki-source-3ac20062ab58e30d5e8a24b0
+    resource: repo://.github/workflows/build-macos.yml
+  - id: openwiki-source-783a7a489a4457a24efb0429
+    resource: repo://.github/workflows/build-test.yml
+  - id: openwiki-source-0cd9b07c2746418c3e3cacb1
+    resource: repo://.github/workflows/build-windows.yml
+  - id: openwiki-source-7a80b79a6fb3618cbfab08a2
+    resource: repo://.github/workflows/build.yml
+  - id: openwiki-source-43b6355804980f4e48a2c3c5
+    resource: repo://.github/workflows/pr-main-check.yml
+  - id: openwiki-source-4d1d392666be6dfdd7a91a2e
+    resource: repo://.github/workflows/release.yml
+  - id: openwiki-source-7970fd8a588a87e90f491ef5
+    resource: repo://.github/workflows/WORKFLOWS_OVERVIEW.md
+  - id: openwiki-source-f317ee207e1653d2033c81a4
+    resource: repo://CONTRIBUTING.md
+  - id: openwiki-source-700d043594d9c66a94fe5ca9
+    resource: repo://docs/BUILDING.md
+  - id: openwiki-source-cc3cc122aec6ec2fc4b23d71
+    resource: repo://frontend/build-gpu.bat
+  - id: openwiki-source-a4058f819e61ebf6422b779f
+    resource: repo://frontend/build-gpu.ps1
+  - id: openwiki-source-8104275f4006f201001809e3
+    resource: repo://frontend/build-gpu.sh
+  - id: openwiki-source-325e574e021efcae60548e8d
+    resource: repo://frontend/build.ps1
+  - id: openwiki-source-f1efe17fd49e51cc9d192703
+    resource: repo://frontend/dev-gpu.ps1
+  - id: openwiki-source-4a46807edc3c7f8010224f31
+    resource: repo://frontend/dev-gpu.sh
+  - id: openwiki-source-1047363cf615000e4c9bb694
+    resource: repo://frontend/package.json
+  - id: openwiki-source-ecbedf05afb91b37b2b3bca8
+    resource: repo://frontend/scripts/auto-detect-gpu.js
+  - id: openwiki-source-26158f7464dd70f922ed71f9
+    resource: repo://frontend/scripts/tauri-auto.js
+  - id: openwiki-source-6962d69af05b8d956ec9b7da
+    resource: repo://frontend/src-tauri/.cargo/config.toml
+  - id: openwiki-source-b0271e8d831d79d0aeb11936
+    resource: repo://frontend/src-tauri/build.rs
+  - id: openwiki-source-76c2273928e608c99a3419ea
+    resource: repo://frontend/src-tauri/build/ffmpeg.rs
+  - id: openwiki-source-955c29b0af20d7e12d853f32
+    resource: repo://frontend/src-tauri/Cargo.toml
+  - id: openwiki-source-5db303af3d64cd899a268e5a
+    resource: repo://frontend/src-tauri/entitlements.plist
+  - id: openwiki-source-f974e8335b8bc3a744e1a447
+    resource: repo://frontend/src-tauri/scripts/sign-windows.ps1
+  - id: openwiki-source-6ebc9cb214a8a753cfa22d8e
+    resource: repo://frontend/src-tauri/src/audio/decoder.rs
+  - id: openwiki-source-aa3ef6f45270d3465693a5bc
+    resource: repo://frontend/src-tauri/src/audio/ffmpeg.rs
+  - id: openwiki-source-fa2361dff56a72baf10d098b
+    resource: repo://frontend/src-tauri/src/lib.rs
+  - id: openwiki-source-69ad15ff7d2cb570931391c6
+    resource: repo://frontend/src-tauri/src/whisper_engine/acceleration.rs
+  - id: openwiki-source-f67766907fcefa3b61fb4a35
+    resource: repo://frontend/src-tauri/src/whisper_engine/whisper_engine.rs
+  - id: openwiki-source-17fd8d4b8f27dd2be9865b0f
+    resource: repo://frontend/src-tauri/tauri.conf.json
+  - id: openwiki-source-e39d8df3ce764549c2462c56
+    resource: repo://llama-helper/Cargo.toml
+  - id: openwiki-source-df38ba6452a93f77d474cb05
+    resource: repo://scripts/generate-update-manifest-github.js
+  - id: openwiki-source-299a060488581ed2d1cce070
+    resource: repo://scripts/test-update-locally.js
+generated: { by: "openwiki/0.5.0", at: "2026-09-07T20:26:28.923Z" }
 ---
 
 # Build, Bundling & Release

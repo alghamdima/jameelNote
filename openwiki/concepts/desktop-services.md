@@ -6,6 +6,68 @@ tags: [tray, notifications, analytics, posthog, auto-update, updater, onboarding
 verified:
   - by: openwiki/0.5.0
     at: 2026-09-07T20:26:28.923Z
+sources:
+  - id: openwiki-source-7a80b79a6fb3618cbfab08a2
+    resource: repo://.github/workflows/build.yml
+  - id: openwiki-source-4d1d392666be6dfdd7a91a2e
+    resource: repo://.github/workflows/release.yml
+  - id: openwiki-source-739027b570d87a280375b6b5
+    resource: repo://frontend/src-tauri/src/analytics/analytics.rs
+  - id: openwiki-source-f969f081da5f1cd60c19f70b
+    resource: repo://frontend/src-tauri/src/analytics/commands.rs
+  - id: openwiki-source-11f5c6bb90971a4e27fdab3a
+    resource: repo://frontend/src-tauri/src/audio/recording_commands.rs
+  - id: openwiki-source-fd7120b2522a7dd560757d59
+    resource: repo://frontend/src-tauri/src/config.rs
+  - id: openwiki-source-fa2361dff56a72baf10d098b
+    resource: repo://frontend/src-tauri/src/lib.rs
+  - id: openwiki-source-8478d869bde097e021dbfbfc
+    resource: repo://frontend/src-tauri/src/notifications/commands.rs
+  - id: openwiki-source-48da67e470292c8cdcc1eb41
+    resource: repo://frontend/src-tauri/src/notifications/manager.rs
+  - id: openwiki-source-d81207350314c922fc65e5e5
+    resource: repo://frontend/src-tauri/src/notifications/settings.rs
+  - id: openwiki-source-3946fc52fbe4e2764322c4cc
+    resource: repo://frontend/src-tauri/src/notifications/system.rs
+  - id: openwiki-source-54a4a238e110ee6394c701dd
+    resource: repo://frontend/src-tauri/src/onboarding.rs
+  - id: openwiki-source-fc5f683811fed3fe986e735d
+    resource: repo://frontend/src-tauri/src/parakeet_engine/commands.rs
+  - id: openwiki-source-5bd53a4df3608b9a35f3a0d2
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/commands.rs
+  - id: openwiki-source-8e27a5deea501e9ae498094a
+    resource: repo://frontend/src-tauri/src/tray.rs
+  - id: openwiki-source-17fd8d4b8f27dd2be9865b0f
+    resource: repo://frontend/src-tauri/tauri.conf.json
+  - id: openwiki-source-01429805a181be4f6cf2f678
+    resource: repo://frontend/src/app/layout.tsx
+  - id: openwiki-source-74f9a52be5ee90328ce253fc
+    resource: repo://frontend/src/components/About.tsx
+  - id: openwiki-source-118723ca875a7cac560a3a38
+    resource: repo://frontend/src/components/AnalyticsConsentSwitch.tsx
+  - id: openwiki-source-b0c6188a96d1ab7423b66d5a
+    resource: repo://frontend/src/components/AnalyticsProvider.tsx
+  - id: openwiki-source-332e11877e826a68c9d80239
+    resource: repo://frontend/src/components/PreferenceSettings.tsx
+  - id: openwiki-source-701e5a28170cd3f471f3fbb1
+    resource: repo://frontend/src/components/UpdateCheckProvider.tsx
+  - id: openwiki-source-1ca0e5255c9f46eeddb8a69c
+    resource: repo://frontend/src/components/UpdateDialog.tsx
+  - id: openwiki-source-e49b595c466a499f427cdecd
+    resource: repo://frontend/src/contexts/ConfigContext.tsx
+  - id: openwiki-source-367b744dd3ad9ef481d17b17
+    resource: repo://frontend/src/contexts/OnboardingContext.tsx
+  - id: openwiki-source-4acdcef550ba1d73a79d7836
+    resource: repo://frontend/src/contexts/RecordingPostProcessingProvider.tsx
+  - id: openwiki-source-85d76c296c6736f0bcf75eeb
+    resource: repo://frontend/src/hooks/useRecordingStart.ts
+  - id: openwiki-source-d6015f3c0a6a317ea7859f6d
+    resource: repo://frontend/src/hooks/useUpdateCheck.ts
+  - id: openwiki-source-4c705c1514c7a8efd42f008a
+    resource: repo://frontend/src/lib/analytics.ts
+  - id: openwiki-source-5934a5dbfb958ff55292f582
+    resource: repo://frontend/src/services/updateService.ts
+generated: { by: "openwiki/0.5.0", at: "2026-09-07T20:26:28.923Z" }
 ---
 
 # Desktop Services

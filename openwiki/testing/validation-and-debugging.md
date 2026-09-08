@@ -6,6 +6,94 @@ tags: [testing, debugging, cargo-test, bun-test, node, rust-log, logging, audio-
 verified:
   - by: openwiki/0.5.0
     at: 2026-09-07T20:26:28.923Z
+sources:
+  - id: openwiki-source-783a7a489a4457a24efb0429
+    resource: repo://.github/workflows/build-test.yml
+  - id: openwiki-source-7a80b79a6fb3618cbfab08a2
+    resource: repo://.github/workflows/build.yml
+  - id: openwiki-source-43b6355804980f4e48a2c3c5
+    resource: repo://.github/workflows/pr-main-check.yml
+  - id: openwiki-source-8037e2358a2c4f9b2c722a11
+    resource: repo://AGENTS.md
+  - id: openwiki-source-536e6058ba9e4a34e10d0b9f
+    resource: repo://BLUETOOTH_PLAYBACK_NOTICE.md
+  - id: openwiki-source-651d1fb6c9e49916a916ab51
+    resource: repo://Cargo.toml
+  - id: openwiki-source-a2371d6362e5db4bc834ad03
+    resource: repo://CLAUDE.md
+  - id: openwiki-source-c3d083462c537b7264ee5a39
+    resource: repo://frontend/clean_run.sh
+  - id: openwiki-source-1047363cf615000e4c9bb694
+    resource: repo://frontend/package.json
+  - id: openwiki-source-bf1cf1886db8aa42cff16c32
+    resource: repo://frontend/src-tauri/migrations/20251006000000_add_audio_sync_fields.sql
+  - id: openwiki-source-68cb527687a5af1d584cde89
+    resource: repo://frontend/src-tauri/src/audio/async_logger.rs
+  - id: openwiki-source-9d4fb295486752e77e5be862
+    resource: repo://frontend/src-tauri/src/audio/batch_processor.rs
+  - id: openwiki-source-1dcc1be23df5068a03e135bd
+    resource: repo://frontend/src-tauri/src/audio/capture/core_audio.rs
+  - id: openwiki-source-a29af42c6252772655c6ee19
+    resource: repo://frontend/src-tauri/src/audio/device_detection.rs
+  - id: openwiki-source-b4c26ada838d840ac7227db9
+    resource: repo://frontend/src-tauri/src/audio/diagnostics.rs
+  - id: openwiki-source-f3f579bcd018628b95c404aa
+    resource: repo://frontend/src-tauri/src/audio/import.rs
+  - id: openwiki-source-b102b55e5778464d0d16ef71
+    resource: repo://frontend/src-tauri/src/audio/incremental_saver.rs
+  - id: openwiki-source-a7d74a6c72e5fba44f9cc147
+    resource: repo://frontend/src-tauri/src/audio/pipeline.rs
+  - id: openwiki-source-c3d4ab7364a7f99517f67ce6
+    resource: repo://frontend/src-tauri/src/audio/playback_monitor.rs
+  - id: openwiki-source-11f5c6bb90971a4e27fdab3a
+    resource: repo://frontend/src-tauri/src/audio/recording_commands.rs
+  - id: openwiki-source-cd80c2d49891048ab51b4151
+    resource: repo://frontend/src-tauri/src/audio/retranscription.rs
+  - id: openwiki-source-b31d17664056fe5468416886
+    resource: repo://frontend/src-tauri/src/audio/system_audio_commands.rs
+  - id: openwiki-source-406803dff20e91a9b812f5cb
+    resource: repo://frontend/src-tauri/src/audio/system_detector.rs
+  - id: openwiki-source-9ed88384f6ae757b4593a037
+    resource: repo://frontend/src-tauri/src/audio/transcription/worker.rs
+  - id: openwiki-source-b0362b5f841fa32908129aa4
+    resource: repo://frontend/src-tauri/src/audio/vad.rs
+  - id: openwiki-source-9d39d53958b84daa7c8b349a
+    resource: repo://frontend/src-tauri/src/console_utils/console_utils.rs
+  - id: openwiki-source-fa2361dff56a72baf10d098b
+    resource: repo://frontend/src-tauri/src/lib.rs
+  - id: openwiki-source-a6583a2a2dd425fc51dcd8f5
+    resource: repo://frontend/src-tauri/src/main.rs
+  - id: openwiki-source-54a4a238e110ee6394c701dd
+    resource: repo://frontend/src-tauri/src/onboarding.rs
+  - id: openwiki-source-8f194df49340b01dbd296881
+    resource: repo://frontend/src-tauri/src/summary/commands.rs
+  - id: openwiki-source-b677af0a3afb1e22a0a409e3
+    resource: repo://frontend/src-tauri/src/summary/language_detection.rs
+  - id: openwiki-source-e2bcee08d7f89cd8e957d849
+    resource: repo://frontend/src-tauri/src/summary/processor.rs
+  - id: openwiki-source-98c4dd89bc21bdbf6093e060
+    resource: repo://frontend/src-tauri/src/summary/service.rs
+  - id: openwiki-source-f67766907fcefa3b61fb4a35
+    resource: repo://frontend/src-tauri/src/whisper_engine/whisper_engine.rs
+  - id: openwiki-source-dcb4899476674acccda243a8
+    resource: repo://frontend/src/components/BluetoothPlaybackWarning.tsx
+  - id: openwiki-source-065fc8fe059600049b60e5a4
+    resource: repo://frontend/src/components/ConsoleToggle.tsx
+  - id: openwiki-source-b1536091698df2ec75882212
+    resource: repo://frontend/src/lib/blocknote-markdown.ts
+  - id: openwiki-source-51b84c3b76b105fb4a838600
+    resource: repo://frontend/src/lib/onboarding-summary-model.ts
+  - id: openwiki-source-e16a907f5c6deeeb8895d65e
+    resource: repo://frontend/src/lib/summary-language-preferences.ts
+  - id: openwiki-source-25481497b2327e0ab829f619
+    resource: repo://frontend/tests/lib/blocknote-markdown.test.ts
+  - id: openwiki-source-78e0b8811d00240a8d6cf3f8
+    resource: repo://frontend/tests/lib/onboarding-summary-model.test.mjs
+  - id: openwiki-source-d69683884bd9ab94975f22ef
+    resource: repo://frontend/tests/lib/summary-language-preferences.test.js
+  - id: openwiki-source-d340df1a67ada455b50b543e
+    resource: repo://scripts/inject_transcript.py
+generated: { by: "openwiki/0.5.0", at: "2026-09-07T20:26:28.923Z" }
 ---
 
 # Testing & Debugging

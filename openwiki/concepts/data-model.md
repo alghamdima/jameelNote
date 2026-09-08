@@ -6,6 +6,74 @@ tags: [data-model, sqlite, migrations, storage, tauri-store, recordings, metadat
 verified:
   - by: openwiki/0.5.0
     at: 2026-09-07T20:26:28.923Z
+sources:
+  - id: openwiki-source-b3e87b88f67ca663fa57c6fa
+    resource: repo://frontend/src-tauri/migrations/20250916100000_initial_schema.sql
+  - id: openwiki-source-d5a2ebfa1dee2408a3a55afc
+    resource: repo://frontend/src-tauri/migrations/20250920155811_add_openrouter_api_key.sql
+  - id: openwiki-source-bf1cf1886db8aa42cff16c32
+    resource: repo://frontend/src-tauri/migrations/20251006000000_add_audio_sync_fields.sql
+  - id: openwiki-source-d9e050b6053b6c744c79b70b
+    resource: repo://frontend/src-tauri/migrations/20251010153942_add_ollama_endpoint.sql
+  - id: openwiki-source-1ba47927c6e91b89defd930c
+    resource: repo://frontend/src-tauri/migrations/20251105120000_add_pro_license_custom_openai.sql
+  - id: openwiki-source-a6732f0bd5bf47f2cc493f48
+    resource: repo://frontend/src-tauri/migrations/20251110000001_add_speaker_field.sql
+  - id: openwiki-source-a81a364212f0f6ec915e3b3d
+    resource: repo://frontend/src-tauri/migrations/20251223000000_add_meeting_notes.sql
+  - id: openwiki-source-e01a0b8aadd475da23030cad
+    resource: repo://frontend/src-tauri/migrations/20251229000000_add_gemini_api_key.sql
+  - id: openwiki-source-bc6fb15ec5d5c9a0ee0d2de1
+    resource: repo://frontend/src-tauri/src/api/api.rs
+  - id: openwiki-source-82f02c651ba30029a53b6915
+    resource: repo://frontend/src-tauri/src/audio/audio_processing.rs
+  - id: openwiki-source-f4aaa1cbd1d42e7d3badf7ff
+    resource: repo://frontend/src-tauri/src/audio/common.rs
+  - id: openwiki-source-f3f579bcd018628b95c404aa
+    resource: repo://frontend/src-tauri/src/audio/import.rs
+  - id: openwiki-source-b102b55e5778464d0d16ef71
+    resource: repo://frontend/src-tauri/src/audio/incremental_saver.rs
+  - id: openwiki-source-11f5c6bb90971a4e27fdab3a
+    resource: repo://frontend/src-tauri/src/audio/recording_commands.rs
+  - id: openwiki-source-5ffd4b9b0a927370c2699c0b
+    resource: repo://frontend/src-tauri/src/audio/recording_preferences.rs
+  - id: openwiki-source-dec588b1691efed90d3dba8c
+    resource: repo://frontend/src-tauri/src/audio/recording_saver.rs
+  - id: openwiki-source-cd80c2d49891048ab51b4151
+    resource: repo://frontend/src-tauri/src/audio/retranscription.rs
+  - id: openwiki-source-c6a09c9c079dd1e3f0773df9
+    resource: repo://frontend/src-tauri/src/database/commands.rs
+  - id: openwiki-source-f5d9886c8927a30c2d79ac90
+    resource: repo://frontend/src-tauri/src/database/manager.rs
+  - id: openwiki-source-9f0f9ae2523f275552e6231c
+    resource: repo://frontend/src-tauri/src/database/models.rs
+  - id: openwiki-source-b021a98c9022d2381b1489d1
+    resource: repo://frontend/src-tauri/src/database/repositories/meeting.rs
+  - id: openwiki-source-95002e8ac95d7302d818a80d
+    resource: repo://frontend/src-tauri/src/database/repositories/setting.rs
+  - id: openwiki-source-a6b0e1b2e7ad71f946ede8e3
+    resource: repo://frontend/src-tauri/src/database/repositories/summary.rs
+  - id: openwiki-source-f67db6d19c021f7128f27908
+    resource: repo://frontend/src-tauri/src/database/repositories/transcript_chunk.rs
+  - id: openwiki-source-12525eb10a298932e7ccbb22
+    resource: repo://frontend/src-tauri/src/database/repositories/transcript.rs
+  - id: openwiki-source-f2b0d5f3228bbc87d0a16054
+    resource: repo://frontend/src-tauri/src/database/setup.rs
+  - id: openwiki-source-fa2361dff56a72baf10d098b
+    resource: repo://frontend/src-tauri/src/lib.rs
+  - id: openwiki-source-d81207350314c922fc65e5e5
+    resource: repo://frontend/src-tauri/src/notifications/settings.rs
+  - id: openwiki-source-54a4a238e110ee6394c701dd
+    resource: repo://frontend/src-tauri/src/onboarding.rs
+  - id: openwiki-source-8f194df49340b01dbd296881
+    resource: repo://frontend/src-tauri/src/summary/commands.rs
+  - id: openwiki-source-372262a48ee99a3755f36737
+    resource: repo://frontend/src-tauri/src/summary/metadata.rs
+  - id: openwiki-source-7bce73018348ca4ac14fb36f
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/models.rs
+  - id: openwiki-source-7b97a7f81a20d637d1e53452
+    resource: repo://frontend/src-tauri/src/whisper_engine/commands.rs
+generated: { by: "openwiki/0.5.0", at: "2026-09-07T20:26:28.923Z" }
 ---
 
 # Data Model & On-Disk Layout
@@ -171,7 +239,8 @@ All SQL lives under `database/repositories/`; commands never inline queries exce
 
 **Summary processes** (`summary.rs`): the lifecycle machine behind summary generation.
 
-```mermaid
+<!-- openwiki: mermaid parse failed and this diagram was converted to a text fence so it does not break rendering. Fix the diagram source and restore the mermaid fence. Parser error: Heuristic: an unescaped angle bracket inside a label breaks rendering; rephrase the label. -->
+```text
 flowchart LR
     A["api_process_transcript"] --> B["create_or_reset_process<br/>status PENDING<br/>result copied to result_backup"]
     B --> C["background SummaryService run"]

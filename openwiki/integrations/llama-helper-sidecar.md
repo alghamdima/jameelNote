@@ -6,6 +6,52 @@ tags: [llama-helper, sidecar, llama-cpp, gguf, builtin-ai, local-llm, ipc, model
 verified:
   - by: openwiki/0.5.0
     at: 2026-09-07T20:26:28.923Z
+sources:
+  - id: openwiki-source-e13dcded805f33791669840e
+    resource: repo://.github/workflows/build-linux.yml
+  - id: openwiki-source-3ac20062ab58e30d5e8a24b0
+    resource: repo://.github/workflows/build-macos.yml
+  - id: openwiki-source-0cd9b07c2746418c3e3cacb1
+    resource: repo://.github/workflows/build-windows.yml
+  - id: openwiki-source-7a80b79a6fb3618cbfab08a2
+    resource: repo://.github/workflows/build.yml
+  - id: openwiki-source-651d1fb6c9e49916a916ab51
+    resource: repo://Cargo.toml
+  - id: openwiki-source-8104275f4006f201001809e3
+    resource: repo://frontend/build-gpu.sh
+  - id: openwiki-source-bc6fb15ec5d5c9a0ee0d2de1
+    resource: repo://frontend/src-tauri/src/api/api.rs
+  - id: openwiki-source-fa2361dff56a72baf10d098b
+    resource: repo://frontend/src-tauri/src/lib.rs
+  - id: openwiki-source-b1ce0111d679b1ef9537222d
+    resource: repo://frontend/src-tauri/src/parakeet_engine/parakeet_engine.rs
+  - id: openwiki-source-cfbbb03c47ab422490c4adf0
+    resource: repo://frontend/src-tauri/src/summary/llm_client.rs
+  - id: openwiki-source-e67e6da31aa699871307a07b
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/client.rs
+  - id: openwiki-source-5bd53a4df3608b9a35f3a0d2
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/commands.rs
+  - id: openwiki-source-e99d4be974c0985d67df9fcc
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/model_manager.rs
+  - id: openwiki-source-7bce73018348ca4ac14fb36f
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/models.rs
+  - id: openwiki-source-fb00a814bc78db14d573a738
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs
+  - id: openwiki-source-f67766907fcefa3b61fb4a35
+    resource: repo://frontend/src-tauri/src/whisper_engine/whisper_engine.rs
+  - id: openwiki-source-17fd8d4b8f27dd2be9865b0f
+    resource: repo://frontend/src-tauri/tauri.conf.json
+  - id: openwiki-source-ded76db303cd55cd0140807b
+    resource: repo://frontend/src/components/BuiltInModelManager.tsx
+  - id: openwiki-source-367b744dd3ad9ef481d17b17
+    resource: repo://frontend/src/contexts/OnboardingContext.tsx
+  - id: openwiki-source-b406eaa2cce8554fa5f3a607
+    resource: repo://frontend/src/lib/builtin-ai.ts
+  - id: openwiki-source-e39d8df3ce764549c2462c56
+    resource: repo://llama-helper/Cargo.toml
+  - id: openwiki-source-6ee3c302a5a972c165930623
+    resource: repo://llama-helper/src/main.rs
+generated: { by: "openwiki/0.5.0", at: "2026-09-07T20:26:28.923Z" }
 ---
 
 # llama-helper Sidecar

@@ -6,6 +6,68 @@ tags: [audio, recording, vad, mixing, bluetooth, cpal, core-audio, wasapi, tauri
 verified:
   - by: openwiki/0.5.0
     at: 2026-09-07T20:26:28.923Z
+sources:
+  - id: openwiki-source-536e6058ba9e4a34e10d0b9f
+    resource: repo://BLUETOOTH_PLAYBACK_NOTICE.md
+  - id: openwiki-source-82f02c651ba30029a53b6915
+    resource: repo://frontend/src-tauri/src/audio/audio_processing.rs
+  - id: openwiki-source-9d4fb295486752e77e5be862
+    resource: repo://frontend/src-tauri/src/audio/batch_processor.rs
+  - id: openwiki-source-eec8bc5806833087da8c5024
+    resource: repo://frontend/src-tauri/src/audio/capture/backend_config.rs
+  - id: openwiki-source-1dcc1be23df5068a03e135bd
+    resource: repo://frontend/src-tauri/src/audio/capture/core_audio.rs
+  - id: openwiki-source-a29af42c6252772655c6ee19
+    resource: repo://frontend/src-tauri/src/audio/device_detection.rs
+  - id: openwiki-source-3e4cb90f6f85d6788693b1f3
+    resource: repo://frontend/src-tauri/src/audio/device_monitor.rs
+  - id: openwiki-source-56aab2cfe078e19774e0de14
+    resource: repo://frontend/src-tauri/src/audio/devices/configuration.rs
+  - id: openwiki-source-93f084d5b50902449569d939
+    resource: repo://frontend/src-tauri/src/audio/devices/discovery.rs
+  - id: openwiki-source-8cb37cebe901c8786651b620
+    resource: repo://frontend/src-tauri/src/audio/devices/fallback.rs
+  - id: openwiki-source-92442ca6c373ded6e6e9c953
+    resource: repo://frontend/src-tauri/src/audio/devices/platform/linux.rs
+  - id: openwiki-source-689ade75981d8eac85f8678c
+    resource: repo://frontend/src-tauri/src/audio/devices/platform/macos.rs
+  - id: openwiki-source-270f1db83a8762025ac7a595
+    resource: repo://frontend/src-tauri/src/audio/devices/platform/windows.rs
+  - id: openwiki-source-871eda0cda1c6e169023416f
+    resource: repo://frontend/src-tauri/src/audio/ffmpeg_mixer.rs
+  - id: openwiki-source-f3f579bcd018628b95c404aa
+    resource: repo://frontend/src-tauri/src/audio/import.rs
+  - id: openwiki-source-b102b55e5778464d0d16ef71
+    resource: repo://frontend/src-tauri/src/audio/incremental_saver.rs
+  - id: openwiki-source-328dd1920b830f1ff43c5043
+    resource: repo://frontend/src-tauri/src/audio/mod.rs
+  - id: openwiki-source-ac2467fd38df708a2e0bc592
+    resource: repo://frontend/src-tauri/src/audio/permissions.rs
+  - id: openwiki-source-a7d74a6c72e5fba44f9cc147
+    resource: repo://frontend/src-tauri/src/audio/pipeline.rs
+  - id: openwiki-source-c3d4ab7364a7f99517f67ce6
+    resource: repo://frontend/src-tauri/src/audio/playback_monitor.rs
+  - id: openwiki-source-11f5c6bb90971a4e27fdab3a
+    resource: repo://frontend/src-tauri/src/audio/recording_commands.rs
+  - id: openwiki-source-d50b739402a57f67edd0a8a3
+    resource: repo://frontend/src-tauri/src/audio/recording_manager.rs
+  - id: openwiki-source-dec588b1691efed90d3dba8c
+    resource: repo://frontend/src-tauri/src/audio/recording_saver.rs
+  - id: openwiki-source-4877b3bd3e72c46c439dc37b
+    resource: repo://frontend/src-tauri/src/audio/recording_state.rs
+  - id: openwiki-source-cd80c2d49891048ab51b4151
+    resource: repo://frontend/src-tauri/src/audio/retranscription.rs
+  - id: openwiki-source-f68669a2d06c09d7d6b5b860
+    resource: repo://frontend/src-tauri/src/audio/stream.rs
+  - id: openwiki-source-9ed88384f6ae757b4593a037
+    resource: repo://frontend/src-tauri/src/audio/transcription/worker.rs
+  - id: openwiki-source-b0362b5f841fa32908129aa4
+    resource: repo://frontend/src-tauri/src/audio/vad.rs
+  - id: openwiki-source-fa2361dff56a72baf10d098b
+    resource: repo://frontend/src-tauri/src/lib.rs
+  - id: openwiki-source-dcb4899476674acccda243a8
+    resource: repo://frontend/src/components/BluetoothPlaybackWarning.tsx
+generated: { by: "openwiki/0.5.0", at: "2026-09-07T20:26:28.923Z" }
 ---
 
 # Audio Pipeline

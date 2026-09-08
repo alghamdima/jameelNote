@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:7e7a1930873a80a9e36abbcca0e7356677f9cc8d264e880e8207223c1413a03d",
+  "claims": [
+    {
+      "id": "claim_ce89f1988c19413da69b3cfc7788f842",
+      "statement": "The supported application is the Tauri desktop app under frontend/ (Next.js UI in frontend/src, Rust core in frontend/src-tauri as crate app_lib); all meeting persistence, transcription, and summary orchestration run through Tauri commands and events with no separate server tier, while backend/ is designated archive-only legacy context not to be used for development, installs, or issue triage.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L7-L17",
+          "version": "repo-lines-v1:sha256:c4abe45d141aba56970923de7e8bca6f54fe12ea21a7f48dd48072ff38a69413:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkYjcwZjIwYmM4NjgzMTQ0YWE4ODU4NGJmODJlZjAwOGE5ODRhNTEwMjU4ODQyMTY5NTEzMDA4YWJjZWFlZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlMDM2NWQ0YmNjMjczZTU0OWYxMDg1NDFkNzU4YTBkNjAwNTE2ZGFlYWMwMWQ1MDc0YjBlMmYzZmY3MmE5NzQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc3ZWFiNGRiYjBkN2Q3ZmRhNDcxZDUyNDNiZjM2ZGRlODliNmEwODk1ZWEyZjdmYjE1ZDRjM2E2MTU1OWI3YWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2MGEzOTIxNmRmMThhYzU3ODJkYzZjZWNiMDY5ODE4ODA3YmRlZjE3YjhlY2E4NTIzMmNjMTVmYzY0YjdhZmUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L526-L751",
+          "version": "repo-lines-v1:sha256:c4e06c898e9111362eebaf1e300610df40f188a5fee8ad40b67e7eed04e77f12:eyJzZWxlY3RlZExpbmVDb3VudCI6MjI2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJiYTNiOTVhZTM4MjFiY2ZmYzQ0M2I0MzllMWY2OTc3NTJlMTYwNWQ3ZDU1ZmYwNjhmOGQ5ODcxNjMxYTI0ZGQxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMjc2YzFkMWY5Nzg1ZTU1NjBkMGJiNWY3OWMyZTk3OTk5N2I3MGNkZWQxZjNiNjhlZWIwY2QxOTEwYWUyMjdhIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI0ZGFkMzhkNjU5N2Q0NDRiNzk3N2Q3MDJjYWUyZjQyODc5OTkzNTU5YmY1NWJhOTY5NzM2NjQ0YWRmMjE3Yjc4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI2OWM3MGJiMTQ1MTBkYzgxNmE3OWI5NmExMTdjOTY3NzJlYjM4MWRhZDBjYzM0YjZjZGVhMTY1ODVlZTBkNDQyIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_c3ef46d75d9f4a9ea9f0c4d96e7814a4",
+      "statement": "backend/ is archive-only legacy context per CLAUDE.md and is not part of the build graph: the root Cargo workspace has only the frontend/src-tauri and llama-helper members, and the backend/ directory does not exist in the current working tree, so doc references to backend/ describe a historical layout. The only live ties to that era are intentional compatibility surfaces (legacy database import and dev-mode model-path fallbacks).",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L49-L55",
+          "version": "repo-lines-v1:sha256:67cd06207ccb22be9cc8caf1d6318dd065efdc6cbfe0a3480c996091dd081cf2:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGJiNjE5Y2Q5YzY4NTQ0M2VlNTFiNDYyMTY2YzM5MWNmOGJkM2VhNzRjZmE5MDJlNmRkMDY5YmUwNmRlYmJiNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzA4MDUyMzc5YTQyMDgzMzFjOWQyNWYxMjQxMjU2YzMxZDk1ZmE3YWNiYzcwN2I0YzRhOTdkNDA1ODY3NjIyNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTczNDVkYjA4OTZkY2MxN2JlNDFiNTY1ODJiZDUyYTE1MzRjZGM3ODk4NGU1NGVhM2ZkZWEzNTVkOWUxNzcyMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODRmMGE0NzNmZTUwZDg1YzZjMWMyYWVkZGNmNDI1NGQ3MDM0ZjY3ZDgwOTViYzM3ODNlODQ5YWFkNjdlMzhiMyJ9"
+        },
+        {
+          "resource": "repo://Cargo.toml#L1-L6",
+          "version": "repo-lines-v1:sha256:0e773a6611186bceadab901270906584906b6d46b5ca1ffb7835c27975afcadb:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDM0ZTEwMmM4NjFmOTk0ZDJhYWNlOTExNGQzOTJkYmMxNjIxOTBlMDBiZThmZTM1N2Q0NzIxNTBjYTQzOTYxNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjk0MTZlMDlmNzhiYTMxNmMwMzI1NjgyMTNiODU1ZWU3NTZlNDE1NjVkOTE4ZjA5NTE5YzgxZmQ2MjBmNDA2MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDgyNTEzZjYzMDljOWY0N2Y2ZmUxNjg4MDMxNzFmY2MzZThlNGYwZTBlODdlMTY1ZTA1Mzc0OTc2MjA2NWZjMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_4bd35028e9754797875350aef52559a8",
+      "statement": "Live compatibility surfaces with the legacy backend era exist in the supported app: DatabaseManager copies a legacy meeting_minutes.db over a missing meeting_minutes.sqlite and runs embedded sqlx migrations; detect_legacy_database accepts a repo root containing backend/meeting_minutes.db; and WhisperEngine's dev fallback probes backend/whisper-server-package/models.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/database/commands.rs#L46-L83",
+          "version": "repo-lines-v1:sha256:1661785843fefe0c66c0e306f7fa1e69e9521c9fa3f67bba39b7ff3fbd7553b4:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwYjAzMGI2NjdhNGZiOGJkOGIwNWQwY2JjZjQ1ZjkyYjE4NDQ2MjNhMjcxYTU2MDEyNmQ4ZjFlMjg1MGNmMmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRkZDdhMGY5MzlkNWM5NjM0OWU0MDQyNjFmZjVmMjRmZTBlMWFiMmRkMDg5ZGUxOTFmMTUwYWU4NzMxOWYwMjAifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/database/manager.rs#L19-L35",
+          "version": "repo-lines-v1:sha256:4e31f123061850562d2c2081889aaa3bf83c64d559a1593be7ab1544a2b8e4be:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBmZTEwNmM3ZDUxMjg5YWIyN2M5ZmI0N2I2OWE5OTc4Zjk1MmRiMDY1Y2FjNjU1ZWE3NDNjMWU5MDBiNDIwYmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNiOWYzMTcyYzBhODM1ZTI1Mjg0Mjc5YjdhZjcyYmQ2YWNlYmMzNzE2ZjE4NmM2MjRkMTI4NmExM2U5ZWJmZjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhOWY4NmQyOGU3ODRmOWZkMzFmYjcyZDE1ZjYwY2JjZWFhZmRkNjY5Y2JkNWI2ZGE3ODg4YTAyMzMyMWViYjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ2N2RhMWNlNTdiMzlkZWY5MTg3MTQzMGZlNGFhZjc1ZGI0ZmUzMzlhZGUxNGVjZGUwNTVjZDAzMmVhYzcxMzUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/whisper_engine/whisper_engine.rs#L100-L115",
+          "version": "repo-lines-v1:sha256:81b165cb7e8b775c203b512fec0f9dd478021e7e7e2c7960355d1995b58acb8a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1M2RhNzkxNmQ2MDFlMmVmMDYyYmFhZDdiOTUxNmVlMDFlOTFhYzNmOTU4ZDIxNjAxY2NlODA4ZDgyMjM1YmMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNjQ3OWNjMjMwNDQwZmQ0MWU4MjI0MjE4Njc5Njk4NTU5ZDI4OTNiZDY3YjQzODBhZmFiODExYjM4YTU1YWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIxMTlmMzMzYWJiZmI4Y2FhOWYzYjllYzJlOWNkYWVjZGU2YTI4MDIwYzAzMWY0ZWY2NzYwNzNkN2RiYzczZjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjllNjJhMGQ2OThmNWJmZGJiZjBkY2EyYjRmMTZlNzRlODY3Zjg1MDBlNTNlMDJiYWNlODhjMTA3Mjk2MWJmYTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0c05ce9f3fa44110b4f90222e2034670",
+      "statement": "The Next.js dev server runs on port 3118 (pnpm run dev = next dev -p 3118), and tauri.conf.json sets devUrl http://localhost:3118 with beforeDevCommand pnpm dev, so tauri dev launches both the web UI server and the native shell.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/package.json#L6-L20",
+          "version": "repo-lines-v1:sha256:04e0ed4e9d83eba70aff43dc47b7285888b417487834edca4d04196561ba93cb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUwOGYxYjMxODg3Y2U0ZWE2NmU0ODI3MjdiMTY5MWUxMDRmMjVmZTEzYWZiYjVjZDczYjI0NjExMjRkMzkzZTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1ZDJhMzM4MDY5MDdmNTNlZGU4NDNhYWFjN2NjZjUwM2FkNzUxMmMzNjMwZjFjNzIyZDcwMmMzMmI0OGVlZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhhYzAxMTU0MmQzMGFiOTAyNzlkNjJhOTkyM2E5NTBiNjFiMDdlMWVhMmY2ZmZhNTYzM2UwNzRhMzIyNzZmNjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc4Y2FlNTg3YzA2N2Q4NDQ5MGZkMGM3ZjZlYmVjNzRhN2ZiN2YyOGEyYTJkZDM3MTUxYTFhOWE4MTk1M2ViYWQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/tauri.conf.json#L6-L11",
+          "version": "repo-lines-v1:sha256:927e93b89b96503ad69a8bb3bfdea906302855470dedc3274bd4bad6c94c7e47:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWVjZWU5OWY3YTFlNWUwY2RjOWU4M2JhNmU1YTgwZTAzYWI0NDdlZmI2NGRiZDhlOTRhYjBhOTQ5ODlhMDJhOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWYwY2RiOTcyYTdiZmI3ZWQyNDZmOWZmNjcyMzg1ZTU1ZjQ5NjhmYzExMDQzZGM1YjY4NGQ1MWRmYTMxZGJjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDE2NGNmNTVhYzcyYzAxZDYyNWI2M2Y1NjVkODg1MzI0MDE4YWE0OTdlOTU0ZTY3MWRjODIyNjBhYmZkZTQxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzQxZDY5NThkY2ZhNjVmMzAyMDgxNzZhNmM2MzYyODYxZjE5NjZhOGEyZTAzYTI5ODdiYzdkZWY5YzI2YzBlMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_566684cb579d48c5b398df2a366110bf",
+      "statement": "clean_run.sh sets RUST_LOG from an optional argument (info|debug|trace, default info), deletes node_modules/.next/.pnp.cjs/out, reinstalls, builds the Next.js export, and runs plain 'pnpm run tauri dev' with no GPU auto-detection; clean_run_windows.bat only deletes node_modules, runs pnpm install, and runs pnpm run tauri dev.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/clean_run.sh#L1-L44",
+          "version": "repo-lines-v1:sha256:7922754a6a6933e182e53d3de1f6282bd498e2d58d67e8beca252a88933609b7:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI4NzVmOTI4NTQ2YWVlNzg1NWNiMWRiOWFmYzhhYjNmMWE4YTM0ZDQzZGU1YmJkNjJmNzA3NmQ3YmE5ZjM5MTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlmZWU3MzZhOTdhMDQzYzM5ODhlNWVhMmRiYjlmOGIwZTRkYmRiYmYxMzViYTdiYTYxZWEwYmRjMGI1M2NiYWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIifQ"
+        },
+        {
+          "resource": "repo://frontend/clean_run_windows.bat#L1-L11",
+          "version": "repo-lines-v1:sha256:b30bdbe699706633077dbada068db0e6e97952f161a4656eba250abab3fee6ce:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlmODEyOWM4NTdiYTdiNzU4ZjAyYzljYjJjNzg2ZDU4OWFlMzU5MGEwNGU2OTI1MGM0YzM2Y2NhMWRkYTAxMmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQzNTRmMTc0YTU3M2E1NDMwZDVmMWIzMmFjZmI5YzQ0MTkyMGRiZjgxYmNlYjM2YzAyNjc2OTIyYjJlNTM2OWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1256083f9ba54f4d8463af4f691c236b",
+      "statement": "dev-gpu.sh detects the GPU feature (honoring a TAURI_GPU_FEATURE override), builds the llama-helper sidecar in debug mode mapping coreml to metal (llama-cpp-2 has no CoreML), copies the binary to src-tauri/binaries/llama-helper-<target-triple>, then invokes pnpm run tauri:dev; tauri:dev routes through scripts/tauri-auto.js which honors TAURI_GPU_FEATURE or auto-detects and passes --features to tauri dev.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/dev-gpu.sh#L122-L170",
+          "version": "repo-lines-v1:sha256:eabd04abdecc856a3bab836174558c9d239ef845c2e5c441790896249a09b77e:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyZWY4YjQ1NmVjYzM0NDEzNDM5MzUwMzYzNTMzMWJlN2VmYzY3NTkwMDlmMjFhYmEyMDFmYzUxMjRiYzQwNTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3Yzk4ZDgyYTljZDcwNjQ4NmZhNTJkNTEwNDNhMWIwNzM4NTA1OWFmMDE3MGZmNDI0ODExYTgzNjNhMTE1YzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEzMDc0YjllMTY1M2Q4MDdjYjVkMDhjNjVkNjdmMzViMzc5YjcyN2M4M2VkYjRhNmQ0NTI2YzA1NjljMTk4YjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ3NzkzMzI1NTAyNmYyNGMwYjRhYWNjNmI4ZTFhMWU0YWJhOGI5ZjcxZjRkNDYwNjM2NDMzNmUyODNmNDhiNjMifQ"
+        },
+        {
+          "resource": "repo://frontend/dev-gpu.sh#L66-L113",
+          "version": "repo-lines-v1:sha256:ac41c7a4cf375dd3eeab5fb2a69b3462457d44cf5ad9fe540f3be752527c3433:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE3MTdiMDU3MjE4N2JhMzEzYjFiNWY1NjI4NjExZGI2MGM3NDk4ODNkYTdlY2M3MmI5MDIyN2IxMTY3YmFjNzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImViMzIyNWExMTY2MmE0NWMyM2IwNWNkMWMzYWQ2ZTFhMjlkYTgyNWU3MmM4MmRhNGQzZDE0MWQ1MzQxYzhmNjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM4ODllNGI4NjQ4NGNmZmJhZjI2NWQyY2NlNjNmNzZhNjRiOTBiODMxZWQyM2QzODI2OGQ3ZDZjZDg5MmRkNDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM2OTZlZWJmMjEyYTY1N2JlOTg2MTkwYTNmMjMyMTViOGVhY2FmNTk4YjUyMDIzZTkxYWMyODgwMmU5ZTM0OWQifQ"
+        },
+        {
+          "resource": "repo://frontend/scripts/tauri-auto.js#L20-L57",
+          "version": "repo-lines-v1:sha256:3ae047f2bd132b39c71f923a3ce3d0d74ab73f49e5d7a0ff1e7f3ddc1d0f1a1a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhOWRhZWE5OTA3ODFjNTkxYmI0MjI2M2JhMDk4YmY4N2NhNjIyYTFkMjU0NjBiMWFhZjA4YjUwOGQ2MGQ3NmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM5NjBjZGE1ZTIyNDA5NTM3MDFmNTk1NzY3MjRkNmJlZDdhOGRmYWI3ZWI2YTYwY2MwOTIyZjdlNWU1ZDdiMDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4116c9cfe50d4dfeaec6df9d5e897d96",
+      "statement": "The first build downloads and verifies a platform ffmpeg binary at build time via build/ffmpeg.rs::ensure_ffmpeg_binary into frontend/src-tauri/binaries (cache-checked, fatal on download/verification failure), and Tauri's externalBin contract additionally requires a llama-helper-<target-triple> binary in the same directory before tauri dev can run.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/build.rs#L1-L22",
+          "version": "repo-lines-v1:sha256:7871722c016daec36d616f15c4550f8b2fea3209b6830afdd5aa3536b42332c4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMxNjRlMDkxMzgzODA4MDY0Njc3ZTBjYTYzMTE5ZDU0ZWM3NTNlMjA2MjRmZTc0MzlmY2JiMzQ0ZjYyNWM3YzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJmOTc2YWNkNWU2ZTc1NDk4OWEwZGQ2M2ZlZWZiNzJiZGRhYzQ2ZTUzNDRkYzZhZDQ0NGNkMWQyZGI1NGE2ODIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/build/ffmpeg.rs#L26-L59",
+          "version": "repo-lines-v1:sha256:e64e967303fe6d224fab864d57a8ffb87a5d95cdd4b71662bcadf4c4d0f2b2ad:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM2ODg0ZDY0YmRkNzIxNWQzZWFhZGQ3MTM1NzJkYTRhODhiOGU2NjU5Yjg4ZjE3MjQ5NDRjOGRmMDY5ODBjNGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU1YTdhNTVmZjJiYTNiNmFmM2VjYmVjY2EyZjEwN2Y0Yzg5YWIzZmVlYjY0MGNjNWJlMjg2OGQ1MzIxYTk1ZDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwNGVhODAwMGEwMjMwZTU2NjNkMGJiZjBjYzU5N2JiNWVlZDc2ZjE4MWJhYzA5YzI2YmI1ODllYjUzODg4OWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d97b3efe67b34067aea5656d89098289",
+      "statement": "GPU acceleration is a compile-time cargo-feature choice on the app crate (metal, coreml, cuda, vulkan, hipblas, openblas, openmp forwarding to whisper-rs); on macOS whisper-rs is declared with metal+coreml always compiled in, while Windows/Linux carry only raw-api so acceleration there is opt-in; the workspace pins rust-version 1.77.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/Cargo.toml#L178-L198",
+          "version": "repo-lines-v1:sha256:311f3635f4d9ec9d652b5be4f383ed7fb0dd04e8ce3dfad4fa26f34f54998d28:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAzY2Y4NzUxMGU1NDk5ZTIxMWMyMmU3NWI4ZDJhNDdhNDQwMWM4NjY2Y2QwMWJhM2FlYjI1YWJlY2VjNjMzODAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5NDQxNjUwMTM4NTQ1ZDQxOWMyMWYxNDFiMTA5MzY0Yjc2ZGJhYWI0MDEzZDcwOGNkNTMxODJjMmIwMjZmMzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQwM2EwNDcyMTVkMGRkOGZjZjAxZDUxM2RlOWYyNjA3Nzg2MDljODE4Mzg3OTRiMWJjZjZmZWE4NzUyYjQ3ZWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVhMDE4OTc0OTNkMjgxZjViY2E3MGM3NjM2NThiMGY3OTIyOGY2MGUzNzExZmEyODg1NzMzOWQ3NDNlODY5NzcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/Cargo.toml#L38-L53",
+          "version": "repo-lines-v1:sha256:8a4a687753b90ca81c23b1cfcc50de2c56ac9f34d29229e4a96ddbef1851be86:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2ZjZjMWM3M2U0Njg1YjZmNTU3OTJhZTUzOTI1NTNmZjc5ZDNjYzA2N2IwYjc0ZTA2ODY5OGY2YjJjNzZiODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc0M2I1NmE1ZTg1NTIwYjllYmJkY2M2M2Y3ZDUyN2VjOTA3ZWFjOTBmNzBjNGIzOTM4NDIwYmYwMzRjOTUxMjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2NmM5YmNkNGUwY2UzMzQ3MTA1NzJmODliNjI4ZDc2YzQ3OTUxMWIzMjk1Y2ZhNzUzZDYwMzE2ODA0ZDIyNTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI1MzJlODI0OTQ3ZjJiM2M4ZDQzMzJiZDM4YTFkODYyY2ZkZmU3YWU0YTg4N2YzMGM1ZWRmZDE2ZTQzYWJhYjYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/Cargo.toml#L8-L9",
+          "version": "repo-lines-v1:sha256:8e64758289eac823b42ebd1ae2b45301c6cc4d5f47bf7d0dd45085c06b85fae8:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjFhMjI2MzRiYmZmZWM2MjgyMmZhYTIwOGIzNTJkMzAyYzE5YzJmNzBlMjllNTc2MTNiOWRmMThkN2MyZmMzNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmJhNDFiYjQxMGEwNTg4MThhZTI1ZTlmOTMxOWFmZjg2NjliYTMzYWMzMjdhYzFkYjczZWZiNmEwNjgxYTNkNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDYyNDZlMjhlMTlhOTVjY2ZjYThiYTEwNDFhNTdlYTY4NWE5MzM4ZDY1Mzk4Njg1NGJmODg5NGQ0NGZjZTgwYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzc4MTEzYmU1NmM5MWY1ODRmZWYyYTEyNThjZTMzMmI1ZTMxZTA0YTQzZTE5NmJiOTkyYmEzZDQ5MDdmZmUxOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_7546103d80a6487e8c5a164d10d37d06",
+      "statement": "app_lib::run() registers roughly 180 Tauri commands spanning recording, transcription engines, summaries, analytics, notifications, onboarding, database import, and audio import/retranscription, and its setup hook creates the tray, initializes notifications and the Whisper/Parakeet model directories under app_data_dir/models, initializes bundled summary templates, and blocks on database::setup::initialize_database_on_startup.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L420-L512",
+          "version": "repo-lines-v1:sha256:d81e597c425e0681e80444b2826683c27329e406fff18fbb2656ef4f91907372:eyJzZWxlY3RlZExpbmVDb3VudCI6OTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkODMyMGYwZThiODMxNDE5NDQ0NTUyOGZjOThhYjY5MDk0YTRiNjhlNjlmOGIxMzBjODlkY2QwNTg5NTU1OGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2YzIxNTA4YWJiMGI2MzNjZDc3NzI0YmRmMzYzZDM0ZjFiYjU0OGM4OWFlY2IwZDJlZDNiMDg0ZTJlOTQ2MTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJmN2ZlNWRmOGFlN2IxNDBhNTdhNTJiZWYzYzdkZTdkY2Y1YjliZGNmN2I4NTZjZWMxMjdmNjYyMjA1MzBiZGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJhNzcwNmM0NjliMzU4MWMwMzdjYTI1N2Y3ZjYwNThlNjcxYzE5MDYyMDU2OWNhMjI0YjhmZDlkOTExZDRiZWEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L526-L751",
+          "version": "repo-lines-v1:sha256:c4e06c898e9111362eebaf1e300610df40f188a5fee8ad40b67e7eed04e77f12:eyJzZWxlY3RlZExpbmVDb3VudCI6MjI2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJiYTNiOTVhZTM4MjFiY2ZmYzQ0M2I0MzllMWY2OTc3NTJlMTYwNWQ3ZDU1ZmYwNjhmOGQ5ODcxNjMxYTI0ZGQxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMjc2YzFkMWY5Nzg1ZTU1NjBkMGJiNWY3OWMyZTk3OTk5N2I3MGNkZWQxZjNiNjhlZWIwY2QxOTEwYWUyMjdhIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI0ZGFkMzhkNjU5N2Q0NDRiNzk3N2Q3MDJjYWUyZjQyODc5OTkzNTU5YmY1NWJhOTY5NzM2NjQ0YWRmMjE3Yjc4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI2OWM3MGJiMTQ1MTBkYzgxNmE3OWI5NmExMTdjOTY3NzJlYjM4MWRhZDBjYzM0YjZjZGVhMTY1ODVlZTBkNDQyIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_84eeb47cfe074f89b89050ebd06fc077",
+      "statement": "On the Tauri Exit run event, the app cleans up the database connection pool and force-shuts-down the llama-helper sidecar before the process terminates.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L754-L785",
+          "version": "repo-lines-v1:sha256:96684f03e9eef6f21f548ef5b62542a72b10bdba9e7b88bd0347cd788a72f236:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiZWMyYmY1MmJkMjkwNjc2M2RjYjM3ODBjZjBkYTEwNWExZjVmNmNjNDQ4NjhmOWYxNzY3ZDdjYWJjMzJlZDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YzEzNTkwNjY1NjMyM2QxYzVlYTQxNjU0ZWU2NmFmYjU4NWFjZGNmYWVhY2ExMjFkNWUzMGJmMTkzZWVkZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg2MGQ2ZTk4NjNkNDFlNDQxZjg1MzQ2NGQ5ZWNhZGQ0ODRlM2Q4OGY4NmEzYmQ0ZmY2ZTBjZWM4MGFkOWI1MTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9ab3cf7254ae458f93ea07b6d8618584",
+      "statement": "Startup database initialization creates app_data_dir/meeting_minutes.sqlite if missing (copying a legacy meeting_minutes.db over it when present), opens the pool, runs the embedded sqlx migrations, and recovers from corrupt WAL/SHM files by deleting them and retrying once; a first launch may also surface legacy-database import and onboarding.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/database/manager.rs#L44-L115",
+          "version": "repo-lines-v1:sha256:fdc6ffb2f1e59d66ac306a527d2eda58ff60c9255f3d7c120a00d745c5087487:eyJzZWxlY3RlZExpbmVDb3VudCI6NzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUxNTI1MTNiMDg1Njg5ZGY4MDQ1MWM3OWVkYTY5ZGFhZWQyNTJhZGM2YjlhZTRiOGNjMDBjMmViMjk1OTJkOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNjQ3OWNjMjMwNDQwZmQ0MWU4MjI0MjE4Njc5Njk4NTU5ZDI4OTNiZDY3YjQzODBhZmFiODExYjM4YTU1YWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImExZTFmMWM3NDA4MzVlZGQzMDI2YjcyOTk2OWI4M2Q3OWU2ODcxZmQxYzBlZjQ0MTA0OTAyZWQ3MzFiNWYxYjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJmM2UzN2Y2NzljZDY2NzAyYjcxZjNmOThkN2IyYjYyZTAwMGEzM2FkYjQ4OTE1NDdjNjZhOTJkNDEyNGIxNzkifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/lib.rs#L496-L500",
+          "version": "repo-lines-v1:sha256:98266a712a9d8e66e710bb1d1e606d73884c047a5d4a804e57fb8c2e00dc3457:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTNhOGYyMmU2NDA1MWM5ZGQ2ZDE4MjBhMGNiN2JjNTlhMjk1MjY3YjgwZTc4NTZlMzYyZWU1MTcyZTQ0OGI0MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDI5MzEzM2M0NzhiNzVlYTU4MjNkMmMzYzJiODI0MGU0NWQ2YTgwYWVmOTgyNTExODFmOTNkMmFjMjg3YjJlNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDhhMmM3ZjU4Y2JjNDI3YmIyMGI0YmJiNWZhNDFlY2JhZTZhNjRhNjkzYzVhNDVhYjA5NzY2MzlmZTcyMmFkYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzVmNGZjNWJmMGQzMmVkYTUxOTVlMDY0ODlhZTkwZTg4ZjhjMDRiYTA4Y2VmM2JmMzQyNGE2MzllZWQwMjNjYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_fea572124dab43329069c7aea60e16c3",
+      "statement": "Verification for changes uses inline Rust unit tests (cargo test in frontend/src-tauri), Bun-based frontend tests under frontend/tests/lib/, and scripts/inject_transcript.py to seed a meeting into SQLite without recording; RUST_LOG controls Rust logging (e.g. app_lib::audio=debug) and hot paths use the zero-overhead perf_debug!/perf_trace! macros.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md#L295-L311",
+          "version": "repo-lines-v1:sha256:27c7572bbbd43c71bd5efb32c98f4f28af39e5ceef945d7d277e2e510f7fc120:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczZDBhNWI1MTAzNWQxNzk0Y2E5MTdlYzcxMDcwYzJmMzRiMWJhZDFiYmRmMjllNTVlYjcwNDNlZjRmOWUyZTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiZjEwMTEyNDE5MjNiYTJlZTEwNmUwZTFiZWVjM2Y2MTQ4ZWVjZmIxNmRjZThmZWVlOTFmMDNlMTcxNjYxMGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRlZTQ2YmMxODRiYjkwNGU2NWQ4NWY1MzJmNTczNzRmZDkxNzE0MTAwMWM5OGE5OTY4ZDRmY2Q1NTljYzk0YTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhjODBhNjdkNjczOTY1YTRjZTZiNjI0YzA4NDllYTM2NDcwYmM3OGVlNThhZjlmMzY4YmE1YjA0ZjU1NmMwMDIifQ"
+        },
+        {
+          "resource": "repo://frontend/tests/lib/summary-language-preferences.test.js#L1-L15",
+          "version": "repo-lines-v1:sha256:540fbc3c48234615c38cf74515c2fcd54632cf207b48f03b5e0cb6a8544e1fdf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjMDRhYTBlMTIzNmI4OGRkZTc4Mzc1MGMyMmY2OThkMTAxMjIwMWQ4ZGE5YmEzODEwNzk1ZjA2NjEyNTA5ZDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwOWI0ZDViN2U4MmJjOTY4MTAyMDBjYmQzOGViNmIwYjUyMzQ3ZjYxZTYwOTVmYjg4NWFiODYzMTk1OGM4M2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM0OTEwZmRkMjQ5MzdmZDBlYWIxMjY1MDBlZTFjNTI3Mzc0NDJjMWY0MDkxZmJhNDIzMGIwYjViN2ZjODQxNjMifQ"
+        },
+        {
+          "resource": "repo://scripts/inject_transcript.py#L1-L16",
+          "version": "repo-lines-v1:sha256:3c53fd57bae9c4f7c186614348a8101d0407c294646d839d9922e963b70db2c3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2ODJjYmRiNGM4YjA3NTE4YmY0ODZjNTg5OTBmYzM5MTc4M2FhMjBhOTE2YmZiMjdhZDIxMWViMWQ1YzM2NDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzMDNlY2RkNGE0ZDEwZjE5YzczZmQ0MmZkMTI0MzdmZDMzNTRhODI2ODE2MDVkYTUyNTVhOTdhMzkwNjhkYmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIyNzkyMWZjZWY4OTk1YzkzN2VkOTlhZTFkMWRjNzYyZWZmNWU3ZDBiNTE1NGNmZjE2MDU3NzViYmY3N2UyZDkifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-07T20:26:28.923Z"
+  }
+}

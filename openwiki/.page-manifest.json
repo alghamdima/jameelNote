@@ -2,67 +2,85 @@
   "schemaVersion": 1,
   "pages": {
     "/openwiki/architecture/overview.md": {
-      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd",
-      "pageVersion": "sha256:1b1dfaf268698d99ab16b6e1c90c53d9933d0e4a0952cdfc6ca11f2fd2b5e21f",
+      "pageVersion": "sha256:25172cd67cab4e070fec4f9eb85cc0a1eadc0c4dba8878de3aaa866f864ccfac",
       "completedBy": "openwiki/0.5.0",
-      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2"
+      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"
     },
     "/openwiki/concepts/audio-pipeline.md": {
-      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd",
-      "pageVersion": "sha256:9c15abc95791456de7cedbf208cbdc7fc6405b76bc52debf1e24a6060fc985ff",
+      "pageVersion": "sha256:4de8d7cd3a65ccd4ef8e6f2e67777a01cf0c69d1180d5706d849e9e5828da45d",
       "completedBy": "openwiki/0.5.0",
-      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2"
+      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"
     },
     "/openwiki/concepts/data-model.md": {
-      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd",
-      "pageVersion": "sha256:278bff543dd84ef3d112fd91521305d497e86818a50677a4f46199f18a292123",
+      "pageVersion": "sha256:32333047210489e7d40d486c2e9687fc1b45c424a1da2a0899ecaec2997911d1",
       "completedBy": "openwiki/0.5.0",
-      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2"
+      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"
     },
     "/openwiki/concepts/desktop-services.md": {
-      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd",
-      "pageVersion": "sha256:f957bbebcb850d9a7ceba965faad4d9fc3b534683828908d3497116a17012512",
+      "pageVersion": "sha256:96cf58f5d8d6919c43ee666c24f48dd30cc7963cfca179223f6473c5804533a8",
       "completedBy": "openwiki/0.5.0",
-      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2"
+      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"
     },
     "/openwiki/concepts/frontend-state.md": {
-      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd",
-      "pageVersion": "sha256:a681aac1f791ec41bcbbdbb89444264006aa5c0e71a9156086f54f0fa5ea8dcf",
+      "pageVersion": "sha256:0ea5f78cae9ed13d76dedaebfbaeb9ba9574388cbd7ffaea59ed28916d48af9a",
       "completedBy": "openwiki/0.5.0",
-      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2"
+      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"
     },
     "/openwiki/integrations/llama-helper-sidecar.md": {
-      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd",
-      "pageVersion": "sha256:4ac1cc1cd7bd1b649b18d3e9779ea0c745240528f934fd6469ca25cf8085f8de",
+      "pageVersion": "sha256:1415c96064a3944180099985890e988bde1b5be83019daaca44c7e65534e18bb",
       "completedBy": "openwiki/0.5.0",
-      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2"
+      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"
     },
     "/openwiki/integrations/llm-providers.md": {
-      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd",
-      "pageVersion": "sha256:267ef4ede883d97c48ec4192be4a8d827d932c37e1eac0f2190451e58e93f208",
+      "pageVersion": "sha256:64d0ff3d8bc05806a61ffc36dc13728bdf7824efb367a09ad3a4465da967c7c3",
       "completedBy": "openwiki/0.5.0",
-      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2"
+      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"
     },
     "/openwiki/operations/build-and-release.md": {
-      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd",
-      "pageVersion": "sha256:fc883841ecdcf17132b51fda57c77315bc26e69c1192a0dff9c2bc12694bc371",
+      "pageVersion": "sha256:4c5a592783e60f41670f2433705c9e515b0f846514c5f77c5b56f61862f7521c",
       "completedBy": "openwiki/0.5.0",
-      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2"
+      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"
+    },
+    "/openwiki/quickstart.md": {
+      "pageVersion": "sha256:7e7a1930873a80a9e36abbcca0e7356677f9cc8d264e880e8207223c1413a03d",
+      "completedBy": "openwiki/0.5.0",
+      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"
     },
     "/openwiki/testing/validation-and-debugging.md": {
-      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd",
-      "pageVersion": "sha256:68dabc7fe0e631bbd125c55e0a6c29797565395548acfb2d539a8f9305123f12",
+      "pageVersion": "sha256:ff33f6215f3e6cca147fcdf527c7f185a091c8a3c10f5f840d2dd62649e237dc",
       "completedBy": "openwiki/0.5.0",
-      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2"
+      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"
     },
     "/openwiki/workflows/audio-import-retranscription.md": {
-      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd",
-      "pageVersion": "sha256:d20df53bf9410cad6bc6f6828dbf40e73bfdadbc21dd274a4ee4dc66989622b4",
+      "pageVersion": "sha256:9f9bba01c964194daaf415ea781a07262b5a92d6d792dff0d25341412f2b6dfb",
       "completedBy": "openwiki/0.5.0",
-      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2"
+      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"
     },
     "/openwiki/workflows/first-run-and-model-setup.md": {
-      "pageVersion": "sha256:f9fa7690990d3016cd7c6e1eaef231c5a9aeba492b3470c5058429fdee5994c5",
+      "pageVersion": "sha256:b16a1edb1c98efebd216f47bd468fc4208948190fa2b7712f2926d93a32b15bd",
+      "completedBy": "openwiki/0.5.0",
+      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"
+    },
+    "/openwiki/workflows/live-recording.md": {
+      "pageVersion": "sha256:ebf676cad892e474fc0c4ea48f6671dbb5614f2e636feda39204becb40b5edbe",
+      "completedBy": "openwiki/0.5.0",
+      "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
+      "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"
+    },
+    "/openwiki/workflows/summary-generation.md": {
+      "pageVersion": "sha256:17bff3cdfa7ed1a6151a6a43c8d4df0cfd7a793bdbc60618034d02ff6d464bd1",
       "completedBy": "openwiki/0.5.0",
       "completedRunId": "674d5cd1-c4df-45ce-916c-b0d51a77f7e2",
       "sourceFingerprint": "sha256:2ef849e458411646acb14b1bc1521f4e65dcd69c1dbeb2a227a6e13d6a8c92fd"

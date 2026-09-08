@@ -6,6 +6,98 @@ tags: [architecture, tauri, rust, nextjs, sqlite, sidecar, ffmpeg, startup]
 verified:
   - by: openwiki/0.5.0
     at: 2026-09-07T20:26:28.923Z
+sources:
+  - id: openwiki-source-651d1fb6c9e49916a916ab51
+    resource: repo://Cargo.toml
+  - id: openwiki-source-115b2dad781e2a2c5b5a980d
+    resource: repo://docs/architecture.md
+  - id: openwiki-source-74ba9ed3ad5b68e023f6418e
+    resource: repo://frontend/next.config.js
+  - id: openwiki-source-1047363cf615000e4c9bb694
+    resource: repo://frontend/package.json
+  - id: openwiki-source-b0271e8d831d79d0aeb11936
+    resource: repo://frontend/src-tauri/build.rs
+  - id: openwiki-source-76c2273928e608c99a3419ea
+    resource: repo://frontend/src-tauri/build/ffmpeg.rs
+  - id: openwiki-source-955c29b0af20d7e12d853f32
+    resource: repo://frontend/src-tauri/Cargo.toml
+  - id: openwiki-source-eddb76306855b8c8288bd9e8
+    resource: repo://frontend/src-tauri/CLEANUP_PLAN.md
+  - id: openwiki-source-b3e87b88f67ca663fa57c6fa
+    resource: repo://frontend/src-tauri/migrations/20250916100000_initial_schema.sql
+  - id: openwiki-source-739027b570d87a280375b6b5
+    resource: repo://frontend/src-tauri/src/analytics/analytics.rs
+  - id: openwiki-source-bc6fb15ec5d5c9a0ee0d2de1
+    resource: repo://frontend/src-tauri/src/api/api.rs
+  - id: openwiki-source-dec4655463184ac18512c2ce
+    resource: repo://frontend/src-tauri/src/audio_v2/lib.rs
+  - id: openwiki-source-6ebc9cb214a8a753cfa22d8e
+    resource: repo://frontend/src-tauri/src/audio/decoder.rs
+  - id: openwiki-source-1f840bbe067fb73c4770d055
+    resource: repo://frontend/src-tauri/src/audio/encode.rs
+  - id: openwiki-source-aa3ef6f45270d3465693a5bc
+    resource: repo://frontend/src-tauri/src/audio/ffmpeg.rs
+  - id: openwiki-source-b102b55e5778464d0d16ef71
+    resource: repo://frontend/src-tauri/src/audio/incremental_saver.rs
+  - id: openwiki-source-a7d74a6c72e5fba44f9cc147
+    resource: repo://frontend/src-tauri/src/audio/pipeline.rs
+  - id: openwiki-source-11f5c6bb90971a4e27fdab3a
+    resource: repo://frontend/src-tauri/src/audio/recording_commands.rs
+  - id: openwiki-source-9ed88384f6ae757b4593a037
+    resource: repo://frontend/src-tauri/src/audio/transcription/worker.rs
+  - id: openwiki-source-b0362b5f841fa32908129aa4
+    resource: repo://frontend/src-tauri/src/audio/vad.rs
+  - id: openwiki-source-fd7120b2522a7dd560757d59
+    resource: repo://frontend/src-tauri/src/config.rs
+  - id: openwiki-source-c6a09c9c079dd1e3f0773df9
+    resource: repo://frontend/src-tauri/src/database/commands.rs
+  - id: openwiki-source-f5d9886c8927a30c2d79ac90
+    resource: repo://frontend/src-tauri/src/database/manager.rs
+  - id: openwiki-source-9f0f9ae2523f275552e6231c
+    resource: repo://frontend/src-tauri/src/database/models.rs
+  - id: openwiki-source-a6b0e1b2e7ad71f946ede8e3
+    resource: repo://frontend/src-tauri/src/database/repositories/summary.rs
+  - id: openwiki-source-f2b0d5f3228bbc87d0a16054
+    resource: repo://frontend/src-tauri/src/database/setup.rs
+  - id: openwiki-source-fa2361dff56a72baf10d098b
+    resource: repo://frontend/src-tauri/src/lib.rs
+  - id: openwiki-source-a6583a2a2dd425fc51dcd8f5
+    resource: repo://frontend/src-tauri/src/main.rs
+  - id: openwiki-source-54a4a238e110ee6394c701dd
+    resource: repo://frontend/src-tauri/src/onboarding.rs
+  - id: openwiki-source-0236b31e9723874ea69dbb4e
+    resource: repo://frontend/src-tauri/src/state.rs
+  - id: openwiki-source-8f194df49340b01dbd296881
+    resource: repo://frontend/src-tauri/src/summary/commands.rs
+  - id: openwiki-source-e67e6da31aa699871307a07b
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/client.rs
+  - id: openwiki-source-5bd53a4df3608b9a35f3a0d2
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/commands.rs
+  - id: openwiki-source-e99d4be974c0985d67df9fcc
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/model_manager.rs
+  - id: openwiki-source-7bce73018348ca4ac14fb36f
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/models.rs
+  - id: openwiki-source-fb00a814bc78db14d573a738
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/sidecar.rs
+  - id: openwiki-source-59fa91cfc913a5037bd430fe
+    resource: repo://frontend/src-tauri/src/summary/templates/loader.rs
+  - id: openwiki-source-1621bc05d5e54ab9159139a7
+    resource: repo://frontend/src-tauri/src/summary/templates/mod.rs
+  - id: openwiki-source-8e27a5deea501e9ae498094a
+    resource: repo://frontend/src-tauri/src/tray.rs
+  - id: openwiki-source-69ad15ff7d2cb570931391c6
+    resource: repo://frontend/src-tauri/src/whisper_engine/acceleration.rs
+  - id: openwiki-source-9e2ae8eed706e227e83ab4bb
+    resource: repo://frontend/src-tauri/src/whisper_engine/parallel_commands.rs
+  - id: openwiki-source-17fd8d4b8f27dd2be9865b0f
+    resource: repo://frontend/src-tauri/tauri.conf.json
+  - id: openwiki-source-f69eaa3a63a04568b26b54c9
+    resource: repo://frontend/src/services/transcriptService.ts
+  - id: openwiki-source-e39d8df3ce764549c2462c56
+    resource: repo://llama-helper/Cargo.toml
+  - id: openwiki-source-6ee3c302a5a972c165930623
+    resource: repo://llama-helper/src/main.rs
+generated: { by: "openwiki/0.5.0", at: "2026-09-07T20:26:28.923Z" }
 ---
 
 # Architecture Overview

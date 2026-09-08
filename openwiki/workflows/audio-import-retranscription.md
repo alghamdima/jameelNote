@@ -6,6 +6,60 @@ tags: [audio, import, retranscription, batch-processing, vad, whisper, parakeet,
 verified:
   - by: openwiki/0.5.0
     at: 2026-09-07T20:26:28.923Z
+sources:
+  - id: openwiki-source-82f02c651ba30029a53b6915
+    resource: repo://frontend/src-tauri/src/audio/audio_processing.rs
+  - id: openwiki-source-f4aaa1cbd1d42e7d3badf7ff
+    resource: repo://frontend/src-tauri/src/audio/common.rs
+  - id: openwiki-source-99f426f0a84e42a80c38e969
+    resource: repo://frontend/src-tauri/src/audio/constants.rs
+  - id: openwiki-source-6ebc9cb214a8a753cfa22d8e
+    resource: repo://frontend/src-tauri/src/audio/decoder.rs
+  - id: openwiki-source-f3f579bcd018628b95c404aa
+    resource: repo://frontend/src-tauri/src/audio/import.rs
+  - id: openwiki-source-328dd1920b830f1ff43c5043
+    resource: repo://frontend/src-tauri/src/audio/mod.rs
+  - id: openwiki-source-a7d74a6c72e5fba44f9cc147
+    resource: repo://frontend/src-tauri/src/audio/pipeline.rs
+  - id: openwiki-source-11f5c6bb90971a4e27fdab3a
+    resource: repo://frontend/src-tauri/src/audio/recording_commands.rs
+  - id: openwiki-source-5ffd4b9b0a927370c2699c0b
+    resource: repo://frontend/src-tauri/src/audio/recording_preferences.rs
+  - id: openwiki-source-cd80c2d49891048ab51b4151
+    resource: repo://frontend/src-tauri/src/audio/retranscription.rs
+  - id: openwiki-source-b0362b5f841fa32908129aa4
+    resource: repo://frontend/src-tauri/src/audio/vad.rs
+  - id: openwiki-source-fd7120b2522a7dd560757d59
+    resource: repo://frontend/src-tauri/src/config.rs
+  - id: openwiki-source-fa2361dff56a72baf10d098b
+    resource: repo://frontend/src-tauri/src/lib.rs
+  - id: openwiki-source-fc5f683811fed3fe986e735d
+    resource: repo://frontend/src-tauri/src/parakeet_engine/commands.rs
+  - id: openwiki-source-7b97a7f81a20d637d1e53452
+    resource: repo://frontend/src-tauri/src/whisper_engine/commands.rs
+  - id: openwiki-source-01429805a181be4f6cf2f678
+    resource: repo://frontend/src/app/layout.tsx
+  - id: openwiki-source-5ad2c3f38bb29d96cbebf97c
+    resource: repo://frontend/src/app/meeting-details/page.tsx
+  - id: openwiki-source-7cf47a76b600fbd128dee6d6
+    resource: repo://frontend/src/components/ImportAudio/ImportAudioDialog.tsx
+  - id: openwiki-source-7df5a9d6c95941700a152a63
+    resource: repo://frontend/src/components/ImportAudio/ImportDropOverlay.tsx
+  - id: openwiki-source-d2dd60318222783494fdea22
+    resource: repo://frontend/src/components/MeetingDetails/RetranscribeDialog.tsx
+  - id: openwiki-source-caffe7c2bb18eaa4793ef9ff
+    resource: repo://frontend/src/components/MeetingDetails/TranscriptButtonGroup.tsx
+  - id: openwiki-source-e14891102e672bd7c4c36313
+    resource: repo://frontend/src/constants/audioFormats.ts
+  - id: openwiki-source-02539ac0c43b4bfaf2e16262
+    resource: repo://frontend/src/contexts/ImportDialogContext.tsx
+  - id: openwiki-source-66c0cdb1f781269c57304c41
+    resource: repo://frontend/src/hooks/useImportAudio.ts
+  - id: openwiki-source-e16a907f5c6deeeb8895d65e
+    resource: repo://frontend/src/lib/summary-language-preferences.ts
+  - id: openwiki-source-a3691eda09b13d9f1ba5ced0
+    resource: repo://frontend/src/types/betaFeatures.ts
+generated: { by: "openwiki/0.5.0", at: "2026-09-07T20:26:28.923Z" }
 ---
 
 # Audio Import & Retranscription

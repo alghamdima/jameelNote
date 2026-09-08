@@ -6,6 +6,64 @@ tags: [frontend, nextjs, react-contexts, tauri-events, hooks, indexeddb, state-m
 verified:
   - by: openwiki/0.5.0
     at: 2026-09-07T20:26:28.923Z
+sources:
+  - id: openwiki-source-01429805a181be4f6cf2f678
+    resource: repo://frontend/src/app/layout.tsx
+  - id: openwiki-source-5ad2c3f38bb29d96cbebf97c
+    resource: repo://frontend/src/app/meeting-details/page.tsx
+  - id: openwiki-source-81ea90358c3b0a101571a903
+    resource: repo://frontend/src/app/notes/%5Bid%5D/page.tsx
+  - id: openwiki-source-c575ce4338e569d3587ffa3c
+    resource: repo://frontend/src/app/page.tsx
+  - id: openwiki-source-1959d870a4e4cfa2e82ca5cc
+    resource: repo://frontend/src/app/settings/page.tsx
+  - id: openwiki-source-fceb81b71150c067b713d4e3
+    resource: repo://frontend/src/components/AISummary/BlockNoteSummaryView.tsx
+  - id: openwiki-source-7afb390e006db1d619ae9359
+    resource: repo://frontend/src/components/AISummary/index.tsx
+  - id: openwiki-source-7498bd354ee0d778a7321fd8
+    resource: repo://frontend/src/components/BlockNoteEditor/Editor.tsx
+  - id: openwiki-source-7cf47a76b600fbd128dee6d6
+    resource: repo://frontend/src/components/ImportAudio/ImportAudioDialog.tsx
+  - id: openwiki-source-20a4231bcd3421ffd4b120e1
+    resource: repo://frontend/src/components/RecordingControls.tsx
+  - id: openwiki-source-34dbd1a6dedca7b140aaeef5
+    resource: repo://frontend/src/components/Sidebar/SidebarProvider.tsx
+  - id: openwiki-source-e49b595c466a499f427cdecd
+    resource: repo://frontend/src/contexts/ConfigContext.tsx
+  - id: openwiki-source-65f7fd2cb506c31758a52bf7
+    resource: repo://frontend/src/contexts/OllamaDownloadContext.tsx
+  - id: openwiki-source-4acdcef550ba1d73a79d7836
+    resource: repo://frontend/src/contexts/RecordingPostProcessingProvider.tsx
+  - id: openwiki-source-6e8775ff000465c194ea7e42
+    resource: repo://frontend/src/contexts/RecordingStateContext.tsx
+  - id: openwiki-source-6372d0aebac429c8e3c5387c
+    resource: repo://frontend/src/contexts/TranscriptContext.tsx
+  - id: openwiki-source-66c0cdb1f781269c57304c41
+    resource: repo://frontend/src/hooks/useImportAudio.ts
+  - id: openwiki-source-0daaad03fd951c414b8e46c7
+    resource: repo://frontend/src/hooks/usePaginatedTranscripts.ts
+  - id: openwiki-source-a4b26d315874bbad7f70ed3d
+    resource: repo://frontend/src/hooks/usePermissionCheck.ts
+  - id: openwiki-source-e7edc3a252b9fa919978cdfa
+    resource: repo://frontend/src/hooks/useProcessingProgress.ts
+  - id: openwiki-source-85d76c296c6736f0bcf75eeb
+    resource: repo://frontend/src/hooks/useRecordingStart.ts
+  - id: openwiki-source-792f2232c22a2c0dc6904f34
+    resource: repo://frontend/src/hooks/useRecordingStateSync.ts
+  - id: openwiki-source-ab1170b9d65eb5717da1e6e1
+    resource: repo://frontend/src/hooks/useRecordingStop.ts
+  - id: openwiki-source-d745979a4458c6de960a452a
+    resource: repo://frontend/src/hooks/useTranscriptRecovery.ts
+  - id: openwiki-source-ba0c20223ccc833c73bd5930
+    resource: repo://frontend/src/hooks/useTranscriptStreaming.ts
+  - id: openwiki-source-ed689771e5d43a597d3e5f64
+    resource: repo://frontend/src/services/indexedDBService.ts
+  - id: openwiki-source-892cd2f12bb684012f04203b
+    resource: repo://frontend/src/services/recordingService.ts
+  - id: openwiki-source-5934a5dbfb958ff55292f582
+    resource: repo://frontend/src/services/updateService.ts
+generated: { by: "openwiki/0.5.0", at: "2026-09-07T20:26:28.923Z" }
 ---
 
 # Frontend State & Services

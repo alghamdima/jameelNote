@@ -6,6 +6,62 @@ tags: [llm, providers, ollama, openai, claude, groq, openrouter, custom-openai, 
 verified:
   - by: openwiki/0.5.0
     at: 2026-09-07T20:26:28.923Z
+sources:
+  - id: openwiki-source-b3e87b88f67ca663fa57c6fa
+    resource: repo://frontend/src-tauri/migrations/20250916100000_initial_schema.sql
+  - id: openwiki-source-d5a2ebfa1dee2408a3a55afc
+    resource: repo://frontend/src-tauri/migrations/20250920155811_add_openrouter_api_key.sql
+  - id: openwiki-source-d9e050b6053b6c744c79b70b
+    resource: repo://frontend/src-tauri/migrations/20251010153942_add_ollama_endpoint.sql
+  - id: openwiki-source-1ba47927c6e91b89defd930c
+    resource: repo://frontend/src-tauri/migrations/20251105120000_add_pro_license_custom_openai.sql
+  - id: openwiki-source-e01a0b8aadd475da23030cad
+    resource: repo://frontend/src-tauri/migrations/20251229000000_add_gemini_api_key.sql
+  - id: openwiki-source-ac5ff8f152e1dfedbe479d0c
+    resource: repo://frontend/src-tauri/src/anthropic/anthropic.rs
+  - id: openwiki-source-bc6fb15ec5d5c9a0ee0d2de1
+    resource: repo://frontend/src-tauri/src/api/api.rs
+  - id: openwiki-source-c6a09c9c079dd1e3f0773df9
+    resource: repo://frontend/src-tauri/src/database/commands.rs
+  - id: openwiki-source-9f0f9ae2523f275552e6231c
+    resource: repo://frontend/src-tauri/src/database/models.rs
+  - id: openwiki-source-95002e8ac95d7302d818a80d
+    resource: repo://frontend/src-tauri/src/database/repositories/setting.rs
+  - id: openwiki-source-b57c162303983844302fe01b
+    resource: repo://frontend/src-tauri/src/groq/groq.rs
+  - id: openwiki-source-3d0e48c1dc66c308672dd432
+    resource: repo://frontend/src-tauri/src/ollama/metadata.rs
+  - id: openwiki-source-c896d28206c67fbfb64231ae
+    resource: repo://frontend/src-tauri/src/ollama/ollama.rs
+  - id: openwiki-source-e655e0d33af90a144889a60d
+    resource: repo://frontend/src-tauri/src/openai/openai.rs
+  - id: openwiki-source-2c55e622ff2685ecb6c2bf6e
+    resource: repo://frontend/src-tauri/src/openrouter/openrouter.rs
+  - id: openwiki-source-8f194df49340b01dbd296881
+    resource: repo://frontend/src-tauri/src/summary/commands.rs
+  - id: openwiki-source-cfbbb03c47ab422490c4adf0
+    resource: repo://frontend/src-tauri/src/summary/llm_client.rs
+  - id: openwiki-source-e5b440894ac7832bfec035f9
+    resource: repo://frontend/src-tauri/src/summary/mod.rs
+  - id: openwiki-source-e2bcee08d7f89cd8e957d849
+    resource: repo://frontend/src-tauri/src/summary/processor.rs
+  - id: openwiki-source-98c4dd89bc21bdbf6093e060
+    resource: repo://frontend/src-tauri/src/summary/service.rs
+  - id: openwiki-source-e67e6da31aa699871307a07b
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/client.rs
+  - id: openwiki-source-5bd53a4df3608b9a35f3a0d2
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/commands.rs
+  - id: openwiki-source-7bce73018348ca4ac14fb36f
+    resource: repo://frontend/src-tauri/src/summary/summary_engine/models.rs
+  - id: openwiki-source-17fd8d4b8f27dd2be9865b0f
+    resource: repo://frontend/src-tauri/tauri.conf.json
+  - id: openwiki-source-46342bb2b8705472a9e0faa3
+    resource: repo://frontend/src/components/ModelSettingsModal.tsx
+  - id: openwiki-source-e49b595c466a499f427cdecd
+    resource: repo://frontend/src/contexts/ConfigContext.tsx
+  - id: openwiki-source-388052e62228a262d8d96d26
+    resource: repo://frontend/src/hooks/meeting-details/useModelConfiguration.ts
+generated: { by: "openwiki/0.5.0", at: "2026-09-07T20:26:28.923Z" }
 ---
 
 # LLM Provider Integrations

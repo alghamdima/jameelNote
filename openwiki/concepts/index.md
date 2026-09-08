@@ -1,0 +1,6 @@
+# Files
+
+- [Audio Pipeline](audio-pipeline.md) - The dual-path audio system — microphone and system capture feed a 48 kHz mixing pipeline that writes the saved recording through incremental checkpoints while Silero VAD extracts 16 kHz speech for the transcription worker, with adaptive Bluetooth buffering, device monitoring, and platform capture backends.
+- [Data Model & On-Disk Layout](data-model.md) - All persisted state in Meetily — the SQLite schema and migrations behind meetings, transcripts, summary_processes, transcript_chunks and settings, the per-meeting recording folder contract (audio, transcripts.json, metadata.json, .checkpoints), and the Tauri store JSON files.
+- [Desktop Services](desktop-services.md) - Cross-cutting desktop features around the core recording loop — system tray and window lifecycle, consent-gated PostHog analytics, the tauri-plugin-updater auto-update flow, the notification manager (consent, permissions, DND), and onboarding persistence in the tauri store.
+- [Frontend State & Services](frontend-state.md) - How the Next.js runtime is organized — React contexts for config, recording lifecycle, live transcripts, and sidebar state; pure invoke/listen service wrappers; the start/stop recording hooks; IndexedDB transcript buffering and crash recovery; and the app's page map.

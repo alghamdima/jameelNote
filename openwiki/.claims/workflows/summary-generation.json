@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:17bff3cdfa7ed1a6151a6a43c8d4df0cfd7a793bdbc60618034d02ff6d464bd1",
+  "claims": [
+    {
+      "id": "claim_ee3c5cb6512846ed9968fe37d105b8f1",
+      "statement": "api_process_transcript creates or resets the summary_processes row (status PENDING), persists a transcript snapshot into transcript_chunks, spawns SummaryService::process_transcript_background, and returns a process_id equal to the meeting id immediately — before any LLM work starts; generation progress is only observable via api_get_summary polling.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/database/repositories/transcript_chunk.rs#L10-L48",
+          "version": "repo-lines-v1:sha256:0f5ac84f20fe36659ad9226f78f8a3da430f07a130097e7cfb8edd1e7d564a7d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhOTE4NDliYjFhZTY3MDg0NGIwZWNlODVlMjdlOGE3MjE0YjU5MjU5YzQ1ZTI4MmJmMDJjNDRkMDgzZjM4OWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyMDkwYjFmNzc0OTkxZTVlODYxMTczY2I2ZTZmZTQxOTE3MzBlY2M2MTcxMTdmNWMzMjZkOTg2YmMxZjJhNWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/commands.rs#L326-L407",
+          "version": "repo-lines-v1:sha256:115ba0193a50efde6fa14b61a46dc3d640f2df55248f2f6c4d9a8baf2fb2c8af:eyJzZWxlY3RlZExpbmVDb3VudCI6ODIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYzNjI1ZmNlMWY0ZDZjOWVhY2ZiNTI0ODk2NjA4ZjBmMzM0MzZlYTM2MjEyMmFkY2ZlZWQyZjE4OGU5MTU1NzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFjODEyODhlYjNlMjI0ODAxNzNiZjljYWQ5ZTg0OTdmZDQ1OGFmOGZkMGZhZTFjNzVkOTE3YmZiMDBkYjQxMTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVlODI4NTQwZWFlMTIxNmFiMDg2M2IwNzk3MWI4Y2Y3MzRmMzY4NDE2Y2U0ZjQ3ODljZDhmNmMyMmFlNzM0ZTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b7a8e1b9ab9b4b73a6b63b980bd3f27c",
+      "statement": "create_or_reset_process upserts a PENDING row and, on conflict, copies the existing result into result_backup with result_backup_timestamp before restarting; update_process_completed overwrites result and clears the backup, while update_process_failed and update_process_cancelled restore result = COALESCE(result_backup, result) and clear the backup — so a failed or cancelled regeneration never destroys the previously stored summary.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/migrations/20251101000000_add_summary_backup.sql#L1-L8",
+          "version": "repo-lines-v1:sha256:e35f579a753f2a3011a20507ce62f58b5496d6967cb5dee211a043023249ac21:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODljYzIzOTVkMmUxZWE1ZjRmOTQ3MTkzN2JlNWQ4YTE0OWJlZWFlNTkxMDY2YWIwMGQzNmRjZDMzMDk2YWQwMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODc1MjAxMGUwY2I0MzBjOWU0ZTE4Y2YyNTIyNDkwOTAzMmZjZjE5NDczODg0YTRiNWQxMDUyZDRiYmExZjNiYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/database/repositories/summary.rs#L85-L220",
+          "version": "repo-lines-v1:sha256:2c2687e52e7d39da801affa7dca6467b9544119c57d896dde29283c93b01f62d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTM2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI4NDA5MmM5YmE0NDVkNDE0YzNjNmJkYmEwNzYwYzU4MmY4ODI0ODgzMDIwNDk3NTE5MGRhNjA4NGVjMTJmMjQ0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJiMGQ4MjFkYzBiOTg2ZTdiYmViN2YzYjkzOTg4NjUyMzYwMmZmNzIyMWRlN2I4ODdmZGE1ZTVlYTdlNDI0OGQ2IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_653bbed2d5e8465fb95924839d947fad",
+      "statement": "The backend writes exactly four summary_processes.status values (PENDING, completed, failed, cancelled) with no intermediate processing write; the frontend's processing/summarizing/regenerating labels in useSummaryGeneration are UI-local states, and the frontend-only 'error' status exists only in the SidebarProvider polling timeout path.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/database/repositories/summary.rs#L94-L207",
+          "version": "repo-lines-v1:sha256:90b31185a157727355fdeb57ced597f359ae1bcf7fabc0fd51b196b39efec760:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI4NmI1MjcxMWQ1NGFiNmIxNGMwMWQ2ZTMxN2RkOGY3OWFiYjcyZjZlMGIyZjA5MmYyMzY4NjNjOGIxYjcxNTFhIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJjYTcyMDkyYzViMThjZmMwYWFiMTZiMzUzMTE0NmI1OGVkYmUxNTMyMTc2OTFmZDgwMGM0NzQ1YmVlNzU3ZWFhIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIzNTc4YjcwODM0YWE0OWU1MWY5NzMxMmQxNzhhYzAzNmJkZTk5NjE0YmZiNjdlYTY2YWI3MTFiOTA2YTliY2I3IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI5MTg0MGI2MjVjNjMzZWYwYzcwNDYxZjlkZjgxMThiZTFhZjkzOTk3OGExZGYyYmVkNjFkNjJhZWQ1ZDQ1ZDE0In0"
+        },
+        {
+          "resource": "repo://frontend/src/components/Sidebar/SidebarProvider.tsx#L200-L264",
+          "version": "repo-lines-v1:sha256:d20286448ef638235928274ff00594ea6069e0e52c22a2ad4018925dd8af905b:eyJzZWxlY3RlZExpbmVDb3VudCI6NjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjMzcyOWIxNmJiZmZkZGYwMTZmZmExMjEyZmU4YzE3NTMxNzM4NGUyMGQ5MGFjMzJlNjkzYzI3NWM1NTQ1ZjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVlZjk1YjMyYmU1NGZjM2QwMTE2YjgwZGZjY2Q5YjU2ZDNjMTg4ZDFjNTg2NWE4OWViNzBhM2RiY2MyMzAyZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2ZWJkM2JhNjM5Y2UwYzI3MTIxMGQwZmY3YTkzZmVmMWNlOTMzNzk0ZmYwN2E1M2VjNjgwNjE1NzFjYTMyNDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVmNTJiODAzNGU0NDFiN2Q2Mzk0MmE5YzBkNzRlN2Y2YjE1N2VmNTc0YzFjNDQ0YjRlZmM3NTE1YmRiN2Y1NzcifQ"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/meeting-details/useSummaryGeneration.ts#L51-L51",
+          "version": "repo-lines-v1:sha256:13d8aea1b39ea373f76a2045664ba81a1100fc11ab473fc92d636fca99d1a465:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTNkOGFlYTFiMzllYTM3M2Y3NmEyMDQ1NjY0YmE4MWExMTAwZmMxMWFiNDczZmM5MmQ2MzZmY2E5OWQxYTQ2NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTNkOGFlYTFiMzllYTM3M2Y3NmEyMDQ1NjY0YmE4MWExMTAwZmMxMWFiNDczZmM5MmQ2MzZmY2E5OWQxYTQ2NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmI1ODBlOTY0ZjgzYTQ3M2Y0M2Q0NDM4NDYyOTQ5ZDY4YjU2MDBmZGE3ODdmMTYzNzQ1ZDAwZGU4OWNiZjM2YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODA3ODI2Y2YwZWUwYTBlNmI0MjliNmVkYmFmNjZjYTYyYTA0ODEyMDdkMmUzMTlhZjMwNDhjZDBjYWJjOGNhYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_fb1b02f412414be4b8888f7b8e997d24",
+      "statement": "api_get_summary reads the summary_processes row through a JOIN with transcript_chunks (a meeting with a summary row but no transcript snapshot reads as idle), parses and returns the result JSON regardless of status (so cancelled/failed responses still carry the restored summary), lowercases the status in the response, and reports status 'idle' with the meeting title when no process row exists.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/database/repositories/summary.rs#L73-L83",
+          "version": "repo-lines-v1:sha256:6214c45f1135ca1e0e373e76fbb0643db07f9a1b01709b2d99b6293630be85e4:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUyMTY5NTliNzVlMTg5YWRhZjQ2Y2NjN2EwYmEyMzBmNzZlYTVmZGViZWMxMWI1ODkxZGRiZDAwOWUxMzY2YzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA4ODU4MjU5NDc5YmI1ZmYzY2Y0YjE2MDhjNTA0MzYzNzM5NThhMWQ3NWY2NDZlMDZiNGUyOWQ5MzVkNGMzN2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxMWM2ZGE5N2IzMjVkMDgxMGUwMmFjMzk5NmU5NTk3ODc2YTMwZmI0ZTE5ZmRhMjIxMzY1MTIwZDlmYjAzODIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/commands.rs#L229-L320",
+          "version": "repo-lines-v1:sha256:9bcd81437400120820c4880952cedb950b3f25b85cc00fce0f69555ae41793d6:eyJzZWxlY3RlZExpbmVDb3VudCI6OTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllMWVlMzNlZTk1ZmFlZTFjMTBlOWViZjNkM2RlNDFiYjE5MjUxNWNhZDc3Y2RhMjA1ZTU0NmRhMTcwMDFhNjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlZTQzNDBhMTk4YzBiYzU3MWU2YmRjMjBmOTZlNjY1OTM2YWNkOTQ4MzYxZGExZDkzNTUzNWEwNWMxYmJhOWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJjOWFlNDc2NDQ4ZjRmM2M2YmQ1ZjM1MDA1NmEzYWY4YTgyNjY3ODU5NTY0ZjkwNmZlMjE3ODY0ZjAwYmNiZTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_901ec9439c31499f9dd9a06fcd2eb089",
+      "statement": "api_save_meeting_summary expects a JSON body of shape { markdown, summary_json: [...BlockNote blocks...] } and update_meeting_summary runs one transaction that verifies the meeting exists (rolling back with an error otherwise), overwrites summary_processes.result, and touches meetings.updated_at without changing status — manual editor saves update content only.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/database/repositories/summary.rs#L21-L71",
+          "version": "repo-lines-v1:sha256:99f4fad795cf8e1817b6cecfec3fcc25fd8cde16d7892b7ffd879ae60b2b0dae:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2YzVmYmVmMjA4OTBhMTUzZDk1MWZkZmE1MGU3ZTZmZjg5YmUzNTQwMDc3N2RmNjZjMzZjZmUyYjRmZTU3MGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZiMjBlNzhiOGRlMmI1ZDBlYzRlNDgwN2I0ZTNhODFmYzIyYjczMTQ4Mzg2ZWVmNzM1ZjZjYzFlMTIyYjRkZWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1NjlmYWE3NjUyY2JjZmUwODM4ZTYzZWU4MGZkNmVlZWY1OWNlOTJlMjA2MzQzMjc4NDlhMzU3NTkyYTQyMTcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/commands.rs#L72-L108",
+          "version": "repo-lines-v1:sha256:122d553c0390f99c4f46571b96228d30a7a35146bd2c0262083c0de215f1e91c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwNzhmYzhlOTBkZTlkOWNmMzhkMzY5YzY3NzI5OGE1MmNhNmZkZTE1N2ZhNDllNmIxMTFlMzJkNTVlMDYwZGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc1MjQ4OThmNzM4NTRmMmE5NWUwOTQ2NDI0ZmY5MzJiZjIzMjg3ODAzYjliMGQzM2M5Y2RmYTllM2FlZWUyNzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFkMmM5MGY1NGY3MWUxZjVlMjc3MTNiMTdhY2RhMGQ0NDdmZDlkMGY3OGU4NTNmNmI2Y2JlMTFkNThjYTIwMGMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f006fd844f6647a7a7ec334bbf8d9daf",
+      "statement": "api_cancel_summary triggers SummaryService::cancel_summary on the global meeting-id-keyed CancellationToken registry; when a token exists the row is marked cancelled with the fixed error 'Generation was cancelled by user' and the backup restored, and when no run is active the command answers 'No active summary generation to cancel' without touching the DB.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/commands.rs#L409-L444",
+          "version": "repo-lines-v1:sha256:40a7bec3373156e261d619a3553d8cc935ff44a4aa5698cc8540c58b3df462bc:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwYWQxNzRjZGZhZWVhYmI1MzYxOGVkNDI5Y2QyMTY5OTU1N2NhYmZlOGJjYmI0Nzc4NDc4ODFmYmYyYjYxYzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYwNjNjNGQxYWY4Y2Q4OWJiMGJkZDc2NTdmZmNiZjY4MDZhNjEwZDc5ZDZjOGQ0YzMwN2MyNDFkZjM5MDA1MjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L196-L226",
+          "version": "repo-lines-v1:sha256:3ff22dcc3a04baff5bba07905663ab5f75534d26ee80be87b05421d341210d4f:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwMTIyNjJjNDhlYTBhNzJhMGI4ODI1ZDQyMDMzMDQxZGM1NmMzMmM5MjQ4YjIzNzlhMjE3NTg5NzNjMTAwMjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEyZTdmY2I4YzBmMTBhMzQwNjBlZTVhYTYxNmI3ODAxMDVlNWRjZDAxZjI0OTUxZGY3NGQxMTJkNjNkYjE3YzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlhZGI3ZTcwZTY0MmQyZTdmYTI0YjBkNzEwZDRlNDFkZDE1YmFkNWQ3ZjA4ZmJlY2I3OTJkMzI2MjNkY2VlZTQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L28-L30",
+          "version": "repo-lines-v1:sha256:95db24f690d407e6b60540b2a57746405b394d7da707e50bd5746e11d0b5f8e1:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTNlZGFhMDdiNTZjZWU5ZDA3MTczMThkYjM0YmQ2NWIyZDQ4OTJjOWI1MGQyYzdlMzU2N2Q0M2I1ZGY1YzI5NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjFiNzI1OGYwY2JkMTM2M2FmNDQ2MzU5YTY0YWE0ZTMxMmRhZDE1ZjA3ZTEzMDNkZjgwY2YwNzk0ZTYxYzEwMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTBlOTQyYzg1Y2M2NWFhZWFhNDRmYzViYWMzM2QzMDUzNWJlYmIzNzhjNmM1OWI4OWQxMjQzZjU3YTQ0MWJmZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjhlYmQ2OTllMTY4MjM3MTA1MWI0NDRkNzZjMzk0MjY1NTU5MTg3MDU1MmY2MWM3YzZlMDY0NmQ4YzZjYWZlZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_14f40d6e29ad4d5b9503f0b3ae63150c",
+      "statement": "Cancellation is cooperative inside the pipeline: generate_summary races each HTTP request against token.cancelled() via tokio::select!, the chunk loop checks the token before every chunk, the final/translation/normalization passes check before starting, the BuiltInAI sidecar call receives the token, and the service maps any error containing 'cancelled' to update_process_cancelled instead of failed.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/llm_client.rs#L135-L149",
+          "version": "repo-lines-v1:sha256:ec18701d3f7000217d15ec1102785ef45962899a55c7d2e538773f71bdac730e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxYTAwYzdhNTFhNmMyN2I1NmEyNmFmZWZmZjM4NjdjN2UyNjRlYzkyYWI4N2MzZjU0YzY5ZWI0OGNiNWEwOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwZDkwYmM4MDQ1YjIwZDBjYjk3M2EyNTNkY2JjZDAzODAyOTUyMzYxYWM0NTY5NmUwN2FhOGY0NmFlYjQ0NTcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/llm_client.rs#L258-L290",
+          "version": "repo-lines-v1:sha256:b65e961d77084b0c4dbd88eafd75128f8a1d6da8098732e0775763cdcf3c73db:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlhOTZkNDU1M2Q0ZWQ0YjBjY2QyYzc0YTcwZDdjMDNiOGM0YjllZmU1YmE5ODRlMjQ2MjIyNjRhMzkwZGVhOGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkOWUxMjU0NjQyNTU3NmQzZGVhZThjOWI5ZGJmMTI4ZDVkNmRkYWY1ZDdmZTg1NzkzNDkyN2RlZmZhM2I5ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyOWEyODBlODg5YWFhMGZkNzRiNTRjYjM3YTc5NTg3OGI3NmY0YjQyMWFmODA0YzIyMjg5NmI5ZGE5MDc1YjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEyMzBmYzBhZDdhMjZlMWUzMzk1NmE1YTg1M2UzYzMxYThiYmNhZTkxOTFkN2ZkZmFlYTQ4Yjc0MjZjY2Q5NDQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/processor.rs#L390-L397",
+          "version": "repo-lines-v1:sha256:40b302e69084a973505a5b11d78fadc19e275b2ebb12e188ded1f81d94794716:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWVhYjk2MTlkOTQxNjIwNTgzYjExNTE2NTQ3ZDU3ODk0NzI5NGNmNmM3YThlOTdkODFmZWE4NDAxNjM3MWU0MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGM2NDc5Y2MyMzA0NDBmZDQxZTgyMjQyMTg2Nzk2OTg1NTlkMjg5M2JkNjdiNDM4MGFmYWI4MTFiMzhhNTVhYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTljZTAwZGQ3ODQ0ZjAyZDliNWE1YzkzYzI0NWJmMWJhM2Y5MThkMTNiNDdiN2IxNDNkNjc3ZDdiYTQ5YWUxZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODVlYWM0ZWE0ZTEzMjJkNWRiM2Q0ZjkxOTk4ODBjMWVkMDBmNjZmMjI5ZTI0YTZlMTY1NDFiN2M3ZDlhNzgzNCJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L585-L595",
+          "version": "repo-lines-v1:sha256:653d5f25c223c7992a97fc3abd739c9dbff674b1b6e022531e3b287f0bdacbd7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyOTFiY2ZkODE3YzJiNWE3NTc0NmVlNjZkMjA1NjUzMzM1ZmRhNzU3MWVmZmNhMTFjNDU3MDk2Y2M3NmViZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImExNDI2ZmY5ZGQyYjM5ODRiNWJlZjdmMzc3M2EwNDgzMjY0ODE3OTE1Yzk4NjZiNDMzZjI5M2ZkMWE3YzU4MmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c1a650085d0546fb8270f5c2624639bd",
+      "statement": "process_transcript_background resolves the provider (LLMProvider::from_str with alias parsing, failing the run on unknown values), reads API keys from settings for cloud providers while Ollama/BuiltInAI/CustomOpenAI skip the standard key lookup (CustomOpenAI instead requires its full customOpenAIConfig JSON), and every configuration failure marks the row failed via update_process_failed.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/llm_client.rs#L78-L92",
+          "version": "repo-lines-v1:sha256:85adbc0253165690a2186824b4512af31e8cc7db73b18fd4f512f3b18889da01:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiOGJiZTUxMGU3MjYzYWMyNGU3NzgwOGY1MDliMDZkNDkwMDU4Y2E0NWNlN2E5OGJiZTk1N2ZkNTJlODQ1MzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEzYWNhODIwMWYzMWViMTllZGYzYzFjOGE5Yzk1YjdlN2NiOGJiMzhiYzJlOTJlNWMzMzQyODA3NGQ1MTUxYTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNkZTFmYTE2MWRkM2RlYzViNDM1ZjdhYWJhNDU1N2YxMTU3OGMzYzVhNzU3NjA1ODg0NDVmYzhlNzgwYTk1OTgifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L314-L391",
+          "version": "repo-lines-v1:sha256:0dfe01e60250cf4cd9532979a9745d2c1d989c783221727769411cf88c84f46a:eyJzZWxlY3RlZExpbmVDb3VudCI6NzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVhMWJmODhlMzBkYTdjZTY4MzdiM2IwOTAwYTU1ZmI5YTZlMGQyNzcyMDM5ODFlZjczNjViYzhkYmJiNmIyMDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1Y2RlZjgwODVhZTc0YWI2MzZkNjQ1OWY1YzZkNWZiZmIwZGIyNjRmMWIwZDc1YmFjNTE5YzliM2Y2NzE3YWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxYzcwZjRkM2UzMWQ4ZGIwMThkOWVhYzczMDc1YTM5NDQ1ZjY5YTZjYTcwYTZkZWE4MDY4OWZkMjI2NWFiZTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcwZDQzZTY5NWFjNzJmMjUxZThkNzUwMmRlMTIxN2MyYTQxZjhlMTNlZDJhMDczNWU1YWNkZTk3MjJhOTIwNDYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L599-L618",
+          "version": "repo-lines-v1:sha256:9784a855a1d06c3e400f8e46a922bb62b224f7edc9a66993bdb1b7bb44307270:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4MDEzMTYyNmZiZTg3MzEzZTVkYWVlNmJlOGEzNzU2NzNiNGIzMGU0YTI0ZjE0YjZkOTY5MDQ1YjY1NWU3M2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1MjE2MDRiMzVmYzQwYWYwMGNiYTRlZWEyZmQ1ZTJjM2FmMTg2M2IzOTExODVkN2JmNGJiMDllNzJkMGM4YjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1d99071558714346b03b19a43e95e030",
+      "statement": "The token threshold depends on provider: Ollama uses the cached model metadata context_size (ModelMetadataCache, 5-minute TTL keyed by model + endpoint) minus a 300-token reserve with a 4000 fallback; BuiltInAI uses its model registry the same way (fallback 1748); cloud providers including CustomOpenAI use 100000 so they always summarize in one pass.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/ollama/metadata.rs#L44-L87",
+          "version": "repo-lines-v1:sha256:dce0cabb6ff4e22de6a8cbba70118a72e8dc0355518e31a44b844da4b732e793:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU3ODJkY2FkZDk3NGZiNjcwYTE3MzQ5MGEzNDA0ZWMxZDkzODk0M2YyNmNlNmFhYzZhMGQxMjI0OGNlZjhhYWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlZDg5MDA2OGY0YWFjMTQ3YmFlNjBjMGY0N2NlMTg4MmYzMzgwNmZmYWE3MTlhYTE2ZjU0NmIyNDY4M2JiYTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI0M2IyMmVmZGFhMWYzMGQ0Y2EyZTdhZWRmNTE1OTUwNWJhODU4MzgxZGEyNTJiYjMwYzg5NjJjYTRhYzk3NzIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L23-L26",
+          "version": "repo-lines-v1:sha256:d6659c704c41a1694715b28ef9bfc0309f1106c1e007e4b7a963aa71f8953792:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTlkZGI0OTYwZDk2NWNlMzQ0OTBhOTRmN2E4MjRlOTE2MmI3NWZkZDRkNWU5YmE0ODA1NmFiYmI3NTI5ZTZiZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZmNWI0MGIxNTg0NTdkMTc4NjRmMjE3OTA3ODZkZDVhMmVjZGI2NGI2NmE2NTFmNzg4ZDRlMjVjZDMzMDNkMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWMxZmM0ZWVlZWViMTM4NWE5YjNlMzE2MmYyOGU5YzdhMzYzMWRiMjI2ZDg5MzQxYmQ5ODQ3YzEyY2Y0OWU1MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGIzZWFlMzRjNTgyMGVjYWMwOGMxOGY5ZThlMjgxNTY5ZmY0MDg3OGI4ODI4NzE5YTgwYzcwZTljY2VlZjU1MSJ9"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L393-L437",
+          "version": "repo-lines-v1:sha256:5dfa2f54a9965fe7a0154dde705771923742a3308ce97c009a8222ee7183172f:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlNDMxMGY2MWU0OTViNTQwMTU0NWQ4MDJjYjYwYzQ5ZmQ5ZTAzN2E5ZDRiMzhhZWZiYTIwMzJjYjI0OGUxMTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1Y2RlZjgwODVhZTc0YWI2MzZkNjQ1OWY1YzZkNWZiZmIwZGIyNjRmMWIwZDc1YmFjNTE5YzliM2Y2NzE3YWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZmOWQ0YWU1OWMxMmJkNmY2YzRkNzlmODY2OGY3MzU2NGQ2MDlhZTk2Njg2MDE3ZTExOTIxNDJmMmJlOThjZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjViYmMyY2MyM2EwNjVjYmJkMDU3ZTQ3NmJlYzA3OGY2Zjk0ODc4MWQxN2U0NzdjYmFjNmNkYjE5MzhiMzM3M2UifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0b92bd97f2cb4e7894bd9991dadf680a",
+      "statement": "generate_meeting_summary returns (final_markdown, english_markdown, num_chunks): transcripts exceeding the threshold (local providers) are chunked at ~2.85 chars/token into word/sentence-boundary chunks of token_threshold − 300 tokens with 100-token overlap, chunk summaries are individually skipped on non-cancellation errors and combined in a synthesis pass, and the final pass applies the template's markdown structure and section instructions with the output cleaned of <think> blocks and stray code fences.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/processor.rs#L190-L252",
+          "version": "repo-lines-v1:sha256:8a8d3ec34c2af3b46fac7884ba8c24bcf0dc53ccfa1957f6dab8cbddbe4984ef:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRkMTEyM2IwZDM0NTUyOWYyNDJiOWVmNTA3N2NkMDNmMjU2NGFlNTlkOWU0MzEyNmYyZGY2M2VhYjIwMmFhZWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFlZGEyYTkwODI1MzFlMmI2Yjc4MWE4NmU5NDJkNzk1N2I1NmI1Y2ZiYjM0N2NjMTY3NmUwZTVjODRjODgzN2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlkYzUzZjNkZjJiOGNkNDI0M2YzYzU2MTUzMmVmYTE5OTk0ZTA0NDE5M2M2MzEwNTk5NDJkYjA4ZWNmYWViYjYifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/processor.rs#L261-L281",
+          "version": "repo-lines-v1:sha256:e0cd06ab08c999f77883a9db341ce3a8b19bdec59716985ea7d1bea7b91f7fca:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhMmEwOTY2NjY3ODhjYTJmMGU4MGE5OGJiYzAwNmZlN2Y2ZmU0ZGFlZTdiNzRlMTQxMTFkMDY4MzdhMDZiMWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ1MmZhOTMzYzI3YjA0MTRhOGU0YTcxNDU2NGI0Zjk5MGMwNjcyYWRlYWJjNzQzZjg1YmMwZDIwMzQyZDhhZjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAyZmQwN2Y5MzIyOTI2YmRhNDY3OTAyY2QwNDEzMzhjOGE2Mjg4YmJiMTMzMjFjZDYzMDg2OTQ1NDNhZmNlZTEifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/processor.rs#L323-L524",
+          "version": "repo-lines-v1:sha256:e4c6a1bf17eb11708d529ff834eb109ea3186c437f96bb62344534540887038f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI3MjIxOGE5NDczMjk5OTU0OWM4MDYyZDgzNDFiZWYwNWUxODA1ODliZDJiZDI0MzJjMDdmMGY5NDk4MDkyNmI1IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJhZDllMTI1NDY0MjU1NzZkM2RlYWU4YzliOWRiZjEyOGQ1ZDZkZGFmNWQ3ZmU4NTc5MzQ5MjdkZWZmYTNiOWRkIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI4Yjg5NTI2OWQ4MDdjY2E4ODUzYWMwYmY2NmVhODc3MjJiYWExMmI2YTAyNWI4NWQ2ZDVhNTM3ZDhlNTk1YmZhIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlYmM4OWZlMGUzYWNmNmMwYTEwOTIwZWRjMzUyNjA4MDc2MjU2ZTdkODU4ODE1MTUzMTkxZjAzZDYwZmEzOGMzIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_9154396ecbed4b1cbdb49198c1268cf3",
+      "statement": "The final language action is: translate when an explicit non-English summary_language resolves (a translation failure is a hard failure of the run), return the English markdown unchanged when the detected transcript language is English, otherwise run a soft English normalization pass whose failure is logged and the pass-1 markdown returned instead — only cancellation propagates from the normalization pass.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/processor.rs#L29-L75",
+          "version": "repo-lines-v1:sha256:09d24137c429a3a64d295ddf79e1f1471b5efa2c4028b975bae74f2d1422c3d8:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU3MTZhZjcwOWZlZDM0OWNiNzdjYjRkYTYyZjk2ZjI3NTEyMmE4MzEzMTRlNGM1NmNkZjdlOGI4ZmZhNDFjZTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJjZWJhNmQ1NzBlODVkZjQxN2QyODU1NGYyODNmNmFjYzNiZTNkNDM1YzQwMTczYjAyMzQzMjU0YTFjMTY5M2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhjY2I0MTQ1YWZmMTc2NmIzMDA1ODM1NTI4NGIwM2E2ODc1MzNkNDE1NjhiNDNmMTE3MDA3NjVjNzk2NWYyODkifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/processor.rs#L526-L580",
+          "version": "repo-lines-v1:sha256:4dc6adafec96abcc8c9613a6e04813126ba05fea87e11973e6e161aac7e30c18:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRlZTM0NmVjZDcxZDk4MGJhM2Y1OTBiM2ExMzdmYjc0ODU1MTVjOGM3NmY2NDRhYzNlZTkzNWQyZmNmODc3M2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNlOTMyOTJmOWIyMjJiNjVlYWM2ODYyN2MwYWU4MGFlZDRhNTZhZTJlNDE1M2U4ZTM0MGJmOWUxYTg5Y2Q2OGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImExMTMwNTA2YzY3MzkwNDI0Y2MzMzA1MDVkMjMxNmY5NWJhNGY1YmYyYzU1ZTUwOTY5ZTFlOTU4OTMyOWE3ZTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d0805ef329f84555a7454c0d92a86dd1",
+      "statement": "On success the service stores a result JSON with the final markdown (leading H1 stripped by strip_title_if_present, mid-document H1 preserved) plus an english_cache object holding the canonical English markdown, a SummaryCacheSource fingerprint, and the output language; and it extracts the first H1 as the meeting name, calling MeetingsRepository::update_meeting_name which updates meetings.title and transcript_chunks.meeting_name in one transaction.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/database/repositories/meeting.rs#L199-L230",
+          "version": "repo-lines-v1:sha256:a6194ccc2d7332d07117da45dcb93592d30d9220b86cf2754993febeea311e9d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg3NjJlODQxZjliMWEwYTBmYWJjOTFhNWEyMmY4MWI2N2M4M2UwN2FkNzQ1NTBkZTdkOWNjMDY0NDQ0ODcwYzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA4ODU4MjU5NDc5YmI1ZmYzY2Y0YjE2MDhjNTA0MzYzNzM5NThhMWQ3NWY2NDZlMDZiNGUyOWQ5MzVkNGMzN2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM2ZGY5MzliZmZkMGZkMjIzOTVhNjEzNTYzNzg0N2ViNGNhYjFiNDJiNGUyNTg1MGIxNzNlZWI3ZTdiZDU5NzIifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/processor.rs#L283-L295",
+          "version": "repo-lines-v1:sha256:4090b0b61157e97b0ccf73943fec34d16ff76e44359d0546b84bb14e18acd2e3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3MzM1MWY2OWJjNDBiZTY1NjY4OTQzMDQwYjY2NWFjOTk5NWQ4OGViZTgwZWMzYWMyOWI2MTQ5ZTkyMGExZGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ2ZDUzYzQzYWU4NzliYWQwMjQ0NWY4MTBjOGQ1MWE4OGM3MTcxMjU2ZGVjYTY2ZmIzYzA2ZjdlOTZhNGZjYWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRkNGNkYjc2ZDE3MzNmNjJjNTY5NGQ4OGNlNzg5ZTA4Nzc0MjNjMGFjZmYzYTgzY2M2NjU5NTQ5NmIwNDFkN2IifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L137-L151",
+          "version": "repo-lines-v1:sha256:4f14f2bbb0dcc3660b140fc0069b98e7cc5523c058d669d9f25a052d234ecc00:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwYTYwZTc5ODI1NWMwNzEyMGI0YmVhMmY1ZTRmOGVhYzM2M2Y5M2RiOGU1NzE0NjMwMWY1YmY2ZjBlOWYwOWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhjODc2ZjlmZTczYjZmODllYjAzYjQzZTBlY2Y2MDg5YmNkODdiY2ZlZjUzYjdmZmI5YTljMzEzMjYxYjBhZTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU1YWIyNzg3ODYyNmVmOTBjNTUyNWY5YTI1YTRhMjZjMGFlNTk5ZmNhOWU2OTEyNTUzZWE5MzkwYjZkMDBmYjcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L32-L54",
+          "version": "repo-lines-v1:sha256:d5dbef412aa00581ca87984a1f4c21e5017ab800936d00f2921ea6445f925c29:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwNTM1MjE2ZTk2YzJlMjhjYTcxYjU1N2ZkZmFkNzRlNTVmZjQ1NmE3YjAxMzQzZTRlMDkxZWY3YzZiOTM3ODciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJmMjNiMjgyODlhOGU2ZDgxMzYyNDUyMWJkMGRlZDFhNTMxMDkyNjA0NWU5NWNjODVmZjg3NjQ4MmU4MDBkNWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI0ZTIzMTQ3MTRiMGM3MGZlOTBhNjIxMTAwYmYwNzgxNzI2MzBlMDc4Y2UwZTkyMjFlOWU5YjcyMzgyMGNhZjcifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L544-L583",
+          "version": "repo-lines-v1:sha256:5f880f939020de599641f9be743ee0d6ccfbf8b0a02325928f2abab282f2b7fd:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1MGE1ZGZkMmMwMjFhZjgxNDQzNjg1MGE0NDVlY2I4Mjc3NjZmZDc4Y2E2NGJkZTk0Zjc1MTMxNjdkMDdjYzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNjQ3OWNjMjMwNDQwZmQ0MWU4MjI0MjE4Njc5Njk4NTU5ZDI4OTNiZDY3YjQzODBhZmFiODExYjM4YTU1YWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyOGJjY2YyN2EwMWY4NzQwNjExOTgxZDc1MzA3M2FhMjlmYTUxZTAwODYzZDMwN2Y5NjBhNDhhYzhjZGE2MzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhZmViZDk2YzFmNTBhOTYzYTUzMDYyOTY2NzBlZGExZTJlOGY1NjU0YmM1MzdlOThiNDI0ZDAzZTE5M2Y5YWMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_20877470a6d14dc482845c387e9671e1",
+      "statement": "extract_cached_english_markdown short-circuits pass 1 when regenerating to a different supported non-English language, only when the stored english_cache source fingerprint exactly matches the freshly computed SummaryCacheSource (transcript and prompt fingerprints, template id and rendered-template fingerprint, token threshold, provider, model, endpoints, sampling parameters) and the cached output_language differs from the requested language — same-language regeneration is deliberately a cache miss, and the legacy english_markdown field is a miss.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L480-L505",
+          "version": "repo-lines-v1:sha256:3af2acf3342af660b41022434e7386240cc63a5b872b874e2d9b12a2ba391bd0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkYWM3Y2MxNTI4MTlkNmQxYWViOWMxNjlhOGRkZWQzNWUyOTM5MTI5MDAyY2FlMWY3MzA0ZGFlNmE4ZmM0ZmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1Y2RlZjgwODVhZTc0YWI2MzZkNjQ1OWY1YzZkNWZiZmIwZGIyNjRmMWIwZDc1YmFjNTE5YzliM2Y2NzE3YWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk1ODYzMGQyNGUxMGI4ZDQ0NWJhMTQ2NjQ5Yjg2ZGU2ZjQ0NjM1NjAwZWY2ZDk5ZjQwYzkzNzIzOWQ4ZjJhNDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxM2Y1ZmMyYjIyNWU4NzY2YWM5YThhYzllYjQ0Zjc2MTg3MDIxNGFiNWE3YTI3MTM5Y2Y3OTI2NzY3M2NhZjQifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L56-L190",
+          "version": "repo-lines-v1:sha256:ea2a44f2918f159f152318d762ae41b89d897345a5355ac8853e3f90452efe80:eyJzZWxlY3RlZExpbmVDb3VudCI6MTM1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJkOTQzZmZmNzNlMTIxMDE2ZjQ3MDRmYzRhY2Q5ZGU2ZGY5OTk5ZjM1NGE4NWMxNmRjNzk4NzBlNDc3ZTU3MmNlIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIxOWU3NjM1NWNmMTE5OTQ4MGMzZjk5ODM2YjE0ODZjODQxZDg5MWZhYWQ5MDRjNjA4ZTA5MzAyMmQzNzU3YWVlIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlMjk0OTFjMDMxNmZkZTU0MzMyMWI1MzdiYjk4NWFhOTViYTVlODA2N2EyMzliODUxNzk0YjE0Mzk0ZGNmYTdmIn0"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/service.rs#L746-L791",
+          "version": "repo-lines-v1:sha256:a774a8c6504ee17f4a8bc01a9288f968bf550d96f7659496ce581614871e5519:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM2YmJhMTNjNDRhMTAyMjUxZTlhNzU2NDA1NzQ0OTgwNmQ1ZTIzMTI1MTM2M2EyZDk4ODk5Yjg2YWUyYTM1MWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwMGRiMDQwZjI5MDliZjk3OGZmMGE5NTZhNTVlODNjNjUzNDE4ZGU2YmI2OGY4MDQxZGE5NzZmOGQzZDIyNzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdhNjI3ZmExOGMwZjI3ZmJiYTFmNTM5MTAzZTA1YThjOWI0MmU1ZmU1Yzk1N2E4NTEzMWI5MGY5YzllM2U0YmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_23dc23ef7c9a4749bc01420e3ed3c1c3",
+      "statement": "Summary language preference persists as the summary_language and detected_summary_language fields of the meeting folder's metadata.json via api_get/save_meeting_summary_language and api_get/save_meeting_detected_summary_language, written atomically (temp file + rename) under a global mutex with codes normalized against the supported set (zh-cn→zh, zh-tw kept); meetings without a folder_path answer storage 'local_fallback' and the client mirrors the value in localStorage keys (summaryLanguageFallback:<id>, detectedSummaryLanguageFallback:<id>).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/commands.rs#L110-L200",
+          "version": "repo-lines-v1:sha256:acb69c46eb581677f08adb8eb97701c2cd45aea6009336bfbbcebd5cb0f8edf0:eyJzZWxlY3RlZExpbmVDb3VudCI6OTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3YTY4ZDk5MWJjM2QxZjE0Yjk5ZTA1YThmMDQ1N2Y4YTQ3NGEwZTBjNzJjNTY0ZTU3OGUxOTk1ZDJmZWYxM2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZiOTUzNWViODMzNTYyNDhkOGU1YmU2ODM3MTMxYmNhMzNkOGU2NjM4ZGZhY2Y1OTM4N2JjZTEzMTBjMWQzM2UifQ"
+        },
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/metadata.rs#L9-L137",
+          "version": "repo-lines-v1:sha256:8bdfd4ae9c7d8a1bbce80e390b40051c8eff034a5f140df2f39f310e8951dbd5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJmZDE2MjY0MmZkMzNjMmRjNzk1ZjQ1YzQzYWE1MGRlM2JkZmM3Y2VhMzZhNmMzMDkxOGQ4NGFhOTc3YmQ1YWM5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjMGVlYTAyYjQ5ZDBhZTIyMWFiZTNjZjg3MWYyYmFiZWQyZWE5ZTA4NDFmOWYzOGQ1OTYyOWFiYThkMTUwY2ZjIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI3YmM5OGQ2YjBkYzQ5MmM1MDE2ZGYxMDgwNWEzYTU0ZWI5YzE4NGE1YTYxMzdlN2Y0YmVjZmEwYzIyMDU1MGQwIn0"
+        },
+        {
+          "resource": "repo://frontend/src/lib/summary-language-preferences.ts#L52-L146",
+          "version": "repo-lines-v1:sha256:b289e15c818252f0e87ec77a1c4dc4f7b7d46386c7e7839ef36a4841a56d1ca0:eyJzZWxlY3RlZExpbmVDb3VudCI6OTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZjOThiMjNmZmQ5YTNhMjZmMTBhZDlhOTYwZGZlNjJjNjdhYmUxMWFkZTRmN2Y5ODkyOWFmMmNhNDNiOGI3ZTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzM2ZmMGIyNWFmMDBlMGIxOTZhYTVjZWFjYmIyZDdjMjY2NWI4ZTUxYWE3YWFmMzEwMGQ0YzE2ZDlkOWQwZTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6c6d2b94b95b43e585eddeee1cbee50a",
+      "statement": "resolveSummaryLanguage resolves the per-meeting override first, then the cached detected language, then fresh detection via api_detect_transcript_summary_language, which runs whatlang over segment texts weighted by alphabetic character counts (segments under 20 meaningful chars ignored, confidence below 0.25 treated as unknown) returning { language, reason } with reasons detected/tie/low_confidence/unsupported/empty; a tie warns about a bilingual transcript.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src-tauri/src/summary/language_detection.rs#L8-L115",
+          "version": "repo-lines-v1:sha256:adbd94af6a870bdfd41784e2e5df0cdc1f45e6c2f60bb8fb87e7584fdbb6d9c2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJiYzE2ZmU1YTA4NzUxNzA4ZDFkYTU4ZTAzMGFhNzAxYWRkYjliYmI5ZGE1MzcxODEzMDhkNzRjNGM3ZDI3NTFmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjMGVlYTAyYjQ5ZDBhZTIyMWFiZTNjZjg3MWYyYmFiZWQyZWE5ZTA4NDFmOWYzOGQ1OTYyOWFiYThkMTUwY2ZjIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI2YWM0OTVhMjE4MWRjNjBjYTAyZWJkZWRkNmEwODhhYjRlYzI1NGIzOTM3MmExYjlhZTcwNjU5OGExZWJmZDVhIn0"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/meeting-details/useSummaryGeneration.ts#L16-L49",
+          "version": "repo-lines-v1:sha256:120dc3f618e639a1a28ca26978914627420d0cbbd2eed59fe47a7ea80f30b8a4:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYwNTY4MjQ4YzI0M2E2ZWU1OWIwNjY4YTA1Nzk4NDZlYmNmYjE5YTUwZGZjNTRjZjFkNTc3ODg1YWM5Yzk5N2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY4ZWZiZTk4MzMwYjFhZDgxNWEzODk5N2NjYTYxYTI5MDdiOGU4NDBjNjI3MTRhNDM1YTMyMWJmNjlkN2M5YjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImViZWUzNTIxZTJiN2E4ZDg2YTRkNTAyZDlmNmU3NTRiMWM4MzM3NDEyYTJhYzAzYzU2YmEyYmRmNzRhZWJjZWIifQ"
+        },
+        {
+          "resource": "repo://frontend/src/lib/summary-language-preferences.ts#L200-L229",
+          "version": "repo-lines-v1:sha256:5f2cc491a33c4e53b30334f17102049066fbc1da6ed9dde978aa6b55ba718b28:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhhOWZhYmQ5ZGVjN2MxYjY0OWI5OTY5M2ExOTgxNTZhNzFkMmU0ZGMzNGYyYzBhMTIyODQ5YmJiNGFlNTA5N2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAzMTA5NDZiMGVhMGFlZDBkYTU5MzI1Yjg5OTgyYmNhNWQ5OGUzYzc0OTI1ZTJjZGQ5M2ZkMjk3YTU3MzM0YzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_141e02399b81446fac819685dad30aa0",
+      "statement": "Meeting creation paths seed the language preference before the meeting page is opened: useRecordingStop applies the pinned default (summaryLanguageDefault in localStorage) or detects and caches from the transcript, and useImportAudio and useTranscriptRecovery apply the pinned default similarly.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/hooks/useImportAudio.ts#L111-L120",
+          "version": "repo-lines-v1:sha256:c8130e6ddf00d7bea170cba1e8c0318d96a2b132c29d726826f1969e3e6bc2cd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYwMzljMTMxY2Y0NzVmOTFlYjY2NTM2NzQ1ZjZiN2E1OTIwMzFhZDMwYzZkYzJkMjRhOGRmZmE3NWU3MGVkOWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4MDA1ZDU3MTA2YTM2MmViMDAwZGFmM2RhNDY3NGM4MmI1MThmZjVhMmUyZjY3ZWU4ZTc1N2EzMzNjMmFmNjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEzYjMxMTc4OTQyZmM2YzhjYTAzNGU2Y2Q1Y2EyYzExODE3NzAzYjc0NGEzYTRkMTU1ZWYyNjYwZmE2YTY4ZmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU2YjhkMDgwZGU3M2E5ZThmMDRjN2JhNGMwNTMxMDlkYjAzZDdiMGYzOTc5NjY3MDlhNDJkY2QwODUxMmRmNDMifQ"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStop.ts#L268-L290",
+          "version": "repo-lines-v1:sha256:2af506071db7bf5b8f98b9e6fe30b95bf499ccf00b0218ae230054255f1c5607:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwMzkyMTVhNDNhYzZjODY3NTIyOTlmYWEzZTU0NWI1Nzc4ZTMwNjAyNTY0YTlmZjY3MDcwYzg4M2E3NmM4MTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4MDA1ZDU3MTA2YTM2MmViMDAwZGFmM2RhNDY3NGM4MmI1MThmZjVhMmUyZjY3ZWU4ZTc1N2EzMzNjMmFmNjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhkNzhkNDIzMDhmNzlmMTAxZDVmZTA3YzBmMGZhYzFiMDFkNTdiNThlYzhmMTczMTIxMGFjODAyNGE5ODZjZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU0NWM1YjJjOTZkY2FkZGFhYjBkMTM3MTQ2MTg5ZWNkNzkyN2Y2ODRmODg5Mzg3ZjgyMGQzYTE3N2IxNTA1N2MifQ"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useTranscriptRecovery.ts#L185-L194",
+          "version": "repo-lines-v1:sha256:ab6ac578dab94bb029e5cda0ee63e653a8070d72408c3744fb94c2a5677f5ae9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJiMWYyZDc4MjQ0ODhmNTg4MzdlZTUxYmMxNGRiMmY2MDNlNzJmYjhmNDFkYTRiOTA2N2E5N2UyZTM4YTk3ZTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliNjJmNjBkODU5MGE1NzljZjQ2ZjhkNjczNzhjNGM1NzJiOTYyY2VjY2RiOTBjN2E1ZjdiNDJiOTYwNzgyYTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY4ZDBmZGFjOTZmOGU2YTMzZDQ1ZWU0YmU2Yjg4YmI5MGExM2ZhNjVjZDM3MTRhMDNiOWZhYzU1MTdlMDg3ZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNlZDk2MDljNDgzMTM5Mjc1NTE3ZTcxMDlkNjg5ZTJkNTNlMGRiYjdjZDlhODAzYjgxOGUzMTI3ZDNiMzliYmQifQ"
+        },
+        {
+          "resource": "repo://frontend/src/lib/summary-language-preferences.ts#L148-L155",
+          "version": "repo-lines-v1:sha256:829b3522c36a4ae8d66debf3fdf12e6dabbf4fb00e99cd897c54e85f42eccccb:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjg1ODNjMDY4MzEzOGZjMTk3NzI2ODg2N2ZkNmY0YTE0NmVlYjJjNWQ4NzE3ODhlMTY5MDg5ZDQyYmUyYmJkMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTIwNDBlMDk1YTk0ZTJhZGE3NGU0MjFmMzcxODc1MWE5MWE4MTBiZmQ2NmY0OGY0ZTkzOWM3Yjc0ODBlYjY3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWVlNzhjYzY2MTI2ZGE4YmVmNDgyNmQ0YTAzNjIzNDFhOThhMjE1MzQ2Y2E0MGIxYTI5YmYwMzM2MjY1MGM4MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e674df8a40c343be8c7d11353f1bbf6c",
+      "statement": "Auto-summary on meeting-details triggers only when navigated with source=recording (set by the live-recording stop flow), isAutoSummary from ConfigContext is enabled (localStorage-backed, defaulting to false), and model config is resolvable: the DB's api_get_model_config is authoritative and never overridden, and only when it has no model does the page check Ollama for gemma3:1b and persist a default config before proceeding; the trigger effect additionally requires meeting details loaded, no existing summary, and at least one transcript.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/app/meeting-details/page.tsx#L315-L336",
+          "version": "repo-lines-v1:sha256:2de9c2abf3e70c5cf282b72035f9a078a5396a099d5fa76b2a7285c34381dcb4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwMWJlZTRjZDI2NzNkZDQ0NjA3ZjM4NTQwZDIyNjM2NGI5ZDExOWFmYTFmM2I0OTE4ZGQ4MzZhZDVkMzUwOGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxZDIyZTA4MmI1ZDEyODM4MjlkNTkyNjc1ODA3NzVjZjY1OGFmZWRjMDZjOGFkMzJjYWE4YzBhZjliZTcwYzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI0YjdlZTcyZjkwZGRmNmFiM2Y1MzFkMTZjZmRlMDE3Y2MzMDkzNTUyNWQxOWQwOTJjZmMxNjQ5OWY0Zjc1MGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImExYzA4MGJjMTc4N2U3NmM0ZTU5MWZjYTE0NDQ5YzMxZDgxOWNjMjQxNWY5YWNhYzZmY2FmYjg5MWNmNGY1YzcifQ"
+        },
+        {
+          "resource": "repo://frontend/src/app/meeting-details/page.tsx#L51-L117",
+          "version": "repo-lines-v1:sha256:1a11183a64950855003aa458ad90503894a77ce46e92828d70880c887d1afce5:eyJzZWxlY3RlZExpbmVDb3VudCI6NjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYxYmNlMTA5MzZhMGU4MzU4MjExYWRlYmVhOWU4YmU0OWFlNjA4MmE5MDJkM2EwOWQ4MGNmNmNiYzJhMGM4NWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZjMGNkNWMwODExZWFiNmEwNmJlMDQ2Yjg5MzU3MmIxOWU3OGU0ZjA4N2JlMzZiNDE1YzBjMDUxZDVmYmFmYmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc1NDE2ODZkNTQxOWU1NTU3NzcxMDA3ZGQwMjhjZWFhZDI5NjU3NjUwODA2NTY5NGM3MjdmMDMyYTEwYmU4NmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2NTUyZjRhNDZiM2I1N2ExOWZjNzdjMDY4OTFiYzAxYmIwMDZhYmIzY2M2NmFjMWMzZGU2ZjY4YzM4ZDVjMGMifQ"
+        },
+        {
+          "resource": "repo://frontend/src/contexts/ConfigContext.tsx#L157-L164",
+          "version": "repo-lines-v1:sha256:beda03bb09583f294e6b7b4ff8d9c1f7d368e5228c2b9023faefc62c8f285e0f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzRmN2I0M2Y1YTg4YmE0MGI2YTIwMTM3MDdkMmIxMGQ2MDdlZGFkMmNjNDdiZDM2ZGNhOGE0ZDZhNTVkOTM1NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2EzZTQ2Zjk0Mjc2YjZmNmY0ZWQxZjAyYWY3OGJlZjZhMmVlMWM0MzlkZDU1ODRiOTczOTQ4MzEzMjE0ZDJiNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDE1MTdiMjBjZTllMjIxMjkyYzI5NTMyMDg4MThlYTZmMzRmMGJiZmE0ZDZhZWM0YjExMzJlM2JmNTc4N2VlZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2VjZmIzM2JiZTIyZWM0NjJiMzEwNDU1NDJiNDQ5NjUyM2YyMWIzN2E2ZTEzN2RhYjM3YTEyYmIyMDkzOTJkNyJ9"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/useRecordingStop.ts#L338-L346",
+          "version": "repo-lines-v1:sha256:77ce29b95b33cce54ad41771f67ca079647ceedfc0ae39912a5be6bf796e87ef:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjdkZjU1Njc5NjE5ZDhlYTQwNzlkYjc2MGJmMjk1NjEzNmE3N2M2MGFmY2JkMjhiMTAyNzgwNGUzYTYxZmU4NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjk3OGQ3MWU0Mjc0YTcwZGNkN2QyODg2ZDBkODA1OWJjMzVkODY2MWZjNmFjYjUyOTFhZWVlZjQzOWY4MjA2NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGYzZjY5ODZmNjVhMTNkZjk1MzBiYzg1MWQzMDBkNTk0ODNlZTU4YjFjZmNlZDFhZTgxNjQ0ZmZkMWQwYWM2YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjA3YzYzMWQ1OTFlMjFkOGQ5MDRiNmRiYWQzMzM3Y2YwZDJlMjg0ZTU0NGM4NTQ5ZWE1YWFjMDNlZjYyMzhmYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ddeee4b2eb8c425b8381681c0b507c51",
+      "statement": "SidebarProvider.startSummaryPolling polls api_get_summary every 5 seconds per meeting in an app-level Map of interval ids, replaces an existing poll for the same meeting, stops on completed/error/failed/cancelled or on idle after the first poll (process vanished), times out after 200 polls (~16.5 min) with a client-side error, and the meeting-details page stops the poll on unmount or meeting switch.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/app/meeting-details/page.tsx#L163-L182",
+          "version": "repo-lines-v1:sha256:fd71b102d64033fd4c992b5cf2178f0be93cf10aef91e3c315ba7d4740e394a4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiYTEyZDJkZTMwNTE3MTc4OTU0MWIwMWQ5MmU1Y2Y3MWQ4ZTE4ZGMxOWI0M2E0ZmE2MjVkN2Q4ODAyN2U4NjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2ZjFhYzg2YTBjOWQ2ZjFmMmFhODQ4YjdkYmI1ZDUyMGFiMThiYjIyMGRmNzc0ZTg0ODU5ZGY5NzQwYjE4YTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFjNTJhNmE0MTRmNjhiNGU3Y2M2OTBmZWI4NWM3YmU5YWYyZjNjYjExYWYzZWIxMWU0YzFhOTdkMDEyNTE1NDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI2ODJhOTk2N2UwYjk4NDMyZjMxZmE0YjA0YmQxM2M2OWU4ZThmYzE1MzI0OTlhY2NjYzU5Nzc3ZTJjZDFlNTIifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/Sidebar/SidebarProvider.tsx#L187-L288",
+          "version": "repo-lines-v1:sha256:31850e29a33248e6d34161174818355ead4e27e9549db18853742dfe6dfec802:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5ZDkyMTRmNjQwZDk1ZDFhYjU5YjllMzgxZTRmMzhlMzZjMzZmMDg1YmUyMTkzNjZiMTg3ZjE5YWI2OGI1ODczIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI2NGFmOGQ0YzVmMzIzOWIyOTkyYWI0MTdlNjViZmFiODhjZGMzODBiYzMxMjY5NDY4MTkyMGNhYTM4MmIxZTFkIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI1MWUzNzI1ZGEwMDJiNDZlZDhiNGRlODgwMDNhZDk3MTBkY2FmMThkNTdjNDcwMWRjM2JlZmYwYjJjNWNiMTNmIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI2YTNjZjUxOTIzNTRmNzE2MTVhYzUxMDM0YjNlOTdjMjBlZGE5OTY0M2ZjYWY1YmJlNmQ0MWFkNTliZDEyMTY3In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_0d61145d618d4e6f84e3df951092271d",
+      "statement": "The polling callback in useSummaryGeneration handles cancellation by re-reading api_get_summary to restore backup-restored data (completed if data exists, idle otherwise), on regeneration failure reloads the previous summary with a restoration toast, on first-generation failure shows connection hints and auto-opens the model settings modal for 'model is required' errors, and on completion renders markdown results, normalizes legacy section JSON honoring _section_order (empty sections rejected as error), and updates the meeting title from MeetingName/meetingName.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/hooks/meeting-details/useSummaryGeneration.ts#L166-L369",
+          "version": "repo-lines-v1:sha256:d5448498bc9bbb60c4ddbf6ab750ffb6d6a28e975c27ea8d30cca56d37097822:eyJzZWxlY3RlZExpbmVDb3VudCI6MjA0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5NTg4MGE1ZjY4Y2IyMGU5MDg2ZjcwODA0MDU2ODA2OTliMmQxMmVhNjU5NmVlOWI1ODY3NGU2NWYyMjIxMDI5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJlNmIwNDQ5MTQ2OTcyMmU4MzYzYTk0ZTQwNDQ1MzhlMDEzYTJhMjE3ZTM2YjFlNTY4YmE2MGFjYjdiNGM4ZjJlIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIzMDdkMjM0Mzg2MDNmNDA5OTliYWYyOThiMzM1YjAzZGU0MWNjZTY4MmNmYTU3YzgzZTFkMjZmNjc4NGRlZDEyIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIyYzFiM2M4ZmM5OWZlM2E2ZjYwMjU5MzM4YzljNjRiM2YwYjU4ODM4OGQwYzU4ZDUyMzlhNjE4NTcyNTAzZjM3In0"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/meeting-details/useSummaryGeneration.ts#L236-L252",
+          "version": "repo-lines-v1:sha256:2627f128c7278d97a6129c36a486f80e91e6fa56cd7472994b280418cdbe6261:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiYzA4ZDAxOWJiODlhMTA1ZjIxYTc0NjI5NDVmMmNlMGI2MDYzOWJjYzg0NzIxNDQ2NzMxMjZlMzVkZDE2ZmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4MDA1ZDU3MTA2YTM2MmViMDAwZGFmM2RhNDY3NGM4MmI1MThmZjVhMmUyZjY3ZWU4ZTc1N2EzMzNjMmFmNjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM2YWY1MTllNDk5MWI5M2I1Yjc5NDY1OWY0NmEyODFiNTIyMzJkNDkxMzExZDk0ZWE4M2JiYzNjNjMwODU1MzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRjY2U4MTdkNDc3MTdiNDc2YjNkMjVhNGJmY2M4MzMwMWE1Yjc5Mjc0YWEzYmVlMTBiMWUyMTBlYTU3NGU5MDUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_51569108b91443cfa285417c7fce1e33",
+      "statement": "handleGenerateSummary fetches all transcripts for the meeting via api_get_meeting_transcripts sized to total_count (not the paginated page state), builds the payload as [MM:SS] text lines joined by newlines with raw texts kept for language detection, and pre-checks provider readiness before invoking the backend: Ollama must list at least one model via get_ollama_models (with a not-installed toast offering a Download action), and BuiltInAI requires a selected model passing builtin_ai_is_model_ready with builtin_ai_get_model_info distinguishing downloading/not_downloaded/corrupted/error states; handleRegenerateSummary reuses the same pipeline without these pre-checks.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/hooks/meeting-details/useSummaryGeneration.ts#L401-L633",
+          "version": "repo-lines-v1:sha256:99d41a69e63809bc9c72c15e59da08967a8c3c5a4aadaf12b68f092c64bc57bb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjYjdjNjMyY2U5ZmVlYzJiZTIyZGUzMzc1ZmNkNDc3MmNkMDcxMzI4ZjFjNGY2ZGM1Mzc1NzBlMjI2ZGFjMTM5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI5ODBjYWRmZDI0NTg1MDliYTJmZTAwZjI4N2JmNDdhNTI5ZjA1OTA2MGQ5MjM1NTg3MDE2ZWUzY2Q0N2NlNjA1IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwMWNmNWRlNDRjYWRkMWM0YjczNTQ1MTJhZmYyMTI0YjRmN2Q4YjA4MmUwMTJlNDJlYTkwZDc1MzBhM2JhZTljIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIzYmNlZmEyZjNmZDkzOTQ4NzhiNzU0ZTgxMGE4ODBmYWYxYzJiMGY4OWJmOTFmMDdkOTI5YzZmMWZlMmJiYzUzIn0"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/meeting-details/useSummaryGeneration.ts#L483-L609",
+          "version": "repo-lines-v1:sha256:503d3144e06c7357b3e65259a8b9fa71ebddb863dbaef83c50e389adac2f2296:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1MTc3Mzc2ZDg0MzljMDA5MjczMjZjMGE2ZTJjYmYxNWE3NjNhY2RiZGQ3YWU1NTZhYzdiZmQzZjc5M2QxMWRjIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI4NzdiOTg0N2M1MTQwOGVmZmZmNWI1MWE0Yjg5ZDg1MDlhZTBiOTQ5YjcwNjEwNTcxNmU1MzliNDk3NDAwZjgyIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIyYjYyNTAyOGNkNzI1OTY5MWJjNjI0M2JlZDY2ODk3MzlhODFhY2EwM2M1MDliZmU3NzVhMDM4YjhhYmJkMDk2In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_2a913f991eef4ddd98d29ae9187381b2",
+      "statement": "handleStopGeneration invokes api_cancel_summary, stops polling, resets status to idle, and toasts even when the backend call fails, with all generation failure and cancellation paths reported through sonner toasts rather than dialogs.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/hooks/meeting-details/useSummaryGeneration.ts#L371-L389",
+          "version": "repo-lines-v1:sha256:9662eb8c054a8f0b4f96077fa72e4d2f699644bd4b3dc08e9b64ce4d8ddfbc13:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4ZGI3NDYwODE4MmNiN2NhNGQ5ZmJhNDlhMzk0OTlhN2YzOTA3YjRlYTAzM2IxNDkyYWQ1Y2YwYmVlZWVjZWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2ZGI0Y2FhMzRkODdiYjZlNjNmMTFmY2QzZjNiZjViMDBmMDFjNGY3OTVjY2ZiYzRkOWZmZTNhNDBiNTczN2IiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNkYzgyMWIxNmUxNjA5N2VjYzkyYWEyNTc0NGU0NjIyMDIzYTVjNTgxZDkyMGZjZGJiZTA2OWY0ZGNiYTVlOGUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/hooks/meeting-details/useSummaryGeneration.ts#L635-L662",
+          "version": "repo-lines-v1:sha256:fc756e13b12ab26a26cd7cf8fe3afa76d75c4a95acdf9c79c3dec992ddd2a26e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlmOWQ1MjRkYzRlNWY4ZGE5ZGRlYjdmYWIzYjA5ZDkxNDNiMmIzZDNkYWQzZDc5ZjVmMmY5Mjk3MDRhZDRhNDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUwNmI3YjMzYzE5MTNjN2RkN2ViZjcyNjVmMzA0OTdhYzc2Y2Q1N2Q2MDg0YTgwMjZlNjM2Mjc2MmJkODRhODciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRlOWE1MWNmMTU3MGY2NjQ5OTA3YTEwNjhlZmUxN2ZiYTc1Yzk5MjE2NGZhMzE4OTFkNWUzMDhiNzE3MDVhYjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY3N2VlOGY4YjBlYjM2YzY0YmI3MjQxZTlmODBjMzQ5NTI3MWI2YzVmM2IzMTY1YTg1MTNlZGJlNTQyYTJjYmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_293f477f8bc84aa985291116f4988fad",
+      "statement": "BlockNoteSummaryView detects the stored format (summary_json renders the BlockNote editor directly, markdown is parsed into BlockNote blocks, anything else renders the legacy AISummary section editor), suppresses dirty tracking until initial content finishes loading, and on save emits { markdown?, summary_json } with the BlockNote JSON always included and markdown attached when blocksToMarkdownSafely conversion succeeds.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/components/AISummary/BlockNoteSummaryView.tsx#L221-L277",
+          "version": "repo-lines-v1:sha256:1b30f929edbe50a90c48f2582d933ad84be114e26fb063871d85e489c042a324:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhNTIxOGViNmRhZjJkZDY5Y2M0OTVlOGUxNzU4MTAzZjRlZDJmZTM5NjM4Zjc5ODg1MWFkNzNjOWE1ODM5NjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2ZjViNDBiMTU4NDU3ZDE3ODY0ZjIxNzkwNzg2ZGQ1YTJlY2RiNjRiNjZhNjUxZjc4OGQ0ZTI1Y2QzMzAzZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRkYjllYjBkNTdlNTFlOTNkMzk1MmIyZGU4ZmZjNTFhMzM3M2I1OTk4YTZjZTdhOTM5NmZmNDE5OTIzNGIxNzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE2ZGZkMTk4MzA3ODU4NWQ3MDU3NmZiYzRmZDE3YjViZWRkNWM3YTUwOWYzMzQzMDdlNjJjMDM3M2Q3MzcwMmIifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/AISummary/BlockNoteSummaryView.tsx#L37-L66",
+          "version": "repo-lines-v1:sha256:dfe1d7cb9ebd82e4d251652d178661ca174c435dd6eebdbd35983754383e846c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVmMjAzMDlhMDAxYTBkOTU5NjFiMWZkODYxYTNkMWRhYmM2MjBhOTdjOTUxMGQ2ZjVhNDk4YzEwN2NiYzUyMzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE4ZDczZTM0NzEwNDhiMjIxMWZlOTQ1OWJhMzdjZDA2ZjRlMzExZGM4M2RiYTE4MjQzZGQzZjQ3NDliMTkzNTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2MGEyNWE4MjczMWQ1MDFlZjgxYWZhYTU1OTQ4NDRiZDBjYjQ3ZWE1NjhhNDczN2FkZGFlM2U4MzA0NjBmNTIifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/AISummary/BlockNoteSummaryView.tsx#L89-L166",
+          "version": "repo-lines-v1:sha256:2e124cb488f9d6d50ebd1314118d03ac44a919f032aa197b2fccd21a625e9c53:eyJzZWxlY3RlZExpbmVDb3VudCI6NzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkzNzY4ODVmZTBkNmU0M2E1YmUxOGQyOTgzZWVjZjFhNDUzNWFhOWRkNWNjZGNiZDgzNzEyNzUyMTNkMTQ5ZTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIyMzEwOWE3MTAwNTMzMTA4OGM4OTI1OTM2N2RmYTVjYmZkNTVhZjVlMzVkYzAyYmNkN2YwOWRiZDcwNWI3MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE2OWVlNjE1YTgyZDJhNmExNTg3MzA4MWVmZDVkZjExZGU2M2ZiNDA1OGNkYmY0Y2U4YWQ5YTZiOTEzMDJkYjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzMTdmYTM3OGU2OGMxZDc1ODdjMGM0ZTU1ZWMyODZhMmMyY2MxYmUxNDY5YzYwOTAwY2VjYTc3ZGY1NzA4MWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4fad649cdda14eb586e641d272917da0",
+      "statement": "useMeetingData.handleSaveSummary passes BlockNote-format payloads straight to api_save_meeting_summary and wraps legacy section summaries as { MeetingName, MeetingNotes: { sections } }; saveAllChanges persists a dirty title via api_save_meeting_title plus the summary through the editor ref when dirty, reporting a single success/error toast.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/hooks/meeting-details/useMeetingData.ts#L76-L142",
+          "version": "repo-lines-v1:sha256:dbbbe4b7593528f6ad9405da794eea0d5265c866c5b233f799932b905c89b49b:eyJzZWxlY3RlZExpbmVDb3VudCI6NjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE2MGQ4NWQ5N2JjNTUwNGIxY2ExOWI0MDMzODM3ZGJmNmNhYzYwZDU4MTIwYjYzNjM0YzkyMDE4MjU2ZmMyN2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwMDdjNTkzMzY3ZWExMGEwNjA1ZTBjYjIxNGMyZmVkYzE5OTNiNmQ2Njg1MDBiZWU3NDI4ODc0NTNkNWQyMjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdiZDFkMDA2MDhmZmU2Zjc3NGQzZjNkNjJmM2U5OWMxZjU4MzNkYmMyOTc4ZGU3MThhNjU4Y2ZmOGZiODNlYmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMzMWEyOWM2YjM4NDgzNjZmNDQ3ODZlMmU3N2NkZjIzMjRhNThkNjc3MWNhMTUyZDk0MGFlYzY1NGQ5MjZjODIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.0",
+    "at": "2026-09-07T20:26:28.923Z"
+  }
+}
