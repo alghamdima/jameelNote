@@ -12,15 +12,18 @@ import { SummaryModelSettings } from '@/components/SummaryModelSettings';
 import { BetaSettings } from '@/components/BetaSettings';
 import { useConfig } from '@/contexts/ConfigContext';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { presentation } from '@/config/presentation';
 
 // Tabs configuration (constant)
-const TABS = [
+const ALL_TABS = [
   { value: 'general', label: 'General', icon: Settings2 },
   { value: 'recording', label: 'Recordings', icon: Mic },
   { value: 'Transcriptionmodels', label: 'Transcription', icon: DatabaseIcon },
   { value: 'summaryModels', label: 'Summary', icon: SparkleIcon },
   { value: 'beta', label: 'Beta', icon: FlaskConical }
 ] as const;
+
+const TABS = ALL_TABS.filter(tab => tab.value !== 'beta' || presentation.showBetaSettings);
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -124,9 +127,11 @@ export default function SettingsPage() {
             <TabsContent value="summaryModels">
               <SummaryModelSettings />
             </TabsContent>
-            <TabsContent value="beta" className="mt-6">
-              <BetaSettings />
-            </TabsContent>
+            {presentation.showBetaSettings && (
+              <TabsContent value="beta" className="mt-6">
+                <BetaSettings />
+              </TabsContent>
+            )}
           </Tabs>
         </div>
       </div>

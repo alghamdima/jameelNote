@@ -4,4 +4,7 @@ export const presentation = {
   showNotificationSettings: false,
   showAbout: false,
   showOtherAIProviders: false,
+  // Hides the Settings > Beta tab. The beta features themselves stay enabled
+  // at their DEFAULT_BETA_FEATURES values; see types/betaFeatures.ts.
+  showBetaSettings: false,
 };

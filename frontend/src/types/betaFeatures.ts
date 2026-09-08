@@ -16,6 +16,8 @@
  * 3. Remove conditional checks - feature is now always-on
  */
 
+import { presentation } from '@/config/presentation';
+
 export interface BetaFeatures {
   /**
    * Import audio files and retranscribe existing meetings with different language settings
@@ -52,10 +54,15 @@ export type BetaFeatureKey = keyof BetaFeatures;
 /**
  * Load beta features from localStorage
  *
+ * When the Settings > Beta tab is hidden there is no way to change these
+ * toggles, so any previously saved values are stale and the defaults are
+ * authoritative. Without this, a user who had turned a feature off before the
+ * tab was hidden would be stranded with no way to turn it back on.
+ *
  * @returns BetaFeatures object with values from localStorage or defaults
  */
 export function loadBetaFeatures(): BetaFeatures {
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined' || !presentation.showBetaSettings) {
     return { ...DEFAULT_BETA_FEATURES };
   }
 
