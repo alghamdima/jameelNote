@@ -84,7 +84,7 @@ pub struct AnalyticsClient {
 
 impl AnalyticsClient {
     pub async fn new(config: AnalyticsConfig) -> Self {
-        let client = if config.enabled && !config.api_key.is_empty() {
+        let client = if crate::privacy::POLICY.allow_analytics && config.enabled && !config.api_key.is_empty() {
             Some(Arc::new(posthog_rs::client(config.api_key.as_str()).await))
         } else {
             None

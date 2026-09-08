@@ -49,6 +49,8 @@ pub mod anthropic;
 pub mod groq;
 pub mod openrouter;
 pub mod parakeet_engine;
+mod presentation;
+mod privacy;
 pub mod state;
 pub mod summary;
 pub mod tray;
@@ -405,11 +407,17 @@ pub fn run() {
         }));
     }
 
+    if privacy::POLICY.allow_updates {
+        builder = builder.plugin(tauri_plugin_updater::Builder::new().build());
+    }
+
+    if presentation::SHOW_SYSTEM_NOTIFICATIONS {
+        builder = builder.plugin(tauri_plugin_notification::init());
+    }
+
     builder
-        .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_dialog::init())
-        .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_process::init())
         .manage(whisper_engine::parallel_commands::ParallelProcessorState::new())
         .manage(Arc::new(RwLock::new(

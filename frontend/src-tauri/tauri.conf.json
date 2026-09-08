@@ -1,6 +1,6 @@
 {
     "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-    "productName": "meetily",
+    "productName": "JameelNote",
     "version": "0.4.0",
     "identifier": "com.meetily.ai",
     "build": {
@@ -12,7 +12,7 @@
     "app": {
         "windows": [
             {
-                "title": "meetily",
+                "title": "JameelNote",
                 "width": 1100,
                 "height": 700,
                 "resizable": true,
@@ -27,7 +27,9 @@
                 "default-src": "'self'",
                 "style-src": "'self' 'unsafe-inline'",
                 "img-src": "'self' asset: https://asset.localhost data:",
-                "connect-src": "'self' http://localhost:11434 http://localhost:5167 http://localhost:8178 https://api.ollama.ai"
+                "connect-src": "'self' ipc: http://ipc.localhost",
+                "form-action": "'none'",
+                "frame-src": "'none'"
             },
             "assetProtocol": {
                 "enable": true,

@@ -8,6 +8,7 @@ import { updateService, UpdateInfo } from '@/services/updateService';
 import { Button } from './ui/button';
 import { Loader2, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { presentation } from '@/config/presentation';
 
 
 export function About() {
@@ -47,6 +48,8 @@ export function About() {
         }
     };
 
+    if (!presentation.showAbout) return null;
+
     return (
         <div className="p-4 space-y-4 h-[80vh] overflow-y-auto">
             {/* Compact Header */}
@@ -54,18 +57,18 @@ export function About() {
                 <div className="mb-3">
                     <Image
                         src="icon_128x128.png"
-                        alt="Meetily Logo"
+                        alt="JameelNote Logo"
                         width={64}
                         height={64}
                         className="mx-auto"
                     />
                 </div>
-                {/* <h1 className="text-xl font-bold text-gray-900">Meetily</h1> */}
+                {/* <h1 className="text-xl font-bold text-gray-900">JameelNote</h1> */}
                 <span className="text-sm text-gray-500"> v{currentVersion}</span>
                 <p className="text-medium text-gray-600 mt-1">
                     Real-time notes and summaries that never leave your machine.
                 </p>
-                <div className="mt-3">
+                <div className="mt-3" hidden={!presentation.showUpdates}>
                     <Button
                         onClick={handleCheckForUpdates}
                         disabled={isChecking}
@@ -95,7 +98,7 @@ export function About() {
 
             {/* Features Grid - Compact */}
             <div className="space-y-3">
-                <h2 className="text-base font-semibold text-gray-800">What makes Meetily different</h2>
+                <h2 className="text-base font-semibold text-gray-800">What makes JameelNote different</h2>
                 <div className="grid grid-cols-2 gap-2">
                     <div className="bg-gray-50 rounded p-3 hover:bg-gray-100 transition-colors">
                         <h3 className="font-bold text-sm text-gray-900 mb-1">Privacy-first</h3>

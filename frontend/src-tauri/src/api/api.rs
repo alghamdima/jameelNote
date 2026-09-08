@@ -1147,6 +1147,9 @@ pub async fn debug_backend_connection<R: Runtime>(app: AppHandle<R>) -> Result<S
 
 #[tauri::command]
 pub async fn open_external_url(url: String) -> Result<(), String> {
+    if !crate::privacy::POLICY.allow_external_links {
+        return Err("External links are disabled in JameelNote.".into());
+    }
     use std::process::Command;
 
     let result = if cfg!(target_os = "windows") {

@@ -1,4 +1,5 @@
 import { invoke } from '@tauri-apps/api/core';
+import privacy from '@/config/privacy.json';
 
 export interface AnalyticsProperties {
   [key: string]: string;
@@ -27,6 +28,7 @@ export class Analytics {
   private static deviceInfo: DeviceInfo | null = null;
 
   static async init(): Promise<void> {
+    if (!privacy.allowAnalytics) return;
     // Prevent duplicate initialization
     if (this.initialized) {
       return;
@@ -67,6 +69,7 @@ export class Analytics {
   }
 
   static async isEnabled(): Promise<boolean> {
+    if (!privacy.allowAnalytics) return false;
     try {
       return await invoke('is_analytics_enabled');
     } catch (error) {

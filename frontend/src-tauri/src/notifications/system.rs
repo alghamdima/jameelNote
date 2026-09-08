@@ -19,6 +19,11 @@ impl<R: Runtime> SystemNotificationHandler<R> {
 
     /// Show a notification using Tauri's notification plugin
     pub async fn show_notification(&self, notification: Notification) -> Result<()> {
+        // Hide the system popup without changing notification preferences or callers.
+        if !crate::presentation::SHOW_SYSTEM_NOTIFICATIONS {
+            return Ok(());
+        }
+
         log_info!("Attempting to show notification: {}", notification.title);
 
         // Check if DND is active and respect user settings

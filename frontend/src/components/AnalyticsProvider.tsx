@@ -2,6 +2,7 @@
 
 import React, { useEffect, ReactNode, useRef, useState, createContext } from 'react';
 import Analytics from '@/lib/analytics';
+import privacy from '@/config/privacy.json';
 import { load } from '@tauri-apps/plugin-store';
 
 const ANALYTICS_DEFAULT_OFF_MIGRATION_KEY = 'analyticsDefaultOffMigrationV1';
@@ -25,6 +26,8 @@ export default function AnalyticsProvider({ children }: AnalyticsProviderProps) 
   const initialized = useRef(false);
 
   useEffect(() => {
+    if (!privacy.allowAnalytics) return;
+
     // Prevent duplicate initialization in React StrictMode
     if (initialized.current) {
       return;

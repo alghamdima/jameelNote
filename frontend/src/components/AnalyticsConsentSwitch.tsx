@@ -7,6 +7,7 @@ import { load } from '@tauri-apps/plugin-store';
 import { invoke } from '@tauri-apps/api/core';
 import { Analytics } from '@/lib/analytics';
 import AnalyticsDataModal from './AnalyticsDataModal';
+import privacy from '@/config/privacy.json';
 
 const ANALYTICS_DEFAULT_OFF_MIGRATION_KEY = 'analyticsDefaultOffMigrationV1';
 
@@ -152,6 +153,8 @@ export default function AnalyticsConsentSwitch() {
       console.error('Failed to open privacy policy link:', error);
     }
   };
+
+  if (!privacy.allowAnalytics) return null;
 
   return (
     <>

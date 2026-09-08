@@ -11,6 +11,8 @@ import {
 import { Button } from './ui/button';
 import { updateService, UpdateInfo, UpdateProgress } from '@/services/updateService';
 import { check, Update } from '@tauri-apps/plugin-updater';
+import { presentation } from '@/config/presentation';
+import privacy from '@/config/privacy.json';
 import { relaunch } from '@tauri-apps/plugin-process';
 import { toast } from 'sonner';
 
@@ -27,7 +29,7 @@ export function UpdateDialog({ open, onOpenChange, updateInfo }: UpdateDialogPro
   const [update, setUpdate] = useState<Update | null>(null);
 
   useEffect(() => {
-    if (open && updateInfo?.available) {
+    if (privacy.allowUpdates && open && updateInfo?.available) {
       // Reset state when dialog opens
       setIsDownloading(false);
       setProgress(null);
@@ -54,6 +56,7 @@ export function UpdateDialog({ open, onOpenChange, updateInfo }: UpdateDialogPro
   }, [open, updateInfo]);
 
   const handleDownloadAndInstall = async () => {
+    if (!privacy.allowUpdates) return;
     // Get update object if not already available
     let updateToUse: Update | null = update;
     if (!updateToUse) {
@@ -179,7 +182,7 @@ export function UpdateDialog({ open, onOpenChange, updateInfo }: UpdateDialogPro
   }
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
+    <Dialog open={privacy.allowUpdates && presentation.showUpdates && open} onOpenChange={handleOpenChange}>
       <DialogContent
         className="sm:max-w-[500px]"
         onEscapeKeyDown={handleEscapeKeyDown}

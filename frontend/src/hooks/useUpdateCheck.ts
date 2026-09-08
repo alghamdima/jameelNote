@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { updateService, UpdateInfo } from '@/services/updateService';
 import { showUpdateNotification } from '@/components/UpdateNotification';
+import privacy from '@/config/privacy.json';
 
 interface UseUpdateCheckOptions {
   checkOnMount?: boolean;
@@ -47,7 +48,7 @@ export function useUpdateCheck(options: UseUpdateCheckOptions = {}) {
   };
 
   useEffect(() => {
-    if (checkOnMount) {
+    if (privacy.allowUpdates && checkOnMount) {
       // Delay the check slightly to avoid blocking app startup
       const timer = setTimeout(() => {
         checkForUpdates(false);

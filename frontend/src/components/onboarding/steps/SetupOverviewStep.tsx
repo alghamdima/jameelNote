@@ -3,6 +3,7 @@ import { Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { OnboardingContainer } from '../OnboardingContainer';
 import { useOnboarding } from '@/contexts/OnboardingContext';
+import privacy from '@/config/privacy.json';
 import {
   Tooltip,
   TooltipContent,
@@ -46,7 +47,7 @@ export function SetupOverviewStep() {
   return (
     <OnboardingContainer
       title="Setup Overview"
-      description="Meetily requires that you download the Transcription & Summarization AI models for the software to work."
+      description="JameelNote requires that you download the Transcription & Summarization AI models for the software to work."
       step={2}
       totalSteps={isMac ? 4 : 3}
     >
@@ -96,7 +97,7 @@ export function SetupOverviewStep() {
           >
             Let's Go
           </Button>
-          <div className="text-center">
+          <div className="text-center" hidden={!privacy.allowExternalLinks}>
             <a
               href="https://github.com/Zackriya-Solutions/meeting-minutes"
               target="_blank"

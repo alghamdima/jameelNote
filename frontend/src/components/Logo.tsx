@@ -3,12 +3,23 @@ import Image from "next/image";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { VisuallyHidden } from "./ui/visually-hidden";
 import { About } from "./About";
+import { presentation } from "@/config/presentation";
 
 interface LogoProps {
     isCollapsed: boolean;
 }
 
 const Logo = React.forwardRef<HTMLButtonElement, LogoProps>(({ isCollapsed }, ref) => {
+  if (!presentation.showAbout) {
+    return isCollapsed ? (
+      <Image src="/logo-collapsed.png" alt="JameelNote" width={40} height={32} className="mb-2" />
+    ) : (
+      <div className="text-lg text-center border rounded-full bg-blue-50 border-white font-semibold text-gray-700 mb-2">
+        JameelNote
+      </div>
+    );
+  }
+
   return (
     <Dialog aria-describedby={undefined}>
       {isCollapsed ? (
@@ -20,13 +31,13 @@ const Logo = React.forwardRef<HTMLButtonElement, LogoProps>(({ isCollapsed }, re
       ) : (
         <DialogTrigger asChild>
           <span className="text-lg text-center border rounded-full bg-blue-50 border-white font-semibold text-gray-700 mb-2 block items-center cursor-pointer hover:opacity-80 transition-opacity">
-            <span>Meetily</span>
+            <span>JameelNote</span>
           </span>
         </DialogTrigger>
       )}
       <DialogContent>
         <VisuallyHidden>
-          <DialogTitle>About Meetily</DialogTitle>
+          <DialogTitle>About JameelNote</DialogTitle>
         </VisuallyHidden>
         <About />
       </DialogContent>

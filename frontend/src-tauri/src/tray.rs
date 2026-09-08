@@ -23,7 +23,7 @@ pub fn create_tray<R: Runtime>(app: &AppHandle<R>) -> tauri::Result<()> {
 
     TrayIconBuilder::with_id("main-tray")
         .menu(&menu)
-        .tooltip("Meetily")
+        .tooltip("JameelNote")
         .icon(app.default_window_icon().unwrap().clone())
         .on_menu_event(|app, event| handle_menu_event(app, event.id.as_ref()))
         .build(app)?;
@@ -201,6 +201,9 @@ fn stop_recording_handler<R: Runtime>(app: &AppHandle<R>) {
 }
 
 fn check_updates_handler<R: Runtime>(app: &AppHandle<R>) {
+    if !crate::privacy::POLICY.allow_updates {
+        return;
+    }
     focus_main_window(app);
     if let Some(window) = app.get_webview_window("main") {
         let _ = window.eval(
@@ -381,11 +384,17 @@ fn build_menu<R: Runtime>(
         }
     }
 
-    builder
+    builder = builder
         .item(&PredefinedMenuItem::separator(app)?)
         .item(&MenuItemBuilder::with_id("open_window", "Open Main Window").build(app)?)
-        .item(&MenuItemBuilder::with_id("settings", "Settings").build(app)?)
-        .item(&MenuItemBuilder::with_id("check_updates", "Check for Updates").build(app)?)
+        .item(&MenuItemBuilder::with_id("settings", "Settings").build(app)?);
+
+    if crate::presentation::SHOW_UPDATES {
+        builder = builder
+            .item(&MenuItemBuilder::with_id("check_updates", "Check for Updates").build(app)?);
+    }
+
+    builder
         .item(&PredefinedMenuItem::separator(app)?)
         .item(&MenuItemBuilder::with_id("quit", "Quit").build(app)?)
         .build()

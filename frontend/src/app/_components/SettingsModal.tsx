@@ -1,4 +1,5 @@
 import { ModelConfig } from "@/components/ModelSettingsModal";
+import { presentation } from '@/config/presentation';
 import { PreferenceSettings } from "@/components/PreferenceSettings";
 import { DeviceSelection } from "@/components/DeviceSelection";
 import { LanguageSelection } from "@/components/LanguageSelection";
@@ -104,11 +105,14 @@ export function SettingsModals({
                       }}
                     >
                       <option value="builtin-ai">Built-in AI</option>
+                      <option value="custom-openai">Custom Server (OpenAI)</option>
+                      {presentation.showOtherAIProviders && <>
                       <option value="claude">Claude</option>
                       <option value="groq">Groq</option>
                       <option value="ollama">Ollama</option>
                       <option value="openrouter">OpenRouter</option>
                       <option value="openai">OpenAI</option>
+                      </>}
                     </select>
 
                     <select

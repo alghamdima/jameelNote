@@ -2,6 +2,7 @@ import React from 'react';
 import { Download } from 'lucide-react';
 import { toast } from 'sonner';
 import { UpdateInfo } from '@/services/updateService';
+import { presentation } from '@/config/presentation';
 
 let globalShowDialogCallback: (() => void) | null = null;
 
@@ -10,6 +11,8 @@ export function setUpdateDialogCallback(callback: () => void) {
 }
 
 export function showUpdateNotification(updateInfo: UpdateInfo, onUpdateClick?: () => void) {
+  if (!presentation.showUpdates) return;
+
   const handleClick = () => {
     if (onUpdateClick) {
       onUpdateClick();

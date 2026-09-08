@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { invoke } from '@tauri-apps/api/core';
+import privacy from '@/config/privacy.json';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Speaker, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -80,14 +81,14 @@ export function BluetoothPlaybackWarning({
             For accurate review, please use <strong>computer speakers</strong> or{' '}
             <strong>wired headphones</strong>.
             <br />
-            <a
+            {privacy.allowExternalLinks && <a
               href="https://github.com/your-org/meetily/blob/main/BLUETOOTH_PLAYBACK_NOTICE.md"
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:text-yellow-900 font-medium mt-2 inline-block"
             >
               Learn why this happens →
-            </a>
+            </a>}
           </AlertDescription>
         </div>
         <Button
