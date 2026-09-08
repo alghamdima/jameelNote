@@ -10,31 +10,23 @@ interface LogoProps {
 }
 
 const Logo = React.forwardRef<HTMLButtonElement, LogoProps>(({ isCollapsed }, ref) => {
+  const logo = isCollapsed ? (
+    <Image src="/logo-collapsed.png" alt="JameelNote" width={36} height={36} />
+  ) : (
+    <Image src="/logo.png" alt="JameelNote" width={180} height={63} priority />
+  );
+
   if (!presentation.showAbout) {
-    return isCollapsed ? (
-      <Image src="/logo-collapsed.png" alt="JameelNote" width={40} height={32} className="mb-2" />
-    ) : (
-      <div className="text-lg text-center border rounded-full bg-blue-50 border-white font-semibold text-gray-700 mb-2">
-        JameelNote
-      </div>
-    );
+    return <div className="flex items-center justify-center mb-2">{logo}</div>;
   }
 
   return (
     <Dialog aria-describedby={undefined}>
-      {isCollapsed ? (
-        <DialogTrigger asChild>
-          <button ref={ref} className="flex items-center justify-start mb-2 cursor-pointer bg-transparent border-none p-0 hover:opacity-80 transition-opacity">
-            <Image src="/logo-collapsed.png" alt="Logo" width={40} height={32} />
-          </button>
-        </DialogTrigger>
-      ) : (
-        <DialogTrigger asChild>
-          <span className="text-lg text-center border rounded-full bg-blue-50 border-white font-semibold text-gray-700 mb-2 block items-center cursor-pointer hover:opacity-80 transition-opacity">
-            <span>JameelNote</span>
-          </span>
-        </DialogTrigger>
-      )}
+      <DialogTrigger asChild>
+        <button ref={ref} className="flex items-center justify-center mb-2 cursor-pointer bg-transparent border-none p-0 hover:opacity-80 transition-opacity">
+          {logo}
+        </button>
+      </DialogTrigger>
       <DialogContent>
         <VisuallyHidden>
           <DialogTitle>About JameelNote</DialogTitle>
