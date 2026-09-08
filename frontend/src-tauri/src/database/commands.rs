@@ -190,16 +190,20 @@ pub async fn initialize_fresh_database(app: AppHandle) -> Result<(), String> {
     // Set default model configuration for fresh installs
     let pool = db_manager.pool();
     
-    let default_summary_model = crate::summary::summary_engine::commands::get_recommended_summary_model_for_current_system()
-        .unwrap_or("qwen3.5:2b");
+    // Default Summary Model: the in-house OpenAI-compatible gateway, so no
+    // local LLM has to be downloaded.
+    let default_summary_config = crate::summary::CustomOpenAIConfig {
+        endpoint: crate::config::DEFAULT_SUMMARY_ENDPOINT.to_string(),
+        api_key: crate::config::DEFAULT_SUMMARY_API_KEY.map(str::to_string),
+        model: crate::config::DEFAULT_SUMMARY_MODEL.to_string(),
+        max_tokens: None,
+        temperature: None,
+        top_p: None,
+    };
 
-    // Default Summary Model: Built-in AI (Qwen recommendation for this system)
-    if let Err(e) = crate::database::repositories::setting::SettingsRepository::save_model_config(
+    if let Err(e) = crate::database::repositories::setting::SettingsRepository::save_custom_openai_config(
         pool,
-        "builtin-ai",
-        default_summary_model,
-        "large-v3", // Default whisper model (unused for builtin but required)
-        None,
+        &default_summary_config,
     ).await {
         error!("Failed to set default summary model config: {}", e);
     }

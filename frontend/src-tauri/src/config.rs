@@ -15,6 +15,27 @@ pub const DEFAULT_WHISPER_MODEL: &str = "large-v3-q5_0";
 /// This is the quantized version optimized for speed.
 pub const DEFAULT_PARAKEET_MODEL: &str = "parakeet-tdt-0.6b-v3-int8";
 
+/// Default summarization endpoint: the in-house OpenAI-compatible gateway.
+/// The app appends "/chat/completions" to this, so it ends at "/v1".
+pub const DEFAULT_SUMMARY_ENDPOINT: &str = "https://opsai.aljfs.com/v1";
+
+/// Model identifier served by DEFAULT_SUMMARY_ENDPOINT.
+pub const DEFAULT_SUMMARY_MODEL: &str = "JameelAl-3.8-flash";
+
+/// API key for DEFAULT_SUMMARY_ENDPOINT, read from the environment at compile
+/// time.
+///
+/// Do not replace this with a literal key. Git history is permanent, so a key
+/// committed once stays retrievable even after it is deleted, and this
+/// repository is currently public. Supply it as a CI secret exported as
+/// JAMEELNOTE_LLM_API_KEY for release builds; when it is unset the field is
+/// simply left blank and each user enters the key once in Settings.
+///
+/// Note that a key baked into the binary this way is still extractable by
+/// anyone who has the installer, so it is only appropriate for a gateway whose
+/// users would all be entitled to access it anyway.
+pub const DEFAULT_SUMMARY_API_KEY: Option<&str> = option_env!("JAMEELNOTE_LLM_API_KEY");
+
 /// Whisper model catalog with metadata for all supported models.
 /// Used by both WhisperEngine::discover_models() and discover_models_standalone().
 ///

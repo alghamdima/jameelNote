@@ -171,25 +171,34 @@ pub async fn reset_onboarding_status_cmd<R: Runtime>(
 pub async fn complete_onboarding<R: Runtime>(
     app: AppHandle<R>,
     state: tauri::State<'_, AppState>,
+    // Retained so the existing frontend call keeps working. Onboarding no
+    // longer picks a local LLM, so this value is only logged.
     model: String,
 ) -> Result<(), String> {
-    info!("Completing onboarding with builtin-ai model: {}", model);
+    info!("Completing onboarding (ignoring legacy local LLM choice '{}')", model);
 
     // Step 1: Save model configuration to SQLite database FIRST
     let pool = state.db_manager.pool();
 
-    // Onboarding always uses builtin-ai (local LLM)
-    if let Err(e) = SettingsRepository::save_model_config(
-        pool,
-        "builtin-ai",
-        &model,
-        "large-v3",
-        None,
-    ).await {
-        error!("Failed to save builtin-ai model config: {}", e);
-        return Err(format!("Failed to save builtin-ai model config: {}", e));
+    // Summaries go to the in-house OpenAI-compatible gateway, so onboarding
+    // does not need a local LLM.
+    let summary_config = crate::summary::CustomOpenAIConfig {
+        endpoint: crate::config::DEFAULT_SUMMARY_ENDPOINT.to_string(),
+        api_key: crate::config::DEFAULT_SUMMARY_API_KEY.map(str::to_string),
+        model: crate::config::DEFAULT_SUMMARY_MODEL.to_string(),
+        max_tokens: None,
+        temperature: None,
+        top_p: None,
+    };
+
+    if let Err(e) = SettingsRepository::save_custom_openai_config(pool, &summary_config).await {
+        error!("Failed to save summary model config: {}", e);
+        return Err(format!("Failed to save summary model config: {}", e));
     }
-    info!("Saved builtin-ai model config: model={}", model);
+    info!(
+        "Saved summary model config: provider=custom-openai, model={}",
+        crate::config::DEFAULT_SUMMARY_MODEL
+    );
 
     // Save transcription model config - always local Whisper, which unlike
     // Parakeet supports Arabic.
