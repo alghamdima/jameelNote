@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Summary, SummaryResponse } from '@/types';
 import { useSidebar } from '@/components/Sidebar/SidebarProvider';
@@ -17,6 +17,11 @@ import { useTemplates } from '@/hooks/meeting-details/useTemplates';
 import { useCopyOperations } from '@/hooks/meeting-details/useCopyOperations';
 import { useMeetingOperations } from '@/hooks/meeting-details/useMeetingOperations';
 import { useConfig } from '@/contexts/ConfigContext';
+import {
+  defaultDraftStorage,
+  readSummaryContextDraft,
+  writeSummaryContextDraft,
+} from '@/lib/summary-context-draft';
 
 export default function PageContent({
   meeting,
@@ -54,9 +59,27 @@ export default function PageContent({
   });
 
   // State
-  const [customPrompt, setCustomPrompt] = useState<string>('');
+  // The AI-context box is a per-meeting draft, restored so switching meetings
+  // or reopening the app does not silently discard what was typed.
+  const [customPrompt, setCustomPrompt] = useState<string>(() =>
+    readSummaryContextDraft(defaultDraftStorage(), meeting.id)
+  );
   const [isRecording] = useState(false);
   const [summaryResponse] = useState<SummaryResponse | null>(null);
+
+  // This component is reused when navigating between meetings, so the lazy
+  // initializer above does not re-run; reload the draft on every meeting change.
+  useEffect(() => {
+    setCustomPrompt(readSummaryContextDraft(defaultDraftStorage(), meeting.id));
+  }, [meeting.id]);
+
+  const handlePromptChange = useCallback(
+    (value: string) => {
+      setCustomPrompt(value);
+      writeSummaryContextDraft(defaultDraftStorage(), meeting.id, value);
+    },
+    [meeting.id]
+  );
 
   // Ref to store the modal open function from SummaryGeneratorButtonGroup
   const openModelSettingsRef = useRef<(() => void) | null>(null);
@@ -174,7 +197,7 @@ export default function PageContent({
         <TranscriptPanel
           transcripts={meetingData.transcripts}
           customPrompt={customPrompt}
-          onPromptChange={setCustomPrompt}
+          onPromptChange={handlePromptChange}
           onCopyTranscript={copyOperations.handleCopyTranscript}
           onOpenMeetingFolder={meetingOperations.handleOpenMeetingFolder}
           isRecording={isRecording}
@@ -191,6 +214,12 @@ export default function PageContent({
           meetingId={meeting.id}
           meetingFolderPath={meeting.folder_path}
           onRefetchTranscripts={onRefetchTranscripts}
+          onApplyContext={summaryGeneration.handleGenerateSummary}
+          isSummaryGenerating={
+            summaryGeneration.summaryStatus === 'processing' ||
+            summaryGeneration.summaryStatus === 'summarizing' ||
+            summaryGeneration.summaryStatus === 'regenerating'
+          }
         />
         <SummaryPanel
           meeting={meeting}

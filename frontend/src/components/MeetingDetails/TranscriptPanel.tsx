@@ -28,6 +28,10 @@ interface TranscriptPanelProps {
   meetingId?: string;
   meetingFolderPath?: string | null;
   onRefetchTranscripts?: () => Promise<void>;
+
+  // Applies the context box to the summary. Omitted where no generator is wired.
+  onApplyContext?: (context: string) => void | Promise<void>;
+  isSummaryGenerating?: boolean;
 }
 
 export function TranscriptPanel({
@@ -48,6 +52,8 @@ export function TranscriptPanel({
   meetingId,
   meetingFolderPath,
   onRefetchTranscripts,
+  onApplyContext,
+  isSummaryGenerating = false,
 }: TranscriptPanelProps) {
   // Convert transcripts to segments if pagination is not used but we want virtualization
   const convertedSegments = useMemo(() => {
@@ -97,16 +103,45 @@ export function TranscriptPanel({
         />
       </div>
 
-      {/* Custom prompt input at bottom of transcript section */}
+      {/* Context box at the bottom of the transcript section. It is not a chat
+          input: the text is attached to the prompt the next time the summary is
+          generated, so the label and button have to say so. */}
       {!isRecording && convertedSegments.length > 0 && (
-        <div className="p-1 border-t border-gray-200">
+        <div className="p-3 border-t border-gray-200 space-y-2">
+          <label
+            htmlFor="summary-context"
+            className="block text-xs font-medium text-gray-700"
+          >
+            Context for AI summary
+          </label>
           <textarea
+            id="summary-context"
             dir="auto"
-            placeholder="Add context for AI summary. For example people involved, meeting overview, objective etc..."
+            placeholder="For example people involved, meeting overview, objective etc..."
             className="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm min-h-[80px] resize-y"
             value={customPrompt}
             onChange={(e) => onPromptChange(e.target.value)}
           />
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-xs text-gray-500">
+              Saved as you type. Used the next time the summary is generated.
+            </p>
+            {onApplyContext && (
+              <button
+                type="button"
+                onClick={() => onApplyContext(customPrompt)}
+                disabled={customPrompt.trim().length === 0 || isSummaryGenerating}
+                className="shrink-0 px-3 py-1.5 text-xs font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed"
+                title={
+                  customPrompt.trim().length === 0
+                    ? 'Write some context first'
+                    : 'Regenerate the summary using this context'
+                }
+              >
+                {isSummaryGenerating ? 'Generating...' : 'Apply to summary'}
+              </button>
+            )}
+          </div>
         </div>
       )}
     </div>
