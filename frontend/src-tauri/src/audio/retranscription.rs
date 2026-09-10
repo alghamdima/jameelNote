@@ -4,16 +4,13 @@ use crate::audio::decoder::decode_audio_file;
 use crate::audio::vad::get_speech_chunks_with_progress;
 use super::common::{create_transcript_segments, split_segment_at_silence, write_transcripts_json};
 use super::constants::AUDIO_EXTENSIONS;
-use crate::config::{DEFAULT_WHISPER_MODEL, DEFAULT_PARAKEET_MODEL};
-use crate::parakeet_engine::ParakeetEngine;
 use crate::state::AppState;
-use crate::whisper_engine::WhisperEngine;
 use anyhow::{anyhow, Result};
+use futures_util::StreamExt;
 use log::{debug, error, info, warn};
 use serde::{Deserialize, Serialize};
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::Arc;
 use tauri::{AppHandle, Emitter, Manager, Runtime};
 
 /// Global flag to track if retranscription is in progress
@@ -101,11 +98,22 @@ pub async fn start_retranscription<R: Runtime>(
     // Reset cancellation flag
     RETRANSCRIPTION_CANCELLED.store(false, Ordering::SeqCst);
 
-    let use_parakeet = provider.as_deref() == Some("parakeet");
-    let result = run_retranscription(app.clone(), meeting_id.clone(), meeting_folder_path, language, model, provider).await;
+    // Resolved up front so the unload below knows what was actually used, even if
+    // run_retranscription fails before it gets that far.
+    let engine_kind =
+        super::common::resolve_batch_engine_kind(&app, provider.as_deref()).await;
+    let result = run_retranscription(
+        app.clone(),
+        meeting_id.clone(),
+        meeting_folder_path,
+        language,
+        model,
+        engine_kind,
+    )
+    .await;
 
     // Unload the engine after the batch job (success, failure, or cancellation)
-    super::common::unload_engine_after_batch(use_parakeet).await;
+    super::common::unload_engine_after_batch(engine_kind).await;
 
     // Guard will automatically clear flag on drop
     // No need for manual: RETRANSCRIPTION_IN_PROGRESS.store(false, Ordering::SeqCst);
@@ -175,17 +183,14 @@ async fn run_retranscription<R: Runtime>(
     meeting_folder_path: String,
     language: Option<String>,
     model: Option<String>,
-    provider: Option<String>,
+    engine_kind: super::common::BatchEngineKind,
 ) -> Result<RetranscriptionResult> {
     let folder_path = PathBuf::from(&meeting_folder_path);
     let audio_path = find_audio_file(&folder_path)?;
 
-    // Determine which provider to use (default to whisper)
-    let use_parakeet = provider.as_deref() == Some("parakeet");
-
     info!(
-        "Starting retranscription for meeting {} with language {:?}, model {:?}, provider {:?}",
-        meeting_id, language, model, provider
+        "Starting retranscription for meeting {} with language {:?}, model {:?}, engine {:?}",
+        meeting_id, language, model, engine_kind
     );
 
     // Emit progress: decoding
@@ -299,16 +304,8 @@ async fn run_retranscription<R: Runtime>(
     emit_progress(&app, &meeting_id, "transcribing", 25, "Loading transcription engine...");
 
     // Initialize the appropriate engine once (not per-segment)
-    let whisper_engine = if !use_parakeet {
-        Some(get_or_init_whisper(&app, model.as_deref()).await?)
-    } else {
-        None
-    };
-    let parakeet_engine = if use_parakeet {
-        Some(get_or_init_parakeet(&app, model.as_deref()).await?)
-    } else {
-        None
-    };
+    let transcriber =
+        super::common::resolve_batch_transcriber(&app, engine_kind, model.as_deref()).await?;
 
     // Split very long segments at silence boundaries for better transcription quality.
     // Hard cuts at arbitrary sample positions lose words at boundaries. Instead, scan
@@ -339,15 +336,50 @@ async fn run_retranscription<R: Runtime>(
     let mut all_transcripts: Vec<(String, f64, f64)> = Vec::new(); // (text, start_ms, end_ms)
     let mut total_confidence = 0.0f32;
 
-    for (i, segment) in processable_segments.iter().enumerate() {
-        // Check for cancellation before each segment
+    // Segments are dispatched with bounded concurrency. `buffered` yields results in
+    // input order regardless of the order they finish, which is what keeps the
+    // audio_start_time of the persisted rows monotonic.
+    let provider = transcriber.provider.clone();
+    let mut stream = futures_util::stream::iter(processable_segments.iter().enumerate().map(
+        |(i, segment)| {
+            let provider = provider.clone();
+            let language = language.clone();
+            let samples = segment.samples.clone();
+            async move {
+                // Skip very short segments (< 100ms of audio = 1600 samples at 16kHz)
+                if samples.len() < 1600 {
+                    debug!("Skipping short segment {} with {} samples", i, samples.len());
+                    return Ok::<Option<(String, f32)>, anyhow::Error>(None);
+                }
+
+                let result = provider
+                    .transcribe(samples, language)
+                    .await
+                    .map_err(|e| anyhow!("Transcription failed on segment {}: {}", i, e))?;
+
+                // Parakeet reported no confidence and was previously recorded as 0.9;
+                // keep that so averages stay comparable across old and new runs.
+                Ok(Some((result.text, result.confidence.unwrap_or(0.9))))
+            }
+        },
+    ))
+    .buffered(transcriber.concurrency)
+    .enumerate();
+
+    while let Some((i, result)) = stream.next().await {
+        // Checked here rather than before dispatch: dropping the stream cancels the
+        // requests still in flight.
         if RETRANSCRIPTION_CANCELLED.load(Ordering::SeqCst) {
             return Err(anyhow!("Retranscription cancelled"));
         }
 
-        // Calculate progress (25% to 80% range for transcription)
-        let progress = 25 + ((i as f32 / processable_count as f32) * 55.0) as u32;
+        let segment = &processable_segments[i];
         let segment_duration_sec = (segment.end_timestamp_ms - segment.start_timestamp_ms) / 1000.0;
+
+        // Progress is emitted from here rather than inside each future: with
+        // concurrency > 1 the futures start out of order, so per-future emission
+        // would make the percentage jump around.
+        let progress = 25 + ((i as f32 / processable_count as f32) * 55.0) as u32;
         emit_progress(
             &app,
             &meeting_id,
@@ -361,27 +393,9 @@ async fn run_retranscription<R: Runtime>(
             ),
         );
 
-        // Skip very short segments (< 100ms of audio = 1600 samples at 16kHz)
-        if segment.samples.len() < 1600 {
-            debug!("Skipping short segment {} with {} samples", i, segment.samples.len());
-            continue;
-        }
-
-        // Transcribe this segment
-        let (text, conf) = if use_parakeet {
-            let engine = parakeet_engine.as_ref().unwrap();
-            let text = engine
-                .transcribe_audio(segment.samples.clone())
-                .await
-                .map_err(|e| anyhow!("Parakeet transcription failed on segment {}: {}", i, e))?;
-            (text, 0.9f32)
-        } else {
-            let engine = whisper_engine.as_ref().unwrap();
-            let (text, conf, _) = engine
-                .transcribe_audio_with_confidence(segment.samples.clone(), language.clone())
-                .await
-                .map_err(|e| anyhow!("Whisper transcription failed on segment {}: {}", i, e))?;
-            (text, conf)
+        let (text, conf) = match result? {
+            Some(pair) => pair,
+            None => continue,
         };
 
         // Skip empty transcripts
@@ -392,7 +406,7 @@ async fn run_retranscription<R: Runtime>(
                 i + 1, processable_count, segment_duration_sec, conf,
                 if trimmed.len() > 80 { let mut end = 80; while !trimmed.is_char_boundary(end) { end -= 1; } &trimmed[..end] } else { trimmed }
             );
-            all_transcripts.push((text, segment.start_timestamp_ms, segment.end_timestamp_ms));
+            all_transcripts.push((text.clone(), segment.start_timestamp_ms, segment.end_timestamp_ms));
             total_confidence += conf;
         } else {
             debug!("Segment {}/{}: {:.1}s — empty transcription", i + 1, processable_count, segment_duration_sec);
@@ -515,209 +529,6 @@ fn emit_progress<R: Runtime>(
             message: message.to_string(),
         },
     );
-}
-
-/// Get or initialize the Whisper engine, auto-loading the model if needed
-/// If `requested_model` is provided, ensures that specific model is loaded
-async fn get_or_init_whisper<R: Runtime>(
-    app: &AppHandle<R>,
-    requested_model: Option<&str>,
-) -> Result<Arc<WhisperEngine>> {
-    use crate::whisper_engine::commands::WHISPER_ENGINE;
-
-    let engine = {
-        let guard = WHISPER_ENGINE.lock().unwrap_or_else(|e| e.into_inner());
-        guard.as_ref().cloned()
-    };
-
-    match engine {
-        Some(e) => {
-            // Determine which model to use
-            let target_model = match requested_model {
-                Some(model) => model.to_string(),
-                None => get_configured_whisper_model(app).await?,
-            };
-
-            // Check if the correct model is already loaded
-            let current_model = e.get_current_model().await;
-            let needs_load = match &current_model {
-                Some(loaded) => loaded != &target_model,
-                None => true,
-            };
-
-            if needs_load {
-                info!(
-                    "Loading Whisper model '{}' (current: {:?})",
-                    target_model, current_model
-                );
-
-                // Discover available models first (populates the internal cache)
-                info!("Discovering available Whisper models...");
-                if let Err(discover_err) = e.discover_models().await {
-                    warn!("Error during model discovery (continuing anyway): {}", discover_err);
-                }
-
-                match e.load_model(&target_model).await {
-                    Ok(_) => {
-                        info!("Whisper model '{}' loaded successfully", target_model);
-                        Ok(e)
-                    }
-                    Err(load_err) => {
-                        error!("Failed to load Whisper model '{}': {}", target_model, load_err);
-                        Err(anyhow!("Failed to load Whisper model '{}': {}", target_model, load_err))
-                    }
-                }
-            } else {
-                info!("Whisper model '{}' already loaded", target_model);
-                Ok(e)
-            }
-        }
-        None => Err(anyhow!("Whisper engine not initialized")),
-    }
-}
-
-/// Get the configured Whisper model name from the database
-async fn get_configured_whisper_model<R: Runtime>(app: &AppHandle<R>) -> Result<String> {
-    debug!("Getting configured Whisper model from database...");
-
-    let app_state = app
-        .try_state::<AppState>()
-        .ok_or_else(|| {
-            error!("App state not available");
-            anyhow!("App state not available")
-        })?;
-
-    debug!("Querying transcript_settings table...");
-
-    // Query the transcript settings from the database - get both provider and model
-    let result: Option<(String, String)> = sqlx::query_as(
-        "SELECT provider, model FROM transcript_settings WHERE id = '1'"
-    )
-    .fetch_optional(app_state.db_manager.pool())
-    .await
-    .map_err(|e| {
-        error!("Failed to query transcript config: {}", e);
-        anyhow!("Failed to query transcript config: {}", e)
-    })?;
-
-    match result {
-        Some((provider, model)) => {
-            info!("Found transcript config: provider={}, model={}", provider, model);
-
-            // Check if provider is Whisper-based
-            if provider == "localWhisper" || provider == "whisper" {
-                Ok(model)
-            } else {
-                error!("Retranscription requires Whisper provider, but configured provider is: {}", provider);
-                Err(anyhow!("Retranscription requires Whisper. Current provider '{}' does not support retranscription with language selection.", provider))
-            }
-        },
-        None => {
-            // Default to configured Whisper model if no config exists
-            warn!("No transcript config found, using default model '{}'", DEFAULT_WHISPER_MODEL);
-            Ok(DEFAULT_WHISPER_MODEL.to_string())
-        }
-    }
-}
-
-/// Get or initialize the Parakeet engine, auto-loading the model if needed
-async fn get_or_init_parakeet<R: Runtime>(
-    app: &AppHandle<R>,
-    requested_model: Option<&str>,
-) -> Result<Arc<ParakeetEngine>> {
-    use crate::parakeet_engine::commands::PARAKEET_ENGINE;
-
-    let engine = {
-        let guard = PARAKEET_ENGINE.lock().unwrap_or_else(|e| e.into_inner());
-        guard.as_ref().cloned()
-    };
-
-    match engine {
-        Some(e) => {
-            // Determine which model to use
-            let target_model = match requested_model {
-                Some(model) => model.to_string(),
-                None => get_configured_parakeet_model(app).await?,
-            };
-
-            // Check if the correct model is already loaded
-            let current_model = e.get_current_model().await;
-            let needs_load = match &current_model {
-                Some(loaded) => loaded != &target_model,
-                None => true,
-            };
-
-            if needs_load {
-                info!(
-                    "Loading Parakeet model '{}' (current: {:?})",
-                    target_model, current_model
-                );
-
-                // Discover available models first
-                info!("Discovering available Parakeet models...");
-                if let Err(discover_err) = e.discover_models().await {
-                    warn!("Error during Parakeet model discovery (continuing anyway): {}", discover_err);
-                }
-
-                match e.load_model(&target_model).await {
-                    Ok(_) => {
-                        info!("Parakeet model '{}' loaded successfully", target_model);
-                        Ok(e)
-                    }
-                    Err(load_err) => {
-                        error!("Failed to load Parakeet model '{}': {}", target_model, load_err);
-                        Err(anyhow!("Failed to load Parakeet model '{}': {}", target_model, load_err))
-                    }
-                }
-            } else {
-                info!("Parakeet model '{}' already loaded", target_model);
-                Ok(e)
-            }
-        }
-        None => Err(anyhow!("Parakeet engine not initialized")),
-    }
-}
-
-/// Get the configured Parakeet model name from the database
-async fn get_configured_parakeet_model<R: Runtime>(app: &AppHandle<R>) -> Result<String> {
-    debug!("Getting configured Parakeet model from database...");
-
-    let app_state = app
-        .try_state::<AppState>()
-        .ok_or_else(|| {
-            error!("App state not available");
-            anyhow!("App state not available")
-        })?;
-
-    // Query the transcript settings from the database
-    let result: Option<(String, String)> = sqlx::query_as(
-        "SELECT provider, model FROM transcript_settings WHERE id = '1'"
-    )
-    .fetch_optional(app_state.db_manager.pool())
-    .await
-    .map_err(|e| {
-        error!("Failed to query transcript config: {}", e);
-        anyhow!("Failed to query transcript config: {}", e)
-    })?;
-
-    match result {
-        Some((provider, model)) => {
-            info!("Found transcript config: provider={}, model={}", provider, model);
-
-            if provider == "parakeet" {
-                Ok(model)
-            } else {
-                // Default to configured Parakeet model
-                warn!("Configured provider is not Parakeet, using default model");
-                Ok(DEFAULT_PARAKEET_MODEL.to_string())
-            }
-        },
-        None => {
-            // Default to configured Parakeet model if no config exists
-            warn!("No transcript config found, using default Parakeet model");
-            Ok(DEFAULT_PARAKEET_MODEL.to_string())
-        }
-    }
 }
 
 /// Write or update metadata.json for retranscription (preserves existing fields, adds retranscribed_at)

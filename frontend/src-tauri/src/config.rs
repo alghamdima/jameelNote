@@ -36,6 +36,46 @@ pub const DEFAULT_SUMMARY_MODEL: &str = "JameelAl-3.8-flash";
 /// users would all be entitled to access it anyway.
 pub const DEFAULT_SUMMARY_API_KEY: Option<&str> = option_env!("JAMEELNOTE_LLM_API_KEY");
 
+/// Provider string identifying the remote OpenAI-compatible transcription
+/// gateway in `transcript_settings.provider`.
+///
+/// camelCase to match its siblings in that column (`localWhisper`, `elevenLabs`).
+/// Distinct from the summary side's `custom-openai`, which lives in a different
+/// column of a different table, so each stays independently greppable.
+pub const REMOTE_TRANSCRIPTION_PROVIDER: &str = "remoteWhisper";
+
+/// Default transcription endpoint: the same in-house gateway used for summaries.
+/// The app appends "/audio/transcriptions", so it ends at "/v1".
+///
+/// Aliased rather than used directly so transcription can later be pointed at a
+/// different host without disturbing summaries.
+pub const DEFAULT_TRANSCRIPTION_ENDPOINT: &str = DEFAULT_SUMMARY_ENDPOINT;
+
+/// Model identifier served by DEFAULT_TRANSCRIPTION_ENDPOINT for speech-to-text.
+pub const DEFAULT_TRANSCRIPTION_MODEL: &str = "whisper-1";
+
+/// API key for DEFAULT_TRANSCRIPTION_ENDPOINT. The gateway authenticates its
+/// transcription and chat routes with the same key, so this is deliberately the
+/// same compile-time value as summaries. See DEFAULT_SUMMARY_API_KEY for why it
+/// must not become a literal.
+pub const DEFAULT_TRANSCRIPTION_API_KEY: Option<&str> = DEFAULT_SUMMARY_API_KEY;
+
+/// Per-request wall clock for remote transcription.
+///
+/// Bounded by the live path's budget: the transcription worker is serial, and
+/// stop_recording only waits so long for the queue to drain, so a single chunk
+/// must not be allowed to block for minutes.
+pub const DEFAULT_REMOTE_TIMEOUT_SECS: u64 = 30;
+
+/// Attempts per chunk, including the first. Retries apply only to transient
+/// failures; 4xx responses other than the rate-limit family are terminal.
+pub const DEFAULT_REMOTE_MAX_ATTEMPTS: u32 = 3;
+
+/// Segments in flight during import and re-transcription. Those flows are not
+/// latency sensitive, so this is a gateway-politeness knob rather than a tuning
+/// parameter.
+pub const DEFAULT_REMOTE_BATCH_CONCURRENCY: usize = 4;
+
 /// Whisper model catalog with metadata for all supported models.
 /// Used by both WhisperEngine::discover_models() and discover_models_standalone().
 ///

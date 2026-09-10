@@ -208,13 +208,14 @@ pub async fn initialize_fresh_database(app: AppHandle) -> Result<(), String> {
         error!("Failed to set default summary model config: {}", e);
     }
 
-    // Default Transcription Model: local Whisper. Parakeet is faster but its
-    // language coverage is 25 European languages only, so it cannot transcribe
-    // Arabic at all.
-    if let Err(e) = crate::database::repositories::setting::SettingsRepository::save_transcript_config(
+    // Default Transcription: the in-house gateway that also serves summaries, so a
+    // fresh install transcribes immediately with no model download. Local Whisper
+    // stays available in Settings for offline use.
+    let default_transcription_config =
+        crate::audio::transcription::RemoteTranscriptionConfig::defaults();
+    if let Err(e) = crate::database::repositories::setting::SettingsRepository::save_remote_transcription_config(
         pool,
-        "localWhisper",
-        crate::config::DEFAULT_WHISPER_MODEL,
+        &default_transcription_config,
     ).await {
         error!("Failed to set default transcription model config: {}", e);
     }

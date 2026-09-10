@@ -127,4 +127,9 @@ pub struct TranscriptSetting {
     #[sqlx(rename = "openaiApiKey")]
     #[serde(rename = "openaiApiKey")]
     pub openai_api_key: Option<String>,
+    /// JSON blob holding the remote transcription gateway config
+    /// (endpoint, apiKey, model). NULL until the remote provider is configured.
+    #[sqlx(rename = "transcriptCustomConfig")]
+    #[serde(rename = "transcriptCustomConfig")]
+    pub transcript_custom_config: Option<String>,
 }

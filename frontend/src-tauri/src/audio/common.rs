@@ -1,9 +1,15 @@
 use crate::api::TranscriptSegment;
-use anyhow::Result;
-use log::{debug, info};
+use crate::audio::transcription::{
+    ParakeetProvider, RemoteTranscriptionProvider, TranscriptionProvider, WhisperProvider,
+};
+use crate::config::{DEFAULT_PARAKEET_MODEL, DEFAULT_WHISPER_MODEL};
+use crate::state::AppState;
+use anyhow::{anyhow, Result};
+use log::{debug, error, info, warn};
 use once_cell::sync::Lazy;
 use std::path::Path;
 use std::sync::Arc;
+use tauri::{AppHandle, Manager, Runtime};
 use tokio::sync::{Mutex as AsyncMutex, OwnedMutexGuard};
 use uuid::Uuid;
 
@@ -14,10 +20,280 @@ pub(crate) async fn acquire_engine_lifecycle_lock() -> OwnedMutexGuard<()> {
     ENGINE_LIFECYCLE_LOCK.clone().lock_owned().await
 }
 
+/// Which engine a batch job (import or retranscription) runs on.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum BatchEngineKind {
+    Whisper,
+    Parakeet,
+    Remote,
+}
+
+/// A transcription provider plus how many segments the caller may keep in flight.
+pub(crate) struct BatchTranscriber {
+    pub provider: Arc<dyn TranscriptionProvider>,
+    /// 1 for the local engines: they are compute-bound and serialize internally,
+    /// so extra in-flight segments only add contention. Higher for the remote
+    /// gateway, where the bottleneck is round-trip latency rather than the CPU.
+    pub concurrency: usize,
+    pub kind: BatchEngineKind,
+}
+
+/// Decide which engine a batch job should use.
+///
+/// Cheap — a string match plus at most one small query. No model loading, no
+/// network — so callers can use it up front to know what to unload afterwards.
+///
+/// When the caller passes no explicit provider this honours the saved
+/// configuration. That matters: the import and retranscribe dialogs send `null`
+/// whenever their model list is empty, which is exactly the situation on an
+/// install that has never downloaded a local model.
+pub(crate) async fn resolve_batch_engine_kind<R: Runtime>(
+    app: &AppHandle<R>,
+    requested_provider: Option<&str>,
+) -> BatchEngineKind {
+    if let Some(kind) = match requested_provider {
+        Some("parakeet") => Some(BatchEngineKind::Parakeet),
+        Some("whisper") | Some("localWhisper") => Some(BatchEngineKind::Whisper),
+        Some(p) if p == crate::config::REMOTE_TRANSCRIPTION_PROVIDER => {
+            Some(BatchEngineKind::Remote)
+        }
+        _ => None,
+    } {
+        return kind;
+    }
+
+    match read_configured_provider(app).await.as_deref() {
+        Some("parakeet") => BatchEngineKind::Parakeet,
+        Some(p) if p == crate::config::REMOTE_TRANSCRIPTION_PROVIDER => BatchEngineKind::Remote,
+        _ => BatchEngineKind::Whisper,
+    }
+}
+
+/// The provider string saved in `transcript_settings`, if any.
+async fn read_configured_provider<R: Runtime>(app: &AppHandle<R>) -> Option<String> {
+    let app_state = app.try_state::<AppState>()?;
+
+    let result: Option<(String,)> =
+        sqlx::query_as("SELECT provider FROM transcript_settings WHERE id = '1'")
+            .fetch_optional(app_state.db_manager.pool())
+            .await
+            .unwrap_or_else(|e| {
+                warn!("Failed to read configured transcript provider: {}", e);
+                None
+            });
+
+    result.map(|(provider,)| provider)
+}
+
+/// Load (or construct) the provider for a batch job.
+pub(crate) async fn resolve_batch_transcriber<R: Runtime>(
+    app: &AppHandle<R>,
+    kind: BatchEngineKind,
+    requested_model: Option<&str>,
+) -> Result<BatchTranscriber> {
+    match kind {
+        BatchEngineKind::Remote => {
+            let config = crate::audio::transcription::resolve_remote_config(app)
+                .await
+                .map_err(|e| anyhow!(e))?;
+            let concurrency = config
+                .batch_concurrency
+                .unwrap_or(crate::config::DEFAULT_REMOTE_BATCH_CONCURRENCY)
+                .max(1);
+            let provider =
+                RemoteTranscriptionProvider::new(config).map_err(|e| anyhow!(e))?;
+
+            Ok(BatchTranscriber {
+                provider: Arc::new(provider),
+                concurrency,
+                kind,
+            })
+        }
+        BatchEngineKind::Whisper => {
+            let engine = get_or_init_whisper(app, requested_model).await?;
+            Ok(BatchTranscriber {
+                provider: Arc::new(WhisperProvider::new(engine)),
+                concurrency: 1,
+                kind,
+            })
+        }
+        BatchEngineKind::Parakeet => {
+            let engine = get_or_init_parakeet(app, requested_model).await?;
+            Ok(BatchTranscriber {
+                provider: Arc::new(ParakeetProvider::new(engine)),
+                concurrency: 1,
+                kind,
+            })
+        }
+    }
+}
+
+/// Get or initialize the Whisper engine, loading the requested model if needed.
+async fn get_or_init_whisper<R: Runtime>(
+    app: &AppHandle<R>,
+    requested_model: Option<&str>,
+) -> Result<Arc<crate::whisper_engine::WhisperEngine>> {
+    use crate::whisper_engine::commands::WHISPER_ENGINE;
+
+    let engine = {
+        let guard = WHISPER_ENGINE.lock().unwrap_or_else(|e| e.into_inner());
+        guard.as_ref().cloned()
+    };
+
+    let engine = engine.ok_or_else(|| anyhow!("Whisper engine not initialized"))?;
+
+    let target_model = match requested_model {
+        Some(model) => model.to_string(),
+        None => get_configured_batch_model(app, BatchEngineKind::Whisper).await,
+    };
+
+    let current_model = engine.get_current_model().await;
+    let needs_load = match &current_model {
+        Some(loaded) => loaded != &target_model,
+        None => true,
+    };
+
+    if needs_load {
+        info!(
+            "Loading Whisper model '{}' (current: {:?})",
+            target_model, current_model
+        );
+
+        // Populates the internal model cache; a failure here is not fatal.
+        if let Err(discover_err) = engine.discover_models().await {
+            warn!("Model discovery error (continuing): {}", discover_err);
+        }
+
+        engine.load_model(&target_model).await.map_err(|e| {
+            error!("Failed to load Whisper model '{}': {}", target_model, e);
+            anyhow!("Failed to load Whisper model '{}': {}", target_model, e)
+        })?;
+        info!("Whisper model '{}' loaded successfully", target_model);
+    } else {
+        info!("Whisper model '{}' already loaded", target_model);
+    }
+
+    Ok(engine)
+}
+
+/// Get or initialize the Parakeet engine, loading the requested model if needed.
+async fn get_or_init_parakeet<R: Runtime>(
+    app: &AppHandle<R>,
+    requested_model: Option<&str>,
+) -> Result<Arc<crate::parakeet_engine::ParakeetEngine>> {
+    use crate::parakeet_engine::commands::PARAKEET_ENGINE;
+
+    let engine = {
+        let guard = PARAKEET_ENGINE.lock().unwrap_or_else(|e| e.into_inner());
+        guard.as_ref().cloned()
+    };
+
+    let engine = engine.ok_or_else(|| anyhow!("Parakeet engine not initialized"))?;
+
+    let target_model = match requested_model {
+        Some(model) => model.to_string(),
+        None => get_configured_batch_model(app, BatchEngineKind::Parakeet).await,
+    };
+
+    let current_model = engine.get_current_model().await;
+    let needs_load = match &current_model {
+        Some(loaded) => loaded != &target_model,
+        None => true,
+    };
+
+    if needs_load {
+        info!(
+            "Loading Parakeet model '{}' (current: {:?})",
+            target_model, current_model
+        );
+
+        if let Err(discover_err) = engine.discover_models().await {
+            warn!("Model discovery error (continuing): {}", discover_err);
+        }
+
+        engine.load_model(&target_model).await.map_err(|e| {
+            error!("Failed to load Parakeet model '{}': {}", target_model, e);
+            anyhow!("Failed to load Parakeet model '{}': {}", target_model, e)
+        })?;
+        info!("Parakeet model '{}' loaded successfully", target_model);
+    } else {
+        info!("Parakeet model '{}' already loaded", target_model);
+    }
+
+    Ok(engine)
+}
+
+/// The model name to load for a local engine when the caller did not name one.
+///
+/// Falls back to the built-in default whenever the saved row names a different
+/// engine — for example when the user picks a Whisper model in the dialog while
+/// the remote gateway is the configured default. Previously retranscription
+/// raised a hard error in that case while import quietly defaulted; defaulting is
+/// the behaviour that lets an explicit choice in the dialog win.
+async fn get_configured_batch_model<R: Runtime>(
+    app: &AppHandle<R>,
+    kind: BatchEngineKind,
+) -> String {
+    let fallback = match kind {
+        BatchEngineKind::Parakeet => DEFAULT_PARAKEET_MODEL,
+        _ => DEFAULT_WHISPER_MODEL,
+    };
+
+    let app_state = match app.try_state::<AppState>() {
+        Some(state) => state,
+        None => {
+            warn!("App state not available; using default model '{}'", fallback);
+            return fallback.to_string();
+        }
+    };
+
+    let result: Option<(String, String)> =
+        sqlx::query_as("SELECT provider, model FROM transcript_settings WHERE id = '1'")
+            .fetch_optional(app_state.db_manager.pool())
+            .await
+            .unwrap_or_else(|e| {
+                warn!("Failed to query transcript config: {}", e);
+                None
+            });
+
+    match result {
+        Some((provider, model)) => {
+            let matches_kind = match kind {
+                BatchEngineKind::Parakeet => provider == "parakeet",
+                _ => provider == "localWhisper" || provider == "whisper",
+            };
+
+            if matches_kind && !model.trim().is_empty() {
+                model
+            } else {
+                info!(
+                    "Configured provider '{}' does not name a {:?} model; using default '{}'",
+                    provider, kind, fallback
+                );
+                fallback.to_string()
+            }
+        }
+        None => {
+            warn!(
+                "No transcript config found; using default model '{}'",
+                fallback
+            );
+            fallback.to_string()
+        }
+    }
+}
+
 /// Unload the transcription engine after a batch job (import or retranscription).
 /// Skips unloading if a live recording is currently in progress, since recording
 /// uses the same global engine instances.
-pub(crate) async fn unload_engine_after_batch(use_parakeet: bool) {
+pub(crate) async fn unload_engine_after_batch(kind: BatchEngineKind) {
+    // Nothing is held in memory for the remote gateway. Taking the `false` branch
+    // here used to unload Whisper unconditionally, which would evict a model the
+    // user had loaded for something else.
+    if kind == BatchEngineKind::Remote {
+        return;
+    }
+
     let _engine_lifecycle_guard = acquire_engine_lifecycle_lock().await;
 
     if crate::audio::recording_commands::is_recording().await {
@@ -25,24 +301,28 @@ pub(crate) async fn unload_engine_after_batch(use_parakeet: bool) {
         return;
     }
 
-    if use_parakeet {
-        use crate::parakeet_engine::commands::PARAKEET_ENGINE;
-        let engine = {
-            let guard = PARAKEET_ENGINE.lock().unwrap_or_else(|e| e.into_inner());
-            guard.as_ref().cloned()
-        };
-        if let Some(e) = engine {
-            e.unload_model().await;
+    match kind {
+        BatchEngineKind::Parakeet => {
+            use crate::parakeet_engine::commands::PARAKEET_ENGINE;
+            let engine = {
+                let guard = PARAKEET_ENGINE.lock().unwrap_or_else(|e| e.into_inner());
+                guard.as_ref().cloned()
+            };
+            if let Some(e) = engine {
+                e.unload_model().await;
+            }
         }
-    } else {
-        use crate::whisper_engine::commands::WHISPER_ENGINE;
-        let engine = {
-            let guard = WHISPER_ENGINE.lock().unwrap_or_else(|e| e.into_inner());
-            guard.as_ref().cloned()
-        };
-        if let Some(e) = engine {
-            e.unload_model().await;
+        BatchEngineKind::Whisper => {
+            use crate::whisper_engine::commands::WHISPER_ENGINE;
+            let engine = {
+                let guard = WHISPER_ENGINE.lock().unwrap_or_else(|e| e.into_inner());
+                guard.as_ref().cloned()
+            };
+            if let Some(e) = engine {
+                e.unload_model().await;
+            }
         }
+        BatchEngineKind::Remote => unreachable!("handled above"),
     }
 }
 

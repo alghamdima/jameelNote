@@ -200,17 +200,21 @@ pub async fn complete_onboarding<R: Runtime>(
         crate::config::DEFAULT_SUMMARY_MODEL
     );
 
-    // Save transcription model config - always local Whisper, which unlike
-    // Parakeet supports Arabic.
-    if let Err(e) = SettingsRepository::save_transcript_config(
-        pool,
-        "localWhisper",
-        crate::config::DEFAULT_WHISPER_MODEL,
-    ).await {
+    // Save transcription config - the same in-house gateway that serves summaries,
+    // so a new install can transcribe without downloading a ~1 GB Whisper model.
+    // Local Whisper remains selectable in Settings for offline use.
+    let transcription_config = crate::audio::transcription::RemoteTranscriptionConfig::defaults();
+    if let Err(e) =
+        SettingsRepository::save_remote_transcription_config(pool, &transcription_config).await
+    {
         error!("Failed to save transcription model config: {}", e);
         return Err(format!("Failed to save transcription model config: {}", e));
     }
-    info!("Saved transcription model config: provider=localWhisper, model={}", crate::config::DEFAULT_WHISPER_MODEL);
+    info!(
+        "Saved transcription model config: provider={}, model={}",
+        crate::config::REMOTE_TRANSCRIPTION_PROVIDER,
+        transcription_config.model
+    );
 
     // Step 2: Only NOW mark onboarding as complete (after DB operations succeed)
     let mut status = load_onboarding_status(&app)

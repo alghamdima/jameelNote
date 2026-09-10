@@ -5,6 +5,9 @@
 pub mod provider;
 pub mod whisper_provider;
 pub mod parakeet_provider;
+pub mod remote_config;
+pub mod remote_provider;
+pub mod wav;
 pub mod engine;
 pub mod worker;
 
@@ -12,6 +15,8 @@ pub mod worker;
 pub use provider::{TranscriptionError, TranscriptionProvider, TranscriptResult};
 pub use whisper_provider::WhisperProvider;
 pub use parakeet_provider::ParakeetProvider;
+pub use remote_config::{resolve_remote_config, RemoteTranscriptionConfig};
+pub use remote_provider::RemoteTranscriptionProvider;
 pub use engine::{
     TranscriptionEngine,
     validate_transcription_model_ready,

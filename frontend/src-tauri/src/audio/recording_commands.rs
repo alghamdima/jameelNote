@@ -671,6 +671,12 @@ pub async fn stop_recording<R: Runtime>(
                 warn!("⚠️ No Parakeet engine found to unload model");
             }
         }
+        Some(p) if p == crate::config::REMOTE_TRANSCRIPTION_PROVIDER => {
+            // Nothing is held in memory for the remote gateway. Without this arm the
+            // shutdown path falls through to Whisper, finds no engine, and logs a
+            // misleading "No Whisper engine found to unload" after every recording.
+            info!("☁️ Remote transcription provider — no local model to unload");
+        }
         _ => {
             // Default to Whisper
             info!("🎤 Unloading Whisper model...");

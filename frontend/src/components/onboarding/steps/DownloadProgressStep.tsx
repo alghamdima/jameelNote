@@ -26,7 +26,6 @@ export function DownloadProgressStep() {
     goNext,
     parakeetDownloaded,
     setParakeetDownloaded,
-    startBackgroundDownloads,
     completeOnboarding,
   } = useOnboarding();
 
@@ -44,7 +43,8 @@ export function DownloadProgressStep() {
   const parakeetDownloadStartedRef = useRef(false);
   const retryingRef = useRef(false);
 
-  // Retry download handler
+  // Re-check that the transcription gateway answers. Nothing is downloaded, so
+  // this retries the reachability probe rather than a model fetch.
   const handleRetryDownload = async () => {
     // Prevent multiple simultaneous retries
     if (retryingRef.current) {
@@ -52,13 +52,13 @@ export function DownloadProgressStep() {
       return;
     }
 
-    console.log('[DownloadProgressStep] Retrying transcription model download');
+    console.log('[DownloadProgressStep] Rechecking transcription gateway');
     retryingRef.current = true;
 
     // Reset error state
     setParakeetState((prev) => ({
       ...prev,
-      status: 'waiting',
+      status: 'downloading',
       error: undefined,
       progress: 0,
       downloadedMb: 0,
@@ -66,17 +66,24 @@ export function DownloadProgressStep() {
     }));
 
     try {
-      await invoke('whisper_download_model', { modelName: TRANSCRIPTION_MODEL });
-      // Progress events will update state
+      const config = await invoke<{ endpoint: string; apiKey?: string | null; model: string }>(
+        'api_get_remote_transcription_config'
+      );
+      await invoke('api_test_remote_transcription_connection', {
+        endpoint: config.endpoint,
+        apiKey: config.apiKey ?? null,
+        model: config.model,
+      });
+      setParakeetState((prev) => ({ ...prev, status: 'completed', progress: 100 }));
     } catch (error) {
-      console.error('[DownloadProgressStep] Retry failed:', error);
+      console.error('[DownloadProgressStep] Gateway check failed:', error);
       setParakeetState((prev) => ({
         ...prev,
         status: 'error',
-        error: error instanceof Error ? error.message : 'Retry failed',
+        error: error instanceof Error ? error.message : 'Connection check failed',
       }));
 
-      toast.error('Download retry failed', {
+      toast.error('Could not reach the transcription service', {
         description: 'Please check your connection and try again.',
       });
     } finally {
@@ -101,24 +108,37 @@ export function DownloadProgressStep() {
     checkPlatform();
   }, []);
 
-  // Start the required transcription model immediately; summary readiness must not block it.
+  // Transcription runs on the configured gateway, so there is no model to fetch.
+  // Check that the gateway answers instead, which takes seconds rather than the
+  // ~1 GB download this step used to perform.
   useEffect(() => {
     if (parakeetDownloadStartedRef.current) return;
     parakeetDownloadStartedRef.current = true;
 
-    if (!parakeetDownloaded) {
-      setParakeetState((prev) => ({ ...prev, status: 'downloading' }));
-    }
+    setParakeetState((prev) => ({ ...prev, status: 'downloading' }));
 
-    startBackgroundDownloads({
-      includeParakeet: true,
-
-    }).catch((error) => {
-      console.error('Failed to start Parakeet download:', error);
-      if (!parakeetDownloaded) {
+    (async () => {
+      try {
+        const config = await invoke<{ endpoint: string; apiKey?: string | null; model: string }>(
+          'api_get_remote_transcription_config'
+        );
+        await invoke('api_test_remote_transcription_connection', {
+          endpoint: config.endpoint,
+          apiKey: config.apiKey ?? null,
+          model: config.model,
+        });
+        setParakeetDownloaded(true);
+        setParakeetState((prev) => ({ ...prev, status: 'completed', progress: 100 }));
+      } catch (error) {
+        // Deliberately non-blocking: a first run behind a captive portal or a
+        // briefly unreachable gateway should not trap the user in onboarding.
+        // handleContinue lets them through, and Settings has a Test Connection
+        // button for when they want to check again.
+        console.warn('Transcription gateway check failed:', error);
+        setParakeetDownloaded(true);
         setParakeetState((prev) => ({ ...prev, status: 'error', error: String(error) }));
       }
-    });
+    })();
   }, []);
 
   // Listen to transcription model download progress
@@ -179,37 +199,13 @@ export function DownloadProgressStep() {
   }, []);
 
   const handleContinue = async () => {
-    // Verify actual model availability (catches state drift)
-    try {
-      await invoke('whisper_init');
-      const actuallyAvailable = await invoke<boolean>('whisper_has_available_models');
-
-      if (actuallyAvailable && !parakeetDownloaded) {
-        console.log('[DownloadProgressStep] Model available but state not updated');
-        setParakeetDownloaded(true);
-        setParakeetState((prev) => ({
-          ...prev,
-          status: 'completed',
-          progress: 100,
-        }));
-      } else if (!actuallyAvailable && parakeetState.status === 'error') {
-        toast.error('Transcription engine required', {
-          description: 'Please retry the download before continuing.',
-        });
-        return;
-      }
-    } catch (error) {
-      console.warn('[DownloadProgressStep] Failed to verify model:', error);
-    }
-
-    // Check if downloads are complete for toast notification
-    const downloadsComplete = parakeetState.status === 'completed';
-
-    // Show toast if downloads still in progress
-    if (!downloadsComplete) {
-      toast.info('Downloads will continue in the background', {
-        description: 'You can start using the app. Recording will be available once speech recognition is ready.',
-        duration: 5000,
+    // Nothing is downloaded any more, so there is no local model to verify. A
+    // failed reachability check is surfaced as a warning rather than a block:
+    // the gateway may simply be unreachable right now.
+    if (parakeetState.status === 'error') {
+      toast.warning('Could not reach the transcription service', {
+        description: 'Setup will continue. You can test the connection in Settings > Transcription.',
+        duration: 6000,
       });
     }
 
@@ -330,13 +326,13 @@ export function DownloadProgressStep() {
       <div className="flex flex-col items-center space-y-6">
         {/* Download Cards */}
         <div className="w-full max-w-lg space-y-4">
-          {/* Summaries run on the configured OpenAI-compatible server, so the
-              transcription model is the only thing to download. */}
+          {/* Both transcription and summaries run on the configured
+              OpenAI-compatible server, so nothing is downloaded here. */}
           {renderDownloadCard(
-            'Transcription Engine',
+            'Transcription Service',
             <Mic className="w-5 h-5 text-gray-600" />,
             parakeetState,
-            '~1.0 GB'
+            'No download'
           )}
         </div>
 

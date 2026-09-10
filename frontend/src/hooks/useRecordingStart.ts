@@ -55,9 +55,9 @@ export function useRecordingStart(
     return `Meeting ${day}_${month}_${year}_${hours}_${minutes}_${seconds}`;
   }, []);
 
-  // Which local engine the saved transcript config points at. The pre-flight
-  // check has to ask the engine that will actually transcribe, otherwise a
-  // Whisper setup gets blocked by a Parakeet answer.
+  // Which engine the saved transcript config points at. The pre-flight check has
+  // to ask the engine that will actually transcribe, otherwise a Whisper setup
+  // gets blocked by a Parakeet answer.
   const getConfiguredEngine = useCallback(async (): Promise<TranscriptionEngine> => {
     try {
       const config = await invoke<{ provider?: string } | null>('api_get_transcript_config');
@@ -72,6 +72,12 @@ export function useRecordingStart(
   const checkTranscriptionReady = useCallback(async (): Promise<boolean> => {
     const engine = await getConfiguredEngine();
     const commands = getReadinessCommands(engine);
+    // The remote gateway has no model to download, so there is nothing to be
+    // ready. Its configuration is validated on the Rust side when recording
+    // starts, which still blocks on a malformed endpoint.
+    if (!commands) {
+      return true;
+    }
     try {
       await invoke(commands.init);
       return await invoke<boolean>(commands.hasAvailableModels);
@@ -84,8 +90,12 @@ export function useRecordingStart(
   // Check if a model of the configured engine is currently downloading
   const checkIfModelDownloading = useCallback(async (): Promise<boolean> => {
     const engine = await getConfiguredEngine();
+    const commands = getReadinessCommands(engine);
+    if (!commands) {
+      return false;
+    }
     try {
-      const models = await invoke<any[]>(getReadinessCommands(engine).listModels);
+      const models = await invoke<any[]>(commands.listModels);
       return isAnyModelDownloading(models);
     } catch (error) {
       console.error('Failed to check model download status:', error);

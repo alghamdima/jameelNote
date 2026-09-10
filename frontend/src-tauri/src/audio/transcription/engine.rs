@@ -77,7 +77,16 @@ pub async fn validate_transcription_model_ready<R: Runtime>(app: &AppHandle<R>) 
             }
         }
         Err(e) => {
-            warn!("⚠️ Failed to get transcript config: {}, defaulting to localWhisper", e);
+            // This fallback is load-bearing and easy to miss: api_get_transcript_config
+            // reads the provider's API key on every call, and an unrecognised provider
+            // string makes that read fail. Falling back silently would leave the app
+            // transcribing locally while Settings still shows the remote gateway, so
+            // say plainly what happened.
+            log::error!(
+                "❌ Failed to read transcript config ({}); falling back to localWhisper. \
+                 If a non-local provider is configured, it is not being used.",
+                e
+            );
             crate::api::api::TranscriptConfig {
                 provider: "localWhisper".to_string(),
                 model: crate::config::DEFAULT_WHISPER_MODEL.to_string(),
@@ -135,10 +144,24 @@ pub async fn validate_transcription_model_ready<R: Runtime>(app: &AppHandle<R>) 
                 }
             }
         }
+        crate::config::REMOTE_TRANSCRIPTION_PROVIDER => {
+            info!("🔍 Validating remote transcription configuration...");
+            // Resolve the config so a malformed endpoint fails here, before the
+            // microphone opens, rather than once per chunk.
+            //
+            // Deliberately no network probe: this runs on start_recording's
+            // critical path, and a 30s connect timeout here would present to the
+            // user as a frozen app. Reachability is covered by the Test Connection
+            // button in Settings and, failing that, by the first chunk.
+            let config = super::remote_config::resolve_remote_config(app).await?;
+            super::remote_provider::RemoteTranscriptionProvider::new(config.clone())?;
+            super::remote_provider::log_configuration(&config);
+            Ok(())
+        }
         other => {
-            warn!("❌ Unsupported transcription provider for local recording: {}", other);
+            warn!("❌ Unsupported transcription provider: {}", other);
             Err(format!(
-                "Provider '{}' is not supported for local transcription. Please select 'localWhisper' or 'parakeet'.",
+                "Provider '{}' is not supported. Please select 'remoteWhisper', 'localWhisper', or 'parakeet'.",
                 other
             ))
         }
@@ -173,7 +196,14 @@ pub async fn get_or_init_transcription_engine<R: Runtime>(
             }
         }
         Err(e) => {
-            warn!("⚠️ Failed to get transcript config: {}, defaulting to localWhisper", e);
+            // See validate_transcription_model_ready: an unrecognised provider makes
+            // the API-key lookup fail, and silently downgrading to local Whisper here
+            // is the single most confusing failure mode in this module.
+            log::error!(
+                "❌ Failed to read transcript config ({}); falling back to localWhisper. \
+                 If a non-local provider is configured, it is not being used.",
+                e
+            );
             crate::api::api::TranscriptConfig {
                 provider: "localWhisper".to_string(),
                 model: crate::config::DEFAULT_WHISPER_MODEL.to_string(),
@@ -211,6 +241,14 @@ pub async fn get_or_init_transcription_engine<R: Runtime>(
                     Err("Parakeet engine not initialized. This should not happen after validation.".to_string())
                 }
             }
+        }
+        // Must precede the wildcard arm below, or it is unreachable.
+        crate::config::REMOTE_TRANSCRIPTION_PROVIDER => {
+            info!("☁️ Initializing remote transcription provider");
+            let config = super::remote_config::resolve_remote_config(app).await?;
+            super::remote_provider::log_configuration(&config);
+            let provider = super::remote_provider::RemoteTranscriptionProvider::new(config)?;
+            Ok(TranscriptionEngine::Provider(Arc::new(provider)))
         }
         "localWhisper" | _ => {
             info!("🎤 Initializing Whisper transcription engine");

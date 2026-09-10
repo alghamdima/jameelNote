@@ -31,12 +31,12 @@ export function SetupOverviewStep() {
     {
       number: 1,
       type: 'transcription',
-      title: 'Download Transcription Engine',
+      title: 'Connect Transcription Service',
     },
     {
       number: 2,
       type: 'summarization',
-      title: 'Download Summarization Engine',
+      title: 'Connect Summarization Service',
     },
   ];
 
@@ -47,7 +47,7 @@ export function SetupOverviewStep() {
   return (
     <OnboardingContainer
       title="Setup Overview"
-      description="JameelNote requires that you download the Transcription & Summarization AI models for the software to work."
+      description="JameelNote connects to the transcription and summarization services. Nothing needs to be downloaded."
       step={2}
       totalSteps={isMac ? 4 : 3}
     >

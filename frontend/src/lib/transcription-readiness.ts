@@ -1,13 +1,13 @@
 /**
- * Which local speech engine a saved transcript config points at, and the Tauri
- * commands that report whether its models are on disk.
+ * Which speech engine a saved transcript config points at, and — for the local
+ * engines — the Tauri commands that report whether their models are on disk.
  *
  * The pre-flight check that runs before recording has to ask the same engine the
  * recording itself will use. Asking Parakeet about a Whisper setup reports "no
  * models" and blocks recording even when the configured model is downloaded.
  */
 
-export type TranscriptionEngine = 'whisper' | 'parakeet';
+export type TranscriptionEngine = 'whisper' | 'parakeet' | 'remote';
 
 export interface ReadinessCommands {
   init: string;
@@ -16,16 +16,28 @@ export interface ReadinessCommands {
 }
 
 /**
- * Map a saved config provider onto the local engine that serves it.
+ * Map a saved config provider onto the engine that serves it.
  *
- * Everything that is not Parakeet is served by Whisper, including a missing
- * provider: the Rust side defaults an absent transcript config to localWhisper.
+ * A missing provider resolves to Whisper because the Rust side defaults an absent
+ * transcript config to localWhisper.
  */
 export function resolveTranscriptionEngine(provider?: string | null): TranscriptionEngine {
-  return provider === 'parakeet' ? 'parakeet' : 'whisper';
+  if (provider === 'parakeet') return 'parakeet';
+  if (provider === 'remoteWhisper') return 'remote';
+  return 'whisper';
 }
 
-export function getReadinessCommands(engine: TranscriptionEngine): ReadinessCommands {
+/**
+ * The readiness commands for a local engine, or null for the remote gateway,
+ * which has nothing on disk to check. Reachability is not checked here on
+ * purpose: a network probe before every recording would block the user on a
+ * transient outage, and the Rust side validates the configuration anyway.
+ */
+export function getReadinessCommands(engine: TranscriptionEngine): ReadinessCommands | null {
+  if (engine === 'remote') {
+    return null;
+  }
+
   return engine === 'parakeet'
     ? {
         init: 'parakeet_init',

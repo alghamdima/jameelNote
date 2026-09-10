@@ -1,3 +1,4 @@
+use crate::audio::transcription::RemoteTranscriptionConfig;
 use crate::database::models::{Setting, TranscriptSetting};
 use crate::summary::CustomOpenAIConfig;
 use sqlx::SqlitePool;
@@ -24,7 +25,7 @@ pub struct SaveTranscriptConfigRequest {
 
 pub struct SettingsRepository;
 
-// Transcript providers: localWhisper, deepgram, elevenLabs, groq, openai
+// Transcript providers: remoteWhisper, localWhisper, parakeet, deepgram, elevenLabs, groq, openai
 // Summary providers: openai, claude, ollama, groq, added openrouter
 // NOTE: Handle data exclusion in the higher layer as this is database abstraction layer(using SELECT *)
 
@@ -180,6 +181,11 @@ impl SettingsRepository {
         let api_key_column = match provider {
             "localWhisper" => "whisperApiKey",
             "parakeet" => return Ok(()), // Parakeet doesn't need an API key, return early
+            // The remote gateway's key lives inside transcriptCustomConfig, not in a
+            // column of its own. This arm must exist: api_get_transcript_config calls
+            // get_transcript_api_key on every read, and an Err there is swallowed by
+            // engine.rs into a silent fallback to local Whisper.
+            crate::config::REMOTE_TRANSCRIPTION_PROVIDER => return Ok(()),
             "deepgram" => "deepgramApiKey",
             "elevenLabs" => "elevenLabsApiKey",
             "groq" => "groqApiKey",
@@ -191,16 +197,35 @@ impl SettingsRepository {
             }
         };
 
+        // When no row exists yet, seed it with the provider the caller is actually
+        // configuring. The previous version hardcoded 'parakeet', so saving an API
+        // key on a fresh install silently switched transcription to a Parakeet model
+        // that had never been downloaded.
+        //
+        // The ON CONFLICT branch deliberately touches only the key column: saving a
+        // key must never rewrite the provider an existing row already holds.
+        let default_model = match provider {
+            "localWhisper" => crate::config::DEFAULT_WHISPER_MODEL,
+            // Cloud providers have no local default; the caller sets the model
+            // through save_transcript_config.
+            _ => "",
+        };
+
         let query = format!(
             r#"
-            INSERT INTO transcript_settings (id, provider, model, "{}")
-            VALUES ('1', 'parakeet', '{}', $1)
+            INSERT INTO transcript_settings (id, provider, model, "{col}")
+            VALUES ('1', $2, $3, $1)
             ON CONFLICT(id) DO UPDATE SET
-                "{}" = $1
+                "{col}" = $1
             "#,
-            api_key_column, crate::config::DEFAULT_PARAKEET_MODEL, api_key_column
+            col = api_key_column
         );
-        sqlx::query(&query).bind(api_key).execute(pool).await?;
+        sqlx::query(&query)
+            .bind(api_key)
+            .bind(provider)
+            .bind(default_model)
+            .execute(pool)
+            .await?;
 
         Ok(())
     }
@@ -212,6 +237,10 @@ impl SettingsRepository {
         let api_key_column = match provider {
             "localWhisper" => "whisperApiKey",
             "parakeet" => return Ok(None), // Parakeet doesn't need an API key
+            // See save_transcript_api_key: the remote gateway's key lives in
+            // transcriptCustomConfig, and returning Err here would silently
+            // downgrade the whole app to local Whisper.
+            crate::config::REMOTE_TRANSCRIPTION_PROVIDER => return Ok(None),
             "deepgram" => "deepgramApiKey",
             "elevenLabs" => "elevenLabsApiKey",
             "groq" => "groqApiKey",
@@ -338,6 +367,86 @@ impl SettingsRepository {
                 customOpenAIConfig = excluded.customOpenAIConfig
             "#,
         )
+        .bind(&config.model)
+        .bind(config_json)
+        .execute(pool)
+        .await?;
+
+        Ok(())
+    }
+
+    // ===== REMOTE TRANSCRIPTION CONFIG =====
+
+    /// Gets the remote transcription gateway configuration from JSON.
+    ///
+    /// # Returns
+    /// * `Ok(Some(RemoteTranscriptionConfig))` - Config exists and is valid JSON
+    /// * `Ok(None)` - No config stored; callers fall back to the config.rs defaults
+    /// * `Err(sqlx::Error)` - Database error or malformed JSON
+    pub async fn get_remote_transcription_config(
+        pool: &SqlitePool,
+    ) -> std::result::Result<Option<RemoteTranscriptionConfig>, sqlx::Error> {
+        use sqlx::Row;
+
+        let row = sqlx::query(
+            r#"
+            SELECT transcriptCustomConfig
+            FROM transcript_settings
+            WHERE id = '1'
+            LIMIT 1
+            "#,
+        )
+        .fetch_optional(pool)
+        .await?;
+
+        match row {
+            Some(record) => {
+                let config_json: Option<String> = record.get("transcriptCustomConfig");
+
+                if let Some(json) = config_json {
+                    let config: RemoteTranscriptionConfig =
+                        serde_json::from_str(&json).map_err(|e| {
+                            sqlx::Error::Protocol(
+                                format!("Invalid JSON in transcriptCustomConfig: {}", e).into(),
+                            )
+                        })?;
+
+                    Ok(Some(config))
+                } else {
+                    Ok(None)
+                }
+            }
+            None => Ok(None),
+        }
+    }
+
+    /// Saves the remote transcription configuration, switching the active provider
+    /// to the remote gateway at the same time.
+    ///
+    /// Provider, model, and blob are upserted together so callers do not have to
+    /// pair this with a separate save_transcript_config call and cannot leave the
+    /// row in a half-configured state.
+    pub async fn save_remote_transcription_config(
+        pool: &SqlitePool,
+        config: &RemoteTranscriptionConfig,
+    ) -> std::result::Result<(), sqlx::Error> {
+        let config_json = serde_json::to_string(config).map_err(|e| {
+            sqlx::Error::Protocol(
+                format!("Failed to serialize remote transcription config: {}", e).into(),
+            )
+        })?;
+
+        sqlx::query(
+            r#"
+            INSERT INTO transcript_settings (id, provider, model, transcriptCustomConfig)
+            VALUES ('1', $1, $2, $3)
+            ON CONFLICT(id) DO UPDATE SET
+                provider = excluded.provider,
+                model = excluded.model,
+                transcriptCustomConfig = excluded.transcriptCustomConfig
+            "#,
+        )
+        .bind(crate::config::REMOTE_TRANSCRIPTION_PROVIDER)
         .bind(&config.model)
         .bind(config_json)
         .execute(pool)

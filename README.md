@@ -72,9 +72,9 @@ Meetily is a privacy-first AI meeting assistant that runs entirely on your local
 
 While there are many meeting transcription tools available, this solution stands out by offering:
 
-- **Privacy First:** All processing happens locally on your device.
+- **Your Infrastructure:** Transcription and summaries run on the service you configure, not a third-party SaaS.
 - **Cost-Effective:** Uses open-source AI models instead of expensive APIs.
-- **Flexible:** Works offline and supports multiple meeting platforms.
+- **Flexible:** Runs against a remote service by default, or fully offline with local models.
 - **Customizable:** Self-host and modify for your specific needs.
 
 <details>
@@ -133,9 +133,9 @@ pnpm install
 
 ## Key Features in Action
 
-### 🎯 Local Transcription
+### 🎯 Transcription
 
-Transcribe meetings entirely on your device using **Whisper** or **Parakeet** models. No cloud required.
+Transcribes through the configured OpenAI-compatible service by default, so there is no model to download. **Whisper** and **Parakeet** remain available in Settings for fully on-device, offline transcription.
 
 <p align="center">
     <img src="docs/home.png" width="650" style="border-radius: 10px;" alt="Meetily Demo" />
@@ -143,7 +143,7 @@ Transcribe meetings entirely on your device using **Whisper** or **Parakeet** mo
 
 ### 📥 Import & Enhance `Beta`
 
-Import existing audio files to generate transcripts, or enhance to re-transcribe any recorded meeting with a different model or language, all processed locally.
+Import existing audio files to generate transcripts, or enhance to re-transcribe any recorded meeting with a different model or language.
 
 > Contributed by [Jeremi Joslin](https://github.com/jeremi), improved by [Vishnu P S](https://github.com/p-s-vishnu) and [Mohammed Safvan](https://github.com/mohammedsafvan)
 
@@ -165,7 +165,7 @@ Generate meeting summaries with your choice of AI provider. **Ollama** (local) i
 
 ### 🔒 Privacy-First Design
 
-All data stays on your machine. Transcription models, recordings, and transcripts are stored locally.
+Recordings, transcripts, and notes are stored on your machine. Transcription and summarization are sent to the service you configure - point it at your own infrastructure, or switch to local models for fully offline processing.
 
 <p align="center">
     <img src="docs/settings.png" width="650" style="border-radius: 10px;" alt="Local Transcription and storage" />

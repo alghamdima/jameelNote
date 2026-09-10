@@ -556,15 +556,11 @@ async fn transcribe_chunk_with_provider<R: Runtime>(
                         e
                     );
 
-                    let _ = app.emit(
-                        "transcription-error",
-                        &serde_json::json!({
-                            "error": e.to_string(),
-                            "userMessage": format!("Transcription failed: {}", e),
-                            "actionable": false
-                        }),
-                    );
-
+                    // No event is emitted here on purpose. The caller already turns
+                    // this error into a "transcription-warning" for the same chunk;
+                    // emitting "transcription-error" as well produced two toasts per
+                    // failed chunk, which during a gateway outage means two per
+                    // speech segment.
                     Err(e)
                 }
             }

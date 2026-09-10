@@ -5,6 +5,7 @@ use tauri::{AppHandle, Runtime};
 use tauri_plugin_store::StoreExt;
 
 use crate::{
+    audio::transcription::RemoteTranscriptionConfig,
     database::{
         models::MeetingModel,
         repositories::{
@@ -1378,6 +1379,214 @@ pub async fn api_test_custom_openai_connection<R: Runtime>(
                 Err("Connection timed out. Please check the endpoint URL.".to_string())
             } else if e.is_connect() {
                 Err("Could not connect to endpoint. Please verify the URL is correct and the server is running.".to_string())
+            } else {
+                Err(format!("Connection failed: {}", e))
+            }
+        }
+    }
+}
+
+// ============================================================================
+// REMOTE TRANSCRIPTION GATEWAY CONFIGURATION
+// ============================================================================
+
+/// Saves the remote transcription gateway configuration and makes it the active
+/// transcription provider.
+#[tauri::command]
+pub async fn api_save_remote_transcription_config<R: Runtime>(
+    _app: AppHandle<R>,
+    state: tauri::State<'_, AppState>,
+    endpoint: String,
+    api_key: Option<String>,
+    model: String,
+) -> Result<serde_json::Value, String> {
+    log_info!(
+        "api_save_remote_transcription_config called: endpoint='{}', model='{}'",
+        &endpoint,
+        &model
+    );
+
+    if endpoint.trim().is_empty() {
+        return Err("Endpoint URL is required".to_string());
+    }
+    if model.trim().is_empty() {
+        return Err("Model name is required".to_string());
+    }
+    if !endpoint.starts_with("http://") && !endpoint.starts_with("https://") {
+        return Err("Endpoint must start with http:// or https://".to_string());
+    }
+
+    let config = RemoteTranscriptionConfig {
+        endpoint: endpoint.trim().to_string(),
+        // A blank key means "fall back to the built-in key", so store None rather
+        // than an empty string.
+        api_key: api_key.filter(|k| !k.trim().is_empty()),
+        model: model.trim().to_string(),
+        timeout_secs: None,
+        max_attempts: None,
+        batch_concurrency: None,
+    };
+
+    let pool = state.db_manager.pool();
+
+    match SettingsRepository::save_remote_transcription_config(pool, &config).await {
+        Ok(()) => {
+            log_info!(
+                "✅ Saved remote transcription config for endpoint: {}",
+                config.endpoint
+            );
+            Ok(serde_json::json!({
+                "status": "success",
+                "message": "Transcription configuration saved successfully"
+            }))
+        }
+        Err(e) => {
+            log_error!("❌ Failed to save remote transcription config: {}", e);
+            Err(format!("Failed to save transcription configuration: {}", e))
+        }
+    }
+}
+
+/// Gets the remote transcription gateway configuration, falling back to the
+/// built-in defaults when nothing has been saved yet.
+#[tauri::command]
+pub async fn api_get_remote_transcription_config<R: Runtime>(
+    _app: AppHandle<R>,
+    state: tauri::State<'_, AppState>,
+) -> Result<RemoteTranscriptionConfig, String> {
+    log_info!("api_get_remote_transcription_config called");
+
+    let pool = state.db_manager.pool();
+
+    match SettingsRepository::get_remote_transcription_config(pool).await {
+        Ok(Some(config)) => Ok(config),
+        Ok(None) => Ok(RemoteTranscriptionConfig::defaults()),
+        Err(e) => {
+            log_error!("❌ Failed to get remote transcription config: {}", e);
+            Err(format!("Failed to get transcription configuration: {}", e))
+        }
+    }
+}
+
+/// Verifies that an endpoint actually transcribes audio, by sending it a short
+/// synthesized clip and checking the shape of the reply.
+#[tauri::command]
+pub async fn api_test_remote_transcription_connection<R: Runtime>(
+    _app: AppHandle<R>,
+    endpoint: String,
+    api_key: Option<String>,
+    model: String,
+) -> Result<serde_json::Value, String> {
+    log_info!(
+        "api_test_remote_transcription_connection called: endpoint='{}', model='{}'",
+        &endpoint,
+        &model
+    );
+
+    if !endpoint.starts_with("http://") && !endpoint.starts_with("https://") {
+        return Err("Endpoint must start with http:// or https://".to_string());
+    }
+    if model.trim().is_empty() {
+        return Err("Model name is required".to_string());
+    }
+
+    let url = format!("{}/audio/transcriptions", endpoint.trim_end_matches('/'));
+
+    // One second of a quiet 440 Hz tone. Deliberately not digital silence: some
+    // gateways short-circuit all-zero audio and return an empty transcript, which
+    // would make a broken decoder indistinguishable from a passing test.
+    let sample_rate = crate::audio::transcription::wav::SAMPLE_RATE;
+    let samples: Vec<f32> = (0..sample_rate)
+        .map(|n| {
+            let t = n as f32 / sample_rate as f32;
+            0.2 * (2.0 * std::f32::consts::PI * 440.0 * t).sin()
+        })
+        .collect();
+    let wav = crate::audio::transcription::wav::encode_wav_16k_mono(&samples);
+
+    let client = reqwest::Client::builder()
+        .timeout(std::time::Duration::from_secs(30))
+        .build()
+        .map_err(|e| format!("Failed to create HTTP client: {}", e))?;
+
+    let part = reqwest::multipart::Part::bytes(wav)
+        .file_name("audio.wav")
+        .mime_str("audio/wav")
+        .map_err(|e| format!("Failed to build request: {}", e))?;
+
+    let form = reqwest::multipart::Form::new()
+        .part("file", part)
+        .text("model", model.trim().to_string())
+        .text("response_format", "json");
+
+    let mut request = client.post(&url).multipart(form);
+
+    if let Some(key) = api_key.filter(|k| !k.trim().is_empty()) {
+        request = request.header("Authorization", format!("Bearer {}", key));
+    } else if let Some(key) = crate::config::DEFAULT_TRANSCRIPTION_API_KEY {
+        // Match what the provider does at runtime, so the test exercises the same
+        // credentials the recording path will use.
+        request = request.header("Authorization", format!("Bearer {}", key));
+    }
+
+    match request.send().await {
+        Ok(response) => {
+            let status = response.status();
+            let response_text = response.text().await.unwrap_or_default();
+
+            if !status.is_success() {
+                log_warn!(
+                    "⚠️ Transcription connection test failed with status {}: {}",
+                    status,
+                    response_text
+                );
+                return Err(match status.as_u16() {
+                    401 | 403 => format!(
+                        "Authentication failed (HTTP {}). Check the API key.",
+                        status.as_u16()
+                    ),
+                    404 => format!(
+                        "Not found (HTTP 404). Check the endpoint URL, and that '{}' is a model this server serves.",
+                        model.trim()
+                    ),
+                    _ => format!("Connection failed with status {}: {}", status, response_text),
+                });
+            }
+
+            match serde_json::from_str::<serde_json::Value>(&response_text) {
+                Ok(json) => match json.get("text").and_then(|t| t.as_str()) {
+                    Some(text) => {
+                        log_info!("✅ Transcription connection test successful");
+                        Ok(serde_json::json!({
+                            "status": "success",
+                            "message": "Connection successful and transcription response validated",
+                            "http_status": status.as_u16(),
+                            "sample_text": text
+                        }))
+                    }
+                    None => {
+                        log_warn!(
+                            "⚠️ Endpoint returned 200 without a 'text' field: {}",
+                            response_text
+                        );
+                        Err("Endpoint is reachable but the response has no 'text' field, so it does not look like an OpenAI-compatible transcription endpoint.".to_string())
+                    }
+                },
+                Err(e) => {
+                    log_warn!("⚠️ Endpoint returned 200 but not valid JSON: {}", e);
+                    Err(format!(
+                        "Endpoint is reachable but returned invalid JSON: {}. Response: {}",
+                        e, response_text
+                    ))
+                }
+            }
+        }
+        Err(e) => {
+            log_error!("❌ Transcription connection test failed: {}", e);
+            if e.is_timeout() {
+                Err("Connection timed out. Please check the endpoint URL.".to_string())
+            } else if e.is_connect() {
+                Err("Could not connect to endpoint. Please verify the URL is correct and the server is reachable.".to_string())
             } else {
                 Err(format!("Connection failed: {}", e))
             }

@@ -8,11 +8,16 @@ Meetily is built on the principle that your meeting data should remain private a
 
 ## Data Processing Philosophy
 
-### Local-First Processing
-- **Meeting transcription**: Processed entirely on your device using local Whisper models
-- **Audio recordings**: Never transmitted to external servers
-- **Meeting content**: Remains on your infrastructure
-- **AI summaries**: Generated locally or through your chosen LLM provider
+### Where Processing Happens
+- **Meeting transcription**: By default, speech audio is sent to the configured
+  transcription service for processing. Local Whisper and Parakeet models remain
+  available in Settings > Transcription for fully on-device transcription.
+- **Audio recordings**: Recording files are stored on your device. When a remote
+  transcription service is selected, the speech segments within them are
+  transmitted to that service for transcription.
+- **Meeting content**: Transcripts and notes are stored on your device.
+- **AI summaries**: Generated through the configured LLM provider, which by
+  default is a remote service.
 
 ### Your Data Ownership
 - You own all meeting data, transcripts, and recordings

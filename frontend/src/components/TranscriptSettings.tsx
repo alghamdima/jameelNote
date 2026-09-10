@@ -10,9 +10,16 @@ import { ParakeetModelManager } from './ParakeetModelManager';
 
 
 export interface TranscriptModelProps {
-    provider: 'localWhisper' | 'parakeet' | 'deepgram' | 'elevenLabs' | 'groq' | 'openai';
+    provider: 'remoteWhisper' | 'localWhisper' | 'parakeet' | 'deepgram' | 'elevenLabs' | 'groq' | 'openai';
     model: string;
     apiKey?: string | null;
+}
+
+/** Shape of transcript_settings.transcriptCustomConfig, as returned by Rust. */
+interface RemoteTranscriptionConfig {
+    endpoint: string;
+    apiKey?: string | null;
+    model: string;
 }
 
 export interface TranscriptSettingsProps {
@@ -39,6 +46,82 @@ export function TranscriptSettings({ transcriptModelConfig, setTranscriptModelCo
         }
     }, [transcriptModelConfig.provider]);
 
+    // The remote gateway's settings live in their own JSON blob rather than in the
+    // per-provider API key columns, so they are loaded and saved separately.
+    const [remoteConfig, setRemoteConfig] = useState<RemoteTranscriptionConfig>({
+        endpoint: '',
+        apiKey: '',
+        model: '',
+    });
+    const [isSavingRemote, setIsSavingRemote] = useState(false);
+    const [isTestingRemote, setIsTestingRemote] = useState(false);
+    const [remoteTestResult, setRemoteTestResult] = useState<{ ok: boolean; message: string } | null>(null);
+
+    useEffect(() => {
+        if (uiProvider !== 'remoteWhisper') return;
+        let cancelled = false;
+        (async () => {
+            try {
+                const config = await invoke<RemoteTranscriptionConfig>('api_get_remote_transcription_config');
+                if (cancelled) return;
+                setRemoteConfig({
+                    endpoint: config.endpoint ?? '',
+                    // A blank key means "use the built-in one"; show it as blank
+                    // rather than inventing a placeholder value.
+                    apiKey: config.apiKey ?? '',
+                    model: config.model ?? '',
+                });
+            } catch (err) {
+                console.error('Error fetching remote transcription config:', err);
+            }
+        })();
+        return () => { cancelled = true; };
+    }, [uiProvider]);
+
+    const isRemoteConfigIncomplete = !remoteConfig.endpoint.trim() || !remoteConfig.model.trim();
+
+    const handleSaveRemoteConfig = async () => {
+        if (isRemoteConfigIncomplete) return;
+        setIsSavingRemote(true);
+        try {
+            await invoke('api_save_remote_transcription_config', {
+                endpoint: remoteConfig.endpoint.trim(),
+                apiKey: remoteConfig.apiKey?.trim() ? remoteConfig.apiKey.trim() : null,
+                model: remoteConfig.model.trim(),
+            });
+            // Saving also switches the active provider, so mirror that locally.
+            setTranscriptModelConfig({
+                ...transcriptModelConfig,
+                provider: 'remoteWhisper',
+                model: remoteConfig.model.trim(),
+            });
+            setRemoteTestResult({ ok: true, message: 'Settings saved.' });
+        } catch (err) {
+            console.error('Error saving remote transcription config:', err);
+            setRemoteTestResult({ ok: false, message: String(err) });
+        } finally {
+            setIsSavingRemote(false);
+        }
+    };
+
+    const handleTestRemoteConnection = async () => {
+        if (isRemoteConfigIncomplete) return;
+        setIsTestingRemote(true);
+        setRemoteTestResult(null);
+        try {
+            const result = await invoke<{ message?: string }>('api_test_remote_transcription_connection', {
+                endpoint: remoteConfig.endpoint.trim(),
+                apiKey: remoteConfig.apiKey?.trim() ? remoteConfig.apiKey.trim() : null,
+                model: remoteConfig.model.trim(),
+            });
+            setRemoteTestResult({ ok: true, message: result?.message || 'Connection successful.' });
+        } catch (err) {
+            setRemoteTestResult({ ok: false, message: String(err) });
+        } finally {
+            setIsTestingRemote(false);
+        }
+    };
+
     const fetchApiKey = async (provider: string) => {
         try {
 
@@ -51,6 +134,7 @@ export function TranscriptSettings({ transcriptModelConfig, setTranscriptModelCo
         }
     };
     const modelOptions = {
+        remoteWhisper: [], // Model name is a free-text field in the remote panel
         localWhisper: [], // Model selection handled by ModelManager component
         parakeet: [], // Model selection handled by ParakeetModelManager component
         deepgram: ['nova-2-phonecall'],
@@ -112,7 +196,9 @@ export function TranscriptSettings({ transcriptModelConfig, setTranscriptModelCo
                                 onValueChange={(value) => {
                                     const provider = value as TranscriptModelProps['provider'];
                                     setUiProvider(provider);
-                                    if (provider !== 'localWhisper' && provider !== 'parakeet') {
+                                    // remoteWhisper keeps its key in its own JSON blob, so it is
+                                    // not fetched through api_get_transcript_api_key.
+                                    if (provider !== 'localWhisper' && provider !== 'parakeet' && provider !== 'remoteWhisper') {
                                         fetchApiKey(provider);
                                     }
                                 }}
@@ -121,8 +207,9 @@ export function TranscriptSettings({ transcriptModelConfig, setTranscriptModelCo
                                     <SelectValue placeholder="Select provider" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="parakeet">⚡ Parakeet (Recommended - Real-time / Accurate)</SelectItem>
-                                    <SelectItem value="localWhisper">🏠 Local Whisper (High Accuracy)</SelectItem>
+                                    <SelectItem value="remoteWhisper">☁️ JameelNote Cloud (Default — no download)</SelectItem>
+                                    <SelectItem value="parakeet">⚡ Parakeet (Real-time)</SelectItem>
+                                    <SelectItem value="localWhisper">🏠 Local Whisper (Offline)</SelectItem>
                                     {/* <SelectItem value="deepgram">☁️ Deepgram (Backup)</SelectItem>
                                     <SelectItem value="elevenLabs">☁️ ElevenLabs</SelectItem>
                                     <SelectItem value="groq">☁️ Groq</SelectItem>
@@ -130,7 +217,7 @@ export function TranscriptSettings({ transcriptModelConfig, setTranscriptModelCo
                                 </SelectContent>
                             </Select>
 
-                            {uiProvider !== 'localWhisper' && uiProvider !== 'parakeet' && (
+                            {uiProvider !== 'localWhisper' && uiProvider !== 'parakeet' && uiProvider !== 'remoteWhisper' && (
                                 <Select
                                     value={transcriptModelConfig.model}
                                     onValueChange={(value) => {
@@ -151,6 +238,91 @@ export function TranscriptSettings({ transcriptModelConfig, setTranscriptModelCo
 
                         </div>
                     </div>
+
+                    {uiProvider === 'remoteWhisper' && (
+                        <div className="mt-6 space-y-4">
+                            <p className="text-sm text-gray-600 mx-1">
+                                Audio is sent to this endpoint for transcription. Nothing is downloaded
+                                to this machine, and recordings leave the device while it is selected.
+                            </p>
+
+                            <div>
+                                <Label className="block text-sm font-medium text-gray-700 mb-1">
+                                    Endpoint URL
+                                </Label>
+                                <Input
+                                    className="mx-1 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                    value={remoteConfig.endpoint}
+                                    onChange={(e) => setRemoteConfig({ ...remoteConfig, endpoint: e.target.value })}
+                                    placeholder="https://opsai.aljfs.com/v1"
+                                />
+                                <p className="text-xs text-gray-500 mt-1 mx-1">
+                                    Ends at /v1 — the app appends /audio/transcriptions.
+                                </p>
+                            </div>
+
+                            <div>
+                                <Label className="block text-sm font-medium text-gray-700 mb-1">
+                                    Model Name
+                                </Label>
+                                <Input
+                                    className="mx-1 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                    value={remoteConfig.model}
+                                    onChange={(e) => setRemoteConfig({ ...remoteConfig, model: e.target.value })}
+                                    placeholder="whisper-1"
+                                />
+                            </div>
+
+                            <div>
+                                <Label className="block text-sm font-medium text-gray-700 mb-1">
+                                    API Key
+                                </Label>
+                                <div className="relative mx-1">
+                                    <Input
+                                        type={showApiKey ? 'text' : 'password'}
+                                        className="pr-12 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                        value={remoteConfig.apiKey || ''}
+                                        onChange={(e) => setRemoteConfig({ ...remoteConfig, apiKey: e.target.value })}
+                                        placeholder="Leave blank to use the built-in key"
+                                    />
+                                    <div className="absolute inset-y-0 right-0 pr-1 flex items-center">
+                                        <Button
+                                            type="button"
+                                            variant="ghost"
+                                            size="icon"
+                                            onClick={() => setShowApiKey(!showApiKey)}
+                                        >
+                                            {showApiKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-2 mx-1">
+                                <Button
+                                    type="button"
+                                    onClick={handleSaveRemoteConfig}
+                                    disabled={isRemoteConfigIncomplete || isSavingRemote}
+                                >
+                                    {isSavingRemote ? 'Saving…' : 'Save'}
+                                </Button>
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={handleTestRemoteConnection}
+                                    disabled={isRemoteConfigIncomplete || isTestingRemote}
+                                >
+                                    {isTestingRemote ? 'Testing…' : 'Test Connection'}
+                                </Button>
+                            </div>
+
+                            {remoteTestResult && (
+                                <p className={`text-sm mx-1 ${remoteTestResult.ok ? 'text-green-600' : 'text-red-600'}`}>
+                                    {remoteTestResult.message}
+                                </p>
+                            )}
+                        </div>
+                    )}
 
                     {uiProvider === 'localWhisper' && (
                         <div className="mt-6">
