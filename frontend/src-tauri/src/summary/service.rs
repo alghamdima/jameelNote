@@ -360,9 +360,17 @@ impl SummaryService {
                 match SettingsRepository::get_custom_openai_config(&pool).await {
                     Ok(Some(config)) => {
                         info!("✓ Using custom OpenAI endpoint: {}", config.endpoint);
+                        // A blank key falls back to the built-in one, but only for the
+                        // gateway it was issued for, so it is never sent to a server
+                        // someone typed in.
+                        let built_in_key = crate::config::built_in_api_key_for(&config.endpoint);
+                        let api_key = config
+                            .api_key
+                            .filter(|k| !k.trim().is_empty())
+                            .or_else(|| built_in_key.map(str::to_string));
                         (
                             Some(config.endpoint),
-                            config.api_key,
+                            api_key,
                             config.max_tokens.map(|t| t as u32),
                             config.temperature,
                             config.top_p,

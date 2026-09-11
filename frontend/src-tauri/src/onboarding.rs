@@ -184,7 +184,9 @@ pub async fn complete_onboarding<R: Runtime>(
     // does not need a local LLM.
     let summary_config = crate::summary::CustomOpenAIConfig {
         endpoint: crate::config::DEFAULT_SUMMARY_ENDPOINT.to_string(),
-        api_key: crate::config::DEFAULT_SUMMARY_API_KEY.map(str::to_string),
+        // Left unset: summaries fall back to the built-in key at runtime, so a
+        // later build carrying a new key applies without rewriting stored settings.
+        api_key: None,
         model: crate::config::DEFAULT_SUMMARY_MODEL.to_string(),
         max_tokens: None,
         temperature: None,

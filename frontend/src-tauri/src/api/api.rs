@@ -1317,8 +1317,12 @@ pub async fn api_test_custom_openai_connection<R: Runtime>(
         .header("Content-Type", "application/json")
         .json(&test_request);
 
-    // Add authorization if API key provided
-    if let Some(key) = api_key.filter(|k| !k.trim().is_empty()) {
+    // Add authorization if an API key was provided, falling back to the built-in
+    // key only for the gateway it belongs to — the same rule summarization uses.
+    if let Some(key) = api_key
+        .filter(|k| !k.trim().is_empty())
+        .or_else(|| crate::config::built_in_api_key_for(&endpoint).map(str::to_string))
+    {
         request = request.header("Authorization", format!("Bearer {}", key));
     }
 
@@ -1374,15 +1378,38 @@ pub async fn api_test_custom_openai_connection<R: Runtime>(
             }
         }
         Err(e) => {
-            log_error!("❌ Custom OpenAI connection test failed: {}", e);
-            if e.is_timeout() {
-                Err("Connection timed out. Please check the endpoint URL.".to_string())
-            } else if e.is_connect() {
-                Err("Could not connect to endpoint. Please verify the URL is correct and the server is running.".to_string())
-            } else {
-                Err(format!("Connection failed: {}", e))
-            }
+            log_error!("❌ Custom OpenAI connection test failed: {:?}", e);
+            Err(connection_error_message(&e))
         }
+    }
+}
+
+/// Turn a failed HTTP request into advice the user can act on.
+///
+/// DNS failures get their own message: "could not connect" sends people looking
+/// for a typo in a URL that is correct but not resolvable from where they are,
+/// such as a server only reachable on a private network.
+fn connection_error_message(e: &reqwest::Error) -> String {
+    // Display omits the underlying cause; Debug includes the source chain, which
+    // is where a DNS failure can be told apart from a refused connection.
+    let detail = format!("{:?}", e).to_lowercase();
+    let is_dns_failure = [
+        "dns error",
+        "failed to lookup address",
+        "no such host",
+        "name or service not known",
+    ]
+    .iter()
+    .any(|needle| detail.contains(needle));
+
+    if e.is_timeout() {
+        "Connection timed out. Please check the endpoint URL.".to_string()
+    } else if is_dns_failure {
+        "Could not find the server address (DNS lookup failed). Check the endpoint URL; if the server is only reachable on a private network, connect to it (for example over VPN) and try again.".to_string()
+    } else if e.is_connect() {
+        "Could not connect to the endpoint. Please verify the URL is correct and the server is reachable.".to_string()
+    } else {
+        format!("Connection failed: {}", e)
     }
 }
 
@@ -1399,29 +1426,38 @@ pub async fn api_save_remote_transcription_config<R: Runtime>(
     endpoint: String,
     api_key: Option<String>,
     model: String,
+    share_summary_connection: Option<bool>,
 ) -> Result<serde_json::Value, String> {
+    let shares = share_summary_connection.unwrap_or(true);
     log_info!(
-        "api_save_remote_transcription_config called: endpoint='{}', model='{}'",
+        "api_save_remote_transcription_config called: endpoint='{}', model='{}', share_summary_connection={}",
         &endpoint,
-        &model
+        &model,
+        shares
     );
 
-    if endpoint.trim().is_empty() {
-        return Err("Endpoint URL is required".to_string());
-    }
     if model.trim().is_empty() {
         return Err("Model name is required".to_string());
     }
+
+    // While the Summary connection is shared, the transcription-only endpoint is
+    // just remembered for when sharing is turned off, so it may be left blank.
+    let endpoint = match endpoint.trim() {
+        "" if shares => crate::config::DEFAULT_TRANSCRIPTION_ENDPOINT.to_string(),
+        "" => return Err("Endpoint URL is required".to_string()),
+        trimmed => trimmed.to_string(),
+    };
     if !endpoint.starts_with("http://") && !endpoint.starts_with("https://") {
         return Err("Endpoint must start with http:// or https://".to_string());
     }
 
     let config = RemoteTranscriptionConfig {
-        endpoint: endpoint.trim().to_string(),
+        endpoint,
         // A blank key means "fall back to the built-in key", so store None rather
         // than an empty string.
         api_key: api_key.filter(|k| !k.trim().is_empty()),
         model: model.trim().to_string(),
+        share_summary_connection: Some(shares),
         timeout_secs: None,
         max_attempts: None,
         batch_concurrency: None,
@@ -1473,10 +1509,31 @@ pub async fn api_get_remote_transcription_config<R: Runtime>(
 #[tauri::command]
 pub async fn api_test_remote_transcription_connection<R: Runtime>(
     _app: AppHandle<R>,
+    state: tauri::State<'_, AppState>,
     endpoint: String,
     api_key: Option<String>,
     model: String,
+    use_summary_connection: Option<bool>,
 ) -> Result<serde_json::Value, String> {
+    // While the Summary connection is shared, test what recording will actually
+    // use — the Summary server and key — not the transcription-only fields.
+    let (endpoint, api_key) = if use_summary_connection.unwrap_or(false) {
+        match crate::audio::transcription::remote_config::summary_connection(
+            state.db_manager.pool(),
+        )
+        .await
+        {
+            Some(shared) => shared,
+            None if endpoint.trim().is_empty() => (
+                crate::config::DEFAULT_TRANSCRIPTION_ENDPOINT.to_string(),
+                api_key,
+            ),
+            None => (endpoint, api_key),
+        }
+    } else {
+        (endpoint, api_key)
+    };
+
     log_info!(
         "api_test_remote_transcription_connection called: endpoint='{}', model='{}'",
         &endpoint,
@@ -1521,11 +1578,12 @@ pub async fn api_test_remote_transcription_connection<R: Runtime>(
 
     let mut request = client.post(&url).multipart(form);
 
-    if let Some(key) = api_key.filter(|k| !k.trim().is_empty()) {
-        request = request.header("Authorization", format!("Bearer {}", key));
-    } else if let Some(key) = crate::config::DEFAULT_TRANSCRIPTION_API_KEY {
-        // Match what the provider does at runtime, so the test exercises the same
-        // credentials the recording path will use.
+    // Match what the provider does at runtime, so the test exercises the same
+    // credentials the recording path will use.
+    if let Some(key) = api_key
+        .filter(|k| !k.trim().is_empty())
+        .or_else(|| crate::config::built_in_api_key_for(&endpoint).map(str::to_string))
+    {
         request = request.header("Authorization", format!("Bearer {}", key));
     }
 
@@ -1582,14 +1640,8 @@ pub async fn api_test_remote_transcription_connection<R: Runtime>(
             }
         }
         Err(e) => {
-            log_error!("❌ Transcription connection test failed: {}", e);
-            if e.is_timeout() {
-                Err("Connection timed out. Please check the endpoint URL.".to_string())
-            } else if e.is_connect() {
-                Err("Could not connect to endpoint. Please verify the URL is correct and the server is reachable.".to_string())
-            } else {
-                Err(format!("Connection failed: {}", e))
-            }
+            log_error!("❌ Transcription connection test failed: {:?}", e);
+            Err(connection_error_message(&e))
         }
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lock, Sparkles, Cpu } from 'lucide-react';
+import { HardDrive, Sparkles, Cloud } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { OnboardingContainer } from '../OnboardingContainer';
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -7,25 +7,28 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 export function WelcomeStep() {
   const { goNext } = useOnboarding();
 
+  // Transcription and summaries run on the JameelNote service, so this must not
+  // promise on-device or offline processing. Recordings, transcripts, and
+  // summaries are still stored locally.
   const features = [
     {
-      icon: Lock,
-      title: 'Your data never leaves your device',
+      icon: HardDrive,
+      title: 'Recordings and notes are saved on your device',
     },
     {
       icon: Sparkles,
       title: 'Intelligent summaries & insights',
     },
     {
-      icon: Cpu,
-      title: 'Works offline, no cloud required',
+      icon: Cloud,
+      title: 'Nothing to download — transcription and summaries run on the JameelNote service',
     },
   ];
 
   return (
     <OnboardingContainer
       title="Welcome to JameelNote"
-      description="Record. Transcribe. Summarize. All on your device."
+      description="Record. Transcribe. Summarize."
       step={1}
       hideProgress={true}
     >
@@ -58,7 +61,7 @@ export function WelcomeStep() {
           >
             Get Started
           </Button>
-          <p className="text-xs text-center text-gray-500">Takes less than 3 minutes</p>
+          <p className="text-xs text-center text-gray-500">Takes about a minute</p>
         </div>
       </div>
     </OnboardingContainer>

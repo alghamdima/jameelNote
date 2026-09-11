@@ -194,7 +194,9 @@ pub async fn initialize_fresh_database(app: AppHandle) -> Result<(), String> {
     // local LLM has to be downloaded.
     let default_summary_config = crate::summary::CustomOpenAIConfig {
         endpoint: crate::config::DEFAULT_SUMMARY_ENDPOINT.to_string(),
-        api_key: crate::config::DEFAULT_SUMMARY_API_KEY.map(str::to_string),
+        // Left unset: summaries fall back to the built-in key at runtime, so a
+        // later build carrying a new key applies without rewriting stored settings.
+        api_key: None,
         model: crate::config::DEFAULT_SUMMARY_MODEL.to_string(),
         max_tokens: None,
         temperature: None,

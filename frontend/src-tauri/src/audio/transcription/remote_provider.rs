@@ -94,7 +94,9 @@ impl RemoteTranscriptionProvider {
             api_key: config
                 .api_key
                 .filter(|k| !k.trim().is_empty())
-                .or_else(|| crate::config::DEFAULT_TRANSCRIPTION_API_KEY.map(str::to_string)),
+                // The built-in key only ever goes to the gateway it was issued
+                // for; any other endpoint without a key gets no Authorization.
+                .or_else(|| crate::config::built_in_api_key_for(base).map(str::to_string)),
             model: config.model,
             max_attempts: config
                 .max_attempts
@@ -427,7 +429,7 @@ pub fn log_configuration(config: &RemoteTranscriptionConfig) {
         config.model,
         match config.api_key.as_deref().filter(|k| !k.trim().is_empty()) {
             Some(_) => "configured",
-            None if crate::config::DEFAULT_TRANSCRIPTION_API_KEY.is_some() => "built-in",
+            None if crate::config::built_in_api_key_for(&config.endpoint).is_some() => "built-in",
             None => "none",
         }
     );
@@ -442,6 +444,7 @@ mod tests {
             endpoint: "https://example.test/v1".to_string(),
             api_key: Some("key".to_string()),
             model: "whisper-1".to_string(),
+            share_summary_connection: None,
             timeout_secs: None,
             max_attempts: None,
             batch_concurrency: None,
@@ -488,13 +491,24 @@ mod tests {
     }
 
     #[test]
-    fn blank_key_falls_back_rather_than_sending_none() {
+    fn blank_key_never_sends_the_built_in_key_to_another_server() {
         let mut cfg = config();
         cfg.api_key = Some("   ".to_string());
         let provider = RemoteTranscriptionProvider::new(cfg).unwrap();
+        // example.test is not the default gateway, so a blank key must mean no
+        // Authorization header rather than the built-in key.
+        assert_eq!(provider.api_key, None);
+    }
+
+    #[test]
+    fn blank_key_uses_the_built_in_key_for_the_default_gateway() {
+        let mut cfg = config();
+        cfg.endpoint = format!("{}/", crate::config::DEFAULT_TRANSCRIPTION_ENDPOINT);
+        cfg.api_key = None;
+        let provider = RemoteTranscriptionProvider::new(cfg).unwrap();
         assert_eq!(
             provider.api_key,
-            crate::config::DEFAULT_TRANSCRIPTION_API_KEY.map(str::to_string)
+            crate::config::built_in_api_key().map(str::to_string)
         );
     }
 

@@ -4,7 +4,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
-import { Eye, EyeOff, Lock, Unlock } from 'lucide-react';
+import { Eye, EyeOff, Lock, Unlock, CheckCircle2, RefreshCw } from 'lucide-react';
+import { toast } from 'sonner';
+import { Switch } from './ui/switch';
 import { ModelManager } from './WhisperModelManager';
 import { ParakeetModelManager } from './ParakeetModelManager';
 
@@ -20,6 +22,14 @@ interface RemoteTranscriptionConfig {
     endpoint: string;
     apiKey?: string | null;
     model: string;
+    /** Missing on configs saved before this option existed, which means "shared". */
+    shareSummaryConnection?: boolean | null;
+}
+
+/** The part of the Summary engine's custom server config transcription reuses. */
+interface SummaryConnection {
+    endpoint: string;
+    apiKey?: string | null;
 }
 
 export interface TranscriptSettingsProps {
@@ -48,21 +58,26 @@ export function TranscriptSettings({ transcriptModelConfig, setTranscriptModelCo
 
     // The remote gateway's settings live in their own JSON blob rather than in the
     // per-provider API key columns, so they are loaded and saved separately.
-    const [remoteConfig, setRemoteConfig] = useState<RemoteTranscriptionConfig>({
+    const [remoteConfig, setRemoteConfig] = useState({
         endpoint: '',
         apiKey: '',
         model: '',
+        shareSummaryConnection: true,
     });
+    // The Summary engine's server, shown read-only while transcription shares it.
+    const [summaryConnection, setSummaryConnection] = useState<SummaryConnection | null>(null);
     const [isSavingRemote, setIsSavingRemote] = useState(false);
     const [isTestingRemote, setIsTestingRemote] = useState(false);
-    const [remoteTestResult, setRemoteTestResult] = useState<{ ok: boolean; message: string } | null>(null);
 
     useEffect(() => {
         if (uiProvider !== 'remoteWhisper') return;
         let cancelled = false;
         (async () => {
             try {
-                const config = await invoke<RemoteTranscriptionConfig>('api_get_remote_transcription_config');
+                const [config, summary] = await Promise.all([
+                    invoke<RemoteTranscriptionConfig>('api_get_remote_transcription_config'),
+                    invoke<SummaryConnection | null>('api_get_custom_openai_config').catch(() => null),
+                ]);
                 if (cancelled) return;
                 setRemoteConfig({
                     endpoint: config.endpoint ?? '',
@@ -70,7 +85,9 @@ export function TranscriptSettings({ transcriptModelConfig, setTranscriptModelCo
                     // rather than inventing a placeholder value.
                     apiKey: config.apiKey ?? '',
                     model: config.model ?? '',
+                    shareSummaryConnection: config.shareSummaryConnection ?? true,
                 });
+                setSummaryConnection(summary?.endpoint?.trim() ? summary : null);
             } catch (err) {
                 console.error('Error fetching remote transcription config:', err);
             }
@@ -78,16 +95,26 @@ export function TranscriptSettings({ transcriptModelConfig, setTranscriptModelCo
         return () => { cancelled = true; };
     }, [uiProvider]);
 
-    const isRemoteConfigIncomplete = !remoteConfig.endpoint.trim() || !remoteConfig.model.trim();
+    const isSharingSummaryConnection = remoteConfig.shareSummaryConnection;
+    // Mirrors resolve_remote_config in Rust: while shared, the Summary server is
+    // used whenever one is configured.
+    const effectiveEndpoint = isSharingSummaryConnection && summaryConnection
+        ? summaryConnection.endpoint
+        : remoteConfig.endpoint;
+    const isRemoteConfigIncomplete =
+        !remoteConfig.model.trim() || (!isSharingSummaryConnection && !remoteConfig.endpoint.trim());
 
     const handleSaveRemoteConfig = async () => {
         if (isRemoteConfigIncomplete) return;
         setIsSavingRemote(true);
         try {
             await invoke('api_save_remote_transcription_config', {
+                // The transcription-only endpoint and key are kept even while the
+                // Summary connection is shared, so turning sharing off restores them.
                 endpoint: remoteConfig.endpoint.trim(),
                 apiKey: remoteConfig.apiKey?.trim() ? remoteConfig.apiKey.trim() : null,
                 model: remoteConfig.model.trim(),
+                shareSummaryConnection: isSharingSummaryConnection,
             });
             // Saving also switches the active provider, so mirror that locally.
             setTranscriptModelConfig({
@@ -95,10 +122,10 @@ export function TranscriptSettings({ transcriptModelConfig, setTranscriptModelCo
                 provider: 'remoteWhisper',
                 model: remoteConfig.model.trim(),
             });
-            setRemoteTestResult({ ok: true, message: 'Settings saved.' });
+            toast.success('Transcription settings saved');
         } catch (err) {
             console.error('Error saving remote transcription config:', err);
-            setRemoteTestResult({ ok: false, message: String(err) });
+            toast.error(err instanceof Error ? err.message : String(err));
         } finally {
             setIsSavingRemote(false);
         }
@@ -107,16 +134,16 @@ export function TranscriptSettings({ transcriptModelConfig, setTranscriptModelCo
     const handleTestRemoteConnection = async () => {
         if (isRemoteConfigIncomplete) return;
         setIsTestingRemote(true);
-        setRemoteTestResult(null);
         try {
             const result = await invoke<{ message?: string }>('api_test_remote_transcription_connection', {
                 endpoint: remoteConfig.endpoint.trim(),
                 apiKey: remoteConfig.apiKey?.trim() ? remoteConfig.apiKey.trim() : null,
                 model: remoteConfig.model.trim(),
+                useSummaryConnection: isSharingSummaryConnection,
             });
-            setRemoteTestResult({ ok: true, message: result?.message || 'Connection successful.' });
+            toast.success(result?.message || 'Connection successful!');
         } catch (err) {
-            setRemoteTestResult({ ok: false, message: String(err) });
+            toast.error(err instanceof Error ? err.message : String(err));
         } finally {
             setIsTestingRemote(false);
         }
@@ -188,7 +215,7 @@ export function TranscriptSettings({ transcriptModelConfig, setTranscriptModelCo
                 <div className="space-y-4 pb-6">
                     <div>
                         <Label className="block text-sm font-medium text-gray-700 mb-1">
-                            Transcript Model
+                            Transcription Model
                         </Label>
                         <div className="flex space-x-2 mx-1">
                             <Select
@@ -240,87 +267,126 @@ export function TranscriptSettings({ transcriptModelConfig, setTranscriptModelCo
                     </div>
 
                     {uiProvider === 'remoteWhisper' && (
-                        <div className="mt-6 space-y-4">
-                            <p className="text-sm text-gray-600 mx-1">
-                                Audio is sent to this endpoint for transcription. Nothing is downloaded
-                                to this machine, and recordings leave the device while it is selected.
+                        <div className="space-y-4 border-t pt-4 mx-1">
+                            <p className="text-xs text-muted-foreground">
+                                Meeting audio is sent to this server for transcription. Nothing is
+                                downloaded to this computer.
                             </p>
 
-                            <div>
-                                <Label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Endpoint URL
-                                </Label>
-                                <Input
-                                    className="mx-1 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                    value={remoteConfig.endpoint}
-                                    onChange={(e) => setRemoteConfig({ ...remoteConfig, endpoint: e.target.value })}
-                                    placeholder="https://opsai.aljfs.com/v1"
+                            <div className="flex items-start justify-between gap-4 rounded-md border p-3">
+                                <div>
+                                    <Label htmlFor="share-summary-connection">Use the Summary server and key</Label>
+                                    <p className="text-xs text-muted-foreground mt-1">
+                                        Connects with the same endpoint and API key as Summary, so the
+                                        key only has to be entered once.
+                                    </p>
+                                </div>
+                                <Switch
+                                    id="share-summary-connection"
+                                    checked={isSharingSummaryConnection}
+                                    onCheckedChange={(checked) =>
+                                        setRemoteConfig({ ...remoteConfig, shareSummaryConnection: checked })
+                                    }
                                 />
-                                <p className="text-xs text-gray-500 mt-1 mx-1">
-                                    Ends at /v1 — the app appends /audio/transcriptions.
-                                </p>
                             </div>
 
+                            {isSharingSummaryConnection ? (
+                                <div className="rounded-md bg-muted/50 px-3 py-2 text-xs text-muted-foreground space-y-1">
+                                    <p>
+                                        <span className="font-medium text-foreground">Endpoint: </span>
+                                        {effectiveEndpoint || 'Built-in JameelNote server'}
+                                    </p>
+                                    <p>
+                                        <span className="font-medium text-foreground">API key: </span>
+                                        {summaryConnection?.apiKey?.trim() ? 'From Summary settings' : 'Built-in key'}
+                                    </p>
+                                    <p>To change these, open the Summary tab.</p>
+                                </div>
+                            ) : (
+                                <>
+                                    <div>
+                                        <Label htmlFor="transcription-endpoint">Endpoint URL *</Label>
+                                        <Input
+                                            id="transcription-endpoint"
+                                            value={remoteConfig.endpoint}
+                                            onChange={(e) => setRemoteConfig({ ...remoteConfig, endpoint: e.target.value })}
+                                            placeholder="https://opsai.aljfs.com/v1"
+                                            className="mt-1"
+                                        />
+                                        <p className="text-xs text-muted-foreground mt-1">
+                                            Base URL of the OpenAI-compatible API. The app appends /audio/transcriptions.
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <Label htmlFor="transcription-api-key">API Key (optional)</Label>
+                                        <div className="relative mt-1">
+                                            <Input
+                                                id="transcription-api-key"
+                                                type={showApiKey ? 'text' : 'password'}
+                                                value={remoteConfig.apiKey || ''}
+                                                onChange={(e) => setRemoteConfig({ ...remoteConfig, apiKey: e.target.value })}
+                                                placeholder="Leave empty to use the built-in key"
+                                                className="pr-10"
+                                            />
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                size="icon"
+                                                className="absolute inset-y-0 right-0"
+                                                onClick={() => setShowApiKey(!showApiKey)}
+                                                aria-label={showApiKey ? 'Hide API key' : 'Show API key'}
+                                            >
+                                                {showApiKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+
                             <div>
-                                <Label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Model Name
-                                </Label>
+                                <Label htmlFor="transcription-model">Model Name *</Label>
                                 <Input
-                                    className="mx-1 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                    id="transcription-model"
                                     value={remoteConfig.model}
                                     onChange={(e) => setRemoteConfig({ ...remoteConfig, model: e.target.value })}
-                                    placeholder="whisper-1"
+                                    placeholder="whisper-large-v3"
+                                    className="mt-1"
                                 />
-                            </div>
-
-                            <div>
-                                <Label className="block text-sm font-medium text-gray-700 mb-1">
-                                    API Key
-                                </Label>
-                                <div className="relative mx-1">
-                                    <Input
-                                        type={showApiKey ? 'text' : 'password'}
-                                        className="pr-12 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                        value={remoteConfig.apiKey || ''}
-                                        onChange={(e) => setRemoteConfig({ ...remoteConfig, apiKey: e.target.value })}
-                                        placeholder="Leave blank to use the built-in key"
-                                    />
-                                    <div className="absolute inset-y-0 right-0 pr-1 flex items-center">
-                                        <Button
-                                            type="button"
-                                            variant="ghost"
-                                            size="icon"
-                                            onClick={() => setShowApiKey(!showApiKey)}
-                                        >
-                                            {showApiKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center gap-2 mx-1">
-                                <Button
-                                    type="button"
-                                    onClick={handleSaveRemoteConfig}
-                                    disabled={isRemoteConfigIncomplete || isSavingRemote}
-                                >
-                                    {isSavingRemote ? 'Saving…' : 'Save'}
-                                </Button>
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    onClick={handleTestRemoteConnection}
-                                    disabled={isRemoteConfigIncomplete || isTestingRemote}
-                                >
-                                    {isTestingRemote ? 'Testing…' : 'Test Connection'}
-                                </Button>
-                            </div>
-
-                            {remoteTestResult && (
-                                <p className={`text-sm mx-1 ${remoteTestResult.ok ? 'text-green-600' : 'text-red-600'}`}>
-                                    {remoteTestResult.message}
+                                <p className="text-xs text-muted-foreground mt-1">
+                                    Speech-to-text model served by this endpoint
                                 </p>
-                            )}
+                            </div>
+
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                onClick={handleTestRemoteConnection}
+                                disabled={isRemoteConfigIncomplete || isTestingRemote}
+                                className="w-full"
+                            >
+                                {isTestingRemote ? (
+                                    <>
+                                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                                        Testing Connection...
+                                    </>
+                                ) : (
+                                    <>
+                                        <CheckCircle2 className="mr-2 h-4 w-4" />
+                                        Test Connection
+                                    </>
+                                )}
+                            </Button>
+
+                            <Button
+                                type="button"
+                                onClick={handleSaveRemoteConfig}
+                                disabled={isRemoteConfigIncomplete || isSavingRemote}
+                                className="w-full"
+                            >
+                                {isSavingRemote ? 'Saving...' : 'Save'}
+                            </Button>
                         </div>
                     )}
 

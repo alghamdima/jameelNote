@@ -60,6 +60,29 @@ pub const DEFAULT_TRANSCRIPTION_MODEL: &str = "whisper-1";
 /// must not become a literal.
 pub const DEFAULT_TRANSCRIPTION_API_KEY: Option<&str> = DEFAULT_SUMMARY_API_KEY;
 
+/// The compile-time gateway key, or `None` when the build did not include one.
+///
+/// CI passes JAMEELNOTE_LLM_API_KEY from a repository secret. When that secret is
+/// not defined, GitHub substitutes an empty string instead of leaving the variable
+/// unset, so `option_env!` yields `Some("")` — and sending that would produce an
+/// empty `Bearer` header. Read the key through this rather than the constants.
+pub fn built_in_api_key() -> Option<&'static str> {
+    DEFAULT_SUMMARY_API_KEY.filter(|key| !key.trim().is_empty())
+}
+
+/// The built-in key, but only for the gateway it was issued for.
+///
+/// Endpoints are editable in Settings, so falling back to the built-in key for
+/// any URL would hand it to whatever server someone typed in.
+pub fn built_in_api_key_for(endpoint: &str) -> Option<&'static str> {
+    let normalize = |url: &str| url.trim().trim_end_matches('/').to_ascii_lowercase();
+    if normalize(endpoint) == normalize(DEFAULT_SUMMARY_ENDPOINT) {
+        built_in_api_key()
+    } else {
+        None
+    }
+}
+
 /// Per-request wall clock for remote transcription.
 ///
 /// Bounded by the live path's budget: the transcription worker is serial, and

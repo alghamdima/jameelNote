@@ -64,13 +64,19 @@ export function DownloadProgressStep() {
     }));
 
     try {
-      const config = await invoke<{ endpoint: string; apiKey?: string | null; model: string }>(
-        'api_get_remote_transcription_config'
-      );
+      const config = await invoke<{
+        endpoint: string;
+        apiKey?: string | null;
+        model: string;
+        shareSummaryConnection?: boolean | null;
+      }>('api_get_remote_transcription_config');
       await invoke('api_test_remote_transcription_connection', {
         endpoint: config.endpoint,
         apiKey: config.apiKey ?? null,
         model: config.model,
+        // Test the connection recording will use, which is the Summary server
+        // and key unless the user turned sharing off.
+        useSummaryConnection: config.shareSummaryConnection ?? true,
       });
       setParakeetState((prev) => ({ ...prev, status: 'completed', progress: 100 }));
     } catch (error) {
@@ -117,13 +123,17 @@ export function DownloadProgressStep() {
 
     (async () => {
       try {
-        const config = await invoke<{ endpoint: string; apiKey?: string | null; model: string }>(
-          'api_get_remote_transcription_config'
-        );
+        const config = await invoke<{
+          endpoint: string;
+          apiKey?: string | null;
+          model: string;
+          shareSummaryConnection?: boolean | null;
+        }>('api_get_remote_transcription_config');
         await invoke('api_test_remote_transcription_connection', {
           endpoint: config.endpoint,
           apiKey: config.apiKey ?? null,
           model: config.model,
+          useSummaryConnection: config.shareSummaryConnection ?? true,
         });
         setParakeetDownloaded(true);
         setParakeetState((prev) => ({ ...prev, status: 'completed', progress: 100 }));
