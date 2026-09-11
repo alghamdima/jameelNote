@@ -339,12 +339,23 @@ async fn run_retranscription<R: Runtime>(
     // Segments are dispatched with bounded concurrency. `buffered` yields results in
     // input order regardless of the order they finish, which is what keeps the
     // audio_start_time of the persisted rows monotonic.
+    //
+    // The stream yields owned indices rather than `&SpeechSegment`: an async block
+    // built from a borrowed item cannot be proven Send for every lifetime, which
+    // rustc reports as "FnOnce is not general enough" once the job is spawned. The
+    // closure is `move` with its own copy of `language` for the same reason —
+    // borrowing it would keep `language` borrowed until the stream is dropped.
     let provider = transcriber.provider.clone();
-    let mut stream = futures_util::stream::iter(processable_segments.iter().enumerate().map(
-        |(i, segment)| {
+    let segments = std::sync::Arc::new(processable_segments);
+    let stream_segments = segments.clone();
+    let stream_language = language.clone();
+    let mut stream = futures_util::stream::iter((0..processable_count).map(
+        move |i| {
             let provider = provider.clone();
-            let language = language.clone();
-            let samples = segment.samples.clone();
+            let language = stream_language.clone();
+            // Cloned as each segment is pulled, so only the segments in flight are
+            // duplicated rather than the whole recording at once.
+            let samples = stream_segments[i].samples.clone();
             async move {
                 // Skip very short segments (< 100ms of audio = 1600 samples at 16kHz)
                 if samples.len() < 1600 {
@@ -373,7 +384,7 @@ async fn run_retranscription<R: Runtime>(
             return Err(anyhow!("Retranscription cancelled"));
         }
 
-        let segment = &processable_segments[i];
+        let segment = &segments[i];
         let segment_duration_sec = (segment.end_timestamp_ms - segment.start_timestamp_ms) / 1000.0;
 
         // Progress is emitted from here rather than inside each future: with
